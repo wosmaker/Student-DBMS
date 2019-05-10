@@ -15,6 +15,8 @@ class RegistrationStudent extends Migration
     {
         Schema::create('registration_student', function (Blueprint $table) {
             $table->integer('SubjectSectionID')->unsigned();
+            $table->integer('UserID')->unsigned();
+
             $table->integer('TransactionID')->unsigned();
             $table->timestamp('DateRegis');
             $table->decimal('Grade');

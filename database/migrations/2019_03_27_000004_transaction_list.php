@@ -15,7 +15,7 @@ class TransactionList extends Migration
     {
         Schema::create('Transaction_list', function (Blueprint $table) {
             $table->Increments('TransactionID')->unsigned();
-            $table->string('UserID');
+            $table->bigInteger('UserID');
             $table->decimal('Amount');
             $table->string('Semester');
             $table->integer('PaymentTypeID')->unsigned();

@@ -14,9 +14,8 @@ class UserroleList extends Migration
     public function up()
     {
         Schema::create('Userrole_list', function (Blueprint $table) {
-            $table->string('UserRoleID');
+            $table->tinyInteger('UserRoleID');
             $table->string('UserRoleName');
-            $table->integer('AssignLevel');
 
             $table->primary('UserRoleID');
         });

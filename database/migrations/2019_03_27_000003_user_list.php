@@ -32,16 +32,12 @@ class UserList extends Migration
             $table->string('SubDistrict');
             $table->string('Road');
             $table->string('HouseNumber');
-            $table->string('UserRoleID');
             $table->string('DepartmentCode');
-            $table->string('UserLoginName');
-            $table->string('Password');
             $table->decimal('GPAX');
             $table->string('UserEmail')->unique;
             $table->string('UserContact');
 
             $table->primary('IdentificationNo');
-            $table->foreign('UserRoleID')->references('UserRoleID')->on('Userrole_list');
             $table->foreign('DepartmentCode')->references('DepartmentCode')->on('Department_list');
 
 
