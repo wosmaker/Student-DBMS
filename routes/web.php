@@ -24,7 +24,7 @@ Route::resource('editsubject', 'EditSubjectController');
 Route::resource('problemreport', 'ProblemReportController');
 Route::resource('confirmreceipt', 'ConfirmReceiptController');
 
-
+//test
 for($i=1;$i<=16;$i++)
 {
     $test = "/analytic".$i;
