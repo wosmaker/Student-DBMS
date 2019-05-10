@@ -17,3 +17,9 @@ Route::get('/', function () {
 
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::resource('regissubject', 'RegisSubjectController');
+Route::resource('updatereceipt', 'UpdateReceiptController');
+Route::resource('editsubject', 'EditSubjectController');
+Route::resource('problemreport', 'ProblemReportController');
+Route::resource('confirmreceipt', 'ConfirmReceiptController');
