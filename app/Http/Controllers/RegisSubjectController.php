@@ -32,7 +32,7 @@ class RegisSubjectController extends Controller
                         ->join('subject_list AS sl', 'ss.SubjectCode', '=', 'sl.SubjectCode')
                         ->join('schedule AS sd' , 'ss.SubjectSectionID', '=', 'sd.SubjectSectionID')
                         ->select('sl.SubjectCode','sl.SubjectName', 'ss.SectionNo', 'sl.SubjectCredit', 'sd.SecStart', 'sd.SecEnd' ,'ss.SubjectSectionID')
-                        ->where('r.userid', '=' , $userid)
+                        ->where('r.UserID', '=' , $userid)
                         ->get()->all(); //get ทำเก็บข้อมูลในรูปของ Collection และ all ทำให้ข้อมูลอยู่ในรูปของ Array
 
         //รหัสวิชาที่ต้องการค้นหา
