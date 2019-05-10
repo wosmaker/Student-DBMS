@@ -32,7 +32,7 @@ class UpdateReceiptController extends Controller
         ->join('sectioneachsubject AS ss', 'r.SubjectSectionID', '=', 'ss.SubjectSectionID')
         ->join('subject_list AS sl', 'ss.SubjectCode', '=', 'sl.SubjectCode')
         ->select('sl.SubjectCode','sl.SubjectName', 'ss.SectionNo', 'sl.SubjectCredit',)
-        ->where('r.userid', '=' , $userid)
+        ->where('r.UserID', '=' , $userid)
         ->get();
 
         //คำนวณหน่วยกิตทั้งหมด
@@ -79,7 +79,7 @@ class UpdateReceiptController extends Controller
         //เช็คว่ามีไฟล์หรือไม่แล้วทำการเก็บเข้าโฟลเดอร์ upload
         if($request->hasFile('imgInp')){
             $file = $request->file('imgInp');
-            $extension = $file->getClientOriginalExtension(); 
+            $extension = $file->getClientOriginalExtension();
             $filename = $userid . '_' . time() . '.' . $extension;
             Storage::putFileAs('public/upload', $file , $filename);
         }
