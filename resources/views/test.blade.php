@@ -74,7 +74,7 @@
 			<div class="modal-body">
 					<form id="problemreport" class="col" method="POST" action= "problemreport" >
 							{{ csrf_field() }}
-					
+
 							<div class="form-group">
 									<label for="problem-title">Title</label>
 									<input type="text" class="form-control" id="problem-title" name="problemtitle" placeholder="">
@@ -119,7 +119,7 @@
 			<div class="modal-body">
 					<form id="problem-detail" class="col" method="POST" action= "problemreport" >
 							{{ csrf_field() }}
-					
+
 							<div class="form-group">
 									<label for="problem-title">Title</label>
 									<input type="text" class="form-control" id="problem-title" name="problemtitle" placeholder="">
@@ -173,7 +173,7 @@ $(document).ready(function() {
 
   // on modal show
   $('#problem-detail').on('show.bs.modal', function() {
-    var el = $(".edit-item-trigger-clicked"); // See how its usefull right here? 
+    var el = $(".edit-item-trigger-clicked"); // See how its usefull right here?
     var row = el.closest(".data-row");
 
     // get the data

@@ -21,12 +21,12 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 		<link href="{{ asset('css/dashboard.css') }}" rel="stylesheet">
-		
+
 
     <!-- script -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-		
+
 		@yield('style')
 
 		<style>
@@ -45,9 +45,9 @@
 				/* The image used */
 				background: url("/img/bg2.jpg");
 
-				position: fixed; 
-				top: 0; 
-				left: 0; 
+				position: fixed;
+				top: 0;
+				left: 0;
 
 				/* Preserve aspet ratio */
 				min-width: 100%;

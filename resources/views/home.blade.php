@@ -25,7 +25,7 @@
                             <button onclick="window.location.href = 'editsubject';">EDIT SUBJECT</button>
                     </div>
                     @endif
-                    
+
                     <div>
                         <button onclick="window.location.href = 'problemreport';">PROBLEM REPORT</button>
                     </div>
