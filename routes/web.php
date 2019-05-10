@@ -23,3 +23,12 @@ Route::resource('updatereceipt', 'UpdateReceiptController');
 Route::resource('editsubject', 'EditSubjectController');
 Route::resource('problemreport', 'ProblemReportController');
 Route::resource('confirmreceipt', 'ConfirmReceiptController');
+
+
+for($i=1;$i<=16;$i++)
+{
+    $test = "/analytic".$i;
+    Route::get($test, function () use($i){
+        return view("Analytic.report".$i);
+    });
+}

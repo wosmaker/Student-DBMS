@@ -15,7 +15,7 @@
     <div id='sub2' class="collapse sidebar-submenu">
 					<a href="{{route('regissubject.index')}}" class="list-group-item list-group-item-action list-group-item-light">
 						Subject</a>
-					
+
 					<a href="{{route('updatereceipt.index')}}" class="list-group-item list-group-item-action list-group-item-light">
 						Update Receipt</a>
 
@@ -27,14 +27,14 @@
     </div>
 
 		<a class="list-group-item list-group-item-action list-group-item-dark" href="#sub3" data-toggle="collapse" aria-expanded="true">Data Analytic</a>
-		
+
 
 		<div id='sub3' class="collapse sidebar-submenu">
 				@for ($i = 1; $i <= 16; $i++)
 				<a href="{{URL('analytic'.$i)}}" class="list-group-item list-group-item-action list-group-item-light">
 				Repert {{$i}}</a>
-		@endfor
-			
+		        @endfor
+
 	</div>
 
     <a class="list-group-item list-group-item-action list-group-item-info" href="{{URL('/analytic')}}">Analytic</a>
