@@ -77,8 +77,8 @@
         </nav>
 
         <div class="container-fluid">
-            <div class="row jusified-center">
-                <div class="card" style="width: 18rem;">
+            <div class="mx-auto" style="width: 300px;">
+                <div class="card">
                     <div class="card-body" style="weight:400px">
                         @include('partial.login')
                     </div>
