@@ -85,17 +85,21 @@
                             {{ __('Remember Me') }}
                         </label>
                     </div>
+                    <div class="text-right">
+                        <button class="btn button-blue" data-toggle="modal" data-target="#register">{{ __('Register') }}</button>
+                    </div>
             </div>
 
-            <div class="form-group  mb-0">
-                    <button type="submit" class="btn btn-primary btn-lg btn-block">
-                        {{ __('Login') }}
-                    </button>
+            <div class="form-group mb-0">
+                    <button type="submit" class="btn btn-primary btn-lg btn-block mb-2">{{ __('Login') }}</button>
+
             </div>
         </form>
         </div>
     </div>
 </div>
+@include('partial.modal-register')
+
 </body>
 
 
