@@ -39,35 +39,19 @@
             background-color: #525D3E;
         }
 
+        .hv{
+            height: 100vh;
+        }
 
-
-        .bg {
-                /* The image used */
-                background: url("/img/bg2.jpg");
-
-                position: fixed;
-                top: 0;
-                left: 0;
-
-                /* Preserve aspet ratio */
-                min-width: 100%;
-                min-height: 100%;
-
-                /* Center and scale the image nicely */
-                background-position: center;
-                background-repeat: no-repeat;
-                background-size: cover;
-            }
-
-        .box-shadow{
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        .mtop{
+            margin-top: 70px;
         }
 
         </style>
 </head>
 
 <body>
-    <div id="app" class="bg-0">
+    <div id="app">
         <nav class="navbar navbar-expand-md  navbar-dark fixed-top box-shadow" >
             <a class="navbar-brand" href="{{ url('/') }}" style="font-size: 20px; color: #ffffff;">SDBR</a>
 
@@ -76,10 +60,10 @@
             </button>
         </nav>
 
-        <div class="container-fluid">
-            <div class="mx-auto" style="width: 300px;">
+        <div class="container-fluid hv mtop" >
+            <div class="mx-auto" style="width: 500px;">
                 <div class="card">
-                    <div class="card-body" style="weight:400px">
+                    <div class="card-body">
                         @include('partial.login')
                     </div>
                 </div>
