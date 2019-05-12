@@ -23,7 +23,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $role = auth()->user()->UserRoleID;
+        $role = auth()->user()->userroleid;
 
         return view('home', compact('role'));
     }

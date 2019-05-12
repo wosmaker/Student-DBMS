@@ -16,7 +16,7 @@ class CheckRole
     public function handle($request, Closure $next, ...$roles)
     {
         // เช็ค role ว่าตรงกับ role ที่กำหนดไว้ในหน้านั้นๆหรือไม่ หากใช่ก็ไปต่อ หากไม่ใช่ส่งกลับหน้า HOME
-        $userroleid = auth()->user()->UserRoleID;
+        $userroleid = auth()->user()->userroleid;
 
         if(in_array($userroleid, $roles))
             return $next($request);
