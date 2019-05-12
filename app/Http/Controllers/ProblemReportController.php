@@ -41,7 +41,6 @@ class ProblemReportController extends Controller
             ->select('pr.problemno','pr.problemtitle','pt.problemtypename', 'u.firstname', 'u.lastname', 'd.departmentname', 'pr.problemdatetime', 'pr.problemstatus', 'pr.answerdetail', 'pr.problemdetail')
             ->get()->all();
 		}
-		dd($problemtypes);
         return view('complex-form.problem-report.index', compact('userdetail','userrole', 'problemreports','problemtypes'));
     }
     // WTF
