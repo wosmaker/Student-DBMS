@@ -21,7 +21,7 @@ class ProblemReportController extends Controller
         $userrole =  auth()->user()->UserRoleID;
         $userdetail = UserList::where('userid', $userid)->first();  //ดึงชื่อผู้ใช้งาน
         $problemtypes = DB::table('problemtype_list')  //ดึงชนิดคำถาม
-                    ->select('*')
+                    ->select('problemtypeid','problemtypename')
                     ->get()->all();
 
         if($userrole == 1 || $userrole == 2) {

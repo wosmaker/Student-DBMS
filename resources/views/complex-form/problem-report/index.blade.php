@@ -98,7 +98,7 @@
 									<select class="custom-select mr-sm-2" id="problemtype-choose" name="problemtype" required>
 										<option selected  value="">Choose ProblemType</option>
 										@foreach($problemtypes as $problemtype)
-											<option value="{{ $problemtype->ProblemTypeID }}">{{ $problemtype->ProblemTypeName }}</option>
+											<option value="{{ $problemtype->problemtypeid }}">{{ $problemtype->problemtypename }}</option>
 										@endforeach
 									</select>
 							</div>
