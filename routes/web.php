@@ -23,6 +23,7 @@ Route::resource('updatereceipt', 'UpdateReceiptController');
 Route::resource('editsubject', 'EditSubjectController');
 Route::resource('problemreport', 'ProblemReportController');
 Route::resource('confirmreceipt', 'ConfirmReceiptController');
+Route::resource('report1', 'CAnalytic\report1');
 
 //test
 for($i=1;$i<=16;$i++)

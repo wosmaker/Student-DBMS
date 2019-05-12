@@ -1,14 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\CAnalytic;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-use DB;
-use App\User;
-use App\UserList;
+use App\Http\Controllers\Controller;
 
-class ConfirmReceiptController extends Controller
+class report6 extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,16 +14,7 @@ class ConfirmReceiptController extends Controller
      */
     public function index()
     {
-        $userid = auth()->user()->id;   //ดึงค่า id ของผู้ใช้
-        $userdetail = UserList::where('UserID', $userid)->first();  //ดึงชื่อผู้ใช้งาน
-
-        $transactionlists = DB::table('transaction_list AS tl')
-        ->join('user_list AS ul' , 'ul.UserID', '=', 'tl.UserID')
-        ->join('paymenttype_list AS pt', 'pt.PaymentTypeID', '=', 'tl.PaymentTypeID')
-        ->select('tl.TransactionID','ul.FirstName', 'ul.LastName', 'pt.PaymentTypeName', 'tl.PictureLink', 'tl.PaymentDate', 'tl.PaymentStatus')
-		->get()->all();
-
-        return view('complex-form.confirm-receipt.index', compact('userdetail', 'transactionlists'));
+        //
     }
 
     /**
@@ -58,11 +46,7 @@ class ConfirmReceiptController extends Controller
      */
     public function show($id)
     {
-        // $image_name = request('img-name');
-        // $image = Storage::get('upload/' . $image_name);
-        // $contents = Storage::disk('public')->get('upload/' . $image_name);
-        // $url = asset('storage/upload/' . $image_name);
-        // dd($url);
+        //
     }
 
     /**
