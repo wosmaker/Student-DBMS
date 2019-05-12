@@ -18,7 +18,7 @@ class ProblemReportController extends Controller
     {
 		$problemreports = NULL;
         $userid = auth()->user()->id;   //ดึงค่า id ของผู้ใช้
-        $userrole =  auth()->user()->UserRoleID;
+        $userrole =  auth()->user()->userroleid;
         $userdetail = UserList::where('userid', $userid)->first();  //ดึงชื่อผู้ใช้งาน
         $problemtypes = DB::table('problemtype_list')  //ดึงชนิดคำถาม
                     ->select('problemtypeid','problemtypename')
@@ -41,6 +41,7 @@ class ProblemReportController extends Controller
             ->select('pr.problemno','pr.problemtitle','pt.problemtypename', 'u.firstname', 'u.lastname', 'd.departmentname', 'pr.problemdatetime', 'pr.problemstatus', 'pr.answerdetail', 'pr.problemdetail')
             ->get()->all();
 		}
+		dd($userrole);
         return view('complex-form.problem-report.index', compact('userdetail','userrole', 'problemreports','problemtypes'));
     }
     // WTF
