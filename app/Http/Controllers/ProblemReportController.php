@@ -16,8 +16,9 @@ class ProblemReportController extends Controller
      */
     public function index()
     {
+		$problemreports = NULL;
         $userid = auth()->user()->id;   //ดึงค่า id ของผู้ใช้
-        $userrole =  1;// auth()->user()->UserRoleID;
+        $userrole =  auth()->user()->UserRoleID;
         $userdetail = UserList::where('userid', $userid)->first();  //ดึงชื่อผู้ใช้งาน
         $problemtypes = DB::table('problemtype_list')  //ดึงชนิดคำถาม
                     ->select('*')
@@ -30,7 +31,8 @@ class ProblemReportController extends Controller
             ->join('department_list as d', 'd.departmentcode', '=', 'u.departmentcode')
             ->select('pr.problemno','pr.problemtitle','pt.problemtypename', 'u.firstname', 'u.lastname', 'd.departmentname', 'pr.problemdatetime', 'pr.problemstatus', 'pr.answerdetail', 'pr.problemdetail')
             ->where('pr.userid', '=', $userid)
-            ->get()->all();
+			->get()->all();
+
         } else if($userrole == 3) {
             $problemreports = DB::table('problemreport_list AS pr')
 			->join('user_list as u', 'pr.userid', '=', 'u.userid')
@@ -39,7 +41,8 @@ class ProblemReportController extends Controller
             ->select('pr.problemno','pr.problemtitle','pt.problemtypename', 'u.firstname', 'u.lastname', 'd.departmentname', 'pr.problemdatetime', 'pr.problemstatus', 'pr.answerdetail', 'pr.problemdetail')
             ->get()->all();
 		}
-        return view('complex-form.problem-report.index', compact('userdetail','userrole', 'problemtypes', 'problemreports'));
+		dd($problemtypes);
+        return view('complex-form.problem-report.index', compact('userdetail','userrole', 'problemreports','problemtypes'));
     }
     // WTF
     /**
