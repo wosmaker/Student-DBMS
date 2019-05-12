@@ -18,12 +18,12 @@ class ConfirmReceiptController extends Controller
     public function index()
     {
         $userid = auth()->user()->id;   //ดึงค่า id ของผู้ใช้
-        $userdetail = UserList::where('UserID', $userid)->first();  //ดึงชื่อผู้ใช้งาน
+        $userdetail = userlist::where('userid', $userid)->first();  //ดึงชื่อผู้ใช้งาน
 
-        $transactionlists = DB::table('transaction_list AS tl')
-        ->join('user_list AS ul' , 'ul.UserID', '=', 'tl.UserID')
-        ->join('paymenttype_list AS pt', 'pt.PaymentTypeID', '=', 'tl.PaymentTypeID')
-        ->select('tl.TransactionID','ul.FirstName', 'ul.LastName', 'pt.PaymentTypeName', 'tl.PictureLink', 'tl.PaymentDate', 'tl.PaymentStatus')
+		$transactionlists = db::table('transaction_list as tl')
+        ->join('user_list as ul' , 'ul.userid', '=', 'tl.userid')
+        ->join('paymenttype_list as pt', 'pt.paymenttypeid', '=', 'tl.paymenttypeid')
+        ->select('tl.transactionid','ul.firstname', 'ul.lastname', 'pt.paymenttypename', 'tl.picturelink', 'tl.paymentdate', 'tl.paymentstatus')
 		->get()->all();
 
         return view('complex-form.confirm-receipt.index', compact('userdetail', 'transactionlists'));

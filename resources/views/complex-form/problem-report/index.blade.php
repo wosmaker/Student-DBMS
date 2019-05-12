@@ -39,26 +39,26 @@
       </tr>
     </thead>
 
-    <tbody>		
+    <tbody>
 			@foreach($problemreports as $problemreport)
       <tr class="problem-data">
 				<th scope="row">{{ $loop->iteration }}</th>
-				<td class="ProblemTitle">{{ $problemreport->ProblemTitle }}</td>
-				<td class="ProblemTypeName">{{ $problemreport->ProblemTypeName }}</td>
-				<td class="">{{ $problemreport->FirstName }} {{ $problemreport->LastName }}</td>
-				<td class="">{{ $problemreport->DepartmentName }}</td>
-				<td class="">{{ $problemreport->ProblemDateTime }}</td>
-				<td class="ProblemStatus">{{ $problemreport->ProblemStatus }}</td>
+				<td class="ProblemTitle">{{ $problemreport->problemtitle }}</td>
+				<td class="ProblemTypeName">{{ $problemreport->problemtypename }}</td>
+				<td class="">{{ $problemreport->firstname }} {{ $problemreport->lastname }}</td>
+				<td class="">{{ $problemreport->departmentname }}</td>
+				<td class="">{{ $problemreport->problemdatetime }}</td>
+				<td class="ProblemStatus">{{ $problemreport->problemstatus }}</td>
 
-				<td class="none ProblemDetail">{{ $problemreport->ProblemDetail }}</td>
-				<td class="none AnswerDetail">{{ $problemreport->AnswerDetail }}</td>
+				<td class="none ProblemDetail">{{ $problemreport->problemdetail }}</td>
+				<td class="none AnswerDetail">{{ $problemreport->answerdetail }}</td>
 				<td>
 					<div class="row">
 						{{-- ปุ่มกดสำหรับการลบวิชาที่เพิ่มไว้ --}}
 						<form  method="POST" action="problemreport/{problemreport}">
 							@csrf
 							@method('DELETE')
-							<input type="hidden" name="deleteID" value="{{ $problemreport->ProblemNo }}">
+							<input type="hidden" name="deleteID" value="{{ $problemreport->problemno }}">
 							<button class="btn btn-danger btn-sm" type="submit" >DELETE</button>
 						</form>
 
@@ -68,7 +68,7 @@
 						@endif
 					</div>
 				</td>
-			</tr>	
+			</tr>
 			@endforeach
     </tbody>
   </table>
@@ -87,7 +87,7 @@
 			<div class="modal-body">
 					<form id="problemreport" class=" needs-validation col" method="POST" action= "problemreport" novalidate>
 							@csrf
-			
+
 							<div class="form-group">
 									<label for="problem-title">Title</label>
 									<input type="text" class="form-control" id="problem-title" name="problemtitle" placeholder="" required>
@@ -131,7 +131,7 @@
 			</div>
 			<div class="modal-body">
 					<form id="form-modal" class="col" method="POST" action="" >
-				
+
 							<div class="form-group">
 									<label for="problemtitle">Title</label>
 									<input type="text" class="form-control" id="problemtitle" name="problemtitle" placeholder="" readonly >
@@ -182,40 +182,40 @@
 										<label for="problemtitle1">Title</label>
 										<input type="text" class="form-control" id="problemtitle1" name="problemtitle" placeholder="" readonly >
 								</div>
-	
+
 								<div class="form-group">
 										<label for="problemtype1">Problem Type</label>
 										<input type="text" class="form-control" id="problemtype1" name="problemtype" placeholder="" readonly >
 								</div>
-	
+
 								<div class="form-group">
 										<label for="problemdetail1">Detail</label>
 										<textarea class="form-control" id="problemdetail1" name="problemdetail" rows="4" placeholder="ป้อนรายละเอียด..."  readonly ></textarea>
 								</div>
-	
+
 								<div class="form-group">
 										<label for="answerdetail1">Answer</label>
 										<textarea class="form-control" id="answerdetail1" name="answerdetail" rows="4" placeholder="ยังไม่ตอบ..." ></textarea>
 								</div>
 								@if($problemreports)
 									<div>
-										<input type="hidden" name="answerID" value="{{ $problemreport->ProblemNo }}">
+										<input type="hidden" name="answerID" value="{{ $problemreport->problemno }}">
 									</div>
 								@endif
-						</form>	
+						</form>
 
 							<div class="modal-footer">
 								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 								<button form="form-answer" class="btn btn-success ml-2" type="submit" >ANSWER</button>
 							</div>
-						
+
 				</div>
 			</div>
 		</div>
 	</div>
 	<!-- End Modal answer problem -->
-	
-	
+
+
 
 
 
@@ -257,7 +257,7 @@ $(document).ready(function() {
 
   // on modal show
   $('#detail-modal').on('show.bs.modal', function() {
-    var el = $(".edit-item-trigger-clicked"); // See how its usefull right here? 
+    var el = $(".edit-item-trigger-clicked"); // See how its usefull right here?
     var row = el.closest(".problem-data");
 
     // get the data
@@ -291,7 +291,7 @@ $(document).ready(function() {
 
   // on modal show
   $('#answer-modal').on('show.bs.modal', function() {
-    var el = $(".edit-item-trigger-clicked"); // See how its usefull right here? 
+    var el = $(".edit-item-trigger-clicked"); // See how its usefull right here?
     var row = el.closest(".problem-data");
 
     // get the data

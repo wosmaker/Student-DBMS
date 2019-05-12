@@ -18,27 +18,27 @@ class ProblemReportController extends Controller
     {
         $userid = auth()->user()->id;   //ดึงค่า id ของผู้ใช้
         $userrole = auth()->user()->UserRoleID;
-        $userdetail = UserList::where('UserID', $userid)->first();  //ดึงชื่อผู้ใช้งาน
+        $userdetail = UserList::where('userid', $userid)->first();  //ดึงชื่อผู้ใช้งาน
         $problemtypes = DB::table('problemtype_list')  //ดึงชนิดคำถาม
                     ->select('*')
                     ->get()->all();
-        
+
         if($userrole == 1 || $userrole == 2) {
             $problemreports = DB::table('problemreport_list AS pr')
-            ->join('user_list AS u', 'pr.UserID', '=', 'u.UserID')
-            ->join('problemtype_list As pt', 'pr.ProblemTypeID', '=', 'pt.ProblemTypeID')
-            ->join('department_list AS d', 'd.DepartmentCode', '=', 'u.DepartmentCode')
-            ->select('pr.ProblemNo','pr.ProblemTitle','pt.ProblemTypeName', 'u.FirstName', 'u.LastName', 'd.DepartmentName', 'pr.ProblemDateTime', 'pr.ProblemStatus', 'pr.AnswerDetail', 'pr.ProblemDetail')
-            ->where('pr.UserID', '=', $userid)
+			->join('user_list as u', 'pr.userid', '=', 'u.userid')
+            ->join('problemtype_list as pt', 'pr.problemtypeid', '=', 'pt.problemtypeid')
+            ->join('department_list as d', 'd.departmentcode', '=', 'u.departmentcode')
+            ->select('pr.problemno','pr.problemtitle','pt.problemtypename', 'u.firstname', 'u.lastname', 'd.departmentname', 'pr.problemdatetime', 'pr.problemstatus', 'pr.answerdetail', 'pr.problemdetail')
+            ->where('pr.userid', '=', $userid)
             ->get()->all();
         } else if($userrole == 3) {
             $problemreports = DB::table('problemreport_list AS pr')
-            ->join('user_list AS u', 'pr.UserID', '=', 'u.UserID')
-            ->join('problemtype_list As pt', 'pr.ProblemTypeID', '=', 'pt.ProblemTypeID')
-            ->join('department_list AS d', 'd.DepartmentCode', '=', 'u.DepartmentCode')
-            ->select('pr.ProblemNo','pr.ProblemTitle','pt.ProblemTypeName', 'u.FirstName', 'u.LastName', 'd.DepartmentName', 'pr.ProblemDateTime', 'pr.ProblemStatus', 'pr.AnswerDetail', 'pr.ProblemDetail')
+			->join('user_list as u', 'pr.userid', '=', 'u.userid')
+            ->join('problemtype_list as pt', 'pr.problemtypeid', '=', 'pt.problemtypeid')
+            ->join('department_list as d', 'd.departmentcode', '=', 'u.departmentcode')
+            ->select('pr.problemno','pr.problemtitle','pt.problemtypename', 'u.firstname', 'u.lastname', 'd.departmentname', 'pr.problemdatetime', 'pr.problemstatus', 'pr.answerdetail', 'pr.problemdetail')
             ->get()->all();
-        }
+		}
         return view('complex-form.problem-report.index', compact('userdetail','userrole', 'problemtypes', 'problemreports'));
     }
     // WTF
@@ -68,11 +68,11 @@ class ProblemReportController extends Controller
 
         DB::table('problemreport_list')->insert(
             [
-                'UserID'        => $userid,
-                'ProblemTypeID' => $problemtype,
-                'ProblemTitle'  => $problemtitle,
-                'ProblemDetail' => $problemdetail,
-                'ProblemStatus' => 'waiting',
+                'userid'        => $userid,
+                'problemtypeid' => $problemtype,
+                'problemtitle'  => $problemtitle,
+                'problemdetail' => $problemdetail,
+                'problemstatus' => 'waiting',
             ]
             );
 
@@ -114,11 +114,11 @@ class ProblemReportController extends Controller
         $answerdetail = request('answerdetail');
 
         DB::table('problemreport_list')
-        ->where('ProblemNo', '=', $answerID)
+        ->where('problemno', '=', $answerID)
         ->update(
             [
-                'AnswerDetail' => $answerdetail,
-                'ProblemStatus' => 'Answered'
+				'answerdetail' => $answerdetail,
+                'problemstatus' => 'answered'
             ]
         );
 
@@ -134,9 +134,9 @@ class ProblemReportController extends Controller
     public function destroy(Request $request, $id)
     {
         $deleteID = intval(request('deleteID'));
-        
+
         DB::table('problemreport_list')
-        ->where('ProblemNo', '=', $deleteID)
+        ->where('problemno', '=', $deleteID)
         ->delete();
 
         return back();
