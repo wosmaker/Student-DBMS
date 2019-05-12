@@ -17,9 +17,9 @@ class report9 extends Controller
         $report9 = DB::select('SELECT dl.DepartmentName , COUNT(dl.DepartmentName) AS count
 		FROM department_list dl,user_list ul,transaction_list tl, registration_student rl
 		WHERE dl.DepartmentCode = ul.DepartmentCode AND ul.UserID = rl.UserID AND rl.TransactionID = tl.TransactionID
-		AND ( tl.PaymentStatus = "waiting" OR PaymentDate > "2019-05-06 12:37:35" )
+		AND ( tl.PaymentStatus = "waiting" OR PaymentDate > :dat )
 		GROUP BY dl.DepartmentName;
-		');
+		',['dat' => '2019-04-05']);
 	dd($report9);
 	return view('Analytic.report9', compact('report9'));
     }

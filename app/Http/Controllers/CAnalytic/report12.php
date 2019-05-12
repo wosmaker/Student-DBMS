@@ -16,9 +16,9 @@ class report12 extends Controller
     {
 		$report12 = DB::select('SELECT EXTRACT(YEAR FROM DATE(rs.DateRegis)) AS YEAR, COUNT(EXTRACT(YEAR FROM DATE(rs.DateRegis))) AS count
 		FROM user_list ul , registration_student rs
-		WHERE ul.UserID = rs.UserID AND ul.Gender = "Male"
+		WHERE ul.UserID = rs.UserID AND ul.Gender = :male
 		GROUP BY EXTRACT(YEAR FROM DATE(rs.DateRegis));
-		');
+		',['male' => 'Male']);
 
 	dd($report12);
 	return view('Analytic.report12', compact('report12'));

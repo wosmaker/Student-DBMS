@@ -16,9 +16,9 @@ class report10 extends Controller
     {
         $report10 = DB::select('SELECT DATE(PaymentDate),COUNT(DISTINCT UserID) AS count
 		FROM transaction_list
-		WHERE DATE(PaymentDate) BETWEEN "2019-04-05" AND "2019-08-05"
+		WHERE DATE(PaymentDate) BETWEEN :befo AND :afte
 		GROUP BY DATE(PaymentDate),UserID;
-		');
+		',['befo' => '2019-04-05','afte' => '2019-08-05']);
 
 	dd($report10);
 	return view('Analytic.report10', compact('report10'));

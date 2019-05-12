@@ -14,7 +14,7 @@ class report3 extends Controller
      */
     public function index()
     {
-		$report3 = DB::select('SELECT * FROM registration_student WHERE DateRegis < "2019-05-13 12:37:35"; ');
+		$report3 = DB::select('SELECT * FROM registration_student WHERE DateRegis < :dat; ',['dat' => '2019-04-05']);
 		dd($report3);
 	return view('Analytic.report3', compact('report3'));
     }
