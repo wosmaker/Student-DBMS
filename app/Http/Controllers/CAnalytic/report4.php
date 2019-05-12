@@ -4,7 +4,7 @@ namespace App\Http\Controllers\CAnalytic;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use DB;
 class report4 extends Controller
 {
     /**
@@ -14,7 +14,13 @@ class report4 extends Controller
      */
     public function index()
     {
-        //
+        $report4 = DB::select('SELECT  rl.BuildingName, COUNT(DISTINCT ses.SubjectCode) AS count
+		FROM room_list rl, schedule s,sectioneachsubject ses
+		WHERE rl.RoomCode = s.RoomCode AND ses.SubjectSectionID = s.SubjectSectionID
+		GROUP BY rl.BuildingName;
+		');
+	dd($report4);
+	return view('Analytic.report4', compact('report4'));
     }
 
     /**

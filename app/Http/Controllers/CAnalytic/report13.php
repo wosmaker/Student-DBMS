@@ -5,7 +5,7 @@ namespace App\Http\Controllers\CAnalytic;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use DB;
-class report5 extends Controller
+class report13 extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,13 +14,16 @@ class report5 extends Controller
      */
     public function index()
     {
-		$report5 = DB::select('SELECT DISTINCT sl.SubjectName, ses.SectionNo,rl.BuildingName,rl.Floor, rl.RoomSeatTotal - ses.SeatAvailable AS seatAvailable
-		FROM subject_list sl,sectioneachsubject ses,schedule s,room_list rl,registration_student rs
-		WHERE sl.SubjectCode = ses.SubjectCode AND ses.SubjectSectionID = s.SubjectSectionID AND s.RoomCode = rl.RoomCode
-		AND ses.SubjectSectionID = rs.SubjectSectionID;
+		$report13 = DB::select('SELECT  sl.SubjectName , SUM(ses.SeatAvailable) AS sum
+		FROM subject_list sl, sectioneachsubject ses
+		WHERE sl.SubjectCode = ses.SubjectCode
+		GROUP BY sl.SubjectName
+		ORDER BY SUM(ses.SeatAvailable) DESC
+		LIMIT 5
 		');
-	dd($report5);
-	return view('Analytic.report5', compact('report5'));
+
+		dd($report13);
+	return view('Analytic.report13', compact('report13'));
     }
 
     /**

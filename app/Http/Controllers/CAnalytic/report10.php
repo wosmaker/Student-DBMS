@@ -4,7 +4,7 @@ namespace App\Http\Controllers\CAnalytic;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use DB;
 class report10 extends Controller
 {
     /**
@@ -14,7 +14,14 @@ class report10 extends Controller
      */
     public function index()
     {
-        //
+        $report10 = DB::select('SELECT DATE(PaymentDate),COUNT(DISTINCT UserID) AS count
+		FROM transaction_list
+		WHERE DATE(PaymentDate) BETWEEN "2019-04-05" AND "2019-08-05"
+		GROUP BY DATE(PaymentDate),UserID;
+		');
+
+	dd($report10);
+	return view('Analytic.report10', compact('report10'));
     }
 
     /**

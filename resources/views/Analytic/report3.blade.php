@@ -19,15 +19,17 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<th scope="row">1</th>
-					<td>Mark</td>
-					<td>Otto</td>
-					<td>@mdo</td>
-				</tr>
+					@foreach ($report1 as $item)
+					<tr>
+						<th scope="row">{{ $loop->iteration }}</th>
+						<td>{{ $item->facultyname }}</td>
+						<td>{{ $item->count }}</td>
+						<td></td>
+					</tr>
+				@endforeach
 			</tbody>
 		</table>
-	
+
 	</div>
 @endsection
 

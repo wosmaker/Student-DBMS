@@ -4,7 +4,7 @@ namespace App\Http\Controllers\CAnalytic;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use DB;
 class report8 extends Controller
 {
     /**
@@ -14,7 +14,14 @@ class report8 extends Controller
      */
     public function index()
     {
-        //
+        $report8 = DB::select('SELECT  pl.PaymentTypeName ,COUNT( pl.PaymentTypeName ) AS count
+		FROM transaction_list tl , paymenttype_list pl
+		WHERE tl.PaymentTypeID = pl.PaymentTypeID
+		GROUP BY  pl.PaymentTypeName;
+		');
+
+	dd($report8);
+	return view('Analytic.report8', compact('report8'));
     }
 
     /**
