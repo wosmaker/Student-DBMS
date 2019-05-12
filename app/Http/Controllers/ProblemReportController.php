@@ -17,7 +17,7 @@ class ProblemReportController extends Controller
     public function index()
     {
         $userid = auth()->user()->id;   //ดึงค่า id ของผู้ใช้
-        $userrole = auth()->user()->UserRoleID;
+        $userrole =  1;// auth()->user()->UserRoleID;
         $userdetail = UserList::where('userid', $userid)->first();  //ดึงชื่อผู้ใช้งาน
         $problemtypes = DB::table('problemtype_list')  //ดึงชนิดคำถาม
                     ->select('*')
