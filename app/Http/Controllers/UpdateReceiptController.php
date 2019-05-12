@@ -25,7 +25,7 @@ class UpdateReceiptController extends Controller
     public function index()
     {
         $userid = auth()->user()->id;   //ดึงค่า id ของผู้ใช้
-        $userdetail = UserList::where('UserID', $userid)->first();  //ดึงชื่อผู้ใช้งาน
+        $userdetail = UserList::where('userid', $userid)->first();  //ดึงชื่อผู้ใช้งาน
 
         //ดึงข้อมูลวิชาที่ลงทะเบียนไว้แล้ว
         $regissubjects = DB::table('registration_student AS r')

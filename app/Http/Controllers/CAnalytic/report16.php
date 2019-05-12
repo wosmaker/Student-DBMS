@@ -14,11 +14,12 @@ class report16 extends Controller
      */
     public function index()
     {
+		$waiting = 'waiting';
 		$report16 = DB::select('SELECT ptl.ProblemTypeName , COUNT(ptl.ProblemTypeID) AS notanswer
 		FROM problemtype_list ptl, problemreport_list prl
-		WHERE ptl.ProblemTypeID = Prl.ProblemTypeID AND prl.ProblemStatus = "waiting"
+		WHERE ptl.ProblemTypeID = Prl.ProblemTypeID AND prl.ProblemStatus = :wait
 		GROUP BY ptl.ProblemTypeName;
-		');
+		',['wait' => 'waiting']);
 
 	dd($report16);
 	return view('Analytic.report16', compact('report16'));
