@@ -6,8 +6,8 @@
 
 @section('page-main')
 <div class="shadow-sm p-3 mb-2 bg-white ">
-  <h4 class="d-inline p-2 ">Name: {{ $userdetail->FirstName }} {{ $userdetail->LastName}} </h4>
-  <h4 class="d-inline p-5 ">Student ID: {{ $userdetail->UserID }}</h4>
+  <h4 class="d-inline p-2 ">Name: {{ $userdetail->firstname }} {{ $userdetail->lastname}} </h4>
+  <h4 class="d-inline p-5 ">Student ID: {{ $userdetail->userid }}</h4>
 </div>
 
 <div class="shadow-sm p-3 mb-2 bg-white ">
@@ -29,10 +29,10 @@
           <tr>
               {{-- คำสั่ง $loop->iteration เป็นตัวที่ไล่เลขลำดับให้ --}}
               <th scope="row">{{ $loop->iteration }}</th>
-              <td>{{ $regissubject->SubjectCode }}</td>
-              <td>{{ $regissubject->SubjectName }}</td>
-              <td>{{ $regissubject->SectionNo }}</td>
-              <td>{{ $regissubject->SubjectCredit }}</td>
+              <td>{{ $regissubject->subjectcode }}</td>
+              <td>{{ $regissubject->subjectname }}</td>
+              <td>{{ $regissubject->sectionno }}</td>
+              <td>{{ $regissubject->subjectcredit }}</td>
           </tr>
       @endforeach
     </tbody>
@@ -47,11 +47,11 @@
 					<select class="custom-select mr-sm-2" id="bank-choose" name="paymenttype" required>
 						<option selected  value="">Choose bank</option>
 						@foreach($paymenttypes as $paymenttype)
-							<option value="{{ $paymenttype->PaymentTypeID }}">{{ $paymenttype->PaymentTypeName }}</option>
+							<option value="{{ $paymenttype->paymenttypeid}}">{{ $paymenttype->paymenttypename }}</option>
 						@endforeach
 					</select>
 				</div>
-				
+
 				<div class="form-group col-4 pl-4 ">
 					<div class="input-group ">
 							<input type="number" class="form-control" name="amount" min="1" placeholder="Input amount" required>
@@ -105,25 +105,25 @@
 $(document).ready( function() {
 
 		$('.btn-file :file').on('fileselect', function(event, label) {
-		    
+
 		    var input = $(this).parents('.input-group').find(':text'),
 		        log = label;
-		    
+
 		    if( input.length ) {
 		        input.val(log);
 		    } else {
 		        if( log ) alert(log);
 		    }
-	    
+
 		});
 		function readURL(input) {
 		    if (input.files && input.files[0]) {
 		        var reader = new FileReader();
-		        
+
 		        reader.onload = function (e) {
 		            $('#img-upload').attr('src', e.target.result);
 		        }
-		        
+
 		        reader.readAsDataURL(input.files[0]);
 		    }
     }
@@ -133,7 +133,7 @@ $(document).ready( function() {
         //replace the "Choose a file" label
         $(this).next('.custom-file-label').html(fileName);
 		    readURL(this);
-		}); 	
+		});
 	});
 </script>
 @endsection

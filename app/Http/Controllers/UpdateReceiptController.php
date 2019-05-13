@@ -27,25 +27,29 @@ class UpdateReceiptController extends Controller
         $userid = auth()->user()->id;   //ดึงค่า id ของผู้ใช้
         $userdetail = UserList::where('userid', $userid)->first();  //ดึงชื่อผู้ใช้งาน
 
-        //ดึงข้อมูลวิชาที่ลงทะเบียนไว้แล้ว
+		//ดึงข้อมูลวิชาที่ลงทะเบียนไว้แล้ว
+		$regissubjects = DB::table('registration_student as r')
+        ->join('sectioneachsubject as ss', 'r.subjectsectionid', '=', 'ss.subjectsectionid')
+        ->join('subject_list as sl', 'ss.subjectcode', '=', 'sl.subjectcode')
+        ->select('sl.subjectcode','sl.subjectname', 'ss.sectionno', 'sl.subjectcredit',)
+        ->where('r.userid', '=' , $userid)
+        ->get();
+		/*
 		$regissubjects  = DB::select('SELECT s.subjectcode , s.subjectname,ses.sectionno,s.subjectcredit
 		FROM subject_list s, sectioneachsubject ses,registration_student rs
 		WHERE s.subjectcode = ses.subjectcode AND ses.subjectsectionid = rs.subjectsectionid AND
 		rs.userid = :userid;
 		', ['userid' => $userid]);
-
-
+*/
         //คำนวณหน่วยกิตทั้งหมด
-        $sumcredit = $regissubjects->sum('SubjectCredit');
+        $sumcredit = $regissubjects->sum('subjectcredit');
 
         //แปลงให้เป็น array เพราะตอนแรกยังเป็น collection
         $regissubjects = $regissubjects->all();
 
-        $paymenttypes = DB::table('paymenttype_list')
-        ->select('*')
-        ->get()->all();
+		$paymenttypes = DB::select('SELECT paymenttypeid,paymenttypename FROM paymenttype_list');
 
-
+		//dd($regissubjects,$sumcredit,$paymenttypes);
         return view('complex-form.update-receipt.index', compact('userdetail','regissubjects','sumcredit','paymenttypes'));
     }
 
