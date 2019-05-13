@@ -27,25 +27,26 @@ class RegisSubjectController extends Controller
         $userdetail = UserList::where('userid', $userid)->first();  //ดึงชื่อผู้ใช้งาน
 
         //ดึงข้อมูลวิชาที่ลงทะเบียนไว้แล้ว
-        $regissubjects = DB::table('registration_student AS r')
-                        ->join('sectioneachsubject AS ss', 'r.SubjectSectionID', '=', 'ss.SubjectSectionID')
-                        ->join('subject_list AS sl', 'ss.SubjectCode', '=', 'sl.SubjectCode')
-                        ->join('schedule AS sd' , 'ss.SubjectSectionID', '=', 'sd.SubjectSectionID')
-                        ->select('sl.SubjectCode','sl.SubjectName', 'ss.SectionNo', 'sl.SubjectCredit', 'sd.SecStart', 'sd.SecEnd' ,'ss.SubjectSectionID')
-                        ->where('r.UserID', '=' , $userid)
-                        ->get()->all(); //get ทำเก็บข้อมูลในรูปของ Collection และ all ทำให้ข้อมูลอยู่ในรูปของ Array
+        $regissubjects = DB::table('registration_student as r')
+                        ->join('sectioneachsubject as ss', 'r.subjectsectionid', '=', 'ss.subjectsectionid')
+                        ->join('subject_list as sl', 'ss.subjectcode', '=', 'sl.subjectcode')
+                        ->join('schedule as sd' , 'ss.subjectsectionid', '=', 'sd.subjectsectionid')
+                        ->select('sl.subjectcode','sl.subjectname', 'ss.sectionno', 'sl.subjectcredit', 'sd.secstart', 'sd.secend' ,'ss.subjectsectionid')
+                        ->where('r.userid', '=' , $userid)
+                        ->get()->all(); //get ทำเก็บข้อมูลในรูปของ collection และ all ทำให้ข้อมูลอยู่ในรูปของ array
 
         //รหัสวิชาที่ต้องการค้นหา
         $subjectcode = request('subjectcode');
 
         //ดึงรายละเอียดวิชาที่ค้นหา
-        $subjectdetails = DB::table('sectioneachsubject AS ss')
-                        ->join('schedule AS sd' , 'ss.SubjectSectionID', '=', 'sd.SubjectSectionID')
-                        ->select('ss.SectionNo', 'ss.SeatAvailable', 'sd.SecStart', 'sd.SecEnd' , 'ss.SubjectSectionID')
-                        ->where('ss.SubjectCode', '=', $subjectcode)
+        $subjectdetails = DB::table('sectioneachsubject as ss')
+                        ->join('schedule as sd' , 'ss.subjectsectionid', '=', 'sd.subjectsectionid')
+                        ->select('ss.sectionno', 'ss.seatavailable', 'sd.secstart', 'sd.secend' , 'ss.subjectsectionid')
+                        ->where('ss.subjectcode', '=', $subjectcode)
                         ->get()->all();
 
-        //ส่งกลับที่หน้า regissubject พร้อมกับค่าในตัวแปร 2 ตัวที่ใส่ไว้ใน compact
+		//ส่งกลับที่หน้า regissubject พร้อมกับค่าในตัวแปร 2 ตัวที่ใส่ไว้ใน compact
+		//dd($userdetail,$regissubjects,$subjectdetails);
         return view('complex-form.regissubject.index' , compact('userdetail','regissubjects','subjectdetails'));
     }
 
@@ -73,8 +74,8 @@ class RegisSubjectController extends Controller
         try {
             DB::table('registration_student')->insert(
                 [
-                    'SubjectSectionID' => $subjectsectionid,
-                    'UserID' => $userid
+                    'subjectsectionid' => $subjectsectionid,
+                    'userid' => $userid
                 ]
             );
         } catch(\Illuminate\Database\QueryException $ex){
@@ -83,7 +84,6 @@ class RegisSubjectController extends Controller
             }
             else return redirect()->back()->with('alert','WTF DID YOU JUST DO');
         }
-
         return back();
     }
 
@@ -132,7 +132,7 @@ class RegisSubjectController extends Controller
         $subjectcode = request('btn');
 
         DB::table('registration_student')
-        ->where('SubjectSectionID', '=', $subjectcode)
+        ->where('subjectsectionid', '=', $subjectcode)
         ->delete();
 
         return back();

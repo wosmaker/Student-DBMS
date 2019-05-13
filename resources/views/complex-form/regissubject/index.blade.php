@@ -7,8 +7,8 @@
 @section('page-main')
   {{-- ชื่อผู้ใช้ --}}
 <div class="shadow p-3 mb-3 bg-white ">
-		<h4 class="d-inline p-2 ">Name: {{ $userdetail->FirstName }} {{ $userdetail->LastName}} </h4>
-		<h4 class="d-inline p-5 ">Student ID: {{ $userdetail->UserID }}</h4>
+		<h4 class="d-inline p-2 ">Name: {{ $userdetail->firstname }} {{ $userdetail->lastname}} </h4>
+		<h4 class="d-inline p-5 ">Student ID: {{ $userdetail->userid }}</h4>
 		@if(Session::has('alert'))
 		<div class="alert alert-danger  alert-dismissible fade show">
 				<button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -44,18 +44,18 @@
                 <tr>
                     {{-- คำสั่ง $loop->iteration เป็นตัวที่ไล่เลขลำดับให้ --}}
                     <th scope="row">{{ $loop->iteration }}</th>
-                    <td>{{ $regissubject->SubjectCode }}</td>
-                    <td>{{ $regissubject->SubjectName }}</td>
-                    <td>{{ $regissubject->SectionNo }}</td>
-                    <td>{{ $regissubject->SubjectCredit }}</td>
-                    <td>{{ $regissubject->SecStart }}</td>
-                    <td>{{ $regissubject->SecEnd }}</td>
+                    <td>{{ $regissubject->subjectcode }}</td>
+                    <td>{{ $regissubject->subjectname }}</td>
+                    <td>{{ $regissubject->sectionno }}</td>
+                    <td>{{ $regissubject->subjectcredit }}</td>
+                    <td>{{ $regissubject->secstart }}</td>
+                    <td>{{ $regissubject->secend }}</td>
                     <td>
                         {{-- ปุ่มกดสำหรับการลบวิชาที่เพิ่มไว้ --}}
                         <form method="POST" action="regissubject/{regissubject}">
                             @csrf
                             @method('DELETE')
-                            <button class="btn btn-danger" type="submit" name="btn" value="{{ $regissubject->SubjectSectionID }}">DELETE</button>
+                            <button class="btn btn-danger" type="submit" name="btn" value="{{ $regissubject->subjectsectionid }}">DELETE</button>
                         </form>
                     </td>
                 </tr>
@@ -97,13 +97,13 @@
                     <tr  class="clickable-row">
                         {{-- คำสั่ง $loop->iteration เป็นตัวที่ไล่เลขลำดับให้ --}}
                         <th scope="row">{{ $loop->iteration }}</th>
-                        <td>{{ $subjectdetail->SectionNo }}</td>
-                        <td>{{ $subjectdetail->SeatAvailable }}</td>
-                        <td>{{ $subjectdetail->SecStart }}</td>
-                        <td>{{ $subjectdetail->SecEnd }}</td>
+						<td>{{ $subjectdetail->sectionno }}</td>
+                        <td>{{ $subjectdetail->seatavailable }}</td>
+                        <td>{{ $subjectdetail->secstart }}</td>
+                        <td>{{ $subjectdetail->secend }}</td>
                         <td>
-                            <input  type="radio" id="{{"checkbox$loop->iteration"}}" name="subjectsectionid" value="{{ $subjectdetail->SubjectSectionID }}">
-                        </td>
+								<input  type="radio" id="{{"checkbox$loop->iteration"}}" name="subjectsectionid" value="{{ $subjectdetail->subjectsectionid }}">
+							</td>
                     </tr>
                 @endforeach
             </tbody>
