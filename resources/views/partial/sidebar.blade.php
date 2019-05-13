@@ -31,7 +31,7 @@
 
 		<div id='sub3' class="collapse sidebar-submenu">
 				@for ($i = 1; $i <= 16; $i++)
-				<a href="{{URL('analytic'.$i)}}" class="list-group-item list-group-item-action list-group-item-light">
+				<a href="{{URL('report'.$i)}}" class="list-group-item list-group-item-action list-group-item-light">
 				Repert {{$i}}</a>
 		        @endfor
 

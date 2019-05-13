@@ -7,7 +7,7 @@
 @section('page-main')
   {{-- ชื่อผู้ใช้ --}}
 <div class="shadow p-3 mb-3 bg-white ">
-		<h4 class="d-inline p-2 ">Name: {{ $userdetail->FirstName }} {{ $userdetail->LastName}} </h4>
+		<h4 class="d-inline p-2 ">Name: {{ $userdetail->firstname }} {{ $userdetail->lastname}} </h4>
 		<h4 class="d-inline p-5 ">Student ID: {{ $userdetail->UserID }}</h4>
 		@if(Session::has('alert'))
 		<div class="alert alert-danger  alert-dismissible fade show">
@@ -43,22 +43,22 @@
             @foreach($transactionlists as $transactionlist)
                 <tr>
                     <th scope="row">{{ $loop->iteration }}</th>
-                    <td>{{ $transactionlist->FirstName }}</td>
-                    <td>{{ $transactionlist->LastName }}</td>
-                    <td>{{ $transactionlist->PaymentTypeName }}</td>
+                    <td>{{ $transactionlist->firstname }}</td>
+                    <td>{{ $transactionlist->lastname }}</td>
+                    <td>{{ $transactionlist->paymenttypename }}</td>
                     <td>
                         @php
-                            $img_link = asset('storage/upload/' . $transactionlist->PictureLink);
+                            $img_link = asset('storage/upload/' . $transactionlist->picturelink);
                         @endphp
                         <a href="{{ $img_link }}" target="_blank">IMAGE</a>
                     </td>
-                    <td>{{ $transactionlist->PaymentDate }}</td>
-                    <td>{{ $transactionlist->PaymentStatus }}</td>
+                    <td>{{ $transactionlist->paymentdate }}</td>
+                    <td>{{ $transactionlist->paymentstatus }}</td>
                     <td>
                         <form method="POST" action="confirmreceipt/{confirmreceipt}">
                             @csrf
                             @method('PATCH')
-                            <button class="btn btn-danger" type="submit" name="transaction_id" value="{{ $transactionlist->TransactionID }}">CONFIRM</button>
+                            <button class="btn btn-danger" type="submit" name="transaction_id" value="{{ $transactionlist->transactionid }}">CONFIRM</button>
                         </form>
                     </td>
                 </tr>
@@ -75,25 +75,25 @@
 $(document).ready( function() {
 
 		$('.btn-file :file').on('fileselect', function(event, label) {
-		    
+
 		    var input = $(this).parents('.input-group').find(':text'),
 		        log = label;
-		    
+
 		    if( input.length ) {
 		        input.val(log);
 		    } else {
 		        if( log ) alert(log);
 		    }
-	    
+
 		});
 		function readURL(input) {
 		    if (input.files && input.files[0]) {
 		        var reader = new FileReader();
-		        
+
 		        reader.onload = function (e) {
 		            $('#img-upload').attr('src', e.target.result);
 		        }
-		        
+
 		        reader.readAsDataURL(input.files[0]);
 		    }
     }
@@ -103,7 +103,7 @@ $(document).ready( function() {
         //replace the "Choose a file" label
         $(this).next('.custom-file-label').html(fileName);
 		    readURL(this);
-		}); 	
+		});
 	});
 </script>
 @endsection

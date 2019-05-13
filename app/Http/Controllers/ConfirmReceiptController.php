@@ -26,6 +26,7 @@ class ConfirmReceiptController extends Controller
         ->select('tl.transactionid','ul.firstname', 'ul.lastname', 'pt.paymenttypename', 'tl.picturelink', 'tl.paymentdate', 'tl.paymentstatus')
 		->get()->all();
 
+		//dd($transactionlists,$userdetail);
         return view('complex-form.confirm-receipt.index', compact('userdetail', 'transactionlists'));
     }
 

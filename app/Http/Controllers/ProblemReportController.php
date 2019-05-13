@@ -25,22 +25,18 @@ class ProblemReportController extends Controller
                     ->get()->all();
 
         if($userrole == 1 || $userrole == 2) {
-            $problemreports = DB::table('problemreport_list AS pr')
-			->join('user_list as u', 'pr.userid', '=', 'u.userid')
-            ->join('problemtype_list as pt', 'pr.problemtypeid', '=', 'pt.problemtypeid')
-            ->join('department_list as d', 'd.departmentcode', '=', 'u.departmentcode')
-            ->select('pr.problemno','pr.problemtitle','pt.problemtypename', 'u.firstname', 'u.lastname', 'd.departmentname', 'pr.problemdatetime', 'pr.problemstatus', 'pr.answerdetail', 'pr.problemdetail')
-            ->where('pr.userid', '=', $userid)
-			->get()->all();
+			$problemreports = DB::select('SELECT prl.problemno ,prl.problemtitle ,ptl.problemtypename,ul.firstname,ul.lastname,dl.departmentname,prl.problemdatetime,prl.problemstatus,prl.answerdetail,prl.problemdetail
+			FROM problemreport_list prl, user_list ul,problemtype_list ptl,department_list dl
+			WHERE ptl.problemtypeid = prl.problemtypeid AND ul.userid = prl.userid AND ul.departmentcode = dl.departmentcode
+			AND ul.userid = :userid;
+			', ['userid' => $userid]);
 
         } else if($userrole == 3) {
-            $problemreports = DB::table('problemreport_list AS pr')
-			->join('user_list as u', 'pr.userid', '=', 'u.userid')
-            ->join('problemtype_list as pt', 'pr.problemtypeid', '=', 'pt.problemtypeid')
-            ->join('department_list as d', 'd.departmentcode', '=', 'u.departmentcode')
-            ->select('pr.problemno','pr.problemtitle','pt.problemtypename', 'u.firstname', 'u.lastname', 'd.departmentname', 'pr.problemdatetime', 'pr.problemstatus', 'pr.answerdetail', 'pr.problemdetail')
-            ->get()->all();
+			$problemreports = DB::select('SELECT prl.problemno ,prl.problemtitle ,ptl.problemtypename,ul.firstname,ul.lastname,dl.departmentname,prl.problemdatetime,prl.problemstatus,prl.answerdetail,prl.problemdetail
+			FROM problemreport_list prl, user_list ul,problemtype_list ptl,department_list dl;
+			');
 		}
+
         return view('complex-form.problem-report.index', compact('userdetail','userrole', 'problemreports','problemtypes'));
     }
     // WTF

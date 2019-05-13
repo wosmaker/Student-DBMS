@@ -28,12 +28,12 @@ class UpdateReceiptController extends Controller
         $userdetail = UserList::where('userid', $userid)->first();  //ดึงชื่อผู้ใช้งาน
 
         //ดึงข้อมูลวิชาที่ลงทะเบียนไว้แล้ว
-        $regissubjects = DB::table('registration_student AS r')
-        ->join('sectioneachsubject AS ss', 'r.SubjectSectionID', '=', 'ss.SubjectSectionID')
-        ->join('subject_list AS sl', 'ss.SubjectCode', '=', 'sl.SubjectCode')
-        ->select('sl.SubjectCode','sl.SubjectName', 'ss.SectionNo', 'sl.SubjectCredit',)
-        ->where('r.UserID', '=' , $userid)
-        ->get();
+		$regissubjects  = DB::select('SELECT s.subjectcode , s.subjectname,ses.sectionno,s.subjectcredit
+		FROM subject_list s, sectioneachsubject ses,registration_student rs
+		WHERE s.subjectcode = ses.subjectcode AND ses.subjectsectionid = rs.subjectsectionid AND
+		rs.userid = :userid;
+		', ['userid' => $userid]);
+
 
         //คำนวณหน่วยกิตทั้งหมด
         $sumcredit = $regissubjects->sum('SubjectCredit');
