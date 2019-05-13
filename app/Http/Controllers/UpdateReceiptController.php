@@ -95,18 +95,18 @@ class UpdateReceiptController extends Controller
         //insert in DB
         $transactionid = DB::table('transaction_list')->insertGetId(    //insertGetId จะค่าในคอลัมน์ auto inc กลับมาด้วย
             [
-                'UserID'        => $userid ,
-                'Amount'        => $amount ,
-                'Semester'      => $semester ,
-                'PaymentTypeID' => $paymenttype ,
-                'PaymentStatus' => 'waiting' ,
-                'PictureLink'   => $filename ,
+				'userid'        => $userid ,
+                'amount'        => $amount ,
+                'semester'      => $semester ,
+                'paymenttypeid' => $paymenttype ,
+                'paymentstatus' => 'waiting' ,
+                'picturelink'   => $filename ,
             ]
         );
 
         DB::table('registration_student')
-            ->where('UserID', '=', $userid)
-            ->update(['TransactionID' => $transactionid]);
+            ->where('userid', '=', $userid)
+            ->update(['transactionid' => $transactionid]);
 
         return view('home', compact('role'));
     }
