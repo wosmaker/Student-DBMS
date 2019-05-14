@@ -4,7 +4,7 @@ namespace App\Http\Controllers\CAnalytic;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use DB;
 class report7 extends Controller
 {
     /**
@@ -16,7 +16,7 @@ class report7 extends Controller
     {
         $report2 = DB::select('
 ');
-//dd($report1);
+	dd($report7);
 	return view('Analytic.report2', compact('report2'));
     }
 

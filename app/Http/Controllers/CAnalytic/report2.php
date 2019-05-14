@@ -4,7 +4,7 @@ namespace App\Http\Controllers\CAnalytic;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use DB;
 class report2 extends Controller
 {
     /**

@@ -20,7 +20,7 @@ class report12 extends Controller
 		GROUP BY EXTRACT(YEAR FROM DATE(rs.DateRegis));
 		',['male' => 'Male']);
 
-	//dd($report12);
+	dd($report12);
 	return view('Analytic.report12', compact('report12'));
     }
 

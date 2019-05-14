@@ -21,7 +21,7 @@ class report16 extends Controller
 		GROUP BY ptl.ProblemTypeName;
 		',['wait' => 'waiting']);
 
-	// dd($report16);
+	dd($report16);
 	return view('Analytic.report16', compact('report16'));
     }
 

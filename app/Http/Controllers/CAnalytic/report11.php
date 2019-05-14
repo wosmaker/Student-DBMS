@@ -20,7 +20,7 @@ class report11 extends Controller
 		GROUP BY dl.DepartmentName;
 		');
 
-	// dd($report11);
+	dd($report11);
 	return view('Analytic.report11', compact('report11'));
     }
 

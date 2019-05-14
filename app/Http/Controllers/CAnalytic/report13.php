@@ -22,7 +22,7 @@ class report13 extends Controller
 		LIMIT 5
 		');
 
-		//dd($report13);
+		dd($report13);
 	return view('Analytic.report13', compact('report13'));
     }
 

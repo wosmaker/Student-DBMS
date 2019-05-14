@@ -21,7 +21,7 @@ class report15 extends Controller
 		GROUP BY dl.DepartmentName;
 		',['wait' => 'waiting','noww' => 'now']);
 
-	// dd($report15);
+	dd($report15);
 	return view('Analytic.report15', compact('report15'));
     }
 
