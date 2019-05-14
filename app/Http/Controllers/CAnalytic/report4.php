@@ -19,8 +19,8 @@ class report4 extends Controller
 		WHERE rl.RoomCode = s.RoomCode AND ses.SubjectSectionID = s.SubjectSectionID
 		GROUP BY rl.BuildingName;
 		');
-	dd($report4);
-	return view('Analytic.report4', compact('report4'));
+		//dd($report4);
+		return view('Analytic.report4', compact('report4'));
     }
 
     /**

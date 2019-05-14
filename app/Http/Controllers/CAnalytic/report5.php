@@ -19,7 +19,7 @@ class report5 extends Controller
 		WHERE sl.SubjectCode = ses.SubjectCode AND ses.SubjectSectionID = s.SubjectSectionID AND s.RoomCode = rl.RoomCode
 		AND ses.SubjectSectionID = rs.SubjectSectionID;
 		');
-	dd($report5);
+	//dd($report5);
 	return view('Analytic.report5', compact('report5'));
     }
 

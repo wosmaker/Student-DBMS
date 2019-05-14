@@ -12,19 +12,19 @@
 		<thead>
 			<tr>
 				<th scope="col">#</th>
-				<th scope="col">Department</th>
-				<th scope="col">Count( <!-- จำนวนคน ใน รายวิขา -->)</th>
-				<th scope="col">%( <!-- จำนวนคน ใน รายวิขา -->)</th>
+				<th scope="col">Problem</th>
+				<th scope="col">Not answer</th>
+				<th scope="col">Answer</th>
 			</tr>
 		</thead>
 		<tbody>
-				@foreach ($report1 as $item)
-				<tr>
-					<th scope="row">{{ $loop->iteration }}</th>
-					<td>{{ $item->facultyname }}</td>
-					<td>{{ $item->count }}</td>
-					<td></td>
-				</tr>
+			@foreach ($report16 as $item)
+			<tr>
+				<th scope="row">{{ $loop->iteration }}</th>
+				<td>{{ $item->ProblemTypeName }}</td>
+				<td>{{ $item->notanswer }}</td>
+				<td></td>
+			</tr>
 			@endforeach
 		</tbody>
 	</table>

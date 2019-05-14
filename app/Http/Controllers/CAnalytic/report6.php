@@ -16,7 +16,7 @@ class report6 extends Controller
     {
         $report2 = DB::select('
 ');
-//dd($report1);
+	dd($report6);
 	return view('Analytic.report2', compact('report2'));
     }
 

@@ -20,7 +20,7 @@ class report9 extends Controller
 		AND ( tl.PaymentStatus = :wait OR PaymentDate > :dat )
 		GROUP BY dl.DepartmentName;
 		',['dat' => '2019-04-05','wait' => 'waiting']);
-	dd($report9);
+		// dd($report9);
 	return view('Analytic.report9', compact('report9'));
     }
 

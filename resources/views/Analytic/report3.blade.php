@@ -19,7 +19,7 @@
 				</tr>
 			</thead>
 			<tbody>
-					@foreach ($report1 as $item)
+					@foreach ($report3 as $item)
 					<tr>
 						<th scope="row">{{ $loop->iteration }}</th>
 						<td>{{ $item->facultyname }}</td>

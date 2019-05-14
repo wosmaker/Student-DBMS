@@ -18,12 +18,11 @@
 			</tr>
 		</thead>
 		<tbody>
-				@foreach ($report1 as $item)
+				@foreach ($report4 as $item)
 				<tr>
 					<th scope="row">{{ $loop->iteration }}</th>
-					<td>{{ $item->facultyname }}</td>
+					<td>{{ $item->BuildingName }}</td>
 					<td>{{ $item->count }}</td>
-					<td></td>
 				</tr>
 			@endforeach
 		</tbody>

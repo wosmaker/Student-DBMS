@@ -15,9 +15,9 @@ class report2 extends Controller
     public function index()
     {
         $report2 = DB::select('
-');
-//dd($report1);
-	return view('Analytic.report2', compact('report2'));
+		');
+		dd($report2);
+		return view('Analytic.report2', compact('report2'));
 
     }
 

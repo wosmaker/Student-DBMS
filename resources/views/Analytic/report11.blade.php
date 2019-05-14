@@ -13,17 +13,15 @@
 			<tr>
 				<th scope="col">#</th>
 				<th scope="col">Department</th>
-				<th scope="col">Count( <!-- จำนวนคน ใน รายวิขา -->)</th>
-				<th scope="col">%( <!-- จำนวนคน ใน รายวิขา -->)</th>
+				<th scope="col">Count</th>
 			</tr>
 		</thead>
 		<tbody>
-				@foreach ($report1 as $item)
+				@foreach ($report11 as $item)
 				<tr>
 					<th scope="row">{{ $loop->iteration }}</th>
-					<td>{{ $item->facultyname }}</td>
+					<td>{{ $item->DepartmentName }}</td>
 					<td>{{ $item->count }}</td>
-					<td></td>
 				</tr>
 			@endforeach
 		</tbody>

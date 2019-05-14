@@ -20,7 +20,7 @@ class report8 extends Controller
 		GROUP BY  pl.PaymentTypeName;
 		');
 
-	dd($report8);
+	//dd($report8);
 	return view('Analytic.report8', compact('report8'));
     }
 
