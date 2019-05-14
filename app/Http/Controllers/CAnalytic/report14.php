@@ -14,7 +14,7 @@ class report14 extends Controller
      */
     public function index()
     {
-		$report14 = DB::select('SELECT  sl.SubjectName , SUM(ses.SeatAvailable) AS sum
+		$report14 = DB::select('SELECT  sl.subjectname , SUM(ses.SeatAvailable) AS sum
 		FROM subject_list sl, sectioneachsubject ses
 		WHERE sl.SubjectCode = ses.SubjectCode
 		GROUP BY sl.SubjectName
@@ -22,7 +22,7 @@ class report14 extends Controller
 		LIMIT 5;
 		');
 
-	dd($report14);
+	// dd($report14);
 	return view('Analytic.report14', compact('report14'));
     }
 

@@ -14,12 +14,12 @@ class report5 extends Controller
      */
     public function index()
     {
-		$report5 = DB::select('SELECT DISTINCT sl.SubjectName, ses.SectionNo,rl.BuildingName,rl.Floor, rl.RoomSeatTotal - ses.SeatAvailable AS seatAvailable
+		$report5 = DB::select('SELECT DISTINCT sl.subjectname, ses.sectionno,rl.buildingname,rl.floor, rl.roomseattotal - ses.seatavailable AS seatavailable
 		FROM subject_list sl,sectioneachsubject ses,schedule s,room_list rl,registration_student rs
 		WHERE sl.SubjectCode = ses.SubjectCode AND ses.SubjectSectionID = s.SubjectSectionID AND s.RoomCode = rl.RoomCode
 		AND ses.SubjectSectionID = rs.SubjectSectionID;
 		');
-	dd($report5);
+	// dd($report5);
 	return view('Analytic.report5', compact('report5'));
     }
 

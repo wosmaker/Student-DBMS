@@ -21,7 +21,7 @@
 			@foreach ($report16 as $item)
 			<tr>
 				<th scope="row">{{ $loop->iteration }}</th>
-				<td>{{ $item->ProblemTypeName }}</td>
+				<td>{{ $item->problemtypename }}</td>
 				<td>{{ $item->notanswer }}</td>
 				<td></td>
 			</tr>

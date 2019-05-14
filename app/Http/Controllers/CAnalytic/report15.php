@@ -14,14 +14,14 @@ class report15 extends Controller
      */
     public function index()
     {
-		$report15 = DB::select('SELECT dl.DepartmentName , COUNT(dl.DepartmentName) AS count
+		$report15 = DB::select('SELECT dl.departmentname , COUNT(dl.departmentname) AS count
 		FROM department_list dl,user_list ul,transaction_list tl, registration_student rl
 		WHERE dl.DepartmentCode = ul.DepartmentCode AND ul.UserID = rl.UserID AND rl.TransactionID = tl.TransactionID
 		AND (tl.PaymentStatus = :wait OR PaymentDate > :noww)
 		GROUP BY dl.DepartmentName;
 		',['wait' => 'waiting','noww' => 'now']);
 
-	dd($report15);
+	// dd($report15);
 	return view('Analytic.report15', compact('report15'));
     }
 

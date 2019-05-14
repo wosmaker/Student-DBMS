@@ -23,11 +23,11 @@
 				@foreach ($report5 as $item)
 				<tr>
 					<th scope="row">{{ $loop->iteration }}</th>
-					<td>{{ $item->SubjectName }}</td>
-					<td>{{ $item->SectionNo }}</td>
-					<td>{{ $item->BuildingName }}</td>
-					<td>{{ $item->Floor }}</td>
-					<td>{{ $item->seatAvailable }}</td>
+					<td>{{ $item->subjectname }}</td>
+					<td>{{ $item->sectionno }}</td>
+					<td>{{ $item->buildingname }}</td>
+					<td>{{ $item->floor }}</td>
+					<td>{{ $item->seatavailable }}</td>
 				</tr>
 			@endforeach
 		</tbody>

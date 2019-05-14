@@ -20,7 +20,7 @@
 				@foreach ($report8 as $item)
 				<tr>
 					<th scope="row">{{ $loop->iteration }}</th>
-					<td>{{ $item->PaymentTypeName }}</td>
+					<td>{{ $item->paymenttypename }}</td>
 					<td>{{ $item->count }}</td>
 				</tr>
 			@endforeach
