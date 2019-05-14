@@ -23,7 +23,6 @@
 					<th scope="row">{{ $loop->iteration }}</th>
 					<td>{{ $item->facultyname }}</td>
 					<td>{{ $item->count }}</td>
-					<td></td>
 				</tr>
 			@endforeach
 		</tbody>

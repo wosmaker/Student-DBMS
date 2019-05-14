@@ -135,7 +135,9 @@
 
     $('#button').click( function () {
         alert( table.rows('.selected').data().length +' row(s) selected' );
-    } );
-} );
+    });
+
+
+});
  </script>
 @endsection

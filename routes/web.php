@@ -23,6 +23,7 @@ Route::resource('updatereceipt', 'UpdateReceiptController');
 Route::resource('editsubject', 'EditSubjectController');
 Route::resource('problemreport', 'ProblemReportController');
 Route::resource('confirmreceipt', 'ConfirmReceiptController');
+Route::resource('personal', 'Cpersonal');
 
 
 //test
@@ -30,3 +31,7 @@ for($i=1;$i<=16;$i++)
 {
 	Route::resource('report'.$i, 'CAnalytic\report'.$i);
 }
+
+Route::get('/test', function () {
+    return view('complex-form.person-inf');
+});
