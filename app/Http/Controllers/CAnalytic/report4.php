@@ -14,7 +14,7 @@ class report4 extends Controller
      */
     public function index()
     {
-        $report4 = DB::select('SELECT  rl.BuildingName, COUNT(DISTINCT ses.SubjectCode) AS count
+        $report4 = DB::select('SELECT  rl.buildingname, COUNT(DISTINCT ses.SubjectCode) AS count
 		FROM room_list rl, schedule s,sectioneachsubject ses
 		WHERE rl.RoomCode = s.RoomCode AND ses.SubjectSectionID = s.SubjectSectionID
 		GROUP BY rl.BuildingName;
