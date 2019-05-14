@@ -102,8 +102,8 @@
                         <td>{{ $subjectdetail->secstart }}</td>
                         <td>{{ $subjectdetail->secend }}</td>
                         <td>
-								<input  type="radio" id="{{"checkbox$loop->iteration"}}" name="subjectsectionid" value="{{ $subjectdetail->subjectsectionid }}">
-							</td>
+							<input  type="radio" id="{{"checkbox$loop->iteration"}}" name="subjectsectionid" value="{{ $subjectdetail->subjectsectionid }}">
+						</td>
                     </tr>
                 @endforeach
             </tbody>
