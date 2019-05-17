@@ -20,7 +20,12 @@ class EditSubjectController extends Controller
 
     public function index()
     {
-        return view('complex-form.editsubject.index');
+        $userid = auth()->user()->id;   //ดึงค่า id ของผู้ใช้
+        $userdetail = UserList::where('userid', $userid)->first();  //ดึงชื่อผู้ใช้งาน
+
+
+
+        return view('complex-form.editsubject.index', compact('userdetail'));
     }
 
     /**
