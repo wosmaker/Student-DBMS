@@ -51,21 +51,29 @@
 					</div>
 
 					<div class="modal-body">
-						<form>
-							<div class="form-group">
-								<label for="recipient-name" class="col-form-label">Recipient:</label>
-								<input type="text" class="form-control" id="recipient-name">
-							</div>
-							<div class="form-group">
-								<label for="message-text" class="col-form-label">Message:</label>
-								<textarea class="form-control" id="message-text"></textarea>
-							</div>
-						</form>
+							<form id="add_form" class="col"  method ="post" action = {{route('faculty.store')}} >
+								@csrf
+									<div class="form-group">
+													<label for="facultycode">รหัสคณะ</label>
+													<input type="text" class="form-control" id="facultycode" name="facultycode" placeholder="">
+									</div>
+									<div class="form-row">
+											<div class="form-group col-md-8">
+															<label for="facultyname">ชื่อคณะ</label>
+															<input type="text" class="form-control" id="facultyname"  name="facultyname"  placeholder="">
+											</div>
+
+											<div class="form-group col-md-4">
+															<label for="facultycontact">เบอร์ติดต่อ</label>
+															<input type="text" class="form-control" id="facultycontact"  name="facultycontact"  placeholder="">
+											</div>
+									</div>
+							</form>
 					</div>
 
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-						<button type="button" class="btn btn-primary">Send message</button>
+						<button form="add_form" type="submit" class="btn btn-primary">ADD faculty</button>
 					</div>
 
 				</div>

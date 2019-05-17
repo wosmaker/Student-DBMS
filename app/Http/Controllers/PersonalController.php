@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Csimple;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use DB;
-class Cfaculty extends Controller
+class PersonalController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +13,7 @@ class Cfaculty extends Controller
      */
     public function index()
     {
-		$tb = DB::select('SELECT * FROM faculty_list');
-		//dd($tb);
-        return  view('simple-form/faculty',compact('tb'));
+        return view('complex-form.personal.index');
     }
 
     /**
@@ -26,6 +23,7 @@ class Cfaculty extends Controller
      */
     public function create()
     {
+        //
     }
 
     /**
@@ -36,8 +34,7 @@ class Cfaculty extends Controller
      */
     public function store(Request $request)
     {
-				DB::insert('INSERT INTO faculty_list (facultycode, facultyname,facultycontact) values (?, ?, ?)', [$request->get('facultycode'),$request->get('facultyname'),$request->get('facultycontact')]);
-			 return back();
+        //
     }
 
     /**
@@ -71,7 +68,7 @@ class Cfaculty extends Controller
      */
     public function update(Request $request, $id)
     {
-        DB::update('UPDATE faculty_list set facultycode = ?, facultyname = ? ,facultycontact = ?  where facultycode = ?', [$request->get('facultycode'),$request->get('facultyname'),$request->get('facultycontact'),$id]);
+        //
     }
 
     /**
@@ -82,7 +79,6 @@ class Cfaculty extends Controller
      */
     public function destroy($id)
     {
-				DB::delete('DELETE faculty_list where facultycode = ?', [$id]);
-				return back();
+        //
     }
 }

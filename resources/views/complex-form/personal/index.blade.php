@@ -17,16 +17,16 @@
 
 			<div class="form-row">
 				<div class="form-group col-md-6">
-					<label for="IdentificationNo">Identification No</label>
-					<input type="text" class="form-control" id="IdentificationNo" name="IdentificationNo" placeholder="">
+					<label for="identificationno">Identification No</label>
+					<input type="text" class="form-control" id="identificationno" name="identificationno" placeholder="">
 				</div>
 
 				<div class="form-group col-md-6">
-						<label for="DepartmentCode">Department</label>
-						<select id="DepartmentCode" name="DepartmentCode" class="form-control">
+						<label for="departmentcode">Department</label>
+						<select id="departmentcode" name="departmentcode" class="form-control">
 							<option selected  value="">Choose>
 							{{-- 	@foreach ($choose as $i)
-									<option value="{{$i['DepartmentCode']}}">{{$i['DepartmentCode']}} :: {{$i['DepartmentName']}}</option>
+									<option value="{{$i['departmentcode']}}">{{$i['departmentcode']}} :: {{$i['departmentcode']}}</option>
 								@endforeach--}}
 						</select>
 				</div>
@@ -34,8 +34,8 @@
 
 			<div class="form-row">
 				<div class="form-group col-md-2">
-					<label for="TitleName">Title Name </label>
-					<select id="TitleName" name="TitleName" class="form-control">
+					<label for="titlename">Title Name </label>
+					<select id="titlename" name="titlename" class="form-control">
 						<option selected value="">Choose...</option>
 						<option value="Mr">Mr</option>
 						<option value="Mrs">Mrs</option>
@@ -45,20 +45,20 @@
 				</div>
 
 				<div class="form-group col-md-5">
-					<label for="FirstName">First Name</label>
-					<input type="text" class="form-control" id="FirstName" name="FirstName" placeholder="">
+					<label for="firstname">First Name</label>
+					<input type="text" class="form-control" id="firstname" name="firstname" placeholder="">
 				</div>
 
 				<div class="form-group col-md-5">
-					<label for="LastName">Last Name</label>
-					<input type="text" class="form-control" id="LastName" name="LastName" placeholder="">
+					<label for="lastname">Last Name</label>
+					<input type="text" class="form-control" id="lastname" name="lastname" placeholder="">
 				</div>
 			</div>
 
 			<div class="form-row">
 				<div class="form-group col-md-3">
-					<label for="Gender">Gender</label>
-					<select id="Gender" name="Gender" class="form-control">
+					<label for="gender">Gender</label>
+					<select id="gender" name="gender" class="form-control">
 						<option selected>Choose...</option>
 						<option value="Male">Male</option>
 						<option value="Female">Female</option>
@@ -67,8 +67,8 @@
 				</div>
 
 				<div class="form-group col-md-3">
-					<label for="Bloodtype">Blood</label>
-					<select id="Bloodtype" name="Bloodtype" class="form-control">
+					<label for="bloodtype">Blood</label>
+					<select id="bloodtype" name="bloodtype" class="form-control">
 						<option selected>Choose...</option>
 						<option value="A">A</option>
 						<option value="B">B</option>
@@ -78,65 +78,65 @@
 				</div>
 
 				<div class="form-group col-md-6">
-					<label for="Birthdate">Date of Birth</label>
-					<input type="date" class="form-control" id="Birthdate" name="Birthdate" placeholder="Date of Birth">
+					<label for="birthdate">Date of Birth</label>
+					<input type="date" class="form-control" id="birthdate" name="birthdate" placeholder="Date of Birth">
 				</div>
 			</div>
 
 			<div class="form-row">
 				<div class="form-group col-md-4">
-					<label for="Race">Race</label>
-					<input type="text" class="form-control" id="Race" name="Race" placeholder="">
+					<label for="race">Race</label>
+					<input type="text" class="form-control" id="race" name="race" placeholder="">
 				</div>
 
 				<div class="form-group col-md-4">
-					<label for="Religion">Religion</label>
-					<input type="text" class="form-control" id="Religion" name="Religion" placeholder="">
+					<label for="Religion">religion</label>
+					<input type="text" class="form-control" id="religion" name="religion" placeholder="">
 				</div>
 
 				<div class="form-group col-md-4">
-					<label for="Nationnality">Nationnality</label>
-					<input type="text" class="form-control" id="Nationnality" name="Nationnality" placeholder="">
+					<label for="nationnality">Nationnality</label>
+					<input type="text" class="form-control" id="nationnality" name="nationnality" placeholder="">
 				</div>
 			</div>
 
 			<div class="form-group">
-				<label for="Address">Address</label>
-				<input type="text" class="form-control" id="Address" name="Address" placeholder="">
+				<label for="address">Address</label>
+				<input type="text" class="form-control" id="address" name="address" placeholder="">
 			</div>
 
 			<div class="form-row">
 				<div class="form-group col-md-2">
-					<label for="Postcode">Zip</label>
-					<input type="text" class="form-control" id="Postcode" name="Postcode">
+					<label for="postcode">Zip</label>
+					<input type="text" class="form-control" id="postcode" name="postcode">
 				</div>
 
 				<div class="form-group col-md-5">
-					<label for="Province">Province</label>
-					<input type="text" class="form-control" id="Province" name="Province" placeholder="">
+					<label for="province">Province</label>
+					<input type="text" class="form-control" id="province" name="province" placeholder="">
 				</div>
 
 				<div class="form-group col-md-5">
-					<label for="District">District</label>
-					<input type="text" class="form-control" id="District" name="District" placeholder="">
+					<label for="district">District</label>
+					<input type="text" class="form-control" id="district" name="district" placeholder="">
 					</select>
 				</div>
 			</div>
 
 			<div class="form-row">
 				<div class="form-group col-md-7">
-					<label for="SubDistrict">Sub District</label>
-					<input type="text" class="form-control" id="SubDistrict" name="SubDistrict">
+					<label for="subdistrict">Sub District</label>
+					<input type="text" class="form-control" id="subdistrict" name="subdistrict">
 				</div>
 
 				<div class="form-group col-md-5">
-					<label for="UserContact">Contact</label>
-					<input type="text" class="form-control" id="UserContact" name="UserContact" placeholder="">
+					<label for="usercontact">Contact</label>
+					<input type="text" class="form-control" id="usercontact" name="usercontact" placeholder="">
 				</div>
 
 			</div>
 			<div class="text-right">
-				<button type="submit" class="btn btn-primary">ADD</button>
+				<button type="submit" class="btn btn-primary">Save</button>
 			</div>
 		</form>
 	</div>
@@ -197,5 +197,26 @@
 			});
 		}, false);
 	})();
+
+
+	$(document).on('submit', 'form#search', function (e) {
+
+    var q = $(this).find('input[name=q']).val();
+
+    $.ajax({
+        type: 'GET',
+        dataType: 'html',
+        url: '/search',
+        data: {
+            q: q
+        },
+        success: function (data) {
+            // Do some nice animation to show results
+            $('#searchdata').html(data);
+        }
+    });
+
+    e.preventDefault();
+});
  </script>
 @endsection
