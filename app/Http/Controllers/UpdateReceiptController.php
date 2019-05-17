@@ -72,7 +72,7 @@ class UpdateReceiptController extends Controller
     public function store(Request $request)
     {
         $userid = auth()->user()->id;
-        $role = auth()->user()->UserRoleID;
+        $role = auth()->user()->userroleid;
 
         //รับค่าจาก dropbox
         $paymenttype = $request->get('paymenttype');
