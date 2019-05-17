@@ -86,7 +86,13 @@ class ConfirmReceiptController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+            $transaction_id = request('transaction_id');
+
+            DB::table('transaction_list')
+            ->where('transactionID', '=', $transaction_id)
+            ->update(['paymentstatus' => 'CONFIRM']);
+
+            return back();
     }
 
     /**
