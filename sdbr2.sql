@@ -1,102 +1,102 @@
--- phpMyAdmin SQL Dump
+-- phpmyadmin sql dump
 -- version 4.8.4
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: May 17, 2019 at 08:46 AM
--- Server version: 10.1.37-MariaDB
--- PHP Version: 7.3.1
+-- host: 127.0.0.1
+-- generation time: may 17, 2019 at 08:46 am
+-- server version: 10.1.37-mariadb
+-- php version: 7.3.1
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
-SET time_zone = "+00:00";
+set sql_mode = "no_auto_value_on_zero";
+set autocommit = 0;
+start transaction;
+set time_zone = "+00:00";
 
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 set @old_character_set_client=@@character_set_client */;
+/*!40101 set @old_character_set_results=@@character_set_results */;
+/*!40101 set @old_collation_connection=@@collation_connection */;
+/*!40101 set names utf8mb4 */;
 
 --
--- Database: `sdbr2`
+-- database: `sdbr2`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `crash_list`
+-- table structure for table `crash_list`
 --
 
-CREATE TABLE `crash_list` (
-  `CrashCode` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `CrashDetail` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+create table `crash_list` (
+  `crashcode` varchar(191) collate utf8mb4_unicode_ci not null,
+  `crashdetail` varchar(191) collate utf8mb4_unicode_ci not null
+) engine=innodb default charset=utf8mb4 collate=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `department_list`
+-- table structure for table `department_list`
 --
 
-CREATE TABLE `department_list` (
-  `FacultyCode` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `DepartmentCode` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `DepartmentName` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `DepartmentContact` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+create table `department_list` (
+  `facultycode` varchar(191) collate utf8mb4_unicode_ci not null,
+  `departmentcode` varchar(191) collate utf8mb4_unicode_ci not null,
+  `departmentname` varchar(191) collate utf8mb4_unicode_ci not null,
+  `departmentcontact` varchar(191) collate utf8mb4_unicode_ci not null
+) engine=innodb default charset=utf8mb4 collate=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `department_list`
+-- dumping data for table `department_list`
 --
 
-INSERT INTO `department_list` (`FacultyCode`, `DepartmentCode`, `DepartmentName`, `DepartmentContact`) VALUES
-('F1', 'D1', 'DepFoo1', '1'),
-('F1', 'D2', 'DepFoo2', '2'),
-('F2', 'D3', 'DepFoo3', '3'),
-('F2', 'D4', 'DepFoo4', '4'),
-('F3', 'D5', 'DepFoo5', '5'),
-('F4', 'D6', 'DepFoo6', '6');
+insert into `department_list` (`facultycode`, `departmentcode`, `departmentname`, `departmentcontact`) values
+('f1', 'd1', 'depfoo1', '1'),
+('f1', 'd2', 'depfoo2', '2'),
+('f2', 'd3', 'depfoo3', '3'),
+('f2', 'd4', 'depfoo4', '4'),
+('f3', 'd5', 'depfoo5', '5'),
+('f4', 'd6', 'depfoo6', '6');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `faculty_list`
+-- table structure for table `faculty_list`
 --
 
-CREATE TABLE `faculty_list` (
-  `FacultyCode` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `FacultyName` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `FacultyContact` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+create table `faculty_list` (
+  `facultycode` varchar(191) collate utf8mb4_unicode_ci not null,
+  `facultyname` varchar(191) collate utf8mb4_unicode_ci not null,
+  `facultycontact` varchar(191) collate utf8mb4_unicode_ci not null
+) engine=innodb default charset=utf8mb4 collate=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `faculty_list`
+-- dumping data for table `faculty_list`
 --
 
-INSERT INTO `faculty_list` (`FacultyCode`, `FacultyName`, `FacultyContact`) VALUES
-('F1', 'FacFoo1', '1'),
-('F2', 'FacFoo2', '2'),
-('F3', 'FacFoo3', '3'),
-('F4', 'FacFoo4', '4');
+insert into `faculty_list` (`facultycode`, `facultyname`, `facultycontact`) values
+('f1', 'facfoo1', '1'),
+('f2', 'facfoo2', '2'),
+('f3', 'facfoo3', '3'),
+('f4', 'facfoo4', '4');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `migrations`
+-- table structure for table `migrations`
 --
 
-CREATE TABLE `migrations` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `migration` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `batch` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+create table `migrations` (
+  `id` int(10) unsigned not null,
+  `migration` varchar(191) collate utf8mb4_unicode_ci not null,
+  `batch` int(11) not null
+) engine=innodb default charset=utf8mb4 collate=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `migrations`
+-- dumping data for table `migrations`
 --
 
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
+insert into `migrations` (`id`, `migration`, `batch`) values
 (1, '2014_10_12_000000_create_users_table', 1),
 (2, '2014_10_12_100000_create_password_resets_table', 1),
 (3, '2019_03_27_000001_crash_list', 1),
@@ -121,256 +121,256 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `parent_list`
+-- table structure for table `parent_list`
 --
 
-CREATE TABLE `parent_list` (
-  `ParentID` bigint(20) NOT NULL,
-  `ParentName` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `ParentLastName` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `ParentBirthday` date NOT NULL,
-  `ParentContract` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+create table `parent_list` (
+  `parentid` bigint(20) not null,
+  `parentname` varchar(191) collate utf8mb4_unicode_ci not null,
+  `parentlastname` varchar(191) collate utf8mb4_unicode_ci not null,
+  `parentbirthday` date not null,
+  `parentcontract` varchar(191) collate utf8mb4_unicode_ci not null
+) engine=innodb default charset=utf8mb4 collate=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `password_resets`
+-- table structure for table `password_resets`
 --
 
-CREATE TABLE `password_resets` (
-  `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+create table `password_resets` (
+  `email` varchar(191) collate utf8mb4_unicode_ci not null,
+  `token` varchar(191) collate utf8mb4_unicode_ci not null,
+  `created_at` timestamp null default null
+) engine=innodb default charset=utf8mb4 collate=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `paymenttype_list`
+-- table structure for table `paymenttype_list`
 --
 
-CREATE TABLE `paymenttype_list` (
-  `PaymentTypeID` int(10) UNSIGNED NOT NULL,
-  `PaymentTypeName` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `PaymentNumber` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+create table `paymenttype_list` (
+  `paymenttypeid` int(10) unsigned not null,
+  `paymenttypename` varchar(191) collate utf8mb4_unicode_ci not null,
+  `paymentnumber` int(11) not null
+) engine=innodb default charset=utf8mb4 collate=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `paymenttype_list`
+-- dumping data for table `paymenttype_list`
 --
 
-INSERT INTO `paymenttype_list` (`PaymentTypeID`, `PaymentTypeName`, `PaymentNumber`) VALUES
-(1, 'Kbank', 101),
-(2, 'KTB', 102),
-(3, 'SCB', 103),
-(4, 'TMB', 104);
+insert into `paymenttype_list` (`paymenttypeid`, `paymenttypename`, `paymentnumber`) values
+(1, 'kbank', 101),
+(2, 'ktb', 102),
+(3, 'scb', 103),
+(4, 'tmb', 104);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `person_link_parent`
+-- table structure for table `person_link_parent`
 --
 
-CREATE TABLE `person_link_parent` (
-  `IdentificationNo` bigint(20) NOT NULL,
-  `ParentID` bigint(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+create table `person_link_parent` (
+  `identificationno` bigint(20) not null,
+  `parentid` bigint(20) not null
+) engine=innodb default charset=utf8mb4 collate=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `problemreport_list`
+-- table structure for table `problemreport_list`
 --
 
-CREATE TABLE `problemreport_list` (
-  `ProblemNo` bigint(20) UNSIGNED NOT NULL,
-  `UserID` bigint(20) UNSIGNED NOT NULL,
-  `ProblemTypeID` int(10) UNSIGNED NOT NULL,
-  `ProblemDateTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `ProblemTitle` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `ProblemDetail` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `ProblemStatus` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `AnswerDetail` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+create table `problemreport_list` (
+  `problemno` bigint(20) unsigned not null,
+  `userid` bigint(20) unsigned not null,
+  `problemtypeid` int(10) unsigned not null,
+  `problemdatetime` timestamp not null default current_timestamp on update current_timestamp,
+  `problemtitle` varchar(191) collate utf8mb4_unicode_ci not null,
+  `problemdetail` varchar(191) collate utf8mb4_unicode_ci not null,
+  `problemstatus` varchar(191) collate utf8mb4_unicode_ci not null,
+  `answerdetail` varchar(191) collate utf8mb4_unicode_ci default null
+) engine=innodb default charset=utf8mb4 collate=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `problemreport_list`
+-- dumping data for table `problemreport_list`
 --
 
-INSERT INTO `problemreport_list` (`ProblemNo`, `UserID`, `ProblemTypeID`, `ProblemDateTime`, `ProblemTitle`, `ProblemDetail`, `ProblemStatus`, `AnswerDetail`) VALUES
-(1, 1, 1, '2019-05-06 01:37:31', 'Problem1', 'ProblemDetail1', 'waiting', NULL),
-(2, 1, 1, '2019-05-12 19:17:06', 'test report work', 'rr', 'waiting', NULL),
-(3, 1, 3, '2019-05-12 19:17:16', 'test report work', 'see', 'waiting', NULL),
-(4, 1, 1, '2019-05-14 22:47:25', 'test report 2', 'ddd', 'waiting', NULL),
-(5, 1, 2, '2019-05-14 22:47:36', 'dddsdw', 'fgrf', 'waiting', NULL);
+insert into `problemreport_list` (`problemno`, `userid`, `problemtypeid`, `problemdatetime`, `problemtitle`, `problemdetail`, `problemstatus`, `answerdetail`) values
+(1, 1, 1, '2019-05-06 01:37:31', 'problem1', 'problemdetail1', 'waiting', null),
+(2, 1, 1, '2019-05-12 19:17:06', 'test report work', 'rr', 'waiting', null),
+(3, 1, 3, '2019-05-12 19:17:16', 'test report work', 'see', 'waiting', null),
+(4, 1, 1, '2019-05-14 22:47:25', 'test report 2', 'ddd', 'waiting', null),
+(5, 1, 2, '2019-05-14 22:47:36', 'dddsdw', 'fgrf', 'waiting', null);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `problemtype_list`
+-- table structure for table `problemtype_list`
 --
 
-CREATE TABLE `problemtype_list` (
-  `ProblemTypeID` int(10) UNSIGNED NOT NULL,
-  `ProblemTypeName` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+create table `problemtype_list` (
+  `problemtypeid` int(10) unsigned not null,
+  `problemtypename` varchar(191) collate utf8mb4_unicode_ci not null
+) engine=innodb default charset=utf8mb4 collate=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `problemtype_list`
+-- dumping data for table `problemtype_list`
 --
 
-INSERT INTO `problemtype_list` (`ProblemTypeID`, `ProblemTypeName`) VALUES
-(1, 'Registration'),
-(2, 'Upload'),
-(3, 'Other');
+insert into `problemtype_list` (`problemtypeid`, `problemtypename`) values
+(1, 'registration'),
+(2, 'upload'),
+(3, 'other');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `registration_student`
+-- table structure for table `registration_student`
 --
 
-CREATE TABLE `registration_student` (
-  `SubjectSectionID` int(10) UNSIGNED NOT NULL,
-  `UserID` bigint(20) UNSIGNED NOT NULL,
-  `TransactionID` int(10) UNSIGNED DEFAULT NULL,
-  `DateRegis` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `Grade` decimal(8,2) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+create table `registration_student` (
+  `subjectsectionid` int(10) unsigned not null,
+  `userid` bigint(20) unsigned not null,
+  `transactionid` int(10) unsigned default null,
+  `dateregis` timestamp not null default current_timestamp on update current_timestamp,
+  `grade` decimal(8,2) default null
+) engine=innodb default charset=utf8mb4 collate=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `registration_student`
+-- dumping data for table `registration_student`
 --
 
-INSERT INTO `registration_student` (`SubjectSectionID`, `UserID`, `TransactionID`, `DateRegis`, `Grade`) VALUES
-(1, 1, NULL, '2019-05-13 05:22:23', NULL);
+insert into `registration_student` (`subjectsectionid`, `userid`, `transactionid`, `dateregis`, `grade`) values
+(1, 1, null, '2019-05-13 05:22:23', null);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `registration_teacher`
+-- table structure for table `registration_teacher`
 --
 
-CREATE TABLE `registration_teacher` (
-  `SubjectSectionID` int(10) UNSIGNED NOT NULL,
-  `UserID` bigint(20) UNSIGNED NOT NULL,
-  `DateRegis` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `Semester` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+create table `registration_teacher` (
+  `subjectsectionid` int(10) unsigned not null,
+  `userid` bigint(20) unsigned not null,
+  `dateregis` timestamp not null default current_timestamp on update current_timestamp,
+  `semester` varchar(191) collate utf8mb4_unicode_ci not null
+) engine=innodb default charset=utf8mb4 collate=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `room_list`
+-- table structure for table `room_list`
 --
 
-CREATE TABLE `room_list` (
-  `RoomCode` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `BuildingName` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `Floor` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `RoomSeatTotal` smallint(6) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+create table `room_list` (
+  `roomcode` varchar(191) collate utf8mb4_unicode_ci not null,
+  `buildingname` varchar(191) collate utf8mb4_unicode_ci not null,
+  `floor` varchar(191) collate utf8mb4_unicode_ci not null,
+  `roomseattotal` smallint(6) not null
+) engine=innodb default charset=utf8mb4 collate=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `room_list`
+-- dumping data for table `room_list`
 --
 
-INSERT INTO `room_list` (`RoomCode`, `BuildingName`, `Floor`, `RoomSeatTotal`) VALUES
-('R1', 'B1', 'F1', 100),
-('R2', 'B2', 'F2', 100);
+insert into `room_list` (`roomcode`, `buildingname`, `floor`, `roomseattotal`) values
+('r1', 'b1', 'f1', 100),
+('r2', 'b2', 'f2', 100);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `schedule`
+-- table structure for table `schedule`
 --
 
-CREATE TABLE `schedule` (
-  `SubjectSectionID` int(10) UNSIGNED NOT NULL,
-  `SecOrder` int(10) UNSIGNED NOT NULL,
-  `SecStart` datetime NOT NULL,
-  `SecEnd` datetime NOT NULL,
-  `RoomCode` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+create table `schedule` (
+  `subjectsectionid` int(10) unsigned not null,
+  `secorder` int(10) unsigned not null,
+  `secstart` datetime not null,
+  `secend` datetime not null,
+  `roomcode` varchar(191) collate utf8mb4_unicode_ci not null
+) engine=innodb default charset=utf8mb4 collate=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `schedule`
+-- dumping data for table `schedule`
 --
 
-INSERT INTO `schedule` (`SubjectSectionID`, `SecOrder`, `SecStart`, `SecEnd`, `RoomCode`) VALUES
-(1, 1, '2019-04-01 00:00:00', '2019-04-01 01:00:00', 'R1'),
-(1, 2, '2019-04-01 01:00:00', '2019-04-01 02:00:00', 'R1'),
-(3, 1, '2019-05-05 00:00:00', '2019-05-05 01:00:00', 'R2'),
-(4, 2, '2019-05-05 01:00:00', '2019-05-05 02:00:00', 'R2');
+insert into `schedule` (`subjectsectionid`, `secorder`, `secstart`, `secend`, `roomcode`) values
+(1, 1, '2019-04-01 00:00:00', '2019-04-01 01:00:00', 'r1'),
+(1, 2, '2019-04-01 01:00:00', '2019-04-01 02:00:00', 'r1'),
+(3, 1, '2019-05-05 00:00:00', '2019-05-05 01:00:00', 'r2'),
+(4, 2, '2019-05-05 01:00:00', '2019-05-05 02:00:00', 'r2');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `sectioneachsubject`
+-- table structure for table `sectioneachsubject`
 --
 
-CREATE TABLE `sectioneachsubject` (
-  `SubjectSectionID` int(10) UNSIGNED NOT NULL,
-  `SubjectCode` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `SectionNo` int(11) NOT NULL,
-  `Price` decimal(8,2) NOT NULL,
-  `SeatAvailable` smallint(6) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+create table `sectioneachsubject` (
+  `subjectsectionid` int(10) unsigned not null,
+  `subjectcode` varchar(191) collate utf8mb4_unicode_ci not null,
+  `sectionno` int(11) not null,
+  `price` decimal(8,2) not null,
+  `seatavailable` smallint(6) not null
+) engine=innodb default charset=utf8mb4 collate=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `sectioneachsubject`
+-- dumping data for table `sectioneachsubject`
 --
 
-INSERT INTO `sectioneachsubject` (`SubjectSectionID`, `SubjectCode`, `SectionNo`, `Price`, `SeatAvailable`) VALUES
-(1, 'S1', 1, '100.00', 10),
-(2, 'S1', 2, '100.00', 10),
-(3, 'S2', 1, '200.00', 20),
-(4, 'S2', 2, '200.00', 20);
+insert into `sectioneachsubject` (`subjectsectionid`, `subjectcode`, `sectionno`, `price`, `seatavailable`) values
+(1, 's1', 1, '100.00', 10),
+(2, 's1', 2, '100.00', 10),
+(3, 's2', 1, '200.00', 20),
+(4, 's2', 2, '200.00', 20);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `subject_list`
+-- table structure for table `subject_list`
 --
 
-CREATE TABLE `subject_list` (
-  `SubjectCode` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `SubjectName` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `SubjectCredit` int(11) NOT NULL,
-  `Subjectdetail` text COLLATE utf8mb4_unicode_ci
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+create table `subject_list` (
+  `subjectcode` varchar(191) collate utf8mb4_unicode_ci not null,
+  `subjectname` varchar(191) collate utf8mb4_unicode_ci not null,
+  `subjectcredit` int(11) not null,
+  `subjectdetail` text collate utf8mb4_unicode_ci
+) engine=innodb default charset=utf8mb4 collate=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `subject_list`
+-- dumping data for table `subject_list`
 --
 
-INSERT INTO `subject_list` (`SubjectCode`, `SubjectName`, `SubjectCredit`, `Subjectdetail`) VALUES
-('S1', 'SubFoo1', 1, 'SDFoo1'),
-('S2', 'SubFoo2', 2, 'SDFoo2');
+insert into `subject_list` (`subjectcode`, `subjectname`, `subjectcredit`, `subjectdetail`) values
+('s1', 'subfoo1', 1, 'sdfoo1'),
+('s2', 'subfoo2', 2, 'sdfoo2');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `transaction_list`
+-- table structure for table `transaction_list`
 --
 
-CREATE TABLE `transaction_list` (
-  `TransactionID` int(10) UNSIGNED NOT NULL,
-  `UserID` bigint(20) UNSIGNED NOT NULL,
-  `Amount` decimal(8,2) NOT NULL,
-  `Semester` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `PaymentTypeID` int(10) UNSIGNED NOT NULL,
-  `PaymentStatus` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `PaymentDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `PictureLink` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+create table `transaction_list` (
+  `transactionid` int(10) unsigned not null,
+  `userid` bigint(20) unsigned not null,
+  `amount` decimal(8,2) not null,
+  `semester` varchar(191) collate utf8mb4_unicode_ci not null,
+  `paymenttypeid` int(10) unsigned not null,
+  `paymentstatus` varchar(191) collate utf8mb4_unicode_ci not null,
+  `paymentdate` timestamp not null default current_timestamp on update current_timestamp,
+  `picturelink` varchar(191) collate utf8mb4_unicode_ci not null
+) engine=innodb default charset=utf8mb4 collate=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `transaction_list`
+-- dumping data for table `transaction_list`
 --
 
-INSERT INTO `transaction_list` (`TransactionID`, `UserID`, `Amount`, `Semester`, `PaymentTypeID`, `PaymentStatus`, `PaymentDate`, `PictureLink`) VALUES
+insert into `transaction_list` (`transactionid`, `userid`, `amount`, `semester`, `paymenttypeid`, `paymentstatus`, `paymentdate`, `picturelink`) values
 (1, 1, '10000.00', '2/2019', 1, 'waiting', '2019-05-05 05:25:32', '1_1557033931.png'),
 (2, 1, '10000.00', '2/2019', 1, 'waiting', '2019-05-05 05:30:22', '1_1557034222.png'),
 (3, 1, '10000.00', '2/2019', 2, 'waiting', '2019-05-05 05:37:35', '1_1557034655.png'),
@@ -382,19 +382,19 @@ INSERT INTO `transaction_list` (`TransactionID`, `UserID`, `Amount`, `Semester`,
 -- --------------------------------------------------------
 
 --
--- Table structure for table `userrole_list`
+-- table structure for table `userrole_list`
 --
 
-CREATE TABLE `userrole_list` (
-  `UserRoleID` tinyint(1) NOT NULL,
-  `UserRoleName` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+create table `userrole_list` (
+  `userroleid` tinyint(1) not null,
+  `userrolename` varchar(191) collate utf8mb4_unicode_ci not null
+) engine=innodb default charset=utf8mb4 collate=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `userrole_list`
+-- dumping data for table `userrole_list`
 --
 
-INSERT INTO `userrole_list` (`UserRoleID`, `UserRoleName`) VALUES
+insert into `userrole_list` (`userroleid`, `userrolename`) values
 (1, 'student'),
 (2, 'teacher'),
 (3, 'admin');
@@ -402,360 +402,360 @@ INSERT INTO `userrole_list` (`UserRoleID`, `UserRoleName`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- table structure for table `users`
 --
 
-CREATE TABLE `users` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email_verified_at` timestamp NULL DEFAULT NULL,
-  `password` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `userroleid` tinyint(1) NOT NULL DEFAULT '0',
-  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+create table `users` (
+  `id` bigint(20) unsigned not null,
+  `name` varchar(191) collate utf8mb4_unicode_ci not null,
+  `email` varchar(191) collate utf8mb4_unicode_ci not null,
+  `email_verified_at` timestamp null default null,
+  `password` varchar(191) collate utf8mb4_unicode_ci not null,
+  `userroleid` tinyint(1) not null default '0',
+  `remember_token` varchar(100) collate utf8mb4_unicode_ci default null,
+  `created_at` timestamp null default null,
+  `updated_at` timestamp null default null
+) engine=innodb default charset=utf8mb4 collate=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `users`
+-- dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `userroleid`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Foo1', 'Foo1@example.com', NULL, '$2y$10$QdU1P6Ue5o3ihgGPNdj2a.srNA8oKQtKWJ7DFtecVINytP5M2GWzm', 1, NULL, '2019-04-26 07:57:13', '2019-04-26 07:57:13'),
-(2, 'Foo2', 'Foo2@example.com', NULL, '$2y$10$64kF/HUKl2s1RY5wGqKoH.rQj1tI3Ee2uU8mfABny.jBUmXhJT4qq', 2, NULL, '2019-04-26 08:41:16', '2019-04-26 08:41:16'),
-(3, 'Foo3', 'Foo3@example.com', NULL, '$2y$10$9I5k8IvxkHUSdqPzw2LUauDPnV48EAG9Fqd0ZDK3hWjN8oKdNv36q', 3, NULL, '2019-04-26 08:41:36', '2019-04-26 08:41:36');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `user_list`
---
-
-CREATE TABLE `user_list` (
-  `IdentificationNo` bigint(20) NOT NULL,
-  `UserID` bigint(20) UNSIGNED NOT NULL,
-  `TitleName` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `FirstName` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `LastName` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `Gender` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `Bloodtype` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `Birthdate` date NOT NULL,
-  `Race` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `Religion` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `Nationnality` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `Address` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `Postcode` int(11) NOT NULL,
-  `Province` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `District` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `SubDistrict` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `DepartmentCode` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `UserContact` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `GPAX` decimal(8,2) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `user_list`
---
-
-INSERT INTO `user_list` (`IdentificationNo`, `UserID`, `TitleName`, `FirstName`, `LastName`, `Gender`, `Bloodtype`, `Birthdate`, `Race`, `Religion`, `Nationnality`, `Address`, `Postcode`, `Province`, `District`, `SubDistrict`, `DepartmentCode`, `UserContact`, `GPAX`) VALUES
-(10001, 1, 'Mr', 'FN1', 'LN1', 'Male', 'A', '2019-04-01', 'R1', 'R1', 'N1', 'A1', 1, 'P1', 'D1', 'S1', 'D1', '1', '1.00'),
-(10002, 2, 'Mrs', 'FN2', 'LN2', 'Female', 'B', '2019-04-10', 'R2', 'R2', 'N2', 'A2', 2, 'P2', 'D2', 'S2', 'D2', '2', '2.00');
+insert into `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `userroleid`, `remember_token`, `created_at`, `updated_at`) values
+(1, 'foo1', 'foo1@example.com', null, '$2y$10$qdu1p6ue5o3ihggpndj2a.srna8okqtkwj7dftecvinytp5m2gwzm', 1, null, '2019-04-26 07:57:13', '2019-04-26 07:57:13'),
+(2, 'foo2', 'foo2@example.com', null, '$2y$10$64kf/hukl2s1ry5wgqkoh.rqj1ti3ee2uu8mfabny.jbumxhjt4qq', 2, null, '2019-04-26 08:41:16', '2019-04-26 08:41:16'),
+(3, 'foo3', 'foo3@example.com', null, '$2y$10$9i5k8ivxkhusdqpzw2luaudpnv48eag9fqd0zdk3hwjn8okdnv36q', 3, null, '2019-04-26 08:41:36', '2019-04-26 08:41:36');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user_log`
+-- table structure for table `user_list`
 --
 
-CREATE TABLE `user_log` (
-  `LogNo` bigint(20) UNSIGNED NOT NULL,
-  `UserID` bigint(20) UNSIGNED NOT NULL,
-  `UserDateTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `UsedActivity` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `CrashCode` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+create table `user_list` (
+  `identificationno` bigint(20) not null,
+  `userid` bigint(20) unsigned not null,
+  `titlename` varchar(191) collate utf8mb4_unicode_ci not null,
+  `firstname` varchar(191) collate utf8mb4_unicode_ci not null,
+  `lastname` varchar(191) collate utf8mb4_unicode_ci not null,
+  `gender` varchar(191) collate utf8mb4_unicode_ci not null,
+  `bloodtype` varchar(191) collate utf8mb4_unicode_ci not null,
+  `birthdate` date not null,
+  `race` varchar(191) collate utf8mb4_unicode_ci not null,
+  `religion` varchar(191) collate utf8mb4_unicode_ci not null,
+  `nationnality` varchar(191) collate utf8mb4_unicode_ci not null,
+  `address` varchar(191) collate utf8mb4_unicode_ci not null,
+  `postcode` int(11) not null,
+  `province` varchar(191) collate utf8mb4_unicode_ci not null,
+  `district` varchar(191) collate utf8mb4_unicode_ci not null,
+  `subdistrict` varchar(191) collate utf8mb4_unicode_ci not null,
+  `departmentcode` varchar(191) collate utf8mb4_unicode_ci not null,
+  `usercontact` varchar(191) collate utf8mb4_unicode_ci not null,
+  `gpax` decimal(8,2) default null
+) engine=innodb default charset=utf8mb4 collate=utf8mb4_unicode_ci;
 
 --
--- Indexes for dumped tables
+-- dumping data for table `user_list`
 --
 
---
--- Indexes for table `crash_list`
---
-ALTER TABLE `crash_list`
-  ADD PRIMARY KEY (`CrashCode`);
+insert into `user_list` (`identificationno`, `userid`, `titlename`, `firstname`, `lastname`, `gender`, `bloodtype`, `birthdate`, `race`, `religion`, `nationnality`, `address`, `postcode`, `province`, `district`, `subdistrict`, `departmentcode`, `usercontact`, `gpax`) values
+(10001, 1, 'mr', 'fn1', 'ln1', 'male', 'a', '2019-04-01', 'r1', 'r1', 'n1', 'a1', 1, 'p1', 'd1', 's1', 'd1', '1', '1.00'),
+(10002, 2, 'mrs', 'fn2', 'ln2', 'female', 'b', '2019-04-10', 'r2', 'r2', 'n2', 'a2', 2, 'p2', 'd2', 's2', 'd2', '2', '2.00');
+
+-- --------------------------------------------------------
 
 --
--- Indexes for table `department_list`
+-- table structure for table `user_log`
 --
-ALTER TABLE `department_list`
-  ADD PRIMARY KEY (`DepartmentCode`),
-  ADD KEY `department_list_facultycode_foreign` (`FacultyCode`);
+
+create table `user_log` (
+  `logno` bigint(20) unsigned not null,
+  `userid` bigint(20) unsigned not null,
+  `userdatetime` timestamp not null default current_timestamp on update current_timestamp,
+  `usedactivity` varchar(191) collate utf8mb4_unicode_ci not null,
+  `crashcode` varchar(191) collate utf8mb4_unicode_ci not null
+) engine=innodb default charset=utf8mb4 collate=utf8mb4_unicode_ci;
 
 --
--- Indexes for table `faculty_list`
---
-ALTER TABLE `faculty_list`
-  ADD PRIMARY KEY (`FacultyCode`);
-
---
--- Indexes for table `migrations`
---
-ALTER TABLE `migrations`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `parent_list`
---
-ALTER TABLE `parent_list`
-  ADD PRIMARY KEY (`ParentID`);
-
---
--- Indexes for table `password_resets`
---
-ALTER TABLE `password_resets`
-  ADD PRIMARY KEY (`email`),
-  ADD KEY `password_resets_email_index` (`email`);
-
---
--- Indexes for table `paymenttype_list`
---
-ALTER TABLE `paymenttype_list`
-  ADD PRIMARY KEY (`PaymentTypeID`);
-
---
--- Indexes for table `person_link_parent`
---
-ALTER TABLE `person_link_parent`
-  ADD PRIMARY KEY (`IdentificationNo`,`ParentID`),
-  ADD KEY `person_link_parent_parentid_foreign` (`ParentID`);
-
---
--- Indexes for table `problemreport_list`
---
-ALTER TABLE `problemreport_list`
-  ADD PRIMARY KEY (`ProblemNo`),
-  ADD KEY `problemreport_list_problemtypeid_foreign` (`ProblemTypeID`),
-  ADD KEY `problemreport_list_UserID_foreign` (`UserID`);
-
---
--- Indexes for table `problemtype_list`
---
-ALTER TABLE `problemtype_list`
-  ADD PRIMARY KEY (`ProblemTypeID`);
-
---
--- Indexes for table `registration_student`
---
-ALTER TABLE `registration_student`
-  ADD PRIMARY KEY (`SubjectSectionID`,`UserID`) USING BTREE,
-  ADD KEY `registration_student_transactionid_foreign` (`TransactionID`),
-  ADD KEY `registration_student_userid_foreign` (`UserID`);
-
---
--- Indexes for table `registration_teacher`
---
-ALTER TABLE `registration_teacher`
-  ADD PRIMARY KEY (`SubjectSectionID`,`UserID`),
-  ADD KEY `registration_teacher_UserID_foreign` (`UserID`);
-
---
--- Indexes for table `room_list`
---
-ALTER TABLE `room_list`
-  ADD PRIMARY KEY (`RoomCode`);
-
---
--- Indexes for table `schedule`
---
-ALTER TABLE `schedule`
-  ADD PRIMARY KEY (`SubjectSectionID`,`SecOrder`),
-  ADD KEY `schedule_roomcode_foreign` (`RoomCode`);
-
---
--- Indexes for table `sectioneachsubject`
---
-ALTER TABLE `sectioneachsubject`
-  ADD PRIMARY KEY (`SubjectSectionID`),
-  ADD KEY `sectioneachsubject_subjectcode_foreign` (`SubjectCode`);
-
---
--- Indexes for table `subject_list`
---
-ALTER TABLE `subject_list`
-  ADD PRIMARY KEY (`SubjectCode`);
-
---
--- Indexes for table `transaction_list`
---
-ALTER TABLE `transaction_list`
-  ADD PRIMARY KEY (`TransactionID`),
-  ADD KEY `transaction_list_paymenttypeid_foreign` (`PaymentTypeID`),
-  ADD KEY `transaction_list_UserID_foreign` (`UserID`);
-
---
--- Indexes for table `userrole_list`
---
-ALTER TABLE `userrole_list`
-  ADD PRIMARY KEY (`UserRoleID`);
-
---
--- Indexes for table `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `users_email_unique` (`email`),
-  ADD KEY `UserRoleID` (`userroleid`);
-
---
--- Indexes for table `user_list`
---
-ALTER TABLE `user_list`
-  ADD PRIMARY KEY (`IdentificationNo`),
-  ADD KEY `user_list_departmentcode_foreign` (`DepartmentCode`),
-  ADD KEY `user_list_userid_foreign` (`UserID`);
-
---
--- Indexes for table `user_log`
---
-ALTER TABLE `user_log`
-  ADD PRIMARY KEY (`LogNo`),
-  ADD KEY `user_log_crashcode_foreign` (`CrashCode`),
-  ADD KEY `user_log_userid_foreign` (`UserID`);
-
---
--- AUTO_INCREMENT for dumped tables
+-- indexes for dumped tables
 --
 
 --
--- AUTO_INCREMENT for table `migrations`
+-- indexes for table `crash_list`
 --
-ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+alter table `crash_list`
+  add primary key (`crashcode`);
 
 --
--- AUTO_INCREMENT for table `paymenttype_list`
+-- indexes for table `department_list`
 --
-ALTER TABLE `paymenttype_list`
-  MODIFY `PaymentTypeID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+alter table `department_list`
+  add primary key (`departmentcode`),
+  add key `department_list_facultycode_foreign` (`facultycode`);
 
 --
--- AUTO_INCREMENT for table `problemreport_list`
+-- indexes for table `faculty_list`
 --
-ALTER TABLE `problemreport_list`
-  MODIFY `ProblemNo` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+alter table `faculty_list`
+  add primary key (`facultycode`);
 
 --
--- AUTO_INCREMENT for table `problemtype_list`
+-- indexes for table `migrations`
 --
-ALTER TABLE `problemtype_list`
-  MODIFY `ProblemTypeID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+alter table `migrations`
+  add primary key (`id`);
 
 --
--- AUTO_INCREMENT for table `sectioneachsubject`
+-- indexes for table `parent_list`
 --
-ALTER TABLE `sectioneachsubject`
-  MODIFY `SubjectSectionID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+alter table `parent_list`
+  add primary key (`parentid`);
 
 --
--- AUTO_INCREMENT for table `transaction_list`
+-- indexes for table `password_resets`
 --
-ALTER TABLE `transaction_list`
-  MODIFY `TransactionID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+alter table `password_resets`
+  add primary key (`email`),
+  add key `password_resets_email_index` (`email`);
 
 --
--- AUTO_INCREMENT for table `users`
+-- indexes for table `paymenttype_list`
 --
-ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+alter table `paymenttype_list`
+  add primary key (`paymenttypeid`);
 
 --
--- AUTO_INCREMENT for table `user_log`
+-- indexes for table `person_link_parent`
 --
-ALTER TABLE `user_log`
-  MODIFY `LogNo` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+alter table `person_link_parent`
+  add primary key (`identificationno`,`parentid`),
+  add key `person_link_parent_parentid_foreign` (`parentid`);
 
 --
--- Constraints for dumped tables
+-- indexes for table `problemreport_list`
+--
+alter table `problemreport_list`
+  add primary key (`problemno`),
+  add key `problemreport_list_problemtypeid_foreign` (`problemtypeid`),
+  add key `problemreport_list_userid_foreign` (`userid`);
+
+--
+-- indexes for table `problemtype_list`
+--
+alter table `problemtype_list`
+  add primary key (`problemtypeid`);
+
+--
+-- indexes for table `registration_student`
+--
+alter table `registration_student`
+  add primary key (`subjectsectionid`,`userid`) using btree,
+  add key `registration_student_transactionid_foreign` (`transactionid`),
+  add key `registration_student_userid_foreign` (`userid`);
+
+--
+-- indexes for table `registration_teacher`
+--
+alter table `registration_teacher`
+  add primary key (`subjectsectionid`,`userid`),
+  add key `registration_teacher_userid_foreign` (`userid`);
+
+--
+-- indexes for table `room_list`
+--
+alter table `room_list`
+  add primary key (`roomcode`);
+
+--
+-- indexes for table `schedule`
+--
+alter table `schedule`
+  add primary key (`subjectsectionid`,`secorder`),
+  add key `schedule_roomcode_foreign` (`roomcode`);
+
+--
+-- indexes for table `sectioneachsubject`
+--
+alter table `sectioneachsubject`
+  add primary key (`subjectsectionid`),
+  add key `sectioneachsubject_subjectcode_foreign` (`subjectcode`);
+
+--
+-- indexes for table `subject_list`
+--
+alter table `subject_list`
+  add primary key (`subjectcode`);
+
+--
+-- indexes for table `transaction_list`
+--
+alter table `transaction_list`
+  add primary key (`transactionid`),
+  add key `transaction_list_paymenttypeid_foreign` (`paymenttypeid`),
+  add key `transaction_list_userid_foreign` (`userid`);
+
+--
+-- indexes for table `userrole_list`
+--
+alter table `userrole_list`
+  add primary key (`userroleid`);
+
+--
+-- indexes for table `users`
+--
+alter table `users`
+  add primary key (`id`),
+  add unique key `users_email_unique` (`email`),
+  add key `userroleid` (`userroleid`);
+
+--
+-- indexes for table `user_list`
+--
+alter table `user_list`
+  add primary key (`identificationno`),
+  add key `user_list_departmentcode_foreign` (`departmentcode`),
+  add key `user_list_userid_foreign` (`userid`);
+
+--
+-- indexes for table `user_log`
+--
+alter table `user_log`
+  add primary key (`logno`),
+  add key `user_log_crashcode_foreign` (`crashcode`),
+  add key `user_log_userid_foreign` (`userid`);
+
+--
+-- auto_increment for dumped tables
 --
 
 --
--- Constraints for table `department_list`
+-- auto_increment for table `migrations`
 --
-ALTER TABLE `department_list`
-  ADD CONSTRAINT `department_list_facultycode_foreign` FOREIGN KEY (`FacultyCode`) REFERENCES `faculty_list` (`FacultyCode`) ON DELETE CASCADE ON UPDATE CASCADE;
+alter table `migrations`
+  modify `id` int(10) unsigned not null auto_increment, auto_increment=21;
 
 --
--- Constraints for table `person_link_parent`
+-- auto_increment for table `paymenttype_list`
 --
-ALTER TABLE `person_link_parent`
-  ADD CONSTRAINT `person_link_parent_identificationno_foreign` FOREIGN KEY (`IdentificationNo`) REFERENCES `user_list` (`IdentificationNo`),
-  ADD CONSTRAINT `person_link_parent_parentid_foreign` FOREIGN KEY (`ParentID`) REFERENCES `parent_list` (`ParentID`);
+alter table `paymenttype_list`
+  modify `paymenttypeid` int(10) unsigned not null auto_increment, auto_increment=5;
 
 --
--- Constraints for table `problemreport_list`
+-- auto_increment for table `problemreport_list`
 --
-ALTER TABLE `problemreport_list`
-  ADD CONSTRAINT `problemreport_list_UserID_foreign` FOREIGN KEY (`UserID`) REFERENCES `users` (`UserID`),
-  ADD CONSTRAINT `problemreport_list_problemtypeid_foreign` FOREIGN KEY (`ProblemTypeID`) REFERENCES `problemtype_list` (`ProblemTypeID`);
+alter table `problemreport_list`
+  modify `problemno` bigint(20) unsigned not null auto_increment, auto_increment=6;
 
 --
--- Constraints for table `registration_student`
+-- auto_increment for table `problemtype_list`
 --
-ALTER TABLE `registration_student`
-  ADD CONSTRAINT `registration_student_subjectsectionid_foreign` FOREIGN KEY (`SubjectSectionID`) REFERENCES `sectioneachsubject` (`SubjectSectionID`),
-  ADD CONSTRAINT `registration_student_transactionid_foreign` FOREIGN KEY (`TransactionID`) REFERENCES `transaction_list` (`TransactionID`),
-  ADD CONSTRAINT `registration_student_userid_foreign` FOREIGN KEY (`UserID`) REFERENCES `users` (`UserID`);
+alter table `problemtype_list`
+  modify `problemtypeid` int(10) unsigned not null auto_increment, auto_increment=4;
 
 --
--- Constraints for table `registration_teacher`
+-- auto_increment for table `sectioneachsubject`
 --
-ALTER TABLE `registration_teacher`
-  ADD CONSTRAINT `registration_teacher_UserID_foreign` FOREIGN KEY (`UserID`) REFERENCES `users` (`UserID`),
-  ADD CONSTRAINT `registration_teacher_subjectsectionid_foreign` FOREIGN KEY (`SubjectSectionID`) REFERENCES `sectioneachsubject` (`SubjectSectionID`);
+alter table `sectioneachsubject`
+  modify `subjectsectionid` int(10) unsigned not null auto_increment, auto_increment=5;
 
 --
--- Constraints for table `schedule`
+-- auto_increment for table `transaction_list`
 --
-ALTER TABLE `schedule`
-  ADD CONSTRAINT `schedule_roomcode_foreign` FOREIGN KEY (`RoomCode`) REFERENCES `room_list` (`RoomCode`),
-  ADD CONSTRAINT `schedule_subjectsectionid_foreign` FOREIGN KEY (`SubjectSectionID`) REFERENCES `sectioneachsubject` (`SubjectSectionID`);
+alter table `transaction_list`
+  modify `transactionid` int(10) unsigned not null auto_increment, auto_increment=8;
 
 --
--- Constraints for table `sectioneachsubject`
+-- auto_increment for table `users`
 --
-ALTER TABLE `sectioneachsubject`
-  ADD CONSTRAINT `sectioneachsubject_subjectcode_foreign` FOREIGN KEY (`SubjectCode`) REFERENCES `subject_list` (`SubjectCode`) ON DELETE CASCADE ON UPDATE CASCADE;
+alter table `users`
+  modify `id` bigint(20) unsigned not null auto_increment;
 
 --
--- Constraints for table `transaction_list`
+-- auto_increment for table `user_log`
 --
-ALTER TABLE `transaction_list`
-  ADD CONSTRAINT `transaction_list_UserID_foreign` FOREIGN KEY (`UserID`) REFERENCES `users` (`UserID`),
-  ADD CONSTRAINT `transaction_list_paymenttypeid_foreign` FOREIGN KEY (`PaymentTypeID`) REFERENCES `paymenttype_list` (`PaymentTypeID`);
+alter table `user_log`
+  modify `logno` bigint(20) unsigned not null auto_increment;
 
 --
--- Constraints for table `users`
+-- constraints for dumped tables
 --
-ALTER TABLE `users`
-  ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`UserRoleID`) REFERENCES `userrole_list` (`UserRoleID`);
 
 --
--- Constraints for table `user_list`
+-- constraints for table `department_list`
 --
-ALTER TABLE `user_list`
-  ADD CONSTRAINT `user_list_departmentcode_foreign` FOREIGN KEY (`DepartmentCode`) REFERENCES `department_list` (`DepartmentCode`),
-  ADD CONSTRAINT `user_list_userid_foreign` FOREIGN KEY (`UserID`) REFERENCES `users` (`UserID`);
+alter table `department_list`
+  add constraint `department_list_facultycode_foreign` foreign key (`facultycode`) references `faculty_list` (`facultycode`) on delete cascade on update cascade;
 
 --
--- Constraints for table `user_log`
+-- constraints for table `person_link_parent`
 --
-ALTER TABLE `user_log`
-  ADD CONSTRAINT `user_log_crashcode_foreign` FOREIGN KEY (`CrashCode`) REFERENCES `crash_list` (`CrashCode`),
-  ADD CONSTRAINT `user_log_userid_foreign` FOREIGN KEY (`UserID`) REFERENCES `users` (`UserID`);
-COMMIT;
+alter table `person_link_parent`
+  add constraint `person_link_parent_identificationno_foreign` foreign key (`identificationno`) references `user_list` (`identificationno`),
+  add constraint `person_link_parent_parentid_foreign` foreign key (`parentid`) references `parent_list` (`parentid`);
 
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+--
+-- constraints for table `problemreport_list`
+--
+alter table `problemreport_list`
+  add constraint `problemreport_list_userid_foreign` foreign key (`userid`) references `users` (`userid`),
+  add constraint `problemreport_list_problemtypeid_foreign` foreign key (`problemtypeid`) references `problemtype_list` (`problemtypeid`);
+
+--
+-- constraints for table `registration_student`
+--
+alter table `registration_student`
+  add constraint `registration_student_subjectsectionid_foreign` foreign key (`subjectsectionid`) references `sectioneachsubject` (`subjectsectionid`),
+  add constraint `registration_student_transactionid_foreign` foreign key (`transactionid`) references `transaction_list` (`transactionid`),
+  add constraint `registration_student_userid_foreign` foreign key (`userid`) references `users` (`userid`);
+
+--
+-- constraints for table `registration_teacher`
+--
+alter table `registration_teacher`
+  add constraint `registration_teacher_userid_foreign` foreign key (`userid`) references `users` (`userid`),
+  add constraint `registration_teacher_subjectsectionid_foreign` foreign key (`subjectsectionid`) references `sectioneachsubject` (`subjectsectionid`);
+
+--
+-- constraints for table `schedule`
+--
+alter table `schedule`
+  add constraint `schedule_roomcode_foreign` foreign key (`roomcode`) references `room_list` (`roomcode`),
+  add constraint `schedule_subjectsectionid_foreign` foreign key (`subjectsectionid`) references `sectioneachsubject` (`subjectsectionid`);
+
+--
+-- constraints for table `sectioneachsubject`
+--
+alter table `sectioneachsubject`
+  add constraint `sectioneachsubject_subjectcode_foreign` foreign key (`subjectcode`) references `subject_list` (`subjectcode`) on delete cascade on update cascade;
+
+--
+-- constraints for table `transaction_list`
+--
+alter table `transaction_list`
+  add constraint `transaction_list_userid_foreign` foreign key (`userid`) references `users` (`userid`),
+  add constraint `transaction_list_paymenttypeid_foreign` foreign key (`paymenttypeid`) references `paymenttype_list` (`paymenttypeid`);
+
+--
+-- constraints for table `users`
+--
+alter table `users`
+  add constraint `users_ibfk_1` foreign key (`userroleid`) references `userrole_list` (`userroleid`);
+
+--
+-- constraints for table `user_list`
+--
+alter table `user_list`
+  add constraint `user_list_departmentcode_foreign` foreign key (`departmentcode`) references `department_list` (`departmentcode`),
+  add constraint `user_list_userid_foreign` foreign key (`userid`) references `users` (`userid`);
+
+--
+-- constraints for table `user_log`
+--
+alter table `user_log`
+  add constraint `user_log_crashcode_foreign` foreign key (`crashcode`) references `crash_list` (`crashcode`),
+  add constraint `user_log_userid_foreign` foreign key (`userid`) references `users` (`userid`);
+commit;
+
+/*!40101 set character_set_client=@old_character_set_client */;
+/*!40101 set character_set_results=@old_character_set_results */;
+/*!40101 set collation_connection=@old_collation_connection */;
