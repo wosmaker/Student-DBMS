@@ -23,7 +23,7 @@ Route::resource('updatereceipt', 'UpdateReceiptController');
 Route::resource('editsubject', 'EditSubjectController');
 Route::resource('problemreport', 'ProblemReportController');
 Route::resource('confirmreceipt', 'ConfirmReceiptController');
-Route::resource('personal', 'Cpersonal');
+//Route::resource('personal', 'Cpersonal');
 
 
 //test
