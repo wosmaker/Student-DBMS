@@ -85,14 +85,11 @@
                             {{ __('Remember Me') }}
                         </label>
                     </div>
-                    <div class="text-right">
-                        <button class="btn button-blue" data-toggle="modal" data-target="#register">{{ __('Register') }}</button>
-                    </div>
             </div>
 
             <div class="form-group mb-0">
-                    <button type="submit" class="btn btn-primary btn-lg btn-block mb-2">{{ __('Login') }}</button>
-
+							<button type="submit" class="btn btn-primary btn-lg btn-block mb-2">{{ __('Login') }}</button>
+							<button class="btn btn-warning btn-lg btn-block mb-2" data-toggle="modal" data-target="#register">{{ __('Register') }}</button>
             </div>
         </form>
         </div>
