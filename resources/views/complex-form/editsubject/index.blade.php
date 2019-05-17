@@ -48,18 +48,18 @@
 					</div>
 
 					<div class="form-group col-md-2">
-							<label for="SectionNo">sec</label>
-							<input type="number" min="0" class="form-control" id="SectionNo" name="SectionNo" placeholder="" >
+							<label for="sectionno">Section No</label>
+							<input type="number" min="0" class="form-control" id="sectionno" name="sectionno" placeholder="" >
 					</div>
 
 					<div class="form-group col-md-3">
-							<label for="Price">ราคา</label>
-							<input type="number" min="0" class="form-control" id="Price" name="Price" placeholder="" >
+							<label for="price">Price</label>
+							<input type="number" min="0" class="form-control" id="price" name="price" placeholder="" >
 					</div>
 
 					<div class="form-group col-md-3">
-							<label for="SeatAvaiable">จำนวนที่นั้ง</label>
-							<input type="number" min="0" class="form-control" id="SeatAvaiable" name="SeatAvaiable" placeholder="">
+							<label for="seatavaiable">Seat</label>
+							<input type="number" min="0" class="form-control" id="seatavaiable" name="seatavaiable" placeholder="">
 					</div>
 			</div>
 	</form>
