@@ -266,7 +266,6 @@ $(document).ready(function() {
 		var problemtype = row.children(".ProblemTypeName").text();
 		var problemdetail = row.children(".ProblemDetail").text();
 		var answerdetail = row.children(".AnswerDetail").text();
-
     // fill the data in the input fields
     $("#problemtitle").val(problemtitle);
 		$("#problemtype").val(problemtype);
@@ -306,6 +305,7 @@ $(document).ready(function() {
 		$("#problemtype1").val(problemtype);
 		$("#problemdetail1").val(problemdetail);
 		$("#answerdetail1").val(answerdetail);
+
   })
 
 
