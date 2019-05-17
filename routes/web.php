@@ -26,6 +26,9 @@ Route::resource('confirmreceipt', 'ConfirmReceiptController');
 //Route::resource('personal', 'Cpersonal');
 
 
+Route::resource('faculty', 'Csimple\Cfaculty');
+
+
 //test
 for($i=1;$i<=16;$i++)
 {
