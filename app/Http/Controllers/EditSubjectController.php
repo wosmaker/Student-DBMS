@@ -25,23 +25,51 @@ class EditSubjectController extends Controller
     {
         $userid = auth()->user()->id;   //ดึงค่า id ของผู้ใช้
         $userdetail = UserList::where('userid', $userid)->first();  //ดึงชื่อผู้ใช้งาน
-
+        
+        //ดึงรายชื่อจารย์ที่ต้องการหา
         $teacher_name = request('teacher_name');
-        $teacher_name = '%n%';
         $teacher_list = DB::table('user_list as ul')
-                        ->join('users as u', 'ul.userid', '=', 'u.id')
-                        ->select('ul.userid', 'ul.firstname', 'ul.lastname')
-                        ->where([
-                            ['u.userroleid', '=', 2],
-                            ['firstname' , 'like' , $teacher_name]
-                        ])
-                        ->orWhere([
-                            ['u.userroleid', '=', 2],
-                            ['lastname' , 'like' , $teacher_name]
-                        ])
-                        ->get()->all();
+            ->join('users as u', 'ul.userid', '=', 'u.id')
+            ->select('ul.userid', 'ul.firstname', 'ul.lastname')
+            ->where([
+                ['u.userroleid', '=', 2],
+                ['firstname' , 'like' , $teacher_name]
+            ])
+            ->orWhere([
+                ['u.userroleid', '=', 2],
+                ['lastname' , 'like' , $teacher_name]
+            ])
+            ->get()->all();
+        
+        //ดึงห้องที่ว่างในวันที่กำหนด
+        $day = request('day');
+        $start = request('start'); //คาบเริ่มต้น
+        $end = request('end');     //คาบจบ
 
-        dd($teacher_list);
+        $day = 'monday';
+
+        $roomlist = DB::table('room_list')
+            ->select('roomcode', 'buildingname', 'floor', 'roomseattotal', $day)
+            ->where('roomseattotal', '>', 0)
+            ->get()->all();
+            
+        dd('HELLO');
+
+        $room = "1110111";
+        $start = 2;
+            $end = 5;
+            $length = $end - $start + 1;
+            $replace = str_repeat("0", $length);;
+        $available = substr($room , $start-1, $end-$start+1);
+
+            if(strpos($available, '0') !== false) $check = 'found zero';
+            else $check = 'not found zero';
+
+            $ans = array();
+        array_push($ans, $teacher_list[0]);
+
+				$newroom = substr_replace($room , "222", 4, 3);
+
 
         return view('complex-form.editsubject.index', compact('userdetail'));
     }
