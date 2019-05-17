@@ -223,7 +223,11 @@
 
 @section('script')
 <script>
-(function() {
+
+
+$(document).ready(function() {
+
+	(function() {
 	'use strict';
 	window.addEventListener('load', function() {
 		// Fetch all the forms we want to apply custom Bootstrap validation styles to
@@ -239,9 +243,7 @@
 			}, false);
 		});
 	}, false);
-})();
-
-$(document).ready(function() {
+	})();
   /**
    * for showing edit item popup
    */
