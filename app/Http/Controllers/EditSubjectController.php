@@ -41,7 +41,7 @@ class EditSubjectController extends Controller
                         ])
                         ->get()->all();
 
-        dd($teacher_list);
+        //dd($teacher_list);
 
         return view('complex-form.editsubject.index', compact('userdetail'));
     }
