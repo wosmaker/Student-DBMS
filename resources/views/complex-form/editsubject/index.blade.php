@@ -7,8 +7,8 @@
 @section('page-main')
 <div class="shadow-sm px-4 py-2 mb-2  bg-white rounded">
 	<div class="row justify-content-between mb-3 mx-0">
-			<form class="form-inline">
-				<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+			<form class="form-inline" method="GET" action="editsubject">
+				<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="subject_CodeOrName">
 				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 			</form>
 			<button class="btn btn-info" data-toggle="modal" data-target="#add_subject">ADD subject</button>
@@ -22,24 +22,32 @@
 						<th scope="col">Subject Name</th>
 						<th scope="col">Credit</th>
 						<th scope="col">Detail</th>
+						<th scope="col">Manage</th>
 					</tr>
 				</thead>
 				<tbody>
-
-					<tr>
-						<th scope="row">1</th>
-						<td>Mark</td>
-						<td>Otto</td>
-						<td>@mdo</td>
-					</tr>
-
+					@if($subject_lists != null)
+					@foreach($subject_lists as $subject_list)
+						<tr  class="clickable-row">
+							{{-- คำสั่ง $loop->iteration เป็นตัวที่ไล่เลขลำดับให้ --}}
+							<th scope="row">{{ $loop->iteration }}</th>
+							<td>{{ $subject_list->subjectcode }}</td>
+							<td>{{ $subject_list->subjectname}}</td>
+							<td>{{ $subject_list->subjectcredit}}</td>
+							<td>{{ $subject_list->subjectdetail}}</td>
+							<td>
+								<button class="btn btn-danger" type="submit" name="roomcode" value="{{ $subject_list->subjectcode }}">DELETE</button>
+							</td>
+						</tr>
+						@endforeach
+					@endif 
 				</tbody>
 			</table>
 </div>
 
 <div class="shadow-sm px-4 py-2 mb-2 bg-white rounded">
 	<h5>Select subject</h5>
-	<form id="subject_form" method="post" action= "">
+	<form id="subject_form" method="GET" action= "editsubject">
 			@csrf
 			<div class="form-row">
 					<div class="form-group col-md-4">
@@ -68,7 +76,7 @@
 <div class="shadow-sm p-3 mb-2 bg-white rounded">
 	<div class="row">
 		<div class="col-md-6">
-			<form method="post" action= "">
+			<form method="GET" action= "editsubject">
 					@csrf
 					<div class="form-row">
 						<div class="form-group col-md-3">
@@ -116,42 +124,64 @@
 			<table class="table table-hover">
 				<thead>
 					<tr>
-						<th scope="col">#</th>
-						<th scope="col">Teacher </th>
+						<th scope="col">No</th>
+						<th scope="col">RoomCode</th>
+						<th scope="col">BuildingName</th>
+						<th scope="col">Floor</th>
+						<th scope="col">SeatTotal</th>
 					</tr>
 				</thead>
 				<tbody>
-
-					<tr>
-						<th scope="row">1</th>
-						<td>Mark</td>
-					</tr>
-
+					@if($roomfrees != null)
+					@foreach($roomfrees as $roomfree)
+						<tr  class="clickable-row">
+							{{-- คำสั่ง $loop->iteration เป็นตัวที่ไล่เลขลำดับให้ --}}
+							<th scope="row">{{ $loop->iteration }}</th>
+							<td>{{ $roomfree->roomcode }}</td>
+							<td>{{ $roomfree->buildingname}}</td>
+							<td>{{ $roomfree->floor}}</td>
+							<td>{{ $roomfree->roomseattotal}}</td>
+							<td>
+								<input  type="submit" id="{{"checkbox$loop->iteration"}}" name="roomcode" value="{{ $roomfree->roomcode }}">
+							</td>
+						</tr>
+               		@endforeach
+					@endif 
 				</tbody>
 			</table>
 		</div>
 
 		<div class="col-md-6">
-				<form class="form-inline ">
-					<input class="form-control mr-sm-2" type="search" placeholder="Search teacher" aria-label="Search">
-					<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+				<form class="form-inline " method="GET" action="editsubject">
+					@csrf
+					<input class="form-control mr-sm-2" type="text" placeholder="Search teacher" aria-label="Search" name="teacher_name">
+					<button class="btn btn-outline-success my-2 my-sm-0" type="submit" name="submit_teacher" value="1">Search</button>
 				</form><br>
 				<table class="table table-hover">
-					<thead>
-						<tr>
-							<th scope="col">#</th>
-							<th scope="col">Teacher </th>
-						</tr>
-					</thead>
-					<tbody>
-
-						<tr>
-							<th scope="row">1</th>
-							<td>Mark</td>
-						</tr>
-
-					</tbody>
-				</table>
+						<thead>
+							<tr>
+								<th scope="col">No</th>
+								<th scope="col">FirstName</th>
+								<th scope="col">LastName</th>
+								<th scope="col">choose</th>
+							</tr>
+						</thead>
+						<tbody>
+							@if($teacher_lists != null)
+							@foreach($teacher_lists as $teacher_list)
+								<tr  class="clickable-row">
+									{{-- คำสั่ง $loop->iteration เป็นตัวที่ไล่เลขลำดับให้ --}}
+									<th scope="row">{{ $loop->iteration }}</th>
+									<td>{{ $teacher_list->firstname }}</td>
+									<td>{{ $teacher_list->lastname}}</td>
+									<td>
+										<input  type="radio" id="{{"checkbox$loop->iteration"}}" name="subjectsectionid" value="{{ $teacher_list->userid }}">
+									</td>
+								</tr>
+							   @endforeach
+							@endif
+						</tbody>
+					</table>
 		</div>
 	</div>
 </div>
@@ -168,7 +198,7 @@
 				</button>
 			</div>
 			<div class="modal-body">
-					<form id="add_subject_form" method="post" class="col" action= "">
+					<form id="add_subject_form" method="POST" class="col" action= "editsubject">
 						@csrf
 						<div class="form-row">
 								<div class="form-group col-md-3">
@@ -196,7 +226,7 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-				<button form="add_subject_form" type="button" class="btn btn-primary">Save changes</button>
+				<button form="add_subject_form" type="submit" class="btn btn-primary">Save changes</button>
 			</div>
 		</div>
 	</div>

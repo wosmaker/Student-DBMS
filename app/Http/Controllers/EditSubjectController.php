@@ -26,52 +26,81 @@ class EditSubjectController extends Controller
         $userid = auth()->user()->id;   //ดึงค่า id ของผู้ใช้
         $userdetail = UserList::where('userid', $userid)->first();  //ดึงชื่อผู้ใช้งาน
         
+        //ดึงรายวิชาที่ต้องการ
+        $subject_CodeOrName = request('subject_CodeOrName');
+        $subject_lists = null;
+        if($subject_CodeOrName != null) {
+        $subject_lists = DB::table('subject_list')
+            ->select('*')
+            ->where('subjectcode' , 'like', '%' . $subject_CodeOrName . '%')
+            ->orWhere('subjectname', 'like', '%' . $subject_CodeOrName . '%')
+            ->get()->all();
+        }
+
         //ดึงรายชื่อจารย์ที่ต้องการหา
         $teacher_name = request('teacher_name');
-        $teacher_list = DB::table('user_list as ul')
+        $submit_teacher = request('submit_teacher');
+        $teacher_lists = null;
+        if($teacher_name != null) {
+        $teacher_lists = DB::table('user_list as ul')
             ->join('users as u', 'ul.userid', '=', 'u.id')
             ->select('ul.userid', 'ul.firstname', 'ul.lastname')
             ->where([
                 ['u.userroleid', '=', 2],
-                ['firstname' , 'like' , $teacher_name]
+                ['firstname' , 'like' , '%' . $teacher_name . '%']
             ])
             ->orWhere([
                 ['u.userroleid', '=', 2],
-                ['lastname' , 'like' , $teacher_name]
+                ['lastname' , 'like' , '%' . $teacher_name . '%']
             ])
             ->get()->all();
-        
+        } else if($submit_teacher == 1) {
+            $teacher_lists = DB::table('user_list as ul')
+            ->join('users as u', 'ul.userid', '=', 'u.id')
+            ->select('ul.userid', 'ul.firstname', 'ul.lastname')
+            ->where('userroleid', '=', 2)
+            ->get()->all();
+        }
+
         //ดึงห้องที่ว่างในวันที่กำหนด
         $day = request('day');
-        $start = request('start'); //คาบเริ่มต้น
-        $end = request('end');     //คาบจบ
+        $room_lists = null;
+        $roomfrees = array();
 
-        $day = 'monday';
-
-        $roomlist = DB::table('room_list')
-            ->select('roomcode', 'buildingname', 'floor', 'roomseattotal', $day)
-            ->where('roomseattotal', '>', 0)
-            ->get()->all();
-            
-        dd('HELLO');
-
-        $room = "1110111";
-        $start = 2;
-            $end = 5;
+        if($day != null) {
+            $start = request('start'); //คาบเริ่มต้น
+            $end = request('end');     //คาบจบ
+            //ดึงห้องทั้งหมดออกมา
+            $room_lists = DB::table('room_list')
+                ->select('roomcode', 'buildingname', 'floor', 'roomseattotal', $day)
+                ->where('roomseattotal', '>', 0)
+                ->get()->all();
+            //ระยะเวลา (คาบ)
             $length = $end - $start + 1;
-            $replace = str_repeat("0", $length);;
-        $available = substr($room , $start-1, $end-$start+1);
+            //ไล่หาว่ามีห้องไหนว่างบ้าง 
+            foreach($room_lists as $room) {
+                $period = substr($room->$day , $start-1, $length);
+                if(strpos($period, '0') === false) array_push($roomfrees, $room);
+            }
+        }
 
-            if(strpos($available, '0') !== false) $check = 'found zero';
-            else $check = 'not found zero';
+        // $room = "1110111";
+        // $start = 2;
+        //     $end = 5;
+        //     $length = $end - $start + 1;
+        //     $replace = str_repeat("0", $length);;
+        // $available = substr($room , $start-1, $end-$start+1);
 
-            $ans = array();
-        array_push($ans, $teacher_list[0]);
+        //     if(strpos($available, '0') !== false) $check = 'found zero';
+        //     else $check = 'not found zero';
 
-				$newroom = substr_replace($room , "222", 4, 3);
+        //     $ans = array();
+        // array_push($ans, $teacher_list[0]);
+
+		// 		$newroom = substr_replace($room , "222", 4, 3);
 
 
-        return view('complex-form.editsubject.index', compact('userdetail'));
+        return view('complex-form.editsubject.index', compact('subject_lists','userdetail', 'roomfrees', 'teacher_lists'));
     }
 
     /**
@@ -93,17 +122,17 @@ class EditSubjectController extends Controller
     public function store(Request $request)
     {
         $userid = auth()->user()->id;
-        $subject_code = request('subject_code');
-        $subject_name = request('subject_name');
-        $subject_credit = request('subject_credit');
-        $subject_detail = request('subject_detail');
+        $subjectcode = request('subjectcode');
+        $subjectname = request('subjectname');
+        $subjectcredit = request('subjectcredit');
+        $subjectdetail = request('subjectdetail');
 
         DB::table('subject_list')->insert(
             [
-                'subjectcode' => $subject_code,
-                'subjectname' => $subject_name,
-                'subjectcredit' => $subject_credit,
-                'subjectdetail' => $subject_detail
+                'subjectcode' => $subjectcode,
+                'subjectname' => $subjectname,
+                'subjectcredit' => $subjectcredit,
+                'subjectdetail' => $subjectdetail
             ]
         );
 
