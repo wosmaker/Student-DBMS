@@ -93,7 +93,7 @@ class UpdateReceiptController extends Controller
         else $semester = '2' . date('/Y');
 
         //insert in DB
-        $transactionid = DB::table('transaction_list')->insertGetId(    //insertGetId จะค่าในคอลัมน์ auto inc กลับมาด้วย
+        DB::table('transaction_list')->insert(    //insertGetId จะค่าในคอลัมน์ auto inc กลับมาด้วย
             [
 				'userid'        => $userid ,
                 'amount'        => $amount ,
@@ -103,6 +103,8 @@ class UpdateReceiptController extends Controller
                 'picturelink'   => $filename ,
             ]
         );
+
+        $transactionid = DB::select('SELECT transactionid FROM transaction_list ORDER BY transactionid DESC LIMIT 1').first();
 
         DB::table('registration_student')
             ->where('userid', '=', $userid)
