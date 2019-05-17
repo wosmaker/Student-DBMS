@@ -29,6 +29,11 @@ Route::resource('confirmreceipt', 'ConfirmReceiptController');
 Route::resource('faculty', 'Csimple\Cfaculty');
 
 
+Route::get('/test1', function () {
+	return view('complex-form.editsubject.index');
+});
+
+
 //test
 for($i=1;$i<=16;$i++)
 {

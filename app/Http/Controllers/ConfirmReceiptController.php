@@ -18,7 +18,7 @@ class ConfirmReceiptController extends Controller
     public function index()
     {
         $userid = auth()->user()->id;   //ดึงค่า id ของผู้ใช้
-        $userdetail = userlist::where('userid', $userid)->first();  //ดึงชื่อผู้ใช้งาน
+        $userdetail = UserList::where('userid', $userid)->first();  //ดึงชื่อผู้ใช้งาน
 
 		$transactionlists = db::table('transaction_list as tl')
         ->join('user_list as ul' , 'ul.userid', '=', 'tl.userid')
@@ -27,7 +27,7 @@ class ConfirmReceiptController extends Controller
 		->get()->all();
 
 		//dd($transactionlists,$userdetail);
-        return view('complex-form.confirm-receipt.index', compact('userdetail', 'transactionlists'));
+      return view('complex-form.confirm-receipt.index', compact('userdetail', 'transactionlists'));
     }
 
     /**

@@ -16,6 +16,9 @@
 					<a href="{{route('regissubject.index')}}" class="list-group-item list-group-item-action list-group-item-light">
 						Subject</a>
 
+					<a href="{{route('editsubject.index')}}" class="list-group-item list-group-item-action list-group-item-light">
+						Edit Subject</a>
+
 					<a href="{{route('updatereceipt.index')}}" class="list-group-item list-group-item-action list-group-item-light">
 						Update Receipt</a>
 
