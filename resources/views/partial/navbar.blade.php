@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-md  navbar-dark fixed-top box-shadow" >
-        <a class="navbar-brand" href="{{ url('/') }}" style="font-size: 20px; color: #ffffff;">SDBR</a>
+        <a class="navbar-brand" href="{{ url('/home') }}" style="font-size: 20px; color: #ffffff;">Student DBMS</a>
 
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#nbar" aria-controls="nbar" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
