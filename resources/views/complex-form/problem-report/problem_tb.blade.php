@@ -4,7 +4,6 @@
 	<td>{{ $problemreport->problemtitle }}</td>
 	<td>{{ $problemreport->problemtypename }}</td>
 	<td>{{ $problemreport->firstname }} {{ $problemreport->lastname }}</td>
-	<td>{{ $problemreport->departmentname }}</td>
 	<td>{{ $problemreport->problemdatetime }}</td>
 	<td>{{ $problemreport->problemstatus }}</td>
 	<td>

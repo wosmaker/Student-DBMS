@@ -9,7 +9,7 @@
 				</button>
 			</div>
 			<div class="modal-body">
-					<form id="form_add" class=" needs-validation col"   novalidate>
+					<form id="form_add" class=" needs-validation col" novalidate>
 							@csrf
 
 							<div class="form-group">

@@ -29,13 +29,12 @@
 				<th scope="col">Title</th>
 				<th scope="col">ProblemType</th>
         <th scope="col">Reporter</th>
-				<th scope="col">Department</th>
 				<th scope="col">DateTime</th>
 				<th scope="col">Status</th>
 				<th scope="col">Action</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody id="table1">
 				@include('complex-form.problem-report.problem_tb')
     </tbody>
   </table>
@@ -58,24 +57,29 @@ $(document).ready(function() {
     $('#modal_add').modal(options);
 		$('#modal_add').modal('show');
 		console.log("IN ADD form");
-		$( '#form_add' ).on( 'submit', function() {
-			$.ajax({
-					type: "POST",
-					url: "{{route('problemreport.store')}}",
-					data: $('#form_add').serialize(),
-					success: function(data) {
-						console.log("Debug :" + data);
-						//$('tbody').empty().html(data);
-					}
-			});
-			$('#modal_add').modal('hide');
-			$('#form_add' ).trigger("reset");
-		});
   });
 
 
+	$( '#form_add' ).on( 'submit', function(e) {
+		e.preventDefault();
+		// console.log("Debug :" + "SENT....");
+		// console.log("Debug :" + $(this).serialize());
 
-
+		$.ajax({
+				type: "POST",
+				url: "{{route('problemreport.store')}}",
+				data: $(this).serialize(),
+				success: function(data) {
+					//console.log("Debug :" + data);
+					$('#table1').empty().html(data);
+				},
+				error: function(data){
+					console.log("Error :" + data);
+				}
+		});
+		$('#modal_add').modal('hide');
+		$('#form_add' ).trigger("reset");
+	});
 
 
 

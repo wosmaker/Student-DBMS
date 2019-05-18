@@ -33,16 +33,16 @@ class ProblemReportController extends Controller
                     ->get()->all();
 
 				if($userrole == 1) {
-					$problemreports = DB::select('SELECT prl.problemno ,prl.problemtitle ,ptl.problemtypename,ul.firstname,ul.lastname,dl.departmentname,prl.problemdatetime,prl.problemstatus,prl.answerdetail,prl.problemdetail
-					FROM problemreport_list prl, user_list ul,problemtype_list ptl,department_list dl
-					WHERE ptl.problemtypeid = prl.problemtypeid AND ul.userid = prl.userid AND ul.departmentcode = dl.departmentcode
+					$problemreports = DB::select('SELECT prl.problemno ,prl.problemtitle ,ptl.problemtypename,ul.firstname,ul.lastname,prl.problemdatetime,prl.problemstatus,prl.answerdetail,prl.problemdetail
+					FROM problemreport_list prl, user_list ul,problemtype_list ptl
+					WHERE ptl.problemtypeid = prl.problemtypeid AND ul.userid = prl.userid
 					AND ul.userid = :userid;
 					', ['userid' => $userid]);
 
 				} else {
-					$problemreports = DB::select('SELECT prl.problemno ,prl.problemtitle ,ptl.problemtypename,ul.firstname,ul.lastname,dl.departmentname,prl.problemdatetime,prl.problemstatus,prl.answerdetail,prl.problemdetail
-					FROM problemreport_list prl, user_list ul,problemtype_list ptl,department_list dl
-								WHERE ptl.problemtypeid = prl.problemtypeid AND ul.userid = prl.userid AND ul.departmentcode = dl.departmentcode;
+					$problemreports = DB::select('SELECT prl.problemno ,prl.problemtitle ,ptl.problemtypename,ul.firstname,ul.lastname,prl.problemdatetime,prl.problemstatus,prl.answerdetail,prl.problemdetail
+					FROM problemreport_list prl, user_list ul,problemtype_list ptl
+								WHERE ptl.problemtypeid = prl.problemtypeid AND ul.userid = prl.userid;
 					');
 				}
         return view('complex-form.problem-report.index', compact('userdetail','userrole', 'problemreports','problemtypes','role'));
@@ -67,7 +67,8 @@ class ProblemReportController extends Controller
     public function store(Request $request)
     {
 			if($request->ajax()){
-        $userid = auth()->user()->id;
+				$userid = auth()->user()->id;
+				$userrole =  auth()->user()->userroleid;
         $problemtitle = request('problemtitle');
         $problemdetail = request('problemdetail');
         $problemtype = request('problemtype');
@@ -95,8 +96,8 @@ class ProblemReportController extends Controller
 								WHERE ptl.problemtypeid = prl.problemtypeid AND ul.userid = prl.userid AND ul.departmentcode = dl.departmentcode;
 					');
 				}
-				return response($problemreports);
-				//return view('complex-form.problem-report.problem_tb',compact('problemreports'));
+				//return response($problemreports);
+				return view('complex-form.problem-report.problem_tb',compact('problemreports','userrole'));
 			}
     }
 

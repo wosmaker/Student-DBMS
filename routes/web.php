@@ -43,10 +43,14 @@ Route::patch('editsubject/{id}' , 'EditSubjectController@update')->name('editsub
 Route::post('editsubject/search_subject', 'EditSubjectController@search_subject')->name('editsubject.search_subject');
 
 
-Route::resource('faculty', 'Csimple\Cfaculty');
-Route::post('faculty/update', 'Csimple\Cfaculty@update')->name('faculty.update');
-Route::post('faculty/destroy/{id}', 'Csimple\Cfaculty@destroy');
+//Route::resource('faculty', 'Csimple\Cfaculty');
 
+
+Route::get('faculty','Csimple\Cfaculty@index')->name('faculty.index');
+Route::get('faculty/{id}/edit' , 'Csimple\Cfaculty@update')->name('faculty.edit');
+Route::post('faculty', 'Csimple\Cfaculty@store')->name('faculty.store');
+Route::delete('faculty/{id}', 'Csimple\Cfaculty@destroy')->name('faculty.destroy');
+Route::patch('faculty/{id}' , 'Csimple\Cfaculty@update')->name('faculty.update');
 
 Route::get('/test1', function () {
 	return view('complex-form.editsubject.index');

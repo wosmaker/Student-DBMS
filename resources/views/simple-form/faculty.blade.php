@@ -99,7 +99,7 @@
 			</div>
 
 			<div class="modal-body">
-					<form id="edit_form" class="col"  method ="post" action = {{route('faculty.update')}} >
+					<form id="edit_form" class="col" >
 							@csrf
 								<div class="form-group">
 												<label for="facultycode">รหัสคณะ</label>
@@ -154,6 +154,7 @@ $(document).ready(function() {
 	$( '#add_form' ).on( 'submit', function(e) {
     var href = $(this).data('value');
 		e.preventDefault();
+		console.log("Debug :" + $(this).serialize());
     $.ajax({
         type: "POST",
         url: "{{route('faculty.store')}}",

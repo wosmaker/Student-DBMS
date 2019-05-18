@@ -14,13 +14,14 @@ class Cfaculty extends Controller
      */
     public function index(Request $request)
     {
+			$role = auth()->user()->userroleid;
 			$tb = DB::select('SELECT * FROM faculty_list');
 			if($request->ajax()){
 				//return response($tb);
 				return  view('simple-form/faculty_tb',compact('tb'));
 			}
 			//dd($tb);
-			return  view('simple-form/faculty',compact('tb'));
+			return  view('simple-form/faculty',compact('tb','role'));
 		}
 
 
