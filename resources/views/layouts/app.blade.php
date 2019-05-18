@@ -1,10 +1,14 @@
-@extends('layouts.page')
+@extends('layouts.html')
 
-@section('page-main')
-<div id="app">
-    <main class="py-4">
-        @yield('content')
-    </main>
-</div>
+@section('html-body')
+    <div id="app" class="bg-0">
+				@include('partial.navbar')
+        <div class="container-fluid">
+					<main role="main" class="py-4">
+							@yield('content')
+					</main>
+				</div>
+    </div>
+    @yield('script')
 @endsection
 
