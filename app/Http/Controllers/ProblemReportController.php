@@ -120,7 +120,13 @@ class ProblemReportController extends Controller
      */
     public function edit($id)
     {
-        //
+			$data = DB::select('SELECT prl.problemno ,prl.problemtitle ,ptl.problemtypename,ul.firstname,ul.lastname,prl.problemdatetime,prl.problemstatus,prl.answerdetail,prl.problemdetail
+			FROM problemreport_list prl, user_list ul,problemtype_list ptl
+			WHERE ptl.problemtypeid = prl.problemtypeid AND ul.userid = prl.userid
+			AND prl.problemno = :id;
+			', ['id' => $id]);
+
+			return response($data);
     }
 
     /**
@@ -132,18 +138,36 @@ class ProblemReportController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $answerID = request('answerID');
-        $answerdetail = request('answerdetail');
+			if($request->ajax()){
+					$userid = auth()->user()->id;
+					$userrole =  auth()->user()->userroleid;
+					$answerdetail = request('answerdetail');
 
-        DB::table('problemreport_list')
-        ->where('problemno', '=', $answerID)
-        ->update(
-            [
-				'answerdetail' => $answerdetail,
-                'problemstatus' => 'answered'
-            ]
-        );
+					if(!$answerdetail == '')
+						$problemstatus = 'answered';
+					else
+						$problemstatus = 'waiting';
 
+
+					DB::update('UPDATE problemreport_list set answerdetail = ? ,problemstatus = ?  where problemno = ?', [$answerdetail,$problemstatus,$id]);
+
+					if($userrole == 1) {
+						$problemreports = DB::select('SELECT prl.problemno ,prl.problemtitle ,ptl.problemtypename,ul.firstname,ul.lastname,dl.departmentname,prl.problemdatetime,prl.problemstatus,prl.answerdetail,prl.problemdetail
+						FROM problemreport_list prl, user_list ul,problemtype_list ptl,department_list dl
+						WHERE ptl.problemtypeid = prl.problemtypeid AND ul.userid = prl.userid AND ul.departmentcode = dl.departmentcode
+						AND ul.userid = :userid;
+						', ['userid' => $userid]);
+
+					} else {
+						$problemreports = DB::select('SELECT prl.problemno ,prl.problemtitle ,ptl.problemtypename,ul.firstname,ul.lastname,dl.departmentname,prl.problemdatetime,prl.problemstatus,prl.answerdetail,prl.problemdetail
+						FROM problemreport_list prl, user_list ul,problemtype_list ptl,department_list dl
+									WHERE ptl.problemtypeid = prl.problemtypeid AND ul.userid = prl.userid AND ul.departmentcode = dl.departmentcode;
+						');
+					}
+					//return response($problemreports);
+					return view('complex-form.problem-report.problem_tb',compact('problemreports','userrole'));
+
+			}
         return back();
     }
 

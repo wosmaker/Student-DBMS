@@ -16,9 +16,9 @@
 				<button class="btn btn-danger btn-sm" type="submit" >DELETE</button>
 			</form>
 
-			<button type="button" class="btn btn-info btn-sm ml-2" id="detail">DETAIL</button>
+			<button type="button" class="btn btn-info btn-sm ml-2 btn_show" id="{{ $problemreport->problemno }}">DETAIL</button>
 			@if($userrole !== 1)
-				<button type="button" class="btn btn-success btn-sm ml-2" id="answer">ANSWER</button>
+				<button type="button" class="btn btn-success btn-sm ml-2 btn_answer" id="{{ $problemreport->problemno }}">ANSWER</button>
 			@endif
 		</div>
 	</td>

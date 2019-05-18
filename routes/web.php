@@ -29,7 +29,7 @@ Route::resource('personal', 'PersonalController');
 
 
 Route::get('problemreport','ProblemReportController@index')->name('problemreport.index');
-Route::get('problemreport/{id}/edit' , 'ProblemReportController@update')->name('problemreport.edit');
+Route::get('problemreport/{id}/edit' , 'ProblemReportController@edit')->name('problemreport.edit');
 Route::post('problemreport', 'ProblemReportController@store')->name('problemreport.store');
 Route::delete('problemreport/{id}', 'ProblemReportController@destroy')->name('problemreport.destroy');
 Route::patch('problemreport/{id}' , 'ProblemReportController@update')->name('problemreport.update');

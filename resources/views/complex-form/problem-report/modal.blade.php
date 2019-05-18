@@ -42,8 +42,8 @@
 </div>
 <!-- End Modal add problem -->
 
-{{-- <!--Start Modal show problem -->
-<div class="modal fade" id="detail-modal" tabindex="-1" role="dialog" aria-labelledby="label2" aria-hidden="true">
+{<!--Start Modal show problem -->
+<div class="modal fade" id="modal_show" tabindex="-1" role="dialog" aria-labelledby="label2" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -53,7 +53,7 @@
 				</button>
 			</div>
 			<div class="modal-body">
-					<form id="form-modal" class="col" method="POST" action="" >
+					<form id="form_show" class="col" >
 
 							<div class="form-group">
 									<label for="problemtitle">Title</label>
@@ -88,7 +88,7 @@
 
 <!--Start Modal answer problem -->
 
-<div class="modal fade" id="answer-modal" tabindex="-1" role="dialog" aria-labelledby="label3" aria-hidden="true">
+<div class="modal fade" id="modal_answer" tabindex="-1" role="dialog" aria-labelledby="label3" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -98,42 +98,37 @@
 				</button>
 			</div>
 			<div class="modal-body">
-					<form id="form-answer" class="col" method="POST" action="problemreport/{problemreport}" >
+					<form id="form_answer" class="col" >
 						@csrf
 						@method('PATCH')
 							<div class="form-group">
 									<label for="problemtitle1">Title</label>
-									<input type="text" class="form-control" id="problemtitle1" name="problemtitle" placeholder="" readonly >
+									<input type="text" class="form-control" id="problemtitle" name="problemtitle" placeholder="" readonly >
 							</div>
 
 							<div class="form-group">
 									<label for="problemtype1">Problem Type</label>
-									<input type="text" class="form-control" id="problemtype1" name="problemtype" placeholder="" readonly >
+									<input type="text" class="form-control" id="problemtype" name="problemtype" placeholder="" readonly >
 							</div>
 
 							<div class="form-group">
 									<label for="problemdetail1">Detail</label>
-									<textarea class="form-control" id="problemdetail1" name="problemdetail" rows="4" placeholder="ป้อนรายละเอียด..."  readonly ></textarea>
+									<textarea class="form-control" id="problemdetail" name="problemdetail" rows="4" placeholder="ป้อนรายละเอียด..."  readonly ></textarea>
 							</div>
 
 							<div class="form-group">
 									<label for="answerdetail1">Answer</label>
-									<textarea class="form-control" id="answerdetail1" name="answerdetail" rows="4" placeholder="ยังไม่ตอบ..." ></textarea>
+									<textarea class="form-control" id="answerdetail" name="answerdetail" rows="4" placeholder="ยังไม่ตอบ..." ></textarea>
 							</div>
-							@if($problemreports)
-								<div>
-									<input type="hidden" name="answerID" value="">
-								</div>
-							@endif
 					</form>
 
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-							<button form="form-answer" class="btn btn-success ml-2" type="submit" >ANSWER</button>
+							<button form="form_answer" class="btn btn-success ml-2" type="submit" >ANSWER</button>
 						</div>
 
 			</div>
 		</div>
 	</div>
 </div>
-<!-- End Modal answer problem --> --}}
+<!-- End Modal answer problem -->
