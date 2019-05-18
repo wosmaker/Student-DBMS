@@ -36,6 +36,11 @@ class Cfaculty extends Controller
      */
     public function store(Request $request)
     {
+			if($request->ajax()){
+				DB::insert('INSERT INTO faculty_list (facultycode, facultyname,facultycontact) values (?, ?, ?)', [$request->get('facultycode'),$request->get('facultyname'),$request->get('facultycontact')]);
+				return response()->json($data, 200, $headers);
+			}
+
 				DB::insert('INSERT INTO faculty_list (facultycode, facultyname,facultycontact) values (?, ?, ?)', [$request->get('facultycode'),$request->get('facultyname'),$request->get('facultycontact')]);
 			 return back();
     }

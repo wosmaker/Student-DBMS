@@ -198,25 +198,18 @@
 		}, false);
 	})();
 
+	$(document).ready( function() {
 
-	$(document).on('submit', 'form#search', function (e) {
+if (typeof jQuery != 'undefined') {
+    // jQuery is loaded => print the version
+		alert(jQuery.fn.jquery);
+		console.log("find jquery");
+}
+else {
+	console.log("can't find jquery");
 
-    var q = $(this).find('input[name=q']).val();
+}
+	});
 
-    $.ajax({
-        type: 'GET',
-        dataType: 'html',
-        url: '/search',
-        data: {
-            q: q
-        },
-        success: function (data) {
-            // Do some nice animation to show results
-            $('#searchdata').html(data);
-        }
-    });
-
-    e.preventDefault();
-});
  </script>
 @endsection

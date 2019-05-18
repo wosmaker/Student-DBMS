@@ -138,7 +138,7 @@ $(document).ready(function() {
   })
   // on modal show
   $('#edit').on('show.bs.modal', function() {
-		console.log('edit js')
+		console.log('jquery work')
     var el = $(".edit-item-trigger-clicked"); // See how its usefull right here?
     var row = el.closest(".data");
 
@@ -156,7 +156,25 @@ $(document).ready(function() {
 	$('#edit').on('hide.bs.modal', function() {
     $('.edit-item-trigger-clicked').removeClass('edit-item-trigger-clicked')
     $('#edit_form').trigger("reset");
-  })
+	})
+
+	$( '#add_form' ).on( 'submit', function(e) {
+    var href = $(this).data('value');
+		e.preventDefault();
+		console.log("set data")
+		console.log($(this).serialize())
+    $.ajax({
+        type: "POST",
+        url: "{{route('faculty.store')}}",
+				data: $(this).serialize(),
+        success: function( msg ) {
+            $("#container-fluid").html(msg);
+            $('.se-pre-con').hide();
+        }
+		});
+		console.log("set data finish")
+
+});
 
 })
 </script>
