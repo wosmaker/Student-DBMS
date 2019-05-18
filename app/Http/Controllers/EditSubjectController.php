@@ -18,11 +18,12 @@ class EditSubjectController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('role:1,2');
+        $this->middleware('role:2,5');
     }
 
     public function index()
     {
+        $role = auth()->user()->userroleid;
         $userid = auth()->user()->id;   //ดึงค่า id ของผู้ใช้
         $userdetail = UserList::where('userid', $userid)->first();  //ดึงชื่อผู้ใช้งาน
 
@@ -84,7 +85,7 @@ class EditSubjectController extends Controller
             }
         }
 
-				return view('complex-form.editsubject.index', compact('subject_lists','userdetail', 'roomfrees', 'teacher_lists'));
+        return view('complex-form.editsubject.index', compact('subject_lists','userdetail', 'roomfrees', 'teacher_lists', 'role'));
     }
 
     /**
@@ -230,4 +231,5 @@ class EditSubjectController extends Controller
 
         return back();
     }
+
 }

@@ -63,7 +63,7 @@
 						</form>
 
 						<button type="button" class="btn btn-info btn-sm ml-2" id="detail">DETAIL</button>
-						@if($userrole === 3)
+						@if($userrole !== 1)
 							<button type="button" class="btn btn-success btn-sm ml-2" id="answer">ANSWER</button>
 						@endif
 					</div>

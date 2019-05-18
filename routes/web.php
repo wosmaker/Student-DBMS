@@ -25,6 +25,7 @@ Route::resource('problemreport', 'ProblemReportController');
 Route::resource('confirmreceipt', 'ConfirmReceiptController');
 Route::resource('personal', 'PersonalController');
 
+
 Route::get('editsubject','EditSubjectController@index')->name('editsubject.index');
 Route::post('editsubject', 'EditSubjectController@store')->name('editsubject.store');
 Route::delete('editsubject/{editsubject}', 'EditSubjectController@destroy')->name('editsubject.destroy');
