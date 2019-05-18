@@ -14,25 +14,6 @@
                         </div>
                     @endif
                     You are logged in! Your RoleID is {{ $role }}
-                    @if ($role === 1)
-                        <div>
-                            <button onclick="window.location.href = 'regissubject';">REGISTER</button>
-                        </div>
-                    @endif
-
-                    @if ($role === 2)
-                    <div>
-                            <button onclick="window.location.href = 'editsubject';">EDIT SUBJECT</button>
-                    </div>
-                    @endif
-
-                    <div>
-                        <button onclick="window.location.href = 'problemreport';">PROBLEM REPORT</button>
-                    </div>
-
-                    <div>
-                        <button onclick="window.location.href = 'confirmreceipt';">CONFIRM RECEIPT</button>
-                    </div>
                 </div>
             </div>
         </div>

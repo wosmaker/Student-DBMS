@@ -15,8 +15,16 @@ class ConfirmReceiptController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct()
+    {
+        $this->middleware('auth');      
+        $this->middleware('role:3,5');   
+    }
+
     public function index()
     {
+        $role = auth()->user()->userroleid;
         $userid = auth()->user()->id;   //ดึงค่า id ของผู้ใช้
         $userdetail = UserList::where('userid', $userid)->first();  //ดึงชื่อผู้ใช้งาน
 
@@ -27,7 +35,7 @@ class ConfirmReceiptController extends Controller
 		->get()->all();
 
 		//dd($transactionlists,$userdetail);
-      return view('complex-form.confirm-receipt.index', compact('userdetail', 'transactionlists'));
+      return view('complex-form.confirm-receipt.index', compact('userdetail', 'transactionlists', 'role'));
     }
 
     /**

@@ -14,8 +14,17 @@ class ProblemReportController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct()
+    {
+        $this->middleware('auth');      //login checking
+        $this->middleware('role:1,2,3,4,5');   //เช็คว่า role = 1 หรือเปล่า
+    }
+     
     public function index()
     {
+        $role = auth()->user()->userroleid;
+
 		$problemreports = NULL;
         $userid = auth()->user()->id;   //ดึงค่า id ของผู้ใช้
         $userrole =  auth()->user()->userroleid;
@@ -24,20 +33,21 @@ class ProblemReportController extends Controller
                     ->select('problemtypeid','problemtypename')
                     ->get()->all();
 
-        if($userrole == 1 || $userrole == 2) {
+        if($userrole == 1) {
 			$problemreports = DB::select('SELECT prl.problemno ,prl.problemtitle ,ptl.problemtypename,ul.firstname,ul.lastname,dl.departmentname,prl.problemdatetime,prl.problemstatus,prl.answerdetail,prl.problemdetail
 			FROM problemreport_list prl, user_list ul,problemtype_list ptl,department_list dl
 			WHERE ptl.problemtypeid = prl.problemtypeid AND ul.userid = prl.userid AND ul.departmentcode = dl.departmentcode
 			AND ul.userid = :userid;
 			', ['userid' => $userid]);
 
-        } else if($userrole == 3) {
+        } else {
 			$problemreports = DB::select('SELECT prl.problemno ,prl.problemtitle ,ptl.problemtypename,ul.firstname,ul.lastname,dl.departmentname,prl.problemdatetime,prl.problemstatus,prl.answerdetail,prl.problemdetail
-			FROM problemreport_list prl, user_list ul,problemtype_list ptl,department_list dl;
+			FROM problemreport_list prl, user_list ul,problemtype_list ptl,department_list dl
+            WHERE ptl.problemtypeid = prl.problemtypeid AND ul.userid = prl.userid AND ul.departmentcode = dl.departmentcode;
 			');
 		}
 
-        return view('complex-form.problem-report.index', compact('userdetail','userrole', 'problemreports','problemtypes'));
+        return view('complex-form.problem-report.index', compact('userdetail','userrole', 'problemreports','problemtypes','role'));
     }
     // WTF
     /**

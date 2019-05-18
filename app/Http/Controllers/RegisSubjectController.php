@@ -18,11 +18,13 @@ class RegisSubjectController extends Controller
     public function __construct()
     {
         $this->middleware('auth');      //login checking
-        $this->middleware('role:1');    //เช็คว่า role = 1 หรือเปล่า
+        $this->middleware('role:1,5');    //เช็คว่า role = 1 หรือ 5 หรือเปล่า
     }
 
     public function index()
     {
+        $role = auth()->user()->userroleid;
+
         $userid = auth()->user()->id;   //ดึงค่า id ของผู้ใช้
         $userdetail = UserList::where('userid', $userid)->first();  //ดึงชื่อผู้ใช้งาน
 
@@ -47,7 +49,7 @@ class RegisSubjectController extends Controller
 
 		//ส่งกลับที่หน้า regissubject พร้อมกับค่าในตัวแปร 2 ตัวที่ใส่ไว้ใน compact
 		//dd($userdetail,$regissubjects,$subjectdetails);
-        return view('complex-form.regissubject.index' , compact('userdetail','regissubjects','subjectdetails'));
+        return view('complex-form.regissubject.index' , compact('userdetail','regissubjects','subjectdetails','role'));
     }
 
     /**

@@ -11,9 +11,18 @@ class PersonalController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct()
+    {
+        $this->middleware('auth');      //login checking
+        $this->middleware('role:1,5');    //เช็คว่า role = 1 หรือเปล่า
+    }
+
     public function index()
     {
-        return view('complex-form.personal.index');
+        $role = auth()->user()->userroleid;
+
+        return view('complex-form.personal.index', compact('role'));
     }
 
     /**

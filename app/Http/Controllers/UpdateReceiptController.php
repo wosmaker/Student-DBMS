@@ -19,12 +19,13 @@ class UpdateReceiptController extends Controller
     public function __construct()
     {
         $this->middleware('auth');      //login checking
-        $this->middleware('role:1');    //เช็คว่า role = 1 หรือเปล่า
+        $this->middleware('role:1,5');    //เช็คว่า role = 1 หรือเปล่า
     }
 
     public function index()
     {
         $userid = auth()->user()->id;   //ดึงค่า id ของผู้ใช้
+        $role = auth()->user()->userroleid;
         $userdetail = UserList::where('userid', $userid)->first();  //ดึงชื่อผู้ใช้งาน
 
 		//ดึงข้อมูลวิชาที่ลงทะเบียนไว้แล้ว
@@ -50,7 +51,7 @@ class UpdateReceiptController extends Controller
 		$paymenttypes = DB::select('SELECT paymenttypeid,paymenttypename FROM paymenttype_list');
 
 		//dd($regissubjects,$sumcredit,$paymenttypes);
-        return view('complex-form.update-receipt.index', compact('userdetail','regissubjects','sumcredit','paymenttypes'));
+        return view('complex-form.update-receipt.index', compact('userdetail','regissubjects','sumcredit','paymenttypes','role'));
     }
 
     /**
@@ -112,7 +113,7 @@ class UpdateReceiptController extends Controller
             ->where('userid', '=', $userid)
             ->update(['transactionid' => $transactionid]);
 
-        return view('home', compact('role'));
+        return back();
     }
 
     /**

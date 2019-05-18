@@ -25,11 +25,11 @@ Route::resource('problemreport', 'ProblemReportController');
 Route::resource('confirmreceipt', 'ConfirmReceiptController');
 Route::resource('personal', 'PersonalController');
 
+
 Route::get('editsubject','EditSubjectController@index')->name('editsubject.index');
 Route::post('editsubject', 'EditSubjectController@store')->name('editsubject.store');
 Route::delete('editsubject/{editsubject}', 'EditSubjectController@destroy')->name('editsubject.destroy');
 Route::patch('editsubject/{editsubject}' , 'EditSubjectController@update')->name('editsubject.update');
-Route::get('editsubject/test', 'EditSubjectController@test')->name('editsubject.test');
 
 
 Route::resource('faculty', 'Csimple\Cfaculty');

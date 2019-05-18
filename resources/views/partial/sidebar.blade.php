@@ -1,46 +1,71 @@
 <div class="list-group list-group-flush">
-    <a class="list-group-item list-group-item-action list-group-item-dark" href="#sub1" data-toggle="collapse" aria-expanded="false">Simple Form</a>
+	
+	@if($role == 5)
+		<a class="list-group-item list-group-item-action list-group-item-dark" href="#sub1" data-toggle="collapse" aria-expanded="false">Simple Form</a>
 
-    <div id='sub1' class="collapse sidebar-submenu" >
-        <div class="list-group" id="list-tab" >
-            <a class="list-group-item list-group-item-action list-group-item-light"  data-toggle="list" href="#list-home" role="tab" aria-controls="home">Subject</a>
-            <a class="list-group-item list-group-item-action list-group-item-light"  data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">Profile</a>
-            <a class="list-group-item list-group-item-action list-group-item-light"  data-toggle="list" href="#list-messages" role="tab" aria-controls="messages">Messages</a>
-            <a class="list-group-item list-group-item-action list-group-item-light"  data-toggle="list" href="#list-settings" role="tab" aria-controls="settings">Settings</a>
-        </div>
-    </div>
+		<div id='sub1' class="collapse sidebar-submenu" >
+			<div class="list-group" id="list-tab" >
+				<a class="list-group-item list-group-item-action list-group-item-light"  data-toggle="list" href="#list-home" role="tab" aria-controls="home">Subject</a>
+				<a class="list-group-item list-group-item-action list-group-item-light"  data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">Profile</a>
+				<a class="list-group-item list-group-item-action list-group-item-light"  data-toggle="list" href="#list-messages" role="tab" aria-controls="messages">Messages</a>
+				<a class="list-group-item list-group-item-action list-group-item-light"  data-toggle="list" href="#list-settings" role="tab" aria-controls="settings">Settings</a>
+			</div>
+		</div>
+	@endif
 
-    <a class="list-group-item list-group-item-action list-group-item-dark" href="#sub2" data-toggle="collapse" aria-expanded="false">Complex Form</a>
+	@if($role == 1)
+		<a href="{{route('regissubject.index')}}" class="list-group-item list-group-item-action list-group-item-light">Subject</a>
+		<a href="{{route('updatereceipt.index')}}" class="list-group-item list-group-item-action list-group-item-light">Update Receipt</a>
+		<a href="{{route('problemreport.index')}}" class="list-group-item list-group-item-action list-group-item-light">Problem Report</a>
+	@endif
 
-    <div id='sub2' class="collapse sidebar-submenu">
-					<a href="{{route('regissubject.index')}}" class="list-group-item list-group-item-action list-group-item-light">
-						Subject</a>
+	@if($role == 2)
+		<a href="{{route('problemreport.index')}}" class="list-group-item list-group-item-action list-group-item-light">Problem Report</a>
+	@endif
 
-					<a href="{{route('editsubject.index')}}" class="list-group-item list-group-item-action list-group-item-light">
-						Edit Subject</a>
+	@if($role == 3)
+		<a href="{{route('editsubject.index')}}" class="list-group-item list-group-item-action list-group-item-light">Edit Subject</a>
+		<a href="{{route('confirmreceipt.index')}}" class="list-group-item list-group-item-action list-group-item-light">Confirm Receipt</a>
+		<a href="{{route('problemreport.index')}}" class="list-group-item list-group-item-action list-group-item-light">Problem Report</a>		
+	@endif
 
-					<a href="{{route('updatereceipt.index')}}" class="list-group-item list-group-item-action list-group-item-light">
-						Update Receipt</a>
+	@if($role == 4)
+		<a href="{{route('problemreport.index')}}" class="list-group-item list-group-item-action list-group-item-light">Problem Report</a>
+	@endif
 
-					<a href="{{route('problemreport.index')}}" class="list-group-item list-group-item-action list-group-item-light">
-						Problem Report</a>
+	@if($role == 5)
+		<a class="list-group-item list-group-item-action list-group-item-dark" href="#sub2" data-toggle="collapse" aria-expanded="false">Complex Form</a>
 
-					<a href="{{route('confirmreceipt.index')}}" class="list-group-item list-group-item-action list-group-item-light">
-						Confirm Receipt</a>
-    </div>
+		<div id='sub2' class="collapse sidebar-submenu">
+			<a href="{{route('regissubject.index')}}" class="list-group-item list-group-item-action list-group-item-light">
+				Subject</a>
 
+			<a href="{{route('editsubject.index')}}" class="list-group-item list-group-item-action list-group-item-light">
+				Edit Subject</a>
+
+			<a href="{{route('updatereceipt.index')}}" class="list-group-item list-group-item-action list-group-item-light">
+				Update Receipt</a>
+
+			<a href="{{route('problemreport.index')}}" class="list-group-item list-group-item-action list-group-item-light">
+				Problem Report</a>
+
+			<a href="{{route('confirmreceipt.index')}}" class="list-group-item list-group-item-action list-group-item-light">
+				Confirm Receipt</a>			
+		</div>
+	@endif
+
+	@if($role == 4 || $role == 5)
 		<a class="list-group-item list-group-item-action list-group-item-dark" href="#sub3" data-toggle="collapse" aria-expanded="true">Data Analytic</a>
 
-
 		<div id='sub3' class="collapse sidebar-submenu">
-				@for ($i = 1; $i <= 16; $i++)
-				<a href="{{URL('report'.$i)}}" class="list-group-item list-group-item-action list-group-item-light">
-				Repert {{$i}}</a>
-		        @endfor
+			@for ($i = 1; $i <= 16; $i++)
+			<a href="{{URL('report'.$i)}}" class="list-group-item list-group-item-action list-group-item-light">
+			Repert {{$i}}</a>
+			@endfor
+		</div>
 
-	</div>
-
-    <a class="list-group-item list-group-item-action list-group-item-info" href="{{URL('/analytic')}}">Analytic</a>
+	<a class="list-group-item list-group-item-action list-group-item-info" href="{{URL('/analytic')}}">Analytic</a>
+	@endif
 </div>
 
 
