@@ -34,8 +34,8 @@
                 <th scope="col">SubjectName</th>
                 <th scope="col">Credit</th>
                 <th scope="col">Section</th>
-                <th scope="col">SecStart</th>
-                <th scope="col">SecEnd</th>
+                <th scope="col">Start Period</th>
+                <th scope="col">End Period</th>
                 <th scope="col">Delete</th>
             </tr>
         </thead>
@@ -48,8 +48,8 @@
                     <td>{{ $regissubject->subjectname }}</td>
                     <td>{{ $regissubject->sectionno }}</td>
                     <td>{{ $regissubject->subjectcredit }}</td>
-                    <td>{{ $regissubject->secstart }}</td>
-                    <td>{{ $regissubject->secend }}</td>
+                    <td>{{ $regissubject->start_period }}</td>
+                    <td>{{ $regissubject->end_period }}</td>
                     <td>
                         {{-- ปุ่มกดสำหรับการลบวิชาที่เพิ่มไว้ --}}
                         <form method="POST" action="regissubject/{regissubject}">
@@ -87,8 +87,8 @@
                     <th scope="col">No</th>
                     <th scope="col">Section</th>
                     <th scope="col">SeatAvailable</th>
-                    <th scope="col">SecStart</th>
-                    <th scope="col">SecEnd</th>
+                    <th scope="col">Start Period</th>
+                    <th scope="col">End Period</th>
                     <th scope="col">Choose</th>
                 </tr>
             </thead>
@@ -99,8 +99,8 @@
                         <th scope="row">{{ $loop->iteration }}</th>
 						<td>{{ $subjectdetail->sectionno }}</td>
                         <td>{{ $subjectdetail->seatavailable }}</td>
-                        <td>{{ $subjectdetail->secstart }}</td>
-                        <td>{{ $subjectdetail->secend }}</td>
+                        <td>{{ $subjectdetail->start_period }}</td>
+                        <td>{{ $subjectdetail->end_period }}</td>
                         <td>
 							<input  type="radio" id="{{"checkbox$loop->iteration"}}" name="subjectsectionid" value="{{ $subjectdetail->subjectsectionid }}">
 						</td>

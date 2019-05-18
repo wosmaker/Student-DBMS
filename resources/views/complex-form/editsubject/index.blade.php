@@ -34,6 +34,49 @@
 			</table>
 </div>
 
+@if($section_lists != null)
+<div class="shadow-sm px-4 py-2 mb-2  bg-white rounded">
+	<table class="table table-hover table-responsive-lg">
+		<thead>
+				<tr>
+						<th scope="col">Secion No</th>
+						<th scope="col">seat</th>
+						<th scope="col">price</th>
+						<th scope="col">period no</th>
+						<th scope="col">roomcode</th>
+						<th scope="col">day</th>
+						<th scope="col">period start</th>
+						<th scope="col">period end</th>
+						<th scope="col">Manage</th>
+				</tr>
+		</thead>
+		<tbody>
+			@foreach($section_lists as $section_list)
+				<tr>
+					{{-- คำสั่ง $loop->iteration เป็นตัวที่ไล่เลขลำดับให้ --}}
+					<td>{{ $section_list->sectionno }}</td>
+					<td>{{ $section_list->seatavailable }}</td>
+					<td>{{ $section_list->price }}</td>
+					<td>{{ $section_list->periodno }}</td>
+					<td>{{ $section_list->roomcode }}</td>
+					<td>{{ $section_list->day }}</td>
+					<td>{{ $section_list->start_period }}</td>
+					<td>{{ $section_list->end_period }}</td>
+					<td>
+						{{-- ปุ่มกดสำหรับการลบวิชาที่เพิ่มไว้ --}}
+						<form method="POST" action="">
+								@csrf
+								@method('DELETE')
+								<button class="btn btn-danger" type="submit" name="sectionid" value="{{ $section_list->subjectsectionid }}">DELETE</button>
+						</form>
+					</td>
+				</tr>
+			@endforeach
+		</tbody>
+	</table>
+</div>
+@endif
+
 <div class="shadow-sm px-4 py-2 mb-2 bg-white rounded" id="block1">
 	<h5>Select subject</h5>
 	<form id="subject_form" method="GET" action= "editsubject">
@@ -178,40 +221,6 @@
 		</div>
 	</div>
 </div>
-
-<table class="table table-hover table-responsive-lg">
-		<thead>
-				<tr>
-						<th scope="col">Secion No</th>
-						<th scope="col">Credit</th>
-						<th scope="col">SecStart</th>
-						<th scope="col">SecEnd</th>
-						<th scope="col">Manage</th>
-				</tr>
-		</thead>
-		<tbody>
-				@foreach($regissubjects as $regissubject)
-						<tr>
-								{{-- คำสั่ง $loop->iteration เป็นตัวที่ไล่เลขลำดับให้ --}}
-								<th scope="row">{{ $loop->iteration }}</th>
-								<td>{{ $regissubject->subjectcode }}</td>
-								<td>{{ $regissubject->subjectname }}</td>
-								<td>{{ $regissubject->sectionno }}</td>
-								<td>{{ $regissubject->subjectcredit }}</td>
-								<td>{{ $regissubject->secstart }}</td>
-								<td>{{ $regissubject->secend }}</td>
-								<td>
-										{{-- ปุ่มกดสำหรับการลบวิชาที่เพิ่มไว้ --}}
-										<form method="POST" action="regissubject/{regissubject}">
-												@csrf
-												@method('DELETE')
-												<button class="btn btn-danger" type="submit" name="btn" value="{{ $regissubject->subjectsectionid }}">DELETE</button>
-										</form>
-								</td>
-						</tr>
-				@endforeach
-		</tbody>
-</table>
 
 
 @include('complex-form.editsubject.modal')
