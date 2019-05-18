@@ -25,7 +25,7 @@ class EditSubjectController extends Controller
     {
         $userid = auth()->user()->id;   //ดึงค่า id ของผู้ใช้
         $userdetail = UserList::where('userid', $userid)->first();  //ดึงชื่อผู้ใช้งาน
-        
+
         //ดึงรายวิชาที่ต้องการ
         $subject_CodeOrName = request('subject_CodeOrName');
         $subject_lists = null;
@@ -77,14 +77,14 @@ class EditSubjectController extends Controller
                 ->get()->all();
             //ระยะเวลา (คาบ)
             $length = $end - $start + 1;
-            //ไล่หาว่ามีห้องไหนว่างบ้าง 
+            //ไล่หาว่ามีห้องไหนว่างบ้าง
             foreach($room_lists as $room) {
                 $period = substr($room->$day , $start-1, $length);
                 if(strpos($period, '0') === false) array_push($roomfrees, $room);
             }
         }
 
-        return view('complex-form.editsubject.index', compact('subject_lists','userdetail', 'roomfrees', 'teacher_lists'));
+				return view('complex-form.editsubject.index', compact('subject_lists','userdetail', 'roomfrees', 'teacher_lists'));
     }
 
     /**
@@ -92,6 +92,30 @@ class EditSubjectController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+		public function search_subject(Request $request)
+		{
+			if($request->ajax())
+			{
+				$query = $request->get('query');
+				if($query != '')
+				{
+					$subject_lists = DB::table('subject_list')
+					->select('*')
+					->where('subjectcode' , 'like', '%' . $query . '%')
+					->orWhere('subjectname', 'like', '%' . $query . '%')
+					->get()->all();
+				}
+
+				else {
+					$subject_lists = DB::select('SELECT * FROM subject_list limit 5');
+				}
+				//dd($subject_lists);
+				//return response($subject_lists);
+				return view('complex-form.editsubject.subject_tb', compact('subject_lists'));
+			}
+		}
+
     public function create()
     {
         //
@@ -166,7 +190,7 @@ class EditSubjectController extends Controller
     public function destroy($id)
     {
         $subjectcode = request('subjectcode');
-        
+
         $room_lists = DB::table('subject_list AS sl')
         ->join('sectioneachsubject AS ss' , 'sl.subjectcode', '=', 'ss.subjectcode')
         ->join('schedule AS sd', 'sd.subjectsectionid', '=', 'ss.subjectsectionid')

@@ -7,11 +7,14 @@
 @section('page-main')
 <div class="shadow-sm px-4 py-2 mb-2  bg-white rounded">
 	<div class="row justify-content-between mb-3 mx-0">
-			<form class="form-inline" method="GET" action="editsubject">
-				<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="subject_CodeOrName">
-				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-			</form>
-			<button class="btn btn-info" data-toggle="modal" data-target="#add_subject">ADD subject</button>
+			<div class="input-group py-2 pl-0 col-md-6">
+				<input type="text" class="form-control" id="search_subject" placeholder="Search subject">
+				<div class="input-group-append">
+					<button class="btn btn-outline-success" id="fetch_subject">Search</button>
+				</div>
+			</div>
+
+			<button class="btn btn-info my-2" data-toggle="modal" data-target="#add_subject">ADD subject</button>
 	</div>
 
 		<table class="table table-hover">
@@ -22,36 +25,16 @@
 						<th scope="col">Subject Name</th>
 						<th scope="col">Credit</th>
 						<th scope="col">Detail</th>
-						<th scope="col"></th>
-						<th scope="col"></th>
+						<th scope="col">Action</th>
 					</tr>
 				</thead>
-				<tbody>
-					@if($subject_lists != null)
-					@foreach($subject_lists as $subject_list)
-						<tr  class="clickable-row">
-							{{-- คำสั่ง $loop->iteration เป็นตัวที่ไล่เลขลำดับให้ --}}
-							<th scope="row">{{ $loop->iteration }}</th>
-							<td>{{ $subject_list->subjectcode }}</td>
-							<td>{{ $subject_list->subjectname}}</td>
-							<td>{{ $subject_list->subjectcredit}}</td>
-							<td>{{ $subject_list->subjectdetail}}</td>
-							<td>
-								<form action="editsubject/{editsubject}" method="POST">
-									@csrf
-									@method('DELETE')
-									<button class="btn btn-danger" type="submit" name="subjectcode" value="{{ $subject_list->subjectcode }}">DELETE</button>
-								</form>
-							</td>
-							<td><button class="btn btn-warning" type="button" name="editsubject" value="{{ $subject_list->subjectcode }}">EDIT</button></td>
-						</tr>
-						@endforeach
-					@endif 
+				<tbody id="tb_subject">
+
 				</tbody>
 			</table>
 </div>
 
-<div class="shadow-sm px-4 py-2 mb-2 bg-white rounded">
+<div class="shadow-sm px-4 py-2 mb-2 bg-white rounded" id="block1">
 	<h5>Select subject</h5>
 	<form id="subject_form" method="GET" action= "editsubject">
 			@csrf
@@ -83,7 +66,7 @@
 	</form>
 </div>
 
-<div class="shadow-sm p-3 mb-2 bg-white rounded">
+<div class="shadow-sm p-3 mb-2 bg-white rounded" id="block2">
 	<div class="row">
 		<div class="col-md-6">
 			<form method="GET" action= "editsubject">
@@ -155,14 +138,14 @@
 								<input  type="submit" id="{{"checkbox$loop->iteration"}}" name="roomcode" value="{{ $roomfree->roomcode }}">
 							</td>
 						</tr>
-               		@endforeach
-					@endif 
+          @endforeach
+					@endif
 				</tbody>
 			</table>
 		</div>
 
 		<div class="col-md-6">
-				<form class="form-inline " method="GET" action="editsubject">
+				<form class="form-inline" method="GET" action="editsubject">
 					@csrf
 					<input class="form-control mr-sm-2" type="text" placeholder="Search teacher" aria-label="Search" name="teacher_name">
 					<button class="btn btn-outline-success my-2 my-sm-0" type="submit" name="submit_teacher" value="1">Search</button>
@@ -196,58 +179,110 @@
 	</div>
 </div>
 
+<table class="table table-hover table-responsive-lg">
+		<thead>
+				<tr>
+						<th scope="col">Secion No</th>
+						<th scope="col">Credit</th>
+						<th scope="col">SecStart</th>
+						<th scope="col">SecEnd</th>
+						<th scope="col">Manage</th>
+				</tr>
+		</thead>
+		<tbody>
+				@foreach($regissubjects as $regissubject)
+						<tr>
+								{{-- คำสั่ง $loop->iteration เป็นตัวที่ไล่เลขลำดับให้ --}}
+								<th scope="row">{{ $loop->iteration }}</th>
+								<td>{{ $regissubject->subjectcode }}</td>
+								<td>{{ $regissubject->subjectname }}</td>
+								<td>{{ $regissubject->sectionno }}</td>
+								<td>{{ $regissubject->subjectcredit }}</td>
+								<td>{{ $regissubject->secstart }}</td>
+								<td>{{ $regissubject->secend }}</td>
+								<td>
+										{{-- ปุ่มกดสำหรับการลบวิชาที่เพิ่มไว้ --}}
+										<form method="POST" action="regissubject/{regissubject}">
+												@csrf
+												@method('DELETE')
+												<button class="btn btn-danger" type="submit" name="btn" value="{{ $regissubject->subjectsectionid }}">DELETE</button>
+										</form>
+								</td>
+						</tr>
+				@endforeach
+		</tbody>
+</table>
 
-<!-- Start Add subject Modal -->
-<div class="modal fade" id="add_subject" tabindex="-1" role="dialog" aria-labelledby="add_subjectlabel" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="add_subjectlabel">Add Subject</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-					<form id="add_subject_form" method="POST" class="col" action= "editsubject">
-						@csrf
-						<div class="form-row">
-								<div class="form-group col-md-3">
-										<label for="subjectcode">Subject Code</label>
-										<input type="text" class="form-control" id="subjectcode" name="subjectcode" placeholder=""  value="">
-								</div>
 
-								<div class="form-group col-md-7">
-										<label for="subjectname">Subject Name</label>
-										<input type="text" class="form-control" id="subjectname" name="subjectname" placeholder=""  value="">
-								</div>
-
-								<div class="form-group col-md-2">
-										<label for="subjectcredit">Credit</label>
-										<input type="text" class="form-control" id="subjectcredit" name="subjectcredit" placeholder=""  value="">
-								</div>
-						</div>
-
-						<div class="form-group">
-								<label for="subjectdetail">Detail</label>
-								<textarea class="form-control" id="subjectdetail" name="subjectdetail" placeholder="กรอกคำอธิบายรายวิชา" rows="4"></textarea>
-						</div>
-				</form>
-
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-				<button form="add_subject_form" type="submit" class="btn btn-primary">Save changes</button>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- END Add subject Modal -->
-
+@include('complex-form.editsubject.modal')
 @endsection
 
 @section('script')
 <script>
+$(document).ready(function() {
+	fetch_subject();
+	$(document).on('click', '#fetch_subject', function() {
+		var query = $('#search_subject').val();
+		fetch_subject(query);
+  });
 
+	function fetch_subject(query = '')
+ {
+	console.log("search on:" + query +":");
+  $.ajax({
+   url:"{{route('editsubject.search_subject')}}",
+   type:'POST',
+   data:{query:query, "_token": "{{ csrf_token() }}"},
+   success:function(data)
+   {
+			$('#tb_subject').empty().html(data);
+		}
+	});
+ }
+
+ $('#block1').hide();
+ $('#block2').hide();
+
+
+
+	// $( '#add_form' ).on( 'submit', function(e) {
+  //   var href = $(this).data('value');
+	// 	e.preventDefault();
+  //   $.ajax({
+  //       type: "POST",
+  //       url: "{{route('faculty.store')}}",
+	// 			data: $(this).serialize(),
+  //       success: function(data) {
+	// 				$('tbody').empty().html(data);
+  //       }
+	// 	});
+	// 	$('#add').modal('hide');
+	// 	$('#add_form' ).trigger("reset");
+	// });
+
+
+	// $(document).on('click', '.delete_btn', function() {
+	// 	console.log("delete request");
+	// 	var facultycode = $(this).attr("id");
+	// 	console.log(facultycode);
+
+	// 	if(confirm("Are You sure want to delete !"))
+	// 	{
+	// 		$.ajax({
+	// 			url: "{{route('faculty.store')}}" + "/destroy/"+facultycode,
+	// 			success: function(data) {
+	// 				console.log(data);
+	// 				setTimeout(function(){}, 2000);
+  //       },
+	// 			error: function (data) {
+	// 				console.log('Error:', data);
+	// 			}
+	// 	});
+	// 	}
+
+
+  // });
+});
 </script>
 @endsection
 

@@ -30,7 +30,7 @@
 										<td><button type="button" class="btn btn-warning btn-sm " id="{{$item->facultycode}}">DELETE 2</button></td>
 
 										<td>
-											<form class="delete_form delete_btn" id="{{$item->facultycode}}">
+											<form class="delete_form delete_btn" id="{{$item->facultycode}}" action="">
 												@csrf
 												<input type="hidden" value="delete" name="_method" />
 												<button type="submit" class="btn btn-danger btn-sm">DELETE</button>
