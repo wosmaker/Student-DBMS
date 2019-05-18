@@ -138,7 +138,7 @@
 								<input  type="submit" id="{{"checkbox$loop->iteration"}}" name="roomcode" value="{{ $roomfree->roomcode }}">
 							</td>
 						</tr>
-          @endforeach
+          			@endforeach
 					@endif
 				</tbody>
 			</table>
