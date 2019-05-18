@@ -38,6 +38,18 @@ class EditSubjectController extends Controller
             ->get()->all();
         }
 
+        //ดึงsection ในวิชานั้นๆ
+        $section_lists = null;
+        $subjectcode = request('subjectcode');
+        if($subjectcode != null) {
+            $section_lists = DB::table('subject_list AS sl')
+            ->join('sectioneachsubject AS ss', 'sl.subjectcode','=','ss.subjectcode')
+            ->join('schedule AS sd', 'ss.subjectsectionid', '=', 'sd.subjectsectionid')
+            ->select('ss.sectionno', 'ss.subjectsectionid','ss.seatavailable', 'ss.price', 'sd.periodno','sd.roomcode', 'sd.day', 'sd.start_period', 'sd.end_period')
+            ->where('sl.subjectcode', '=', $subjectcode)
+            ->get()->all();
+        }
+
         //ดึงรายชื่อจารย์ที่ต้องการหา
         $teacher_name = request('teacher_name');
         $submit_teacher = request('submit_teacher');
@@ -85,7 +97,7 @@ class EditSubjectController extends Controller
             }
         }
 
-        return view('complex-form.editsubject.index', compact('subject_lists','userdetail', 'roomfrees', 'teacher_lists', 'role'));
+        return view('complex-form.editsubject.index', compact('subject_lists','userdetail', 'roomfrees', 'teacher_lists', 'section_lists', 'role'));
     }
 
     /**
@@ -94,28 +106,33 @@ class EditSubjectController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-		public function search_subject(Request $request)
-		{
-			if($request->ajax())
-			{
-				$query = $request->get('query');
-				if($query != '')
-				{
-					$subject_lists = DB::table('subject_list')
-					->select('*')
-					->where('subjectcode' , 'like', '%' . $query . '%')
-					->orWhere('subjectname', 'like', '%' . $query . '%')
-					->get()->all();
-				}
+    public function search_subject(Request $request)
+    {
+        if($request->ajax())
+        {
+            $query = $request->get('query');
+            if($query != '')
+            {
+                $subject_lists = DB::table('subject_list')
+                ->select('*')
+                ->where('subjectcode' , 'like', '%' . $query . '%')
+                ->orWhere('subjectname', 'like', '%' . $query . '%')
+                ->get()->all();
+            }
 
-				else {
-					$subject_lists = DB::select('SELECT * FROM subject_list limit 5');
-				}
-				//dd($subject_lists);
-				//return response($subject_lists);
-				return view('complex-form.editsubject.subject_tb', compact('subject_lists'));
-			}
-		}
+            else {
+                $subject_lists = DB::select('SELECT * FROM subject_list limit 5');
+            }
+            //dd($subject_lists);
+            //return response($subject_lists);
+            return view('complex-form.editsubject.subject_tb', compact('subject_lists'));
+        }
+    }
+
+    public function search_section()
+    {
+
+    }
 
     public function create()
     {
@@ -215,7 +232,7 @@ class EditSubjectController extends Controller
                 //ตัวแปร period เป็น object ต้องถึงข้อมูลออกมาก่อนใช้
 
                 for($i = $start-1 ; $i < $end ; $i++) {
-                    $period[$i] = '2';
+                    $period[$i] = '0';
                 }
 
                 DB::table('room_list')

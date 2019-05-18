@@ -33,7 +33,7 @@ class RegisSubjectController extends Controller
                         ->join('sectioneachsubject as ss', 'r.subjectsectionid', '=', 'ss.subjectsectionid')
                         ->join('subject_list as sl', 'ss.subjectcode', '=', 'sl.subjectcode')
                         ->join('schedule as sd' , 'ss.subjectsectionid', '=', 'sd.subjectsectionid')
-                        ->select('sl.subjectcode','sl.subjectname', 'ss.sectionno', 'sl.subjectcredit', 'sd.secstart', 'sd.secend' ,'ss.subjectsectionid')
+                        ->select('sl.subjectcode','sl.subjectname', 'ss.sectionno', 'sl.subjectcredit', 'sd.start_period', 'sd.end_period' ,'ss.subjectsectionid')
                         ->where('r.userid', '=' , $userid)
                         ->get()->all(); //get ทำเก็บข้อมูลในรูปของ collection และ all ทำให้ข้อมูลอยู่ในรูปของ array
 
@@ -43,7 +43,7 @@ class RegisSubjectController extends Controller
         //ดึงรายละเอียดวิชาที่ค้นหา
         $subjectdetails = DB::table('sectioneachsubject as ss')
                         ->join('schedule as sd' , 'ss.subjectsectionid', '=', 'sd.subjectsectionid')
-                        ->select('ss.sectionno', 'ss.seatavailable', 'sd.secstart', 'sd.secend' , 'ss.subjectsectionid')
+                        ->select('ss.sectionno', 'ss.seatavailable', 'sd.start_period', 'sd.end_period' , 'ss.subjectsectionid')
                         ->where('ss.subjectcode', '=', $subjectcode)
                         ->get()->all();
 
