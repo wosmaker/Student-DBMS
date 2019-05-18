@@ -69,10 +69,8 @@ class Cfaculty extends Controller
      */
     public function edit($id)
     {
-			if($request->ajax()){
-				$data = DB::select('SELECT * FROM faculty_list where facultycode = ?', [$id->get('facultycode')]);
+				$data = DB::select('SELECT * FROM faculty_list where facultycode = ?', [$id]);
 				return response($data);
-			}
     }
 
     /**
@@ -84,13 +82,19 @@ class Cfaculty extends Controller
      */
     public function update(Request $request, $id)
     {
+			/*
 			if($request->ajax()){
 				DB::update('UPDATE faculty_list set facultycode = ?, facultyname = ? ,facultycontact = ?  where facultycode = ?', [$request->get('facultycode'),$request->get('facultyname'),$request->get('facultycontact'),$id]);
-				$tb = DB::select('SELECT * FROM faculty_list');
 
+				$tb = DB::select('SELECT * FROM faculty_list');
 				return  view('simple-form/faculty_tb',compact('tb'));
 			}
 			 return back();
+			 */
+			DB::delete('DELETE faculty_list where facultycode = ?', [$id]);
+
+			$tb = DB::select('SELECT * FROM faculty_list');
+			return  view('simple-form/faculty_tb',compact('tb'));
     }
 
     /**
@@ -102,6 +106,10 @@ class Cfaculty extends Controller
     public function destroy($id)
     {
 				DB::delete('DELETE faculty_list where facultycode = ?', [$id]);
-				return back();
-    }
+		}
+
+		public function delete(Request $request)
+		{
+				DB::delete('DELETE faculty_list where facultycode = ?', [$request->facultycode]);
+		}
 }

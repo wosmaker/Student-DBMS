@@ -18,7 +18,6 @@
 								<th>Tel</th>
 								<th>Edit</th>
 								<th>Delete</th>
-								<th> <button type="button" class="btn btn-primary btn2" id="f">edit test</button></th>
 						</tr>
 				</thead>
 				<tbody>
@@ -27,13 +26,15 @@
 										<td class="code">{{$item->facultycode}}</td>
 										<td class="name">{{$item->facultyname}}</td>
 										<td class="contact">{{$item->facultycontact}}</td>
-										<td><button type="button" class="btn btn-warning btn-sm " id="{{$item->facultycode}}" class="edit_btn">Edit</button></td>
+										<td><button type="button" class="btn btn-warning btn-sm edit_btn" id="{{$item->facultycode}}">EDIT</button></td>
+										<td><button type="button" class="btn btn-warning btn-sm " id="{{$item->facultycode}}">DELETE 2</button></td>
+
 										<td>
-												<form method="post" class="delete_form" action="{{action('Csimple\Cfaculty@destroy',$item->facultycode)}}">
-														@csrf
-														<input type="hidden" name="_method" value="DELETE"/>
-														<button type="submit" class="btn btn-danger btn-sm">Delete</button>
-												</form>
+											<form class="delete_form delete_btn" id="{{$item->facultycode}}">
+												@csrf
+												<input type="hidden" value="delete" name="_method" />
+												<button type="submit" class="btn btn-danger btn-sm">DELETE</button>
+											</form>
 										</td>
 								</tr>
 						@endforeach
@@ -98,7 +99,7 @@
 			</div>
 
 			<div class="modal-body">
-					<form id="edit_form" class="col"  method ="post" action = {{route('faculty.store')}} >
+					<form id="edit_form" class="col"  method ="post" action = {{route('faculty.update')}} >
 							@csrf
 								<div class="form-group">
 												<label for="facultycode">รหัสคณะ</label>
@@ -131,30 +132,22 @@
 @section('script')
 <script>
 $(document).ready(function() {
-
-	$(document).on('click', '.btn2', function() {
+	$(document).on('click', '.edit_btn', function() {
 		console.log("request edit");
 		var facultycode = $(this).attr("id");
-
-		var edit_url = '/faculty/{' + facultycode +'}/edit';
-
     var options = {'backdrop': 'static'};
+
 		$('#edit').modal(options);
-
-		$.ajax({
-        type: "GET",
-        url: edit_url,
-				data: {facultycode:facultycode},
-        success: function(data) {
-					$("#facultycode").val(data.facultycode);
-					$("#facultyname").val(data.facultyname);
-					$("#facultycontact").val(data.facultycontact);
-
-					$('#edit').modal('show');
-        }
+		$.get("{{ route('faculty.index') }}" +'/' + facultycode +'/edit', function (data) {
+			data = data[0];
+			$("#edit_form #facultycode").val(data.facultycode);
+			$("#edit_form #facultyname").val(data.facultyname);
+			$(" #edit_form #facultycontact").val(data.facultycontact);
+			$('#edit').modal('show');
 		});
-
   });
+
+
 
 
 
@@ -172,6 +165,29 @@ $(document).ready(function() {
 		$('#add').modal('hide');
 		$('#add_form' ).trigger("reset");
 	});
-})
+
+
+	$(document).on('click', '.delete_btn', function() {
+		console.log("delete request");
+		var facultycode = $(this).attr("id");
+		console.log(facultycode);
+
+		if(confirm("Are You sure want to delete !"))
+		{
+			$.ajax({
+				url: "{{route('faculty.store')}}" + "/destroy/"+facultycode,
+				success: function(data) {
+					console.log(data);
+					setTimeout(function(){}, 2000);
+        },
+				error: function (data) {
+					console.log('Error:', data);
+				}
+		});
+		}
+
+
+  });
+});
 </script>
 @endsection

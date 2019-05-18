@@ -26,7 +26,11 @@ Route::resource('confirmreceipt', 'ConfirmReceiptController');
 Route::resource('personal', 'PersonalController');
 
 
+
+
 Route::resource('faculty', 'Csimple\Cfaculty');
+Route::post('faculty/update', 'Csimple\Cfaculty@update')->name('faculty.update');
+Route::post('faculty/destroy/{id}', 'Csimple\Cfaculty@destroy');
 
 
 Route::get('/test1', function () {
