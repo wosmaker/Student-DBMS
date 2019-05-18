@@ -12,12 +12,17 @@ class Cfaculty extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-		$tb = DB::select('SELECT * FROM faculty_list');
-		//dd($tb);
-        return  view('simple-form/faculty',compact('tb'));
-    }
+			$tb = DB::select('SELECT * FROM faculty_list');
+			if($request->ajax()){
+				//return response($tb);
+				return  view('simple-form/faculty_tb',compact('tb'));
+			}
+			//dd($tb);
+			return  view('simple-form/faculty',compact('tb'));
+		}
+
 
     /**
      * Show the form for creating a new resource.
@@ -38,10 +43,10 @@ class Cfaculty extends Controller
     {
 			if($request->ajax()){
 				DB::insert('INSERT INTO faculty_list (facultycode, facultyname,facultycontact) values (?, ?, ?)', [$request->get('facultycode'),$request->get('facultyname'),$request->get('facultycontact')]);
-				return response()->json($data, 200, $headers);
-			}
+				$tb = DB::select('SELECT * FROM faculty_list');
 
-				DB::insert('INSERT INTO faculty_list (facultycode, facultyname,facultycontact) values (?, ?, ?)', [$request->get('facultycode'),$request->get('facultyname'),$request->get('facultycontact')]);
+				return  view('simple-form/faculty_tb',compact('tb'));
+			}
 			 return back();
     }
 
@@ -76,7 +81,13 @@ class Cfaculty extends Controller
      */
     public function update(Request $request, $id)
     {
-        DB::update('UPDATE faculty_list set facultycode = ?, facultyname = ? ,facultycontact = ?  where facultycode = ?', [$request->get('facultycode'),$request->get('facultyname'),$request->get('facultycontact'),$id]);
+			if($request->ajax()){
+				DB::update('UPDATE faculty_list set facultycode = ?, facultyname = ? ,facultycontact = ?  where facultycode = ?', [$request->get('facultycode'),$request->get('facultyname'),$request->get('facultycontact'),$id]);
+				$tb = DB::select('SELECT * FROM faculty_list');
+
+				return  view('simple-form/faculty_tb',compact('tb'));
+			}
+			 return back();
     }
 
     /**

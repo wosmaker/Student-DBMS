@@ -150,6 +150,9 @@ $(document).ready(function() {
     $("#facultycode").val(code);
 		$("#facultyname").val(name);
 		$("#facultycontact").val(contact);
+
+
+
   })
 
 	  // on modal hide
@@ -158,24 +161,22 @@ $(document).ready(function() {
     $('#edit_form').trigger("reset");
 	})
 
+
+
 	$( '#add_form' ).on( 'submit', function(e) {
     var href = $(this).data('value');
 		e.preventDefault();
-		console.log("set data")
-		console.log($(this).serialize())
     $.ajax({
         type: "POST",
         url: "{{route('faculty.store')}}",
 				data: $(this).serialize(),
-        success: function( msg ) {
-            $("#container-fluid").html(msg);
-            $('.se-pre-con').hide();
+        success: function(data) {
+					$('tbody').empty().html(data);
         }
 		});
-		console.log("set data finish")
-
-});
-
+		$('#add').modal('hide');
+		$('#add_form' ).trigger("reset");
+	});
 })
 </script>
 @endsection
