@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 18, 2019 at 10:45 AM
+-- Generation Time: May 18, 2019 at 05:43 PM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.2
 
@@ -203,7 +203,8 @@ INSERT INTO `problemreport_list` (`problemno`, `userid`, `problemtypeid`, `probl
 (2, 1, 1, '2019-05-12 19:17:06', 'test report work', 'rr', 'waiting', NULL),
 (3, 1, 3, '2019-05-12 19:17:16', 'test report work', 'see', 'waiting', NULL),
 (4, 1, 1, '2019-05-14 22:47:25', 'test report 2', 'ddd', 'waiting', NULL),
-(5, 1, 2, '2019-05-14 22:47:36', 'dddsdw', 'fgrf', 'waiting', NULL);
+(5, 1, 2, '2019-05-18 13:04:05', 'dddsdw', 'fgrf', 'answered', 'ตอบคำถามข้อที่ 2'),
+(6, 8, 1, '2019-05-18 15:40:17', 'FromAdmin', 'TEST', 'waiting', NULL);
 
 -- --------------------------------------------------------
 
@@ -282,7 +283,7 @@ CREATE TABLE `room_list` (
 --
 
 INSERT INTO `room_list` (`roomcode`, `buildingname`, `floor`, `roomseattotal`, `monday`, `tuesday`, `wednesday`, `thursday`, `friday`) VALUES
-('r1', 'b1', 'f1', 100, '2211111', '2211111', '1111111', '1111111', '1111111'),
+('r1', 'b1', 'f1', 100, '0011111', '0011111', '1111111', '1111111', '1111111'),
 ('r2', 'b2', 'f2', 100, '0000111', '1111111', '1111111', '1111111', '1111111');
 
 -- --------------------------------------------------------
@@ -293,9 +294,7 @@ INSERT INTO `room_list` (`roomcode`, `buildingname`, `floor`, `roomseattotal`, `
 
 CREATE TABLE `schedule` (
   `subjectsectionid` int(10) UNSIGNED NOT NULL,
-  `secorder` int(10) UNSIGNED NOT NULL,
-  `secstart` datetime NOT NULL,
-  `secend` datetime NOT NULL,
+  `periodno` int(10) UNSIGNED NOT NULL,
   `roomcode` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `day` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   `start_period` int(10) NOT NULL,
@@ -306,9 +305,13 @@ CREATE TABLE `schedule` (
 -- Dumping data for table `schedule`
 --
 
-INSERT INTO `schedule` (`subjectsectionid`, `secorder`, `secstart`, `secend`, `roomcode`, `day`, `start_period`, `end_period`) VALUES
-(3, 1, '2019-05-05 00:00:00', '2019-05-05 01:00:00', 'r2', 'monday', 1, 2),
-(4, 1, '2019-05-05 01:00:00', '2019-05-05 02:00:00', 'r2', 'monday', 3, 4);
+INSERT INTO `schedule` (`subjectsectionid`, `periodno`, `roomcode`, `day`, `start_period`, `end_period`) VALUES
+(3, 1, 'r2', 'monday', 1, 2),
+(4, 1, 'r2', 'monday', 3, 4),
+(5, 1, 'r1', 'friday', 1, 2),
+(5, 2, 'r1', 'friday', 3, 4),
+(6, 1, 'r1', 'friday', 4, 5),
+(6, 2, 'r1', 'friday', 6, 7);
 
 -- --------------------------------------------------------
 
@@ -330,7 +333,9 @@ CREATE TABLE `sectioneachsubject` (
 
 INSERT INTO `sectioneachsubject` (`subjectsectionid`, `subjectcode`, `sectionno`, `price`, `seatavailable`) VALUES
 (3, 's2', 1, '200.00', 20),
-(4, 's2', 2, '200.00', 20);
+(4, 's2', 2, '200.00', 20),
+(5, 's3', 1, '300.00', 100),
+(6, 's3', 2, '300.00', 100);
 
 -- --------------------------------------------------------
 
@@ -402,7 +407,8 @@ INSERT INTO `userrole_list` (`userroleid`, `userrolename`) VALUES
 (1, 'student'),
 (2, 'teacher'),
 (3, 'staff'),
-(4, 'admin');
+(4, 'admin'),
+(5, 'superadmin');
 
 -- --------------------------------------------------------
 
@@ -433,7 +439,8 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `us
 (4, 'teacher1', 'teacher1@example.com', NULL, '$2y$10$sj55R/bj0gXfToD0YvUTt.ih48cwVyWExKhF9ktZJ6TanBw5gVZ8W', 2, NULL, '2019-05-17 02:46:15', '2019-05-17 02:46:15'),
 (5, 'teacher2', 'teacher2@example.com', NULL, '$2y$10$rgbJkAdTeYRFdVYZSH29TuaARUFXi/U3v2FosqNVaZBp3XFAWc/om', 2, NULL, '2019-05-17 03:06:30', '2019-05-17 03:06:30'),
 (6, 'teacher3', 'teacher3@example.com', NULL, '$2y$10$qqpKywEstCFjZetGJ9WSFeb8VU1TTcDZW1YxtvpC/sSaZNBGvEGBq', 2, NULL, '2019-05-17 03:09:30', '2019-05-17 03:09:30'),
-(7, 'teacher4', 'teacher4@example.com', NULL, '$2y$10$RGhWs.q9GVWoUhIJ7dcrCuwgrgvy1PrD2IIr7LuMeafEvUp/McU1C', 2, NULL, '2019-05-17 03:12:24', '2019-05-17 03:12:24');
+(7, 'teacher4', 'teacher4@example.com', NULL, '$2y$10$RGhWs.q9GVWoUhIJ7dcrCuwgrgvy1PrD2IIr7LuMeafEvUp/McU1C', 2, NULL, '2019-05-17 03:12:24', '2019-05-17 03:12:24'),
+(8, 'superadmin', 'superadmin@example.com', NULL, '$2y$10$xzUWmWoMrI4X42LPo8pNF.Y2HnaRn5gJ3icJCDGyY/iXrNsCgs2jS', 5, NULL, '2019-05-18 05:16:23', '2019-05-18 05:16:23');
 
 -- --------------------------------------------------------
 
@@ -472,7 +479,8 @@ INSERT INTO `user_list` (`identificationno`, `userid`, `titlename`, `firstname`,
 (10002, 2, 'mrs', 'fn2', 'ln2', 'female', 'b', '2019-04-10', 'r2', 'r2', 'n2', 'a2', 2, 'p2', 'd2', 's2', 'd2', '2', '2.00'),
 (10003, 3, 'mr', 'fn3', 'ln3', 'male', 'ab', '2019-05-02', 'r3', 'r3', 'n3', 'a3', 3, 'p3', 'd3', 's3', NULL, '3', NULL),
 (10004, 4, 'mrs', 'jenny', 'ynnej', 'female', 'AB', '2019-05-03', 'thai', 'buddism', 'thai', 'a4', 4, 'p4', 'd4', 's4', 'd1', 'u4', NULL),
-(10005, 5, 'mr', 'david', 'divad', 'male', 'A', '2018-10-01', 'thai', 'chris', 'thai', 'a5', 5, 'p5', 'd5', 's5', 'd3', 'u5', NULL);
+(10005, 5, 'mr', 'david', 'divad', 'male', 'A', '2018-10-01', 'thai', 'chris', 'thai', 'a5', 5, 'p5', 'd5', 's5', 'd3', 'u5', NULL),
+(99999, 8, 'mr', 'super', 'admin', 'male', 'AB', '2018-04-02', 'human', 'buddism', 'thai', '123', 12345, '123123', '123132', '123123', NULL, '1212312121', NULL);
 
 -- --------------------------------------------------------
 
@@ -582,7 +590,7 @@ ALTER TABLE `room_list`
 -- Indexes for table `schedule`
 --
 ALTER TABLE `schedule`
-  ADD PRIMARY KEY (`subjectsectionid`,`secorder`),
+  ADD PRIMARY KEY (`subjectsectionid`,`periodno`),
   ADD KEY `schedule_roomcode_foreign` (`roomcode`);
 
 --
@@ -656,7 +664,7 @@ ALTER TABLE `paymenttype_list`
 -- AUTO_INCREMENT for table `problemreport_list`
 --
 ALTER TABLE `problemreport_list`
-  MODIFY `problemno` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `problemno` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `problemtype_list`
@@ -668,7 +676,7 @@ ALTER TABLE `problemtype_list`
 -- AUTO_INCREMENT for table `sectioneachsubject`
 --
 ALTER TABLE `sectioneachsubject`
-  MODIFY `subjectsectionid` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `subjectsectionid` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `transaction_list`
@@ -680,7 +688,7 @@ ALTER TABLE `transaction_list`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `user_log`
@@ -709,7 +717,8 @@ ALTER TABLE `person_link_parent`
 -- Constraints for table `schedule`
 --
 ALTER TABLE `schedule`
-  ADD CONSTRAINT `schedule_ibfk_1` FOREIGN KEY (`subjectsectionid`) REFERENCES `sectioneachsubject` (`subjectsectionid`);
+  ADD CONSTRAINT `schedule_ibfk_1` FOREIGN KEY (`subjectsectionid`) REFERENCES `sectioneachsubject` (`subjectsectionid`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `schedule_ibfk_2` FOREIGN KEY (`roomcode`) REFERENCES `room_list` (`roomcode`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
 -- Constraints for table `sectioneachsubject`
