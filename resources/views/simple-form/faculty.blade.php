@@ -3,6 +3,8 @@
 @section('page-head')
 <div class="col" align="left"><h1>Faculty</h1></div>
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add">ADD Data</button>
+
+
 @endsection
 
 @section('page-main')
@@ -24,19 +26,22 @@
 										<td class="code">{{$item->facultycode}}</td>
 										<td class="name">{{$item->facultyname}}</td>
 										<td class="contact">{{$item->facultycontact}}</td>
-										<td><button type="button" class="btn btn-warning btn-sm " id="edit_btn">Edit</button></td>
+										<td><button type="button" class="btn btn-warning btn-sm edit_btn" id="{{$item->facultycode}}">EDIT</button></td>
+										<td><button type="button" class="btn btn-warning btn-sm " id="{{$item->facultycode}}">DELETE 2</button></td>
+
 										<td>
-												<form method="post" class="delete_form" action="{{action('Csimple\Cfaculty@destroy',$item->facultycode)}}">
-														@csrf
-														<input type="hidden" name="_method" value="DELETE"/>
-														<button type="submit" class="btn btn-danger btn-sm">Delete</button>
-												</form>
+											<form class="delete_form delete_btn" id="{{$item->facultycode}}">
+												@csrf
+												<input type="hidden" value="delete" name="_method" />
+												<button type="submit" class="btn btn-danger btn-sm">DELETE</button>
+											</form>
 										</td>
 								</tr>
 						@endforeach
 				</tbody>
 		</table>
 </div>
+
 
 <!-- The Modal ADD-->
 <div class="modal fade" id="add" tabindex="-1"  aria-labelledby="addlabel" aria-hidden="true">
@@ -94,7 +99,7 @@
 			</div>
 
 			<div class="modal-body">
-					<form id="edit_form" class="col"  method ="post" action = {{route('faculty.store')}} >
+					<form id="edit_form" class="col"  method ="post" action = {{route('faculty.update')}} >
 							@csrf
 								<div class="form-group">
 												<label for="facultycode">รหัสคณะ</label>
@@ -127,37 +132,62 @@
 @section('script')
 <script>
 $(document).ready(function() {
+	$(document).on('click', '.edit_btn', function() {
+		console.log("request edit");
+		var facultycode = $(this).attr("id");
+    var options = {'backdrop': 'static'};
 
-	$(document).on('click', '#edit_btn', function() {
-    $(this).addClass('edit-item-trigger-clicked'); //useful for identifying which trigger was clicked and consequently grab data from the correct row and not the wrong one.
-		console.log("test edit button")
-    var options = {
-      'backdrop': 'static'
-    };
-    $('#edit').modal(options)
-  })
-  // on modal show
-  $('#edit').on('show.bs.modal', function() {
-		console.log('edit js')
-    var el = $(".edit-item-trigger-clicked"); // See how its usefull right here?
-    var row = el.closest(".data");
+		$('#edit').modal(options);
+		$.get("{{ route('faculty.index') }}" +'/' + facultycode +'/edit', function (data) {
+			data = data[0];
+			$("#edit_form #facultycode").val(data.facultycode);
+			$("#edit_form #facultyname").val(data.facultyname);
+			$(" #edit_form #facultycontact").val(data.facultycontact);
+			$('#edit').modal('show');
+		});
+  });
 
-    // get the data
-    var code = row.children(".code").text();
-		var name = row.children(".name").text();
-		var contact = row.children(".contact").text();
-    // fill the data in the input fields
-    $("#facultycode").val(code);
-		$("#facultyname").val(name);
-		$("#facultycontact").val(contact);
-  })
 
-	  // on modal hide
-	$('#edit').on('hide.bs.modal', function() {
-    $('.edit-item-trigger-clicked').removeClass('edit-item-trigger-clicked')
-    $('#edit_form').trigger("reset");
-  })
 
-})
+
+
+	$( '#add_form' ).on( 'submit', function(e) {
+    var href = $(this).data('value');
+		e.preventDefault();
+    $.ajax({
+        type: "POST",
+        url: "{{route('faculty.store')}}",
+				data: $(this).serialize(),
+        success: function(data) {
+					$('tbody').empty().html(data);
+        }
+		});
+		$('#add').modal('hide');
+		$('#add_form' ).trigger("reset");
+	});
+
+
+	$(document).on('click', '.delete_btn', function() {
+		console.log("delete request");
+		var facultycode = $(this).attr("id");
+		console.log(facultycode);
+
+		if(confirm("Are You sure want to delete !"))
+		{
+			$.ajax({
+				url: "{{route('faculty.store')}}" + "/destroy/"+facultycode,
+				success: function(data) {
+					console.log(data);
+					setTimeout(function(){}, 2000);
+        },
+				error: function (data) {
+					console.log('Error:', data);
+				}
+		});
+		}
+
+
+  });
+});
 </script>
 @endsection
