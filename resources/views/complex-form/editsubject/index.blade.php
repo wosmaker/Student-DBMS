@@ -22,7 +22,8 @@
 						<th scope="col">Subject Name</th>
 						<th scope="col">Credit</th>
 						<th scope="col">Detail</th>
-						<th scope="col">Manage</th>
+						<th scope="col"></th>
+						<th scope="col"></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -36,8 +37,13 @@
 							<td>{{ $subject_list->subjectcredit}}</td>
 							<td>{{ $subject_list->subjectdetail}}</td>
 							<td>
-								<button class="btn btn-danger" type="submit" name="roomcode" value="{{ $subject_list->subjectcode }}">DELETE</button>
+								<form action="editsubject/{editsubject}" method="POST">
+									@csrf
+									@method('DELETE')
+									<button class="btn btn-danger" type="submit" name="subjectcode" value="{{ $subject_list->subjectcode }}">DELETE</button>
+								</form>
 							</td>
+							<td><button class="btn btn-warning" type="button" name="editsubject" value="{{ $subject_list->subjectcode }}">EDIT</button></td>
 						</tr>
 						@endforeach
 					@endif 
@@ -52,7 +58,7 @@
 			<div class="form-row">
 					<div class="form-group col-md-4">
 							<label for="subjectcode">Subject Code</label>
-							<input type="text" class="form-control" id="subjectcode" name="subjectcode" placeholder=""  readonly>
+							<input type="text" class="form-control" id="subjectcode" name="subjectcode" placeholder="Choose From Above"  readonly>
 					</div>
 
 					<div class="form-group col-md-2">
@@ -65,9 +71,13 @@
 							<input type="number" min="0" class="form-control" id="price" name="price" placeholder="" >
 					</div>
 
-					<div class="form-group col-md-3">
+					<div class="form-group col-md-2">
 							<label for="seatavaiable">Seat</label>
 							<input type="number" min="0" class="form-control" id="seatavaiable" name="seatavaiable" placeholder="">
+					</div>
+
+					<div class="form-group col-md-1">
+							<button class="btn" type="button" name="btn-next" id="btn-next" value="">NEXT</button>
 					</div>
 			</div>
 	</form>
