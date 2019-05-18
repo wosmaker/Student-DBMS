@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 17, 2019 at 02:39 PM
+-- Generation Time: May 18, 2019 at 03:30 PM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.2
 
@@ -203,7 +203,7 @@ INSERT INTO `problemreport_list` (`problemno`, `userid`, `problemtypeid`, `probl
 (2, 1, 1, '2019-05-12 19:17:06', 'test report work', 'rr', 'waiting', NULL),
 (3, 1, 3, '2019-05-12 19:17:16', 'test report work', 'see', 'waiting', NULL),
 (4, 1, 1, '2019-05-14 22:47:25', 'test report 2', 'ddd', 'waiting', NULL),
-(5, 1, 2, '2019-05-14 22:47:36', 'dddsdw', 'fgrf', 'waiting', NULL);
+(5, 1, 2, '2019-05-18 13:04:05', 'dddsdw', 'fgrf', 'answered', 'ตอบคำถามข้อที่ 2');
 
 -- --------------------------------------------------------
 
@@ -244,8 +244,7 @@ CREATE TABLE `registration_student` (
 --
 
 INSERT INTO `registration_student` (`subjectsectionid`, `userid`, `transactionid`, `dateregis`, `grade`) VALUES
-(1, 1, NULL, '2019-05-13 05:22:23', NULL),
-(3, 1, NULL, '2019-05-17 09:02:14', NULL);
+(3, 1, NULL, '2019-05-18 08:21:22', NULL);
 
 -- --------------------------------------------------------
 
@@ -270,16 +269,21 @@ CREATE TABLE `room_list` (
   `roomcode` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `buildingname` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `floor` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `roomseattotal` smallint(6) NOT NULL
+  `roomseattotal` smallint(6) NOT NULL,
+  `monday` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '1111111',
+  `tuesday` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '1111111',
+  `wednesday` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '1111111',
+  `thursday` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '1111111',
+  `friday` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '1111111'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `room_list`
 --
 
-INSERT INTO `room_list` (`roomcode`, `buildingname`, `floor`, `roomseattotal`) VALUES
-('r1', 'b1', 'f1', 100),
-('r2', 'b2', 'f2', 100);
+INSERT INTO `room_list` (`roomcode`, `buildingname`, `floor`, `roomseattotal`, `monday`, `tuesday`, `wednesday`, `thursday`, `friday`) VALUES
+('r1', 'b1', 'f1', 100, '2211111', '2211111', '1111111', '1111111', '1111111'),
+('r2', 'b2', 'f2', 100, '0000111', '1111111', '1111111', '1111111', '1111111');
 
 -- --------------------------------------------------------
 
@@ -292,18 +296,19 @@ CREATE TABLE `schedule` (
   `secorder` int(10) UNSIGNED NOT NULL,
   `secstart` datetime NOT NULL,
   `secend` datetime NOT NULL,
-  `roomcode` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL
+  `roomcode` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `day` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `start_period` int(10) NOT NULL,
+  `end_period` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `schedule`
 --
 
-INSERT INTO `schedule` (`subjectsectionid`, `secorder`, `secstart`, `secend`, `roomcode`) VALUES
-(1, 1, '2019-04-01 00:00:00', '2019-04-01 01:00:00', 'r1'),
-(1, 2, '2019-04-01 01:00:00', '2019-04-01 02:00:00', 'r1'),
-(3, 1, '2019-05-05 00:00:00', '2019-05-05 01:00:00', 'r2'),
-(4, 2, '2019-05-05 01:00:00', '2019-05-05 02:00:00', 'r2');
+INSERT INTO `schedule` (`subjectsectionid`, `secorder`, `secstart`, `secend`, `roomcode`, `day`, `start_period`, `end_period`) VALUES
+(3, 1, '2019-05-05 00:00:00', '2019-05-05 01:00:00', 'r2', 'monday', 1, 2),
+(4, 1, '2019-05-05 01:00:00', '2019-05-05 02:00:00', 'r2', 'monday', 3, 4);
 
 -- --------------------------------------------------------
 
@@ -324,8 +329,6 @@ CREATE TABLE `sectioneachsubject` (
 --
 
 INSERT INTO `sectioneachsubject` (`subjectsectionid`, `subjectcode`, `sectionno`, `price`, `seatavailable`) VALUES
-(1, 's1', 1, '100.00', 10),
-(2, 's1', 2, '100.00', 10),
 (3, 's2', 1, '200.00', 20),
 (4, 's2', 2, '200.00', 20);
 
@@ -347,8 +350,8 @@ CREATE TABLE `subject_list` (
 --
 
 INSERT INTO `subject_list` (`subjectcode`, `subjectname`, `subjectcredit`, `subjectdetail`) VALUES
-('s1', 'subfoo1', 1, 'sdfoo1'),
-('s2', 'subfoo2', 2, 'sdfoo2');
+('s2', 'subfoo2', 2, 'sdfoo2'),
+('s3', 'subfoo3', 3, 'what?');
 
 -- --------------------------------------------------------
 
@@ -398,7 +401,9 @@ CREATE TABLE `userrole_list` (
 INSERT INTO `userrole_list` (`userroleid`, `userrolename`) VALUES
 (1, 'student'),
 (2, 'teacher'),
-(3, 'admin');
+(3, 'staff'),
+(4, 'admin'),
+(5, 'superadmin');
 
 -- --------------------------------------------------------
 
@@ -429,7 +434,8 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `us
 (4, 'teacher1', 'teacher1@example.com', NULL, '$2y$10$sj55R/bj0gXfToD0YvUTt.ih48cwVyWExKhF9ktZJ6TanBw5gVZ8W', 2, NULL, '2019-05-17 02:46:15', '2019-05-17 02:46:15'),
 (5, 'teacher2', 'teacher2@example.com', NULL, '$2y$10$rgbJkAdTeYRFdVYZSH29TuaARUFXi/U3v2FosqNVaZBp3XFAWc/om', 2, NULL, '2019-05-17 03:06:30', '2019-05-17 03:06:30'),
 (6, 'teacher3', 'teacher3@example.com', NULL, '$2y$10$qqpKywEstCFjZetGJ9WSFeb8VU1TTcDZW1YxtvpC/sSaZNBGvEGBq', 2, NULL, '2019-05-17 03:09:30', '2019-05-17 03:09:30'),
-(7, 'teacher4', 'teacher4@example.com', NULL, '$2y$10$RGhWs.q9GVWoUhIJ7dcrCuwgrgvy1PrD2IIr7LuMeafEvUp/McU1C', 2, NULL, '2019-05-17 03:12:24', '2019-05-17 03:12:24');
+(7, 'teacher4', 'teacher4@example.com', NULL, '$2y$10$RGhWs.q9GVWoUhIJ7dcrCuwgrgvy1PrD2IIr7LuMeafEvUp/McU1C', 2, NULL, '2019-05-17 03:12:24', '2019-05-17 03:12:24'),
+(8, 'superadmin', 'superadmin@example.com', NULL, '$2y$10$xzUWmWoMrI4X42LPo8pNF.Y2HnaRn5gJ3icJCDGyY/iXrNsCgs2jS', 5, NULL, '2019-05-18 05:16:23', '2019-05-18 05:16:23');
 
 -- --------------------------------------------------------
 
@@ -454,7 +460,7 @@ CREATE TABLE `user_list` (
   `province` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `district` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `subdistrict` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `departmentcode` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `departmentcode` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `usercontact` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `gpax` decimal(8,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -465,7 +471,11 @@ CREATE TABLE `user_list` (
 
 INSERT INTO `user_list` (`identificationno`, `userid`, `titlename`, `firstname`, `lastname`, `gender`, `bloodtype`, `birthdate`, `race`, `religion`, `nationnality`, `address`, `postcode`, `province`, `district`, `subdistrict`, `departmentcode`, `usercontact`, `gpax`) VALUES
 (10001, 1, 'mr', 'fn1', 'ln1', 'male', 'a', '2019-04-01', 'r1', 'r1', 'n1', 'a1', 1, 'p1', 'd1', 's1', 'd1', '1', '1.00'),
-(10002, 2, 'mrs', 'fn2', 'ln2', 'female', 'b', '2019-04-10', 'r2', 'r2', 'n2', 'a2', 2, 'p2', 'd2', 's2', 'd2', '2', '2.00');
+(10002, 2, 'mrs', 'fn2', 'ln2', 'female', 'b', '2019-04-10', 'r2', 'r2', 'n2', 'a2', 2, 'p2', 'd2', 's2', 'd2', '2', '2.00'),
+(10003, 3, 'mr', 'fn3', 'ln3', 'male', 'ab', '2019-05-02', 'r3', 'r3', 'n3', 'a3', 3, 'p3', 'd3', 's3', NULL, '3', NULL),
+(10004, 4, 'mrs', 'jenny', 'ynnej', 'female', 'AB', '2019-05-03', 'thai', 'buddism', 'thai', 'a4', 4, 'p4', 'd4', 's4', 'd1', 'u4', NULL),
+(10005, 5, 'mr', 'david', 'divad', 'male', 'A', '2018-10-01', 'thai', 'chris', 'thai', 'a5', 5, 'p5', 'd5', 's5', 'd3', 'u5', NULL),
+(99999, 8, 'mr', 'super', 'admin', 'male', 'AB', '2018-04-02', 'human', 'buddism', 'thai', '123', 12345, '123123', '123132', '123123', NULL, '1212312121', NULL);
 
 -- --------------------------------------------------------
 
@@ -673,7 +683,7 @@ ALTER TABLE `transaction_list`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `user_log`
@@ -697,6 +707,25 @@ ALTER TABLE `department_list`
 ALTER TABLE `person_link_parent`
   ADD CONSTRAINT `person_link_parent_identificationno_foreign` FOREIGN KEY (`identificationno`) REFERENCES `user_list` (`identificationno`),
   ADD CONSTRAINT `person_link_parent_parentid_foreign` FOREIGN KEY (`parentid`) REFERENCES `parent_list` (`parentid`);
+
+--
+-- Constraints for table `schedule`
+--
+ALTER TABLE `schedule`
+  ADD CONSTRAINT `schedule_ibfk_1` FOREIGN KEY (`subjectsectionid`) REFERENCES `sectioneachsubject` (`subjectsectionid`);
+
+--
+-- Constraints for table `sectioneachsubject`
+--
+ALTER TABLE `sectioneachsubject`
+  ADD CONSTRAINT `sectioneachsubject_ibfk_1` FOREIGN KEY (`subjectcode`) REFERENCES `subject_list` (`subjectcode`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `user_list`
+--
+ALTER TABLE `user_list`
+  ADD CONSTRAINT `user_list_ibfk_1` FOREIGN KEY (`departmentcode`) REFERENCES `department_list` (`departmentcode`),
+  ADD CONSTRAINT `user_list_ibfk_2` FOREIGN KEY (`userid`) REFERENCES `users` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
