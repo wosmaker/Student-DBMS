@@ -21,15 +21,25 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('regissubject', 'RegisSubjectController');
 Route::resource('updatereceipt', 'UpdateReceiptController');
 //Route::resource('editsubject', 'EditSubjectController');
-Route::resource('problemreport', 'ProblemReportController');
+//Route::resource('problemreport', 'ProblemReportController');
 Route::resource('confirmreceipt', 'ConfirmReceiptController');
 Route::resource('personal', 'PersonalController');
 
 
+
+
+Route::get('problemreport','ProblemReportController@index')->name('problemreport.index');
+Route::get('problemreport/{id}/edit' , 'ProblemReportController@update')->name('problemreport.edit');
+Route::post('problemreport', 'ProblemReportController@store')->name('problemreport.store');
+Route::delete('problemreport/{id}', 'ProblemReportController@destroy')->name('problemreport.destroy');
+Route::patch('problemreport/{id}' , 'ProblemReportController@update')->name('problemreport.update');
+
+
+
 Route::get('editsubject','EditSubjectController@index')->name('editsubject.index');
 Route::post('editsubject', 'EditSubjectController@store')->name('editsubject.store');
-Route::delete('editsubject/{editsubject}', 'EditSubjectController@destroy')->name('editsubject.destroy');
-Route::patch('editsubject/{editsubject}' , 'EditSubjectController@update')->name('editsubject.update');
+Route::delete('editsubject/{id}', 'EditSubjectController@destroy')->name('editsubject.destroy');
+Route::patch('editsubject/{id}' , 'EditSubjectController@update')->name('editsubject.update');
 Route::post('editsubject/search_subject', 'EditSubjectController@search_subject')->name('editsubject.search_subject');
 
 
