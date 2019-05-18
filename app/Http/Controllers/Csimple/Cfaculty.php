@@ -69,7 +69,10 @@ class Cfaculty extends Controller
      */
     public function edit($id)
     {
-        //
+			if($request->ajax()){
+				$data = DB::select('SELECT * FROM faculty_list where facultycode = ?', [$id->get('facultycode')]);
+				return response($data);
+			}
     }
 
     /**

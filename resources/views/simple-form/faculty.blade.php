@@ -3,6 +3,8 @@
 @section('page-head')
 <div class="col" align="left"><h1>Faculty</h1></div>
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add">ADD Data</button>
+
+
 @endsection
 
 @section('page-main')
@@ -16,6 +18,7 @@
 								<th>Tel</th>
 								<th>Edit</th>
 								<th>Delete</th>
+								<th> <button type="button" class="btn btn-primary btn2" id="f">edit test</button></th>
 						</tr>
 				</thead>
 				<tbody>
@@ -24,7 +27,7 @@
 										<td class="code">{{$item->facultycode}}</td>
 										<td class="name">{{$item->facultyname}}</td>
 										<td class="contact">{{$item->facultycontact}}</td>
-										<td><button type="button" class="btn btn-warning btn-sm " id="edit_btn">Edit</button></td>
+										<td><button type="button" class="btn btn-warning btn-sm " id="{{$item->facultycode}}" class="edit_btn">Edit</button></td>
 										<td>
 												<form method="post" class="delete_form" action="{{action('Csimple\Cfaculty@destroy',$item->facultycode)}}">
 														@csrf
@@ -37,6 +40,7 @@
 				</tbody>
 		</table>
 </div>
+
 
 <!-- The Modal ADD-->
 <div class="modal fade" id="add" tabindex="-1"  aria-labelledby="addlabel" aria-hidden="true">
@@ -128,38 +132,29 @@
 <script>
 $(document).ready(function() {
 
-	$(document).on('click', '#edit_btn', function() {
-    $(this).addClass('edit-item-trigger-clicked'); //useful for identifying which trigger was clicked and consequently grab data from the correct row and not the wrong one.
-		console.log("test edit button")
-    var options = {
-      'backdrop': 'static'
-    };
-    $('#edit').modal(options)
-  })
-  // on modal show
-  $('#edit').on('show.bs.modal', function() {
-		console.log('jquery work')
-    var el = $(".edit-item-trigger-clicked"); // See how its usefull right here?
-    var row = el.closest(".data");
+	$(document).on('click', '.btn2', function() {
+		console.log("request edit");
+		var facultycode = $(this).attr("id");
 
-    // get the data
-    var code = row.children(".code").text();
-		var name = row.children(".name").text();
-		var contact = row.children(".contact").text();
-    // fill the data in the input fields
-    $("#facultycode").val(code);
-		$("#facultyname").val(name);
-		$("#facultycontact").val(contact);
+		var edit_url = '/faculty/{' + facultycode +'}/edit';
 
+    var options = {'backdrop': 'static'};
+		$('#edit').modal(options);
 
+		$.ajax({
+        type: "GET",
+        url: edit_url,
+				data: {facultycode:facultycode},
+        success: function(data) {
+					$("#facultycode").val(data.facultycode);
+					$("#facultyname").val(data.facultyname);
+					$("#facultycontact").val(data.facultycontact);
 
-  })
+					$('#edit').modal('show');
+        }
+		});
 
-	  // on modal hide
-	$('#edit').on('hide.bs.modal', function() {
-    $('.edit-item-trigger-clicked').removeClass('edit-item-trigger-clicked')
-    $('#edit_form').trigger("reset");
-	})
+  });
 
 
 
