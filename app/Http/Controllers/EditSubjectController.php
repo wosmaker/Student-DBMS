@@ -207,37 +207,6 @@ class EditSubjectController extends Controller
     {
         $userid = auth()->user()->id;
 
-        //เพิ่ม SUBJECT
-        $subjectcode = request('subjectcode');
-        $subjectname = request('subjectname');
-        $subjectcredit = request('subjectcredit');
-        $subjectdetail = request('subjectdetail');
-
-        DB::table('subject_list')->insert(
-            [
-                'subjectcode' => $subjectcode,
-                'subjectname' => $subjectname,
-                'subjectcredit' => $subjectcredit,
-                'subjectdetail' => $subjectdetail
-            ]
-        );
-
-        //เพิ่ม SECTION
-        $sectionno = request('sectionno');
-        if($sectionno != null) {
-            $seat = request('seat');
-            $price = request('price');
-
-            DB::table('subject_list')->insert(
-                [
-                    'subjectcode' => $subjectcode,
-                    'sectionno' => $sectionno,
-                    'price' => $price,
-                    'seatavailable' => $seat
-                ]
-            );
-        }
-
         //เพิ่ม PEPIOD
         $subjectsectionid = request('subjectsectionid');
 
@@ -264,10 +233,12 @@ class EditSubjectController extends Controller
 
             DB::table('schedule')->insert(
                 [
-                    'periodno' => $subjectcode,
-                    'sectionno' => $sectionno,
-                    'price' => $price,
-                    'seatavailable' => $seat
+                    'subjectsectionid' => $subjectsectionid,
+                    'periodno' => $periodno,
+                    'roomcode' => $roomcode,
+                    'day' => $day,
+                    'start_period' => $start,
+                    'end_period' => $end
                 ]
             );
         }
