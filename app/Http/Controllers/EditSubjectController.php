@@ -38,19 +38,25 @@ class EditSubjectController extends Controller
             ->get()->all();
         }
 
-        //ดึงsection ในวิชานั้นๆ
+        //ดึง  ตารางสอน  ในวิชานั้นๆ
         $section_lists = null;
         $subjectcode = request('subjectcode');
         if($subjectcode != null) {
             $section_lists = DB::table('subject_list AS sl')
             ->join('sectioneachsubject AS ss', 'sl.subjectcode','=','ss.subjectcode')
+            ->select('ss.sectionno', 'ss.subjectsectionid','ss.seatavailable', 'ss.price')
+            ->where('sl.subjectcode', '=', $subjectcode)
+            ->get()->all();
+
+            $period_lists = DB::table('subject_list AS sl')
+            ->join('sectioneachsubject AS ss', 'sl.subjectcode','=','ss.subjectcode')
             ->join('schedule AS sd', 'ss.subjectsectionid', '=', 'sd.subjectsectionid')
-            ->select('ss.sectionno', 'ss.subjectsectionid','ss.seatavailable', 'ss.price', 'sd.periodno','sd.roomcode', 'sd.day', 'sd.start_period', 'sd.end_period')
+            ->select('ss.sectionno', 'ss.subjectsectionid', 'sd.periodno','sd.roomcode', 'sd.day', 'sd.start_period', 'sd.end_period')
             ->where('sl.subjectcode', '=', $subjectcode)
             ->get()->all();
         }
 
-        //ดึงรายชื่อจารย์ที่ต้องการหา
+        //ดึง  รายชื่อจารย์   ที่ต้องการหา
         $teacher_name = request('teacher_name');
         $submit_teacher = request('submit_teacher');
         $teacher_lists = null;
@@ -97,7 +103,7 @@ class EditSubjectController extends Controller
             }
         }
 
-        return view('complex-form.editsubject.index', compact('subject_lists','userdetail', 'roomfrees', 'teacher_lists', 'section_lists', 'role'));
+        return view('complex-form.editsubject.index', compact('subject_lists','userdetail', 'roomfrees', 'teacher_lists', 'section_lists', 'role', 'subjectcode', 'period_lists'));
     }
 
     /**
@@ -127,11 +133,6 @@ class EditSubjectController extends Controller
             //return response($subject_lists);
             return view('complex-form.editsubject.subject_tb', compact('subject_lists'));
         }
-    }
-
-    public function search_section()
-    {
-
     }
 
     public function create()
@@ -209,41 +210,132 @@ class EditSubjectController extends Controller
     {
         $subjectcode = request('subjectcode');
 
-        $room_lists = DB::table('subject_list AS sl')
-        ->join('sectioneachsubject AS ss' , 'sl.subjectcode', '=', 'ss.subjectcode')
-        ->join('schedule AS sd', 'sd.subjectsectionid', '=', 'ss.subjectsectionid')
-        ->select('sd.roomcode', 'sd.day', 'sd.start_period', 'sd.end_period')
-        ->where('sl.subjectcode', '=', $subjectcode)
-        ->get()->all();
+        if($subjectcode != null) {
+            $room_lists = DB::table('subject_list AS sl')
+            ->join('sectioneachsubject AS ss' , 'sl.subjectcode', '=', 'ss.subjectcode')
+            ->join('schedule AS sd', 'sd.subjectsectionid', '=', 'ss.subjectsectionid')
+            ->select('sd.roomcode', 'sd.day', 'sd.start_period', 'sd.end_period')
+            ->where('sl.subjectcode', '=', $subjectcode)
+            ->get()->all();
 
-        if($room_lists !== null) {
-            //คืนที่คาบว่างให้กับห้องที่วิชานี้ใช้อยู่
-            foreach($room_lists as $room_list) {
-                $roomcode = $room_list->roomcode;
-                $start = $room_list->start_period;
-                $end = $room_list->end_period;
-                $length = $end - $start + 1;
-                $day = $room_list->day;
+            if($room_lists !== null) {
+                //คืนที่คาบว่างให้กับห้องที่วิชานี้ใช้อยู่
+                foreach($room_lists as $room_list) {
+                    $roomcode = $room_list->roomcode;
+                    $start = $room_list->start_period;
+                    $end = $room_list->end_period;
+                    $length = $end - $start + 1;
+                    $day = $room_list->day;
 
-                $period = DB::table('room_list')
-                ->select($day)
-                ->where('roomcode', '=', $roomcode)
-                ->get()->first()->$day;
-                //ตัวแปร period เป็น object ต้องถึงข้อมูลออกมาก่อนใช้
+                    $period = DB::table('room_list')
+                    ->select($day)
+                    ->where('roomcode', '=', $roomcode)
+                    ->get()->first()->$day;
+                    //ตัวแปร period เป็น object ต้องถึงข้อมูลออกมาก่อนใช้
 
-                for($i = $start-1 ; $i < $end ; $i++) {
-                    $period[$i] = '0';
+                    for($i = $start-1 ; $i < $end ; $i++) {
+                        $period[$i] = '1';
+                    }
+
+                    DB::table('room_list')
+                    ->where('roomcode', '=', $roomcode)
+                    ->update([$day => $period]);
                 }
 
-                DB::table('room_list')
-                ->where('roomcode', '=', $roomcode)
-                ->update([$day => $period]);
+                //ลบวิชาที่ต้องการ พร้อมกับ section & schdule ที่เกี่ยวข้อง เพราะเซ็ต DB เป็น cascade ไว้
+                DB::table('subject_list')
+                ->where('subjectcode', '=', $subjectcode)
+                ->delete();
             }
+        }
 
-            //ลบวิชาที่ต้องการ พร้อมกับ section & schdule ที่เกี่ยวข้อง เพราะเซ็ต DB เป็น cascade ไว้
-            DB::table('subject_list')
-            ->where('subjectcode', '=', $subjectcode)
-            ->delete();
+        $sectionid = request('sectionid');
+        $periodno = request('periodno');
+
+        if($sectionid != null && $periodno != null) {
+            //หาห้องที่ section นี้ใช้ รหัสห้อง วัน คาบเริ่ม-จบ
+            $room_lists = DB::table('sectioneachsubject AS ss')
+            ->join('schedule AS sd', 'ss.subjectsectionid', '=', 'sd.subjectsectionid')
+            ->select('sd.roomcode', 'sd.day', 'sd.start_period', 'sd.end_period')
+            ->where([
+                ['ss.subjectsectionid', '=', $sectionid],
+                ['sd.periodno', '=', $periodno]
+            ])
+            ->get()->all();
+
+            if($room_lists !== null) {
+                //คืนที่คาบว่างให้กับห้องที่วิชานี้ใช้อยู่
+                foreach($room_lists as $room_list) {
+                    $roomcode = $room_list->roomcode;
+                    $start = $room_list->start_period;
+                    $end = $room_list->end_period;
+                    $length = $end - $start + 1;
+                    $day = $room_list->day;
+
+                    $period = DB::table('room_list')
+                    ->select($day)
+                    ->where('roomcode', '=', $roomcode)
+                    ->get()->first()->$day;
+                    //ตัวแปร period เป็น object ต้องถึงข้อมูลออกมาก่อนใช้
+
+                    for($i = $start-1 ; $i < $end ; $i++) {
+                        $period[$i] = '1';
+                    }
+
+                    DB::table('room_list')
+                    ->where('roomcode', '=', $roomcode)
+                    ->update([$day => $period]);
+                }
+
+                //ลบวิชาที่ต้องการ พร้อมกับ section & schdule ที่เกี่ยวข้อง เพราะเซ็ต DB เป็น cascade ไว้
+                // DB::table('schedule')
+                // ->where([
+                //     ['ss.subjectsectionid', '=', $sectionid],
+                //     ['sd.periodno', '=', $periodno]
+                // ])
+                // ->delete();
+            }
+        } else if($sectionid != null) {
+            //หาห้องที่ section นี้ใช้ รหัสห้อง วัน คาบเริ่ม-จบ
+            $room_lists = DB::table('sectioneachsubject AS ss')
+            ->join('schedule AS sd', 'ss.subjectsectionid', '=', 'sd.subjectsectionid')
+            ->select('sd.roomcode', 'sd.day', 'sd.start_period', 'sd.end_period')
+            ->where([
+                ['ss.subjectsectionid', '=', $sectionid]
+            ])
+            ->get()->all();
+
+            if($room_lists !== null) {
+                //คืนที่คาบว่างให้กับห้องที่วิชานี้ใช้อยู่
+                foreach($room_lists as $room_list) {
+                    $roomcode = $room_list->roomcode;
+                    $start = $room_list->start_period;
+                    $end = $room_list->end_period;
+                    $length = $end - $start + 1;
+                    $day = $room_list->day;
+
+                    $period = DB::table('room_list')
+                    ->select($day)
+                    ->where('roomcode', '=', $roomcode)
+                    ->get()->first()->$day;
+                    //ตัวแปร period เป็น object ต้องถึงข้อมูลออกมาก่อนใช้
+
+                    for($i = $start-1 ; $i < $end ; $i++) {
+                        $period[$i] = '1';
+                    }
+
+                    DB::table('room_list')
+                    ->where('roomcode', '=', $roomcode)
+                    ->update([$day => $period]);
+                }
+
+                //ลบวิชาที่ต้องการ พร้อมกับ section & schdule ที่เกี่ยวข้อง เพราะเซ็ต DB เป็น cascade ไว้
+                // DB::table('subjectsectionid')
+                // ->where([
+                //     ['ss.subjectsectionid', '=', $sectionid],
+                // ])
+                // ->delete();
+            }
         }
 
         return back();
