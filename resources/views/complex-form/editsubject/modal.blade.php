@@ -97,5 +97,85 @@
 <!-- END Add section Modal -->
 
 
+<!-- Start Add period Modal -->
+<div class="modal fade" id="modal_add_period" tabindex="-1" role="dialog" aria-labelledby="add_subjectlabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="modal_label_period">Add period to section : <span id="label_period"> </span></h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+
+					<form id="form_add_period" class="col  was-validated">
+						@csrf
+						<input type="hidden" id="subjectsectionid" name="subjectsectionid">
+
+						<div class="form-row">
+								<div class="form-group col-md-2">
+									<label for="periodno">Period No</label>
+									<input type="number" class="form-control" id="periodno" name="periodno" placeholder="">
+								</div>
+
+								<div class="form-group col-md-3">
+										<label for="day">Day</label>
+										<select class="custom-select" name="day" id="day">
+												<option value="">Choose day</option>
+												<option value="monday">Monday</option>
+												<option value="tuesday">Tuesday</option>
+												<option value="wednesday">Wednesday</option>
+												<option value="thursday">Thursday</option>
+												<option value="friday">Friday</option>
+											</select>
+								</div>
+
+								<div class="form-group col-md-3">
+									<label for="start">Start period</label>
+									<select class="custom-select" name="start" id="start">
+											<option value="">Start</option>
+											<option value="1">1</option>
+											<option value="2">2</option>
+											<option value="3">3</option>
+											<option value="4">4</option>
+											<option value="5">5</option>
+											<option value="6">6</option>
+											<option value="7">7</option>
+										</select>
+								</div>
+
+								<div class="form-group col-md-3">
+										<label for="end">End period</label>
+										<select class="custom-select" name="end" id="end">
+												<option value="">Start</option>
+												<option value="1">1</option>
+												<option value="2">2</option>
+												<option value="3">3</option>
+												<option value="4">4</option>
+												<option value="5">5</option>
+												<option value="6">6</option>
+												<option value="7">7</option>
+											</select>
+								</div>
+
+						</div>
+					</form>
+					<div id="block_room">
+
+					</div>
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					<button form="form_add_period" type="submit" class="btn btn-primary">ADD Period</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- END Add period Modal -->
+
+
+
 
 

@@ -43,14 +43,17 @@ Route::patch('editsubject/{id}' , 'EditSubjectController@update')->name('editsub
 
 Route::post('editsubject/destroy_subject', 'EditSubjectController@destroy_subject')->name('editsubject.destroy_subject');
 Route::post('editsubject/destroy_section', 'EditSubjectController@destroy_section')->name('editsubject.destroy_section');
-
+Route::post('editsubject/destroy_period', 'EditSubjectController@destroy_period')->name('editsubject.destroy_period');
 
 Route::post('editsubject/search_subject', 'EditSubjectController@search_subject')->name('editsubject.search_subject');
 Route::post('editsubject/search_section', 'EditSubjectController@search_section')->name('editsubject.search_section');
+Route::post('editsubject/search_period', 'EditSubjectController@search_period')->name('editsubject.search_period');
+Route::post('editsubject/search_room', 'EditSubjectController@search_room')->name('editsubject.search_room');
 
 
 Route::post('editsubject/add_subject','EditSubjectController@add_subject')->name('editsubject.add_subject');
 Route::post('editsubject/add_section','EditSubjectController@add_section')->name('editsubject.add_section');
+Route::post('editsubject/add_period','EditSubjectController@add_period')->name('editsubject.add_period');
 
 
 //Route::resource('faculty', 'Csimple\Cfaculty');

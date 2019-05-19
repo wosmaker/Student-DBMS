@@ -138,8 +138,8 @@ class EditSubjectController extends Controller
         }
 		}
 
-	public function search_section(Request $request)
-    {
+		public function search_section(Request $request)
+		{
         if($request->ajax())
         {
             $subjectcode = $request->get('query');
@@ -147,7 +147,28 @@ class EditSubjectController extends Controller
             $section_lists = DB::select('SELECT * from sectioneachsubject where subjectcode = ?', [$subjectcode]);
             return view('complex-form.editsubject.tb_section', compact('section_lists','subjectcode'));
         }
-	}
+		}
+
+		public function search_period(Request $request)
+		{
+			if($request->ajax())
+        {
+						$subjectsectionid = $request->get('query');
+						$sectionno = $request->get('sectionno');
+
+
+            $period_lists = DB::select('SELECT * from schedule where subjectsectionid	= ?', [$subjectsectionid]);
+            return view('complex-form.editsubject.tb_period', compact('period_lists','subjectsectionid','sectionno'));
+        }
+		}
+
+		public function search_room(Request $request)
+		{
+			if($request->ajax())
+        {
+
+        }
+		}
 
     public function add_section(Request $request)
     {
@@ -192,6 +213,14 @@ class EditSubjectController extends Controller
 
             $subject_lists = DB::select('SELECT * FROM subject_list limit 5');
             return view('complex-form.editsubject.tb_subject', compact('subject_lists'));
+        }
+		}
+
+		public function add_period(Request $request)
+    {
+        if($request->ajax())
+        {
+
         }
     }
 
@@ -389,7 +418,15 @@ class EditSubjectController extends Controller
 						$section_lists = DB::select('SELECT * from sectioneachsubject where subjectcode = ?', [ $subjectcode]);
             return view('complex-form.editsubject.tb_section', compact('section_lists','subjectcode'));
 					}
-    }
+		}
+
+		public function destroy_period(Request $request)
+    {
+				if($request->ajax())
+				{
+
+				}
+		}
 
     // public function destroy($id)
     // {

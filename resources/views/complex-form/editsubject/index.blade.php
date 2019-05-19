@@ -38,57 +38,8 @@
 		{{-- block of section for show table --}}
 	</div>
 
-	<div>
-
-		@if($period_lists != null)
-			<div class="row">
-				<div>
-					<h1>PERIOD TABLE</h1>
-				</div>
-
-				<div>
-					<button type="submit" id="add_section">ADD PERIOD</button>
-				</div>
-			</div>
-
-			<div class="shadow-sm px-4 py-2 mb-2  bg-white rounded">
-				<table class="table table-hover table-responsive-lg">
-					<thead>
-						<tr>
-							<th scope="col">Secion No</th>
-							<th scope="col">period no</th>
-							<th scope="col">roomcode</th>
-							<th scope="col">day</th>
-							<th scope="col">period start</th>
-							<th scope="col">period end</th>
-							<th scope="col">Manage</th>
-						</tr>
-					</thead>
-					<tbody>
-						@foreach($period_lists as $period_list)
-							<tr>
-								{{-- คำสั่ง $loop->iteration เป็นตัวที่ไล่เลขลำดับให้ --}}
-								<td>{{ $period_list->sectionno }}</td>
-								<td>{{ $period_list->periodno }}</td>
-								<td>{{ $period_list->roomcode }}</td>
-								<td>{{ $period_list->day }}</td>
-								<td>{{ $period_list->start_period }}</td>
-								<td>{{ $period_list->end_period }}</td>
-								<td>
-									{{-- ปุ่มกดสำหรับการลบวิชาที่เพิ่มไว้ --}}
-									<form method="POST" action="editsubject/{id}">
-											@csrf
-											@method('DELETE')
-											<button class="btn btn-danger" type="submit" name="sectionid" value="{{ $period_list->subjectsectionid }}">DELETE</button>
-											<input type="hidden" name="periodno" value="{{ $period_list->periodno }}">
-									</form>
-								</td>
-							</tr>
-						@endforeach
-					</tbody>
-				</table>
-			</div>
-			@endif
+	<div id="block_period">
+		{{-- block of section for show table --}}
 	</div>
 
 
@@ -302,7 +253,73 @@ $(document).ready(function() {
 			});
 		});
 
+		$(document).on('click', ".btn_add_section", function() {
+			var options = {'backdrop': 'static'};
+			$('#modal_add_section').modal(options).modal('show');
+
+			var subjectcode = $(this).attr("id");
+			$("#form_add_section #subjectcode").val(subjectcode);
+
+			console.log("IN MODEL: add section");
+
+			$( '#form_add_section' ).on( 'submit', function(e) {
+				e.preventDefault();
+				$.ajax({
+						type: "POST",
+						url: "{{route('editsubject.add_section')}}",
+						data: $(this).serialize(),
+						success: function(data) {
+							//console.log("Debug :" + data);
+							$('#block_section').empty().html(data);
+							$('#block_section').show();
+							$('#modal_add_section').modal('hide');
+							$( '#form_add_section' ).trigger("reset");
+						},
+						error: function(data){
+							console.log("Error :" + data);
+						}
+				});
+			});
+		});
+
+		$(document).on('click', ".btn_add_period", function() {
+			var options = {'backdrop': 'static'};
+			$('#modal_add_period').modal(options).modal('show');
+
+			var subjectsectionid = $(this).attr("id");
+			var sectionno = $(this).attr("data-sectionno");
+			$("#form_add_period #subjectsectionid").val(subjectsectionid);
+			$("#label_period").html(sectionno);
+
+
+
+
+			console.log("IN MODEL: add section");
+
+			$( '#form_add_section' ).on( 'submit', function(e) {
+				e.preventDefault();
+				$.ajax({
+						type: "POST",
+						url: "{{route('editsubject.add_section')}}",
+						data: $(this).serialize(),
+						success: function(data) {
+							//console.log("Debug :" + data);
+							$('#block_section').empty().html(data);
+							$('#block_section').show();
+							$('#modal_add_section').modal('hide');
+							$( '#form_add_section' ).trigger("reset");
+						},
+						error: function(data){
+							console.log("Error :" + data);
+						}
+				});
+			});
+		});
+
+
 		$('#block_section').hide();
+		$('#block_period').hide();
+
 		$('#block1').hide();
 		$('#block2').hide();
 
@@ -321,6 +338,28 @@ $(document).ready(function() {
 					success:function(data){
 						$('#block_section').empty().html(data);
 						$('#block_section').show();
+					},
+					error: function(data){
+						console.log("Error :" + data);
+					}
+				});
+		});
+
+
+		$(document).on('click', ".btn_detail_section", function(e) {
+			e.preventDefault();
+			var query = $(this).attr("id");
+			var sectionno = $(this).attr("data-sectionno");
+
+				console.log("search on detail:" + query);
+
+				$.ajax({
+					type:'POST',
+					url:"{{route('editsubject.search_period')}}",
+					data:{query:query,sectionno:sectionno, "_token": "{{ csrf_token() }}"},
+					success:function(data){
+						$('#block_period').empty().html(data);
+						$('#block_period').show();
 					},
 					error: function(data){
 						console.log("Error :" + data);
