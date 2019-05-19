@@ -9,15 +9,16 @@
 	<td>
 		<div class="row">
 			{{-- ปุ่มกดสำหรับการลบวิชาที่เพิ่มไว้ --}}
-			<form  method="POST" action="problemreport/{problemreport}">
+			{{-- <form  method="POST" action="problemreport/{problemreport}">
 				@csrf
 				@method('DELETE')
 				<input type="hidden" name="deleteID" value="{{ $problemreport->problemno }}">
 				<button class="btn btn-danger btn-sm" type="submit" >DELETE</button>
-			</form>
+			</form> --}}
 
+			<button type="button" class="btn btn-danger btn-sm ml-2 btn_destroy" id="{{ $problemreport->problemno }}">DELETE</button>
 			<button type="button" class="btn btn-info btn-sm ml-2 btn_show" id="{{ $problemreport->problemno }}">DETAIL</button>
-			@if($userrole !== 1)
+			@if($role !== 1)
 				<button type="button" class="btn btn-success btn-sm ml-2 btn_answer" id="{{ $problemreport->problemno }}">ANSWER</button>
 			@endif
 		</div>
