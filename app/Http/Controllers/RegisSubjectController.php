@@ -33,23 +33,33 @@ class RegisSubjectController extends Controller
                         ->join('sectioneachsubject as ss', 'r.subjectsectionid', '=', 'ss.subjectsectionid')
                         ->join('subject_list as sl', 'ss.subjectcode', '=', 'sl.subjectcode')
                         ->join('schedule as sd' , 'ss.subjectsectionid', '=', 'sd.subjectsectionid')
-                        ->select('sl.subjectcode','sl.subjectname', 'ss.sectionno', 'sl.subjectcredit', 'sd.start_period', 'sd.end_period' ,'ss.subjectsectionid')
+                        ->select('sl.subjectcode','sl.subjectname', 'ss.sectionno', 'sl.subjectcredit', 'sd.day', 'sd.start_period', 'sd.end_period' ,'ss.subjectsectionid')
                         ->where('r.userid', '=' , $userid)
                         ->get()->all(); //get ทำเก็บข้อมูลในรูปของ collection และ all ทำให้ข้อมูลอยู่ในรูปของ array
 
         //รหัสวิชาที่ต้องการค้นหา
         $subjectcode = request('subjectcode');
-
+        $search_btn = request('search_btn');
+        $subjectdetails = null;
+        $subject_show = 0;
         //ดึงรายละเอียดวิชาที่ค้นหา
-        $subjectdetails = DB::table('sectioneachsubject as ss')
-                        ->join('schedule as sd' , 'ss.subjectsectionid', '=', 'sd.subjectsectionid')
-                        ->select('ss.sectionno', 'ss.seatavailable', 'sd.start_period', 'sd.end_period' , 'ss.subjectsectionid')
-                        ->where('ss.subjectcode', '=', $subjectcode)
-                        ->get()->all();
-
+        if($subjectcode != null) {
+            $subject_show = 0;
+            $subjectdetails = DB::table('sectioneachsubject as ss')
+                            ->join('schedule as sd' , 'ss.subjectsectionid', '=', 'sd.subjectsectionid')
+                            ->select('ss.subjectcode','ss.sectionno', 'ss.seatavailable', 'sd.day', 'sd.start_period', 'sd.end_period' , 'ss.subjectsectionid')
+                            ->where('ss.subjectcode', '=', $subjectcode)
+                            ->get()->all();
+        } else if($search_btn == '1') {
+            $subject_show = 1;
+            $subjectdetails = DB::table('sectioneachsubject as ss')
+                            ->join('schedule as sd' , 'ss.subjectsectionid', '=', 'sd.subjectsectionid')
+                            ->select('ss.subjectcode','ss.sectionno', 'ss.seatavailable', 'sd.day', 'sd.start_period', 'sd.end_period' , 'ss.subjectsectionid')
+                            ->get()->all();
+        }
 		//ส่งกลับที่หน้า regissubject พร้อมกับค่าในตัวแปร 2 ตัวที่ใส่ไว้ใน compact
 		//dd($userdetail,$regissubjects,$subjectdetails);
-        return view('complex-form.regissubject.index' , compact('userdetail','regissubjects','subjectdetails','role'));
+        return view('complex-form.regissubject.index' , compact('userdetail','regissubjects','subjectdetails','role', 'subject_show'));
     }
 
     /**
@@ -74,12 +84,17 @@ class RegisSubjectController extends Controller
         $userid = auth()->user()->id;
 
         try {
-            DB::table('registration_student')->insert(
+            $x = DB::table('registration_student')->insert(
                 [
                     'subjectsectionid' => $subjectsectionid,
                     'userid' => $userid
                 ]
             );
+            dd($x);
+            // DB::table('sectioneachsubject')
+            // ->where('subjectsectionid' => $subjectsectionid)
+            // ->update
+
         } catch(\Illuminate\Database\QueryException $ex){
             if($ex->getCode() == 23000){
                 return redirect()->back()->with('alert','you already regis that');
