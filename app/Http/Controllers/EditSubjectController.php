@@ -137,25 +137,37 @@ class EditSubjectController extends Controller
         }
 		}
 
+		public function search_section(Request $request)
+    {
+        if($request->ajax())
+        {
+					$subjectcode = $request->get('query');
+
+					$section_lists = DB::select('SELECT * from sectioneachsubject where subjectcode = ?', [$subjectcode]);
+					return view('complex-form.editsubject.tb_section', compact('section_lists','subjectcode'));
+        }
+		}
+
 		public function add_section(Request $request)
 		{
 			if($request->ajax())
 			{
-                $subjectcode = request('subjectcode');
-                $sectionno = request('sectionno');
-                $seatavailable = request('seatavailable');
-                $price = request('price');
+				$sectionno = $request->get('sectionno');
+				$subjectcode = $request->get('subjectcode');
+				if($sectionno != null) {
 
-                DB::table('subject_list')->insert(
-                    [
-                        'subjectcode' => $subjectcode,
-                        'sectionno' => $sectionno,
-                        'price' => $price,
-                        'seatavailable' => $seatavailable
-                    ]
-                );
-        
-				return view('complex-form.editsubject.tb_section', compact(''));
+						DB::table('sectioneachsubject')->insert(
+								[
+										'subjectcode' =>  $request->get('subjectcode'),
+										'sectionno' =>  $request->get('sectionno'),
+										'price' =>  $request->get('price'),
+										'seatavailable' => $request->get('seatavailable')
+								]
+						);
+        }
+
+				$section_lists = DB::select('SELECT * from sectioneachsubject where subjectcode = ?', [ $subjectcode]);
+				return view('complex-form.editsubject.tb_section', compact('section_lists','subjectcode'));
 			}
 		}
 
@@ -167,7 +179,7 @@ class EditSubjectController extends Controller
                 $subjectname = request('subjectname');
                 $subjectcredit = request('subjectcredit');
                 $subjectdetail = request('subjectdetail');
-        
+
                 DB::table('subject_list')->insert(
                     [
                         'subjectcode' => $subjectcode,
