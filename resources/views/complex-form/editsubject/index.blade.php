@@ -283,9 +283,9 @@ $(document).ready(function() {
 					url: "{{route('editsubject.add_subject')}}",
 					data: $(this).serialize(),
 					success: function(data) {
-						//console.log("Debug :" + data);
+						console.log("Debug :" + data);
 						$('#tb_subject').empty().html(data);
-						$('#modal_add_section').modal('hide');
+						$('#modal_add_subject').modal('hide');
 						$(this).trigger("reset");
 					},
 					error: function(data){
