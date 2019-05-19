@@ -98,8 +98,8 @@
 
 
 <!-- Start Add period Modal -->
-<div class="modal fade" id="modal_add_period" tabindex="-1" role="dialog" aria-labelledby="add_subjectlabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
+<div class="modal fade modal-wide" id="modal_add_period" tabindex="-1" role="dialog" aria-labelledby="add_subjectlabel" aria-hidden="true">
+		<div class="modal-dialog modal-lg" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title" id="modal_label_period">Add period to section : <span id="label_period"> </span></h5>
@@ -131,35 +131,42 @@
 											</select>
 								</div>
 
-								<div class="form-group col-md-3">
-									<label for="start">Start period</label>
-									<select class="custom-select" name="start" id="start">
-											<option value="">Start</option>
-											<option value="1">1</option>
-											<option value="2">2</option>
-											<option value="3">3</option>
-											<option value="4">4</option>
-											<option value="5">5</option>
-											<option value="6">6</option>
-											<option value="7">7</option>
-										</select>
-								</div>
+							</div>
 
-								<div class="form-group col-md-3">
-										<label for="end">End period</label>
-										<select class="custom-select" name="end" id="end">
-												<option value="">Start</option>
-												<option value="1">1</option>
-												<option value="2">2</option>
-												<option value="3">3</option>
-												<option value="4">4</option>
-												<option value="5">5</option>
-												<option value="6">6</option>
-												<option value="7">7</option>
-											</select>
-								</div>
+							<div class="form-row">
 
-						</div>
+									<div class="form-group col-md-2">
+											<label for="start">Start period</label>
+											<select class="custom-select" name="start" id="start">
+													<option value="">Start</option>
+													<option value="1">1</option>
+													<option value="2">2</option>
+													<option value="3">3</option>
+													<option value="4">4</option>
+													<option value="5">5</option>
+													<option value="6">6</option>
+													<option value="7">7</option>
+												</select>
+										</div>
+
+										<div class="form-group col-md-2">
+												<label for="end">End period</label>
+												<select class="custom-select" name="end" id="end">
+														<option value="">Start</option>
+														<option value="1">1</option>
+														<option value="2">2</option>
+														<option value="3">3</option>
+														<option value="4">4</option>
+														<option value="5">5</option>
+														<option value="6">6</option>
+														<option value="7">7</option>
+													</select>
+										</div>
+										<div class="form-group col-md-2 py-0 px-0">
+											<button class="btn btn-outline-success btn_search_room" >search</button>
+										</div>
+							</div>
+
 					</form>
 					<div id="block_room">
 

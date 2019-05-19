@@ -284,6 +284,7 @@ $(document).ready(function() {
 
 		$(document).on('click', ".btn_add_period", function() {
 			var options = {'backdrop': 'static'};
+			var height = $(window).height() - 200;
 			$('#modal_add_period').modal(options).modal('show');
 
 			var subjectsectionid = $(this).attr("id");
@@ -367,6 +368,27 @@ $(document).ready(function() {
 				});
 		});
 
+		$(document).on('click', ".btn_search_room", function(e) {
+			e.preventDefault();
+			var day = $('#form_add_period #day').val();
+			var start = $('#form_add_period #start').val();
+			var end = $('#form_add_period #end').val();
+
+			console.log("search on day:" + day);
+
+				$.ajax({
+					type:'POST',
+					url:"{{route('editsubject.search_period')}}",
+					data:{day:day,start:start,end:end, "_token": "{{ csrf_token() }}"},
+					success:function(data){
+						$('#block_room').empty().html(data);
+					},
+					error: function(data){
+						console.log("Error :" + data);
+					}
+				});
+		});
+
 		$(document).on('click', ".btn_destroy_subject", function() {
 			if (confirm('Are you sure you want to Delete ?')) {
 				var id = $(this).attr("id");
@@ -429,12 +451,24 @@ $(document).ready(function() {
 				}
 		});
 		}
+
+
+		$(".modal-wide").on("show.bs.modal", function() {
+			var height = $(window).height() - 200;
+			$(this).find(".modal-body").css("max-height", height);
+		});
 });
 </script>
 @endsection
 
 @section('style')
 <style>
+.modal.modal-wide .modal-dialog {
+  width: 90%;
+}
+.modal-wide .modal-body {
+  overflow-y: auto;
+}
 
 </style>
 @endsection
