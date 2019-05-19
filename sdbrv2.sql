@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 18, 2019 at 03:30 PM
+-- Generation Time: May 19, 2019 at 03:17 PM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.2
 
@@ -199,11 +199,12 @@ CREATE TABLE `problemreport_list` (
 --
 
 INSERT INTO `problemreport_list` (`problemno`, `userid`, `problemtypeid`, `problemdatetime`, `problemtitle`, `problemdetail`, `problemstatus`, `answerdetail`) VALUES
-(1, 1, 1, '2019-05-06 01:37:31', 'problem1', 'problemdetail1', 'waiting', NULL),
-(2, 1, 1, '2019-05-12 19:17:06', 'test report work', 'rr', 'waiting', NULL),
+(1, 1, 1, '2019-05-19 11:33:27', 'problem1', 'problemdetail1', 'answered', 'คำตอบข้อ 2'),
+(2, 1, 1, '2019-05-19 11:33:28', 'test report work', 'rr', 'answered', 'คำตอบข้อ 2'),
 (3, 1, 3, '2019-05-12 19:17:16', 'test report work', 'see', 'waiting', NULL),
 (4, 1, 1, '2019-05-14 22:47:25', 'test report 2', 'ddd', 'waiting', NULL),
-(5, 1, 2, '2019-05-18 13:04:05', 'dddsdw', 'fgrf', 'answered', 'ตอบคำถามข้อที่ 2');
+(5, 1, 2, '2019-05-18 13:04:05', 'dddsdw', 'fgrf', 'answered', 'ตอบคำถามข้อที่ 2'),
+(6, 8, 1, '2019-05-18 15:40:17', 'FromAdmin', 'TEST', 'waiting', NULL);
 
 -- --------------------------------------------------------
 
@@ -255,8 +256,7 @@ INSERT INTO `registration_student` (`subjectsectionid`, `userid`, `transactionid
 CREATE TABLE `registration_teacher` (
   `subjectsectionid` int(10) UNSIGNED NOT NULL,
   `userid` bigint(20) UNSIGNED NOT NULL,
-  `dateregis` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `semester` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL
+  `dateregis` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -282,7 +282,7 @@ CREATE TABLE `room_list` (
 --
 
 INSERT INTO `room_list` (`roomcode`, `buildingname`, `floor`, `roomseattotal`, `monday`, `tuesday`, `wednesday`, `thursday`, `friday`) VALUES
-('r1', 'b1', 'f1', 100, '2211111', '2211111', '1111111', '1111111', '1111111'),
+('r1', 'b1', 'f1', 100, '1111111', '1111111', '1111111', '0000111', '0000111'),
 ('r2', 'b2', 'f2', 100, '0000111', '1111111', '1111111', '1111111', '1111111');
 
 -- --------------------------------------------------------
@@ -293,10 +293,8 @@ INSERT INTO `room_list` (`roomcode`, `buildingname`, `floor`, `roomseattotal`, `
 
 CREATE TABLE `schedule` (
   `subjectsectionid` int(10) UNSIGNED NOT NULL,
-  `secorder` int(10) UNSIGNED NOT NULL,
-  `secstart` datetime NOT NULL,
-  `secend` datetime NOT NULL,
-  `roomcode` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `periodno` int(10) UNSIGNED NOT NULL,
+  `roomcode` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `day` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   `start_period` int(10) NOT NULL,
   `end_period` int(10) NOT NULL
@@ -306,9 +304,13 @@ CREATE TABLE `schedule` (
 -- Dumping data for table `schedule`
 --
 
-INSERT INTO `schedule` (`subjectsectionid`, `secorder`, `secstart`, `secend`, `roomcode`, `day`, `start_period`, `end_period`) VALUES
-(3, 1, '2019-05-05 00:00:00', '2019-05-05 01:00:00', 'r2', 'monday', 1, 2),
-(4, 1, '2019-05-05 01:00:00', '2019-05-05 02:00:00', 'r2', 'monday', 3, 4);
+INSERT INTO `schedule` (`subjectsectionid`, `periodno`, `roomcode`, `day`, `start_period`, `end_period`) VALUES
+(3, 1, 'r2', 'monday', 1, 2),
+(4, 1, 'r2', 'monday', 3, 4),
+(5, 1, 'r1', 'thursday', 1, 2),
+(5, 2, 'r1', 'friday', 1, 2),
+(6, 1, 'r1', 'thursday', 3, 4),
+(6, 2, 'r1', 'friday', 3, 4);
 
 -- --------------------------------------------------------
 
@@ -330,7 +332,9 @@ CREATE TABLE `sectioneachsubject` (
 
 INSERT INTO `sectioneachsubject` (`subjectsectionid`, `subjectcode`, `sectionno`, `price`, `seatavailable`) VALUES
 (3, 's2', 1, '200.00', 20),
-(4, 's2', 2, '200.00', 20);
+(4, 's2', 2, '200.00', 20),
+(5, 's3', 1, '300.00', 100),
+(6, 's3', 2, '300.00', 100);
 
 -- --------------------------------------------------------
 
@@ -417,7 +421,7 @@ CREATE TABLE `users` (
   `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `userroleid` tinyint(1) NOT NULL DEFAULT '0',
+  `userroleid` tinyint(1) DEFAULT '0',
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -585,7 +589,7 @@ ALTER TABLE `room_list`
 -- Indexes for table `schedule`
 --
 ALTER TABLE `schedule`
-  ADD PRIMARY KEY (`subjectsectionid`,`secorder`),
+  ADD PRIMARY KEY (`subjectsectionid`,`periodno`),
   ADD KEY `schedule_roomcode_foreign` (`roomcode`);
 
 --
@@ -659,7 +663,7 @@ ALTER TABLE `paymenttype_list`
 -- AUTO_INCREMENT for table `problemreport_list`
 --
 ALTER TABLE `problemreport_list`
-  MODIFY `problemno` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `problemno` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `problemtype_list`
@@ -671,7 +675,7 @@ ALTER TABLE `problemtype_list`
 -- AUTO_INCREMENT for table `sectioneachsubject`
 --
 ALTER TABLE `sectioneachsubject`
-  MODIFY `subjectsectionid` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `subjectsectionid` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `transaction_list`
@@ -705,14 +709,36 @@ ALTER TABLE `department_list`
 -- Constraints for table `person_link_parent`
 --
 ALTER TABLE `person_link_parent`
-  ADD CONSTRAINT `person_link_parent_identificationno_foreign` FOREIGN KEY (`identificationno`) REFERENCES `user_list` (`identificationno`),
-  ADD CONSTRAINT `person_link_parent_parentid_foreign` FOREIGN KEY (`parentid`) REFERENCES `parent_list` (`parentid`);
+  ADD CONSTRAINT `person_link_parent_identificationno_foreign` FOREIGN KEY (`identificationno`) REFERENCES `user_list` (`identificationno`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `person_link_parent_parentid_foreign` FOREIGN KEY (`parentid`) REFERENCES `parent_list` (`parentid`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `problemreport_list`
+--
+ALTER TABLE `problemreport_list`
+  ADD CONSTRAINT `problemreport_list_ibfk_1` FOREIGN KEY (`userid`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `problemreport_list_ibfk_2` FOREIGN KEY (`problemtypeid`) REFERENCES `problemtype_list` (`problemtypeid`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `registration_student`
+--
+ALTER TABLE `registration_student`
+  ADD CONSTRAINT `registration_student_ibfk_1` FOREIGN KEY (`userid`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `registration_student_ibfk_2` FOREIGN KEY (`subjectsectionid`) REFERENCES `sectioneachsubject` (`subjectsectionid`) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+--
+-- Constraints for table `registration_teacher`
+--
+ALTER TABLE `registration_teacher`
+  ADD CONSTRAINT `registration_teacher_ibfk_1` FOREIGN KEY (`subjectsectionid`) REFERENCES `sectioneachsubject` (`subjectsectionid`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `registration_teacher_ibfk_2` FOREIGN KEY (`userid`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `schedule`
 --
 ALTER TABLE `schedule`
-  ADD CONSTRAINT `schedule_ibfk_1` FOREIGN KEY (`subjectsectionid`) REFERENCES `sectioneachsubject` (`subjectsectionid`);
+  ADD CONSTRAINT `schedule_ibfk_1` FOREIGN KEY (`subjectsectionid`) REFERENCES `sectioneachsubject` (`subjectsectionid`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `schedule_ibfk_2` FOREIGN KEY (`roomcode`) REFERENCES `room_list` (`roomcode`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
 -- Constraints for table `sectioneachsubject`
@@ -721,11 +747,31 @@ ALTER TABLE `sectioneachsubject`
   ADD CONSTRAINT `sectioneachsubject_ibfk_1` FOREIGN KEY (`subjectcode`) REFERENCES `subject_list` (`subjectcode`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Constraints for table `transaction_list`
+--
+ALTER TABLE `transaction_list`
+  ADD CONSTRAINT `transaction_list_ibfk_1` FOREIGN KEY (`userid`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `transaction_list_ibfk_2` FOREIGN KEY (`paymenttypeid`) REFERENCES `paymenttype_list` (`paymenttypeid`) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+--
+-- Constraints for table `users`
+--
+ALTER TABLE `users`
+  ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`userroleid`) REFERENCES `userrole_list` (`userroleid`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+--
 -- Constraints for table `user_list`
 --
 ALTER TABLE `user_list`
   ADD CONSTRAINT `user_list_ibfk_1` FOREIGN KEY (`departmentcode`) REFERENCES `department_list` (`departmentcode`),
   ADD CONSTRAINT `user_list_ibfk_2` FOREIGN KEY (`userid`) REFERENCES `users` (`id`);
+
+--
+-- Constraints for table `user_log`
+--
+ALTER TABLE `user_log`
+  ADD CONSTRAINT `user_log_ibfk_1` FOREIGN KEY (`userid`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `user_log_ibfk_2` FOREIGN KEY (`crashcode`) REFERENCES `crash_list` (`crashcode`) ON DELETE NO ACTION ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
