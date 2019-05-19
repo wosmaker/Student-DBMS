@@ -36,98 +36,82 @@
 
 @if($section_lists != null)
 
-<div class="row">
-	<div>
-		<h1>SECTION OF {{ $subjectcode }}</h1>
+	<div class="text-left pl-2 pt-3 pb-1">
+			<h3>SECTION OF {{$subjectcode}}</h3>
 	</div>
-	
-	<div>
-		<button type="submit" id="add_section">ADD SECTION</button>
-	</div>
-</div>
 
-<div class="shadow-sm px-4 py-2 mb-2  bg-white rounded">
-	<table class="table table-hover table-responsive-lg">
-		<thead>
-			<tr>
-				<th scope="col">Secion No</th>
-				<th scope="col">seat</th>
-				<th scope="col">price</th>
-				<th scope="col">Manage</th>
-			</tr>
-		</thead>
-		<tbody>
-			@foreach($section_lists as $section_list)
+	<div class="shadow-sm px-4 py-2 mb-2  bg-white rounded">
+
+		<div class="text-right">
+				<button class="btn btn-info my-2" id="btn_add_section"> + Section</button>
+		</div>
+
+		<table class="table table-hover table-responsive-lg">
+			<thead>
 				<tr>
-					{{-- คำสั่ง $loop->iteration เป็นตัวที่ไล่เลขลำดับให้ --}}
-					<td>{{ $section_list->sectionno }}</td>
-					<td>{{ $section_list->seatavailable }}</td>
-					<td>{{ $section_list->price }}</td>
-					<td>
-						{{-- ปุ่มกดสำหรับการลบวิชาที่เพิ่มไว้ --}}
-						<form method="POST" action="editsubject/{id}">
-								@csrf
-								@method('DELETE')
-								<button class="btn btn-danger" type="submit" name="sectionid" value="{{ $section_list->subjectsectionid }}">DELETE</button>
-						</form>
-					</td>
+					<th scope="col">Secion No</th>
+					<th scope="col">seat</th>
+					<th scope="col">price</th>
+					<th scope="col">Manage</th>
 				</tr>
-			@endforeach
-		</tbody>
-	</table>
-</div>
+			</thead>
+			<tbody id="tb_section">
 
-<div>
-	@if($period_lists != null)
-		<div class="row">
-			<div>
-				<h1>PERIOD TABLE</h1>
-			</div>
-			
-			<div>
-				<button type="submit" id="add_section">ADD PERIOD</button>
-			</div>
-		</div>
+			</tbody>
+		</table>
+	</div>
 
-		<div class="shadow-sm px-4 py-2 mb-2  bg-white rounded">
-			<table class="table table-hover table-responsive-lg">
-				<thead>
-					<tr>
-						<th scope="col">Secion No</th>
-						<th scope="col">period no</th>
-						<th scope="col">roomcode</th>
-						<th scope="col">day</th>
-						<th scope="col">period start</th>
-						<th scope="col">period end</th>
-						<th scope="col">Manage</th>
-					</tr>
-				</thead>
-				<tbody>
-					@foreach($period_lists as $period_list)
+	<div>
+		@if($period_lists != null)
+			<div class="row">
+				<div>
+					<h1>PERIOD TABLE</h1>
+				</div>
+
+				<div>
+					<button type="submit" id="add_section">ADD PERIOD</button>
+				</div>
+			</div>
+
+			<div class="shadow-sm px-4 py-2 mb-2  bg-white rounded">
+				<table class="table table-hover table-responsive-lg">
+					<thead>
 						<tr>
-							{{-- คำสั่ง $loop->iteration เป็นตัวที่ไล่เลขลำดับให้ --}}
-							<td>{{ $period_list->sectionno }}</td>
-							<td>{{ $period_list->periodno }}</td>
-							<td>{{ $period_list->roomcode }}</td>
-							<td>{{ $period_list->day }}</td>
-							<td>{{ $period_list->start_period }}</td>
-							<td>{{ $period_list->end_period }}</td>
-							<td>
-								{{-- ปุ่มกดสำหรับการลบวิชาที่เพิ่มไว้ --}}
-								<form method="POST" action="editsubject/{id}">
-										@csrf
-										@method('DELETE')
-										<button class="btn btn-danger" type="submit" name="sectionid" value="{{ $period_list->subjectsectionid }}">DELETE</button>
-										<input type="hidden" name="periodno" value="{{ $period_list->periodno }}">
-								</form>
-							</td>
+							<th scope="col">Secion No</th>
+							<th scope="col">period no</th>
+							<th scope="col">roomcode</th>
+							<th scope="col">day</th>
+							<th scope="col">period start</th>
+							<th scope="col">period end</th>
+							<th scope="col">Manage</th>
 						</tr>
-					@endforeach
-				</tbody>
-			</table>
-		</div>
-		@endif
-</div>
+					</thead>
+					<tbody>
+						@foreach($period_lists as $period_list)
+							<tr>
+								{{-- คำสั่ง $loop->iteration เป็นตัวที่ไล่เลขลำดับให้ --}}
+								<td>{{ $period_list->sectionno }}</td>
+								<td>{{ $period_list->periodno }}</td>
+								<td>{{ $period_list->roomcode }}</td>
+								<td>{{ $period_list->day }}</td>
+								<td>{{ $period_list->start_period }}</td>
+								<td>{{ $period_list->end_period }}</td>
+								<td>
+									{{-- ปุ่มกดสำหรับการลบวิชาที่เพิ่มไว้ --}}
+									<form method="POST" action="editsubject/{id}">
+											@csrf
+											@method('DELETE')
+											<button class="btn btn-danger" type="submit" name="sectionid" value="{{ $period_list->subjectsectionid }}">DELETE</button>
+											<input type="hidden" name="periodno" value="{{ $period_list->periodno }}">
+									</form>
+								</td>
+							</tr>
+						@endforeach
+					</tbody>
+				</table>
+			</div>
+			@endif
+	</div>
 
 @endif
 
@@ -283,6 +267,36 @@
 @section('script')
 <script>
 $(document).ready(function() {
+
+	$(document).on('click', "#btn_add_section", function() {
+		var options = {
+      'backdrop': 'static'
+    };
+    $('#modal_add_section').modal(options);
+		$('#modal_add_section').modal('show');
+
+		console.log("IN MODEL: add section");
+
+		$( '#form_add_section' ).on( 'submit', function(e) {
+			e.preventDefault();
+			$.ajax({
+					type: "POST",
+					url: "{{route('editsubject.add_section')}}",
+					data: $(this).serialize(),
+					success: function(data) {
+						//console.log("Debug :" + data);
+						$('#tb_section').empty().html(data);
+						$('#modal_add_section').modal('hide');
+						$(this).trigger("reset");
+					},
+					error: function(data){
+						console.log("Error :" + data);
+					}
+			});
+		});
+  });
+
+
 	fetch_subject();
 	$(document).on('click', '#fetch_subject', function() {
 		var query = $('#search_subject').val();
@@ -308,43 +322,7 @@ $(document).ready(function() {
 
 
 
-	// $( '#add_form' ).on( 'submit', function(e) {
-  //   var href = $(this).data('value');
-	// 	e.preventDefault();
-  //   $.ajax({
-  //       type: "POST",
-  //       url: "{{route('faculty.store')}}",
-	// 			data: $(this).serialize(),
-  //       success: function(data) {
-	// 				$('tbody').empty().html(data);
-  //       }
-	// 	});
-	// 	$('#add').modal('hide');
-	// 	$('#add_form' ).trigger("reset");
-	// });
 
-
-	// $(document).on('click', '.delete_btn', function() {
-	// 	console.log("delete request");
-	// 	var facultycode = $(this).attr("id");
-	// 	console.log(facultycode);
-
-	// 	if(confirm("Are You sure want to delete !"))
-	// 	{
-	// 		$.ajax({
-	// 			url: "{{route('faculty.store')}}" + "/destroy/"+facultycode,
-	// 			success: function(data) {
-	// 				console.log(data);
-	// 				setTimeout(function(){}, 2000);
-  //       },
-	// 			error: function (data) {
-	// 				console.log('Error:', data);
-	// 			}
-	// 	});
-	// 	}
-
-
-  // });
 });
 </script>
 @endsection

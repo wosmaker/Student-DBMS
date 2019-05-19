@@ -49,6 +49,25 @@
 
 
 $(document).ready(function() {
+	(function() {
+	'use strict';
+	window.addEventListener('load', function() {
+		// Fetch all the forms we want to apply custom Bootstrap validation styles to
+		var forms = document.getElementsByClassName('needs-validation');
+		// Loop over them and prevent submission
+		var validation = Array.prototype.filter.call(forms, function(form) {
+			form.addEventListener('submit', function(event) {
+				if (form.checkValidity() === false) {
+					event.preventDefault();
+					event.stopPropagation();
+				}
+				form.classList.add('was-validated');
+			}, false);
+		});
+	}, false);
+	})();
+
+
 	$(document).on('click', "#btn_add", function() {
     var options = {
       'backdrop': 'static'
@@ -65,13 +84,13 @@ $(document).ready(function() {
 					success: function(data) {
 						//console.log("Debug :" + data);
 						$('#table1').empty().html(data);
+						$('#modal_add').modal('hide');
+						$('#form_add' ).trigger("reset");
 					},
 					error: function(data){
 						console.log("Error :" + data);
 					}
 			});
-			$('#modal_add').modal('hide');
-			$('#form_add' ).trigger("reset");
 		});
   });
 
@@ -96,36 +115,36 @@ $(document).ready(function() {
 		// console.log("URL:"+ "{{ route('problemreport.index') }}" +'/' + id +'/edit');
 
 		$.get("{{ route('problemreport.index') }}" +'/' + id +'/edit', function (data) {
-				data = data[0];
-				$("#form_answer #problemtitle").val(data.problemtitle);
-				$("#form_answer #problemtype").val(data.problemtypename);
-				$("#form_answer #problemdetail").val(data.problemdetail);
-				$("#form_answer #answerdetail").val(data.answerdetail);
-				$("#form_answer #problemno").val(id);
-				$('#modal_answer').modal('show');
-		});
+			// console.log("Debug de:" + data);
 
+			data = data[0];
+			$("#form_answer #problemtitle").val(data.problemtitle);
+			$("#form_answer #problemtype").val(data.problemtypename);
+			$("#form_answer #problemdetail").val(data.problemdetail);
+			$("#form_answer #answerdetail").val(data.answerdetail);
+			$("#form_answer #problemno").val(id);
+			$('#modal_answer').modal('show');
 
-		$( '#form_answer' ).on( 'submit', function(e) {
+			$( '#form_answer' ).on( 'submit', function(e) {
 			e.preventDefault();
-			$(this).addClass( "was-validated" );
-			// var check =$(this).validate().form();
-			// 	if(check){
-					$.ajax({
-							type: "POST",
-							url:"{{route('problemreport.update')}}",
-							data: $(this).serialize(),
-							success: function(data) {
-								$(this).trigger("reset").removeClass( "was-validated");
-								$('#table1').empty().html(data);
-							},
-							error: function(data){
-								console.log("Error :" + data);
-							}
-					});
-					$(this).removeClass( "was-validated");
-				// }
+			var link = "{{route('problemreport.update')}}";
+			// console.log("URL" + link);
+			// console.log("DATE" + $(this).serialize())
+			$.ajax({
+					type: "POST",
+					url:link,
+					data: $(this).serialize(),
+					success: function(data) {
+						$('#form_answer' ).trigger("reset");
+						$('#table1').empty().html(data);
+					},
+					error: function(data){
+						console.log("Error :" + data);
+					}
 			});
+			$('#modal_answer').modal('hide');
+		});
+		});
   });
 
 	$(document).on('click', ".btn_destroy", function() {

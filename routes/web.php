@@ -43,6 +43,9 @@ Route::patch('editsubject/{id}' , 'EditSubjectController@update')->name('editsub
 Route::post('editsubject/search_subject', 'EditSubjectController@search_subject')->name('editsubject.search_subject');
 
 
+Route::post('editsubject','EditSubjectController@add_section')->name('editsubject.add_section');
+
+
 //Route::resource('faculty', 'Csimple\Cfaculty');
 
 

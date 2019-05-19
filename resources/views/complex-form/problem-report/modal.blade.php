@@ -9,7 +9,7 @@
 				</button>
 			</div>
 			<div class="modal-body">
-					<form id="form_add" class="col" novalidate>
+					<form id="form_add" class=" needs-validation col" novalidate>
 							@csrf
 
 							<div class="form-group">
@@ -42,7 +42,7 @@
 </div>
 <!-- End Modal add problem -->
 
-<!--Start Modal show problem -->
+{<!--Start Modal show problem -->
 <div class="modal fade" id="modal_show" tabindex="-1" role="dialog" aria-labelledby="label2" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
@@ -98,7 +98,7 @@
 				</button>
 			</div>
 			<div class="modal-body">
-					<form id="form_answer" class="col" novalidate>
+					<form id="form_answer" class=" needs-validation col" novalidate>
 						@csrf
 						@method('PATCH')
 							<div class="form-group">
@@ -125,7 +125,7 @@
 					</form>
 
 						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary" data-dismiss="modal">CLOSE</button>
+							<button type="button" class="tn btn-secondary" data-dismiss="modal">Close</button>
 							<button form="form_answer" class="btn btn-success ml-2" type="submit" >ANSWER</button>
 						</div>
 
