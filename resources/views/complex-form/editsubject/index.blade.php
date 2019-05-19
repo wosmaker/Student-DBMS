@@ -263,7 +263,7 @@ $(document).ready(function() {
 							console.log("Debug :" + data);
 							$('#tb_subject').empty().html(data);
 							$('#modal_add_subject').modal('hide');
-							$(this).trigger("reset");
+							$( '#form_add_subject' ).trigger("reset");
 						},
 						error: function(data){
 							console.log("Error :" + data);
@@ -293,7 +293,7 @@ $(document).ready(function() {
 							$('#block_section').empty().html(data);
 							$('#block_section').show();
 							$('#modal_add_section').modal('hide');
-							$(this).trigger("reset");
+							$( '#form_add_section' ).trigger("reset");
 						},
 						error: function(data){
 							console.log("Error :" + data);
@@ -328,14 +328,14 @@ $(document).ready(function() {
 				});
 		});
 
-		$(document).on('click', ".btn_destroy_section", function() {
+		$(document).on('click', ".btn_destroy_subject", function() {
 			if (confirm('Are you sure you want to Delete ?')) {
 				var id = $(this).attr("id");
 				console.log("Debug:" + id);
 				$.ajax({
 						type: "POST",
-						url:"{{route('editsubject.destroy_section')}}",
-						data: {_token: "{{ csrf_token() }}",_method: 'delete',id: id},
+						url:"{{route('editsubject.destroy_subject')}}",
+						data: {_token: "{{ csrf_token() }}",_method: 'delete',subjectcode: id},
 						success: function(data) {
 							setTimeout("alert('DELETE COMPLETE');", 2000);
 							console.log("DELETE COMP :" + data);
@@ -348,7 +348,25 @@ $(document).ready(function() {
 			}
 		});
 
-
+		$(document).on('click', ".btn_destroy_section", function() {
+			if (confirm('Are you sure you want to Delete ?')) {
+				var id = $(this).attr("id");
+				console.log("Debug:" + id);
+				$.ajax({
+						type: "POST",
+						url:"{{route('editsubject.destroy_section')}}",
+						data: {_token: "{{ csrf_token() }}",_method: 'delete',subjectsectionid: id},
+						success: function(data) {
+							setTimeout("alert('DELETE COMPLETE');", 2000);
+							console.log("DELETE COMP :" + data);
+						},
+						error: function(data){
+							setTimeout("alert('DELETE FAIL');", 2000);
+							console.log("Error :" + data);
+						}
+				});
+			}
+		});
 
 		fetch_subject();
 		$(document).on('click', '#fetch_subject', function() {
