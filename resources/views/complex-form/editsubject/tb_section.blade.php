@@ -28,7 +28,7 @@
 					<td class="row">
 						{{-- ปุ่มกดสำหรับการลบวิชาที่เพิ่มไว้ --}}
 						<button class=" btn btn-warning btn-sm mr-2 btn_detail_section"  id="{{$section_list->subjectsectionid}}">DETAIL</button>
-						<button class=" btn btn-danger btn-sm mr-2 btn_destroy_section"  id="{{$subjectcode}}">DELETE</button>
+						<button class=" btn btn-danger btn-sm mr-2 btn_destroy_section"  id="{{$section_list->subjectsectionid}}">DELETE</button>
 					</td>
 				</tr>
 			@endforeach
