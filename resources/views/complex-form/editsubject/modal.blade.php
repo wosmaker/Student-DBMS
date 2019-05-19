@@ -68,20 +68,20 @@
 							</div>
 
 							<div class="form-group col-md-4">
-									<label for="sectionno">Section</label>
-									<input type="text" class="form-control" id="sectionno" name="sectionno" placeholder="" >
+									<label for="sectionno">Section No</label>
+									<input type="number" class="form-control" id="sectionno" name="sectionno" placeholder="" >
 							</div>
 					</div>
 
 					<div class="form-row">
 							<div class="form-group col-md-8">
 									<label for="price">Price</label>
-									<input type="text" class="form-control" id="price" name="price" placeholder="" >
+									<input type="number" class="form-control" id="price" name="price" placeholder="" >
 							</div>
 
 							<div class="form-group col-md-4">
 									<label for="seatavailable">Seat</label>
-									<input type="text" class="form-control" id="seatavailable" name="seatavailable" placeholder="">
+									<input type="number" class="form-control" id="seatavailable" name="seatavailable" placeholder="">
 							</div>
 					</div>
 				</form>

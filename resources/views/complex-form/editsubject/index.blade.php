@@ -35,31 +35,9 @@
 </div>
 
 	<div id="block_section">
-		<div class="text-left pl-2 pt-3 pb-1" >
-				<h3>SECTION OF {{$subjectcode}}</h3>
-		</div>
-
-		<div class="shadow-sm px-4 py-2 mb-2  bg-white rounded">
-
-			<div class="text-right">
-					<button class="btn btn-info my-2" id="btn_add_section">+Section</button>
-			</div>
-
-			<table class="table table-hover table-responsive-lg">
-				<thead>
-					<tr>
-						<th scope="col">Secion No</th>
-						<th scope="col">Seat</th>
-						<th scope="col">Price</th>
-						<th scope="col">Manage</th>
-					</tr>
-				</thead>
-				<tbody id="tb_section">
-
-				</tbody>
-			</table>
-		</div>
+		{{-- block of section for show table --}}
 	</div>
+
 	<div>
 
 		@if($period_lists != null)
@@ -295,11 +273,12 @@ $(document).ready(function() {
 		});
 
 
-		$(document).on('click', "#btn_add_section", function() {
-			var options = {
-				'backdrop': 'static'
-			};
+		$(document).on('click', ".btn_add_section", function() {
+			var options = {'backdrop': 'static'};
 			$('#modal_add_section').modal(options).modal('show');
+
+			var subjectcode = $(this).attr("id");
+			$("#form_add_section #subjectcode").val(subjectcode);
 
 			console.log("IN MODEL: add section");
 
@@ -311,7 +290,8 @@ $(document).ready(function() {
 						data: $(this).serialize(),
 						success: function(data) {
 							//console.log("Debug :" + data);
-							$('#tb_section').empty().html(data);
+							$('#block_section').empty().html(data);
+							$('#block_section').show();
 							$('#modal_add_section').modal('hide');
 							$(this).trigger("reset");
 						},
@@ -339,8 +319,7 @@ $(document).ready(function() {
 					url:"{{route('editsubject.search_section')}}",
 					data:{query:query, "_token": "{{ csrf_token() }}"},
 					success:function(data){
-						console.log("DEBUG :" + data);
-						$('#tb_section').empty().html(data);
+						$('#block_section').empty().html(data);
 						$('#block_section').show();
 					},
 					error: function(data){
