@@ -34,34 +34,34 @@
 			</table>
 </div>
 
-@if($section_lists != null)
-
-	<div class="text-left pl-2 pt-3 pb-1">
-			<h3>SECTION OF {{$subjectcode}}</h3>
-	</div>
-
-	<div class="shadow-sm px-4 py-2 mb-2  bg-white rounded">
-
-		<div class="text-right">
-				<button class="btn btn-info my-2" id="btn_add_section">+Section</button>
+	<div id="block_section">
+		<div class="text-left pl-2 pt-3 pb-1" >
+				<h3>SECTION OF {{$subjectcode}}</h3>
 		</div>
 
-		<table class="table table-hover table-responsive-lg">
-			<thead>
-				<tr>
-					<th scope="col">Secion No</th>
-					<th scope="col">Seat</th>
-					<th scope="col">Price</th>
-					<th scope="col">Manage</th>
-				</tr>
-			</thead>
-			<tbody id="tb_section">
+		<div class="shadow-sm px-4 py-2 mb-2  bg-white rounded">
 
-			</tbody>
-		</table>
+			<div class="text-right">
+					<button class="btn btn-info my-2" id="btn_add_section">+Section</button>
+			</div>
+
+			<table class="table table-hover table-responsive-lg">
+				<thead>
+					<tr>
+						<th scope="col">Secion No</th>
+						<th scope="col">Seat</th>
+						<th scope="col">Price</th>
+						<th scope="col">Manage</th>
+					</tr>
+				</thead>
+				<tbody id="tb_section">
+
+				</tbody>
+			</table>
+		</div>
 	</div>
-
 	<div>
+
 		@if($period_lists != null)
 			<div class="row">
 				<div>
@@ -113,7 +113,6 @@
 			@endif
 	</div>
 
-@endif
 
 <div class="shadow-sm px-4 py-2 mb-2 bg-white rounded" id="block1">
 	<h5>Select subject</h5>
@@ -268,126 +267,109 @@
 <script>
 $(document).ready(function() {
 
-	$(document).on('click', "#btn_add_subject", function() {
-		var options = {
-      'backdrop': 'static'
-    };
-    $('#modal_add_subject').modal(options).modal('show');
+		$(document).on('click', "#btn_add_subject", function() {
+			var options = {
+				'backdrop': 'static'
+			};
+			$('#modal_add_subject').modal(options).modal('show');
 
-		console.log("IN MODEL: add subject");
+			console.log("IN MODEL: add subject");
 
-		$('#form_add_subject').on( 'submit', function(e) {
-			e.preventDefault();
-			$.ajax({
-					type: "POST",
-					url: "{{route('editsubject.add_subject')}}",
-					data: $(this).serialize(),
-					success: function(data) {
-						console.log("Debug :" + data);
-						$('#tb_subject').empty().html(data);
-						$('#modal_add_subject').modal('hide');
-						$(this).trigger("reset");
-					},
-					error: function(data){
-						console.log("Error :" + data);
-					}
+			$('#form_add_subject').on( 'submit', function(e) {
+				e.preventDefault();
+				$.ajax({
+						type: "POST",
+						url: "{{route('editsubject.add_subject')}}",
+						data: $(this).serialize(),
+						success: function(data) {
+							console.log("Debug :" + data);
+							$('#tb_subject').empty().html(data);
+							$('#modal_add_subject').modal('hide');
+							$(this).trigger("reset");
+						},
+						error: function(data){
+							console.log("Error :" + data);
+						}
+				});
 			});
 		});
-  });
 
 
-	$(document).on('click', "#btn_add_section", function() {
-		var options = {
-      'backdrop': 'static'
-    };
-    $('#modal_add_section').modal(options).modal('show');
+		$(document).on('click', "#btn_add_section", function() {
+			var options = {
+				'backdrop': 'static'
+			};
+			$('#modal_add_section').modal(options).modal('show');
 
-		console.log("IN MODEL: add section");
+			console.log("IN MODEL: add section");
 
-		$( '#form_add_section' ).on( 'submit', function(e) {
+			$( '#form_add_section' ).on( 'submit', function(e) {
+				e.preventDefault();
+				$.ajax({
+						type: "POST",
+						url: "{{route('editsubject.add_section')}}",
+						data: $(this).serialize(),
+						success: function(data) {
+							//console.log("Debug :" + data);
+							$('#tb_section').empty().html(data);
+							$('#modal_add_section').modal('hide');
+							$(this).trigger("reset");
+						},
+						error: function(data){
+							console.log("Error :" + data);
+						}
+				});
+			});
+		});
+
+		$('#block_section').hide();
+		$('#block1').hide();
+		$('#block2').hide();
+
+		$(document).on('click', ".btn_detail_subject", function(e) {
 			e.preventDefault();
-			$.ajax({
-					type: "POST",
-					url: "{{route('editsubject.add_section')}}",
-					data: $(this).serialize(),
-					success: function(data) {
-						//console.log("Debug :" + data);
+
+			var query = $(this).attr("id");
+			e.preventDefault();
+
+				console.log("search on detail:" + query);
+
+				$.ajax({
+					type:'POST',
+					url:"{{route('editsubject.search_subject')}}",
+					data:{query:query, "_token": "{{ csrf_token() }}"},
+					success:function(data){
+						console.log("DEBUG :" + data);
 						$('#tb_section').empty().html(data);
-						$('#modal_add_section').modal('hide');
-						$(this).trigger("reset");
+						$('#block_section').show();
 					},
 					error: function(data){
 						console.log("Error :" + data);
 					}
-			});
+				});
 		});
-  });
 
-	$(document).on('click', ".btn_detail_subject", function() {
-		var id = $(this).attr("id");
-		// console.log("Debug:" + id);
-		// console.log("URL:"+ "{{ route('problemreport.index') }}" +'/' + id +'/edit');
 
-		$.get("{{ route('problemreport.index') }}" +'/' + id +'/edit', function (data) {
-			// console.log("Debug de:" + data);
 
-			data = data[0];
-			$("#form_answer #problemtitle").val(data.problemtitle);
-			$("#form_answer #problemtype").val(data.problemtypename);
-			$("#form_answer #problemdetail").val(data.problemdetail);
-			$("#form_answer #answerdetail").val(data.answerdetail);
-			$("#form_answer #problemno").val(id);
-			$('#modal_answer').modal('show');
+		fetch_subject();
+		$(document).on('click', '#fetch_subject', function() {
+			var query = $('#search_subject').val();
+			fetch_subject(query);
+		});
 
-			$( '#form_answer' ).on( 'submit', function(e) {
-			e.preventDefault();
-			var link = "{{route('problemreport.update')}}";
-			// console.log("URL" + link);
-			// console.log("DATE" + $(this).serialize())
+		function fetch_subject(query = '')
+		{
+			console.log("search on:" + query +":");
 			$.ajax({
-					type: "POST",
-					url:link,
-					data: $(this).serialize(),
-					success: function(data) {
-						$('#form_answer' ).trigger("reset");
-						$('#table1').empty().html(data);
-					},
-					error: function(data){
-						console.log("Error :" + data);
-					}
-			});
-			$('#modal_answer').modal('hide');
+			url:"{{route('editsubject.search_subject')}}",
+			type:'POST',
+			data:{query:query, "_token": "{{ csrf_token() }}"},
+			success:function(data)
+			{
+					$('#tb_subject').empty().html(data);
+				}
 		});
-		});
-  });
-
-
-	fetch_subject();
-	$(document).on('click', '#fetch_subject', function() {
-		var query = $('#search_subject').val();
-		fetch_subject(query);
-  });
-
-	function fetch_subject(query = '')
- {
-	console.log("search on:" + query +":");
-  $.ajax({
-   url:"{{route('editsubject.search_subject')}}",
-   type:'POST',
-   data:{query:query, "_token": "{{ csrf_token() }}"},
-   success:function(data)
-   {
-			$('#tb_subject').empty().html(data);
 		}
-	});
- }
-
- $('#block1').hide();
- $('#block2').hide();
-
-
-
-
 });
 </script>
 @endsection
