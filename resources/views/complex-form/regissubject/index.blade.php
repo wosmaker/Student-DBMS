@@ -34,6 +34,7 @@
                 <th scope="col">SubjectName</th>
                 <th scope="col">Credit</th>
                 <th scope="col">Section</th>
+                <th scope="col">Day</th>
                 <th scope="col">Start Period</th>
                 <th scope="col">End Period</th>
                 <th scope="col">Delete</th>
@@ -46,8 +47,9 @@
                     <th scope="row">{{ $loop->iteration }}</th>
                     <td>{{ $regissubject->subjectcode }}</td>
                     <td>{{ $regissubject->subjectname }}</td>
-                    <td>{{ $regissubject->sectionno }}</td>
                     <td>{{ $regissubject->subjectcredit }}</td>
+                    <td>{{ $regissubject->sectionno }}</td>
+                    <td>{{ $regissubject->day }}</td>
                     <td>{{ $regissubject->start_period }}</td>
                     <td>{{ $regissubject->end_period }}</td>
                     <td>
@@ -72,12 +74,12 @@
             <div class="form-group col-md-4 input-group">
                 <input type="text" class="form-control" name="subjectcode" placeholder="SubjectCode"  aria-describedby="search">
                 <div class="input-group-append">
-                    <button type="submit" class="btn btn-outline-success" id="search">Search</button>
+                    <button type="submit" class="btn btn-outline-success" id="search" name="search_btn" value="1">Search</button>
                 </div>
             </div>
         </div>
     </form>
-
+    @if($subjectdetails != null)
     <form method="POST" action="regissubject" id="example">
         @csrf
         {{-- ตารางแสดงวิชาที่ค้นหา --}}
@@ -85,42 +87,70 @@
             <thead>
                 <tr>
                     <th scope="col">No</th>
+                    @if($subject_show == 1)
+                        <th scope="col">SubjectCode</th>
+                    @endif
                     <th scope="col">Section</th>
                     <th scope="col">SeatAvailable</th>
+                    <th scope="col">Day</th>
                     <th scope="col">Start Period</th>
                     <th scope="col">End Period</th>
                     <th scope="col">Choose</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach($subjectdetails as $subjectdetail)
-                    <tr  class="clickable-row">
-                        {{-- คำสั่ง $loop->iteration เป็นตัวที่ไล่เลขลำดับให้ --}}
-                        <th scope="row">{{ $loop->iteration }}</th>
-						<td>{{ $subjectdetail->sectionno }}</td>
-                        <td>{{ $subjectdetail->seatavailable }}</td>
-                        <td>{{ $subjectdetail->start_period }}</td>
-                        <td>{{ $subjectdetail->end_period }}</td>
-                        <td>
-							<input  type="radio" id="{{"checkbox$loop->iteration"}}" name="subjectsectionid" value="{{ $subjectdetail->subjectsectionid }}">
-						</td>
-                    </tr>
-                @endforeach
+                @if($subject_show == 0)
+                    @foreach($subjectdetails as $subjectdetail)
+                        <tr  class="clickable-row">
+                            {{-- คำสั่ง $loop->iteration เป็นตัวที่ไล่เลขลำดับให้ --}}
+                            <th scope="row">{{ $loop->iteration }}</th>
+                            <td>{{ $subjectdetail->sectionno }}</td>
+                            <td>{{ $subjectdetail->seatavailable }}</td>
+                            <td>{{ $subjectdetail->day }}</td>
+                            <td>{{ $subjectdetail->start_period }}</td>
+                            <td>{{ $subjectdetail->end_period }}</td>
+                            <td>
+                                <input  type="radio" id="{{"checkbox$loop->iteration"}}" name="subjectsectionid" value="{{ $subjectdetail->subjectsectionid }}">
+                            </td>
+                        </tr>
+                    @endforeach
+                @endif
+
+                @if($subject_show == 1)
+                    @foreach($subjectdetails as $subjectdetail)
+                        <tr  class="clickable-row">
+                            {{-- คำสั่ง $loop->iteration เป็นตัวที่ไล่เลขลำดับให้ --}}
+                            <th scope="row">{{ $loop->iteration }}</th>
+                            <td>{{ $subjectdetail->subjectcode }}</td>
+                            <td>{{ $subjectdetail->sectionno }}</td>
+                            <td>{{ $subjectdetail->seatavailable }}</td>
+                            <td>{{ $subjectdetail->day }}</td>
+                            <td>{{ $subjectdetail->start_period }}</td>
+                            <td>{{ $subjectdetail->end_period }}</td>
+                            <td>
+                                <input  type="radio" id="{{"checkbox$loop->iteration"}}" name="subjectsectionid" value="{{ $subjectdetail->subjectsectionid }}">
+                            </td>
+                        </tr>
+                    @endforeach
+                @endif
             </tbody>
-				</table>
+		</table>
 				<div class="text-right">
                     {{-- ปุ่มยืนยันเพิ่มวิชา --}}
         	        <button class="btn btn-info" type="submit" name="btn">ADD THIS SUBJECT</button>
 				</div>
-	</form>
+    </form>
+    @endif
 </div>
 
 {{-- ปุ่มไปหน้าอัพเดทใบเสร็จ --}}
-<div class="p-3 shadow-lg bg-white">
-    <div class="text-center">
-        <button class="btn btn-info  shadow" onclick="window.location.href = 'updatereceipt';">CONFIRM REGISTRATION</button>
+@if($subjectdetails != null)
+    <div class="p-3 shadow-lg bg-white">
+        <div class="text-center">
+            <button class="btn btn-info  shadow" onclick="window.location.href = 'updatereceipt';">CONFIRM REGISTRATION</button>
+        </div>
     </div>
-</div>
+@endif
 
 @endsection
 
