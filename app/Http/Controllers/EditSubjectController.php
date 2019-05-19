@@ -165,9 +165,30 @@ class EditSubjectController extends Controller
 		public function search_room(Request $request)
 		{
 			if($request->ajax())
-        {
+            {
+                $day = request('day');
+                $room_lists = null;
+                $roomfrees = array();
 
-        }
+                if($day != null) {
+                    $start = request('start'); //คาบเริ่มต้น
+                    $end = request('end');     //คาบจบ
+                    //ดึงห้องทั้งหมดออกมา
+                    $room_lists = DB::table('room_list')
+                        ->select('roomcode', 'buildingname', 'floor', 'roomseattotal', $day)
+                        ->where('roomseattotal', '>', 0)
+                        ->get()->all();
+                    //ระยะเวลา (คาบ)
+                    $length = $end - $start + 1;
+                    //ไล่หาว่ามีห้องไหนว่างบ้าง
+                    foreach($room_lists as $room) {
+                        $period = substr($room->$day , $start-1, $length);
+                        if(strpos($period, '0') === false) array_push($roomfrees, $room);
+                    }
+                }
+
+                return view('complex-form.editsubject.tb_room', compact('roomfrees'));
+            }
 		}
 
     public function add_section(Request $request)
