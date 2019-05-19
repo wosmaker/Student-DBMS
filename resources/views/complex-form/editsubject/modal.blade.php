@@ -1,5 +1,5 @@
 <!-- Start Add subject Modal -->
-<div class="modal fade" id="add_subject" tabindex="-1" role="dialog" aria-labelledby="add_subjectlabel" aria-hidden="true">
+<div class="modal fade" id="modal_add_subject" tabindex="-1" role="dialog" aria-labelledby="add_subjectlabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -9,7 +9,7 @@
 					</button>
 				</div>
 				<div class="modal-body">
-						<form id="add_subject_form" method="POST" class="col" action= "editsubject">
+						<form id="form_add_subject" method="POST" class="col" action= "editsubject">
 							@csrf
 							<div class="form-row">
 									<div class="form-group col-md-3">
@@ -37,7 +37,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-					<button form="add_subject_form" type="submit" class="btn btn-primary">ADD subject</button>
+					<button form="form_add_subject" type="submit" class="btn btn-primary">ADD subject</button>
 				</div>
 			</div>
 		</div>

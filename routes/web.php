@@ -40,9 +40,11 @@ Route::get('editsubject','EditSubjectController@index')->name('editsubject.index
 Route::post('editsubject', 'EditSubjectController@store')->name('editsubject.store');
 Route::delete('editsubject/{id}', 'EditSubjectController@destroy')->name('editsubject.destroy');
 Route::patch('editsubject/{id}' , 'EditSubjectController@update')->name('editsubject.update');
+
+
 Route::post('editsubject/search_subject', 'EditSubjectController@search_subject')->name('editsubject.search_subject');
 
-
+Route::post('editsubject','EditSubjectController@add_subject')->name('editsubject.add_subject');
 Route::post('editsubject','EditSubjectController@add_section')->name('editsubject.add_section');
 
 

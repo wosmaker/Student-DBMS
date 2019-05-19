@@ -14,7 +14,7 @@
 				</div>
 			</div>
 
-			<button class="btn btn-info my-2" data-toggle="modal" data-target="#add_subject">ADD subject</button>
+			<button class="btn btn-info my-2" id="btn_add_subject">+subject</button>
 	</div>
 
 		<table class="table table-hover">
@@ -43,15 +43,15 @@
 	<div class="shadow-sm px-4 py-2 mb-2  bg-white rounded">
 
 		<div class="text-right">
-				<button class="btn btn-info my-2" id="btn_add_section"> + Section</button>
+				<button class="btn btn-info my-2" id="btn_add_section">+Section</button>
 		</div>
 
 		<table class="table table-hover table-responsive-lg">
 			<thead>
 				<tr>
 					<th scope="col">Secion No</th>
-					<th scope="col">seat</th>
-					<th scope="col">price</th>
+					<th scope="col">Seat</th>
+					<th scope="col">Price</th>
 					<th scope="col">Manage</th>
 				</tr>
 			</thead>
@@ -268,12 +268,40 @@
 <script>
 $(document).ready(function() {
 
+
+	$(document).on('click', "#btn_add_subject", function() {
+		var options = {
+      'backdrop': 'static'
+    };
+    $('#modal_add_subject').modal(options).modal('show');
+
+		console.log("IN MODEL: add subject");
+
+		$('#form_add_subject').on( 'submit', function(e) {
+			e.preventDefault();
+			$.ajax({
+					type: "POST",
+					url: "{{route('editsubject.add_subject')}}",
+					data: $(this).serialize(),
+					success: function(data) {
+						//console.log("Debug :" + data);
+						$('#tb_subject').empty().html(data);
+						$('#modal_add_section').modal('hide');
+						$(this).trigger("reset");
+					},
+					error: function(data){
+						console.log("Error :" + data);
+					}
+			});
+		});
+  });
+
+
 	$(document).on('click', "#btn_add_section", function() {
 		var options = {
       'backdrop': 'static'
     };
-    $('#modal_add_section').modal(options);
-		$('#modal_add_section').modal('show');
+    $('#modal_add_section').modal(options).modal('show');
 
 		console.log("IN MODEL: add section");
 
