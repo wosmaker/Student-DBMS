@@ -25,13 +25,10 @@
 					<td>{{ $section_list->sectionno }}</td>
 					<td>{{ $section_list->seatavailable }}</td>
 					<td>{{ $section_list->price }}</td>
-					<td>
+					<td class="row">
 						{{-- ปุ่มกดสำหรับการลบวิชาที่เพิ่มไว้ --}}
-						<form method="POST" action="editsubject/{id}">
-								@csrf
-								@method('DELETE')
-								<button class="btn btn-danger" type="submit" name="sectionid" value="{{ $section_list->subjectsectionid }}">DELETE</button>
-						</form>
+						<button class=" btn btn-warning btn-sm mr-2 btn_detail_section"  id="{{$section_list->subjectsectionid}}">DETAIL</button>
+						<button class=" btn btn-danger btn-sm mr-2 btn_destroy_section"  id="{{$subjectcode}}">DELETE</button>
 					</td>
 				</tr>
 			@endforeach

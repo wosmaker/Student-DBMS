@@ -328,6 +328,26 @@ $(document).ready(function() {
 				});
 		});
 
+		$(document).on('click', ".btn_destroy_section", function() {
+			if (confirm('Are you sure you want to Delete ?')) {
+				var id = $(this).attr("id");
+				console.log("Debug:" + id);
+				$.ajax({
+						type: "POST",
+						url:"{{route('editsubject.destroy_section')}}",
+						data: {_token: "{{ csrf_token() }}",_method: 'delete',id: id},
+						success: function(data) {
+							setTimeout("alert('DELETE COMPLETE');", 2000);
+							console.log("DELETE COMP :" + data);
+						},
+						error: function(data){
+							setTimeout("alert('DELETE FAIL');", 2000);
+							console.log("Error :" + data);
+						}
+				});
+			}
+		});
+
 
 
 		fetch_subject();
