@@ -153,6 +153,8 @@ class EditSubjectController extends Controller
     public function store(Request $request)
     {
         $userid = auth()->user()->id;
+
+        //เพิ่ม SUBJECT
         $subjectcode = request('subjectcode');
         $subjectname = request('subjectname');
         $subjectcredit = request('subjectcredit');
@@ -166,6 +168,56 @@ class EditSubjectController extends Controller
                 'subjectdetail' => $subjectdetail
             ]
         );
+
+        //เพิ่ม SECTION
+        $sectionno = request('sectionno');
+        if($sectionno != null) {
+            $seat = request('seat');
+            $price = request('price');
+
+            DB::table('subject_list')->insert(
+                [
+                    'subjectcode' => $subjectcode,
+                    'sectionno' => $sectionno,
+                    'price' => $price,
+                    'seatavailable' => $seat
+                ]
+            );
+        }
+
+        //เพิ่ม PEPIOD
+        $subjectsectionid = request('subjectsectionid');
+        
+        if($subjectsectionid != null) {
+            $day = request('day');
+            $start = request('start');  //คาบเริ่มต้น
+            $end = request('end');      //คาบจบ
+            $roomcode = request('roomcode');
+            $periodno = request('periodno');
+            
+            
+            $period = DB::table('room_list')
+            ->select($day)
+            ->where('roomcode', '=', $roomcode)
+            ->get()->first()->$day;
+
+            for($i = $start-1 ; $i < $end ; $i++) {
+                $period[$i] = '0';
+            }
+
+            DB::table('room_list')
+            ->where('roomcode', '=', $roomcode)
+            ->update([$day => $period]);
+
+            DB::table('schedule')->insert(
+                [
+                    'periodno' => $subjectcode,
+                    'sectionno' => $sectionno,
+                    'price' => $price,
+                    'seatavailable' => $seat
+                ]
+            );
+        }
 
         return back();
     }
@@ -212,6 +264,7 @@ class EditSubjectController extends Controller
      */
     public function destroy($id)
     {
+        // ลบ SUBJECT
         $subjectcode = request('subjectcode');
 
         if($subjectcode != null) {
@@ -253,6 +306,7 @@ class EditSubjectController extends Controller
             }
         }
 
+        //ลบ SECTION or PERIOD
         $sectionid = request('sectionid');
         $periodno = request('periodno');
 
