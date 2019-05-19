@@ -59,7 +59,7 @@ class EditSubjectController extends Controller
             ->get()->all();
         }
 
-        
+
         //ดึง  รายชื่อจารย์   ที่ต้องการหา
         $teacher_name = request('teacher_name');
         $submit_teacher = request('submit_teacher');
@@ -135,9 +135,18 @@ class EditSubjectController extends Controller
             }
             //dd($subject_lists);
             //return response($subject_lists);
-            return view('complex-form.editsubject.subject_tb', compact('subject_lists'));
+            return view('complex-form.editsubject.tb_subject', compact('subject_lists'));
         }
-    }
+		}
+
+		public function add_section(Request $request)
+		{
+			if($request->ajax())
+			{
+
+				return view('complex-form.editsubject.subject_tb_section', compact(''));
+			}
+		}
 
     public function create()
     {
