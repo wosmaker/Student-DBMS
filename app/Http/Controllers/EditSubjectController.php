@@ -28,20 +28,21 @@ class EditSubjectController extends Controller
         $userdetail = UserList::where('userid', $userid)->first();  //ดึงชื่อผู้ใช้งาน
 
         //ดึงรายวิชาที่ต้องการ
-        $subject_CodeOrName = request('subject_CodeOrName');
-        $subject_lists = null;
-        if($subject_CodeOrName != null) {
-        $subject_lists = DB::table('subject_list')
-            ->select('*')
-            ->where('subjectcode' , 'like', '%' . $subject_CodeOrName . '%')
-            ->orWhere('subjectname', 'like', '%' . $subject_CodeOrName . '%')
-            ->get()->all();
-        }
+        // $subject_CodeOrName = request('subject_CodeOrName');
+        // $subject_lists = null;
+        // if($subject_CodeOrName != null) {
+        // $subject_lists = DB::table('subject_list')
+        //     ->select('*')
+        //     ->where('subjectcode' , 'like', '%' . $subject_CodeOrName . '%')
+        //     ->orWhere('subjectname', 'like', '%' . $subject_CodeOrName . '%')
+        //     ->get()->all();
+        // }
+
 
         //ดึง  ตารางสอน  ในวิชานั้นๆ
         $section_lists = null;
         $period_lists = null;
-        
+
         $subjectcode = request('subjectcode');
         if($subjectcode != null) {
             $section_lists = DB::table('subject_list AS sl')
@@ -58,6 +59,7 @@ class EditSubjectController extends Controller
             ->get()->all();
         }
 
+        
         //ดึง  รายชื่อจารย์   ที่ต้องการหา
         $teacher_name = request('teacher_name');
         $submit_teacher = request('submit_teacher');
@@ -105,7 +107,7 @@ class EditSubjectController extends Controller
             }
         }
 
-        return view('complex-form.editsubject.index', compact('subject_lists','userdetail', 'roomfrees', 'teacher_lists', 'section_lists', 'role', 'subjectcode', 'period_lists'));
+        return view('complex-form.editsubject.index', compact('userdetail', 'roomfrees', 'teacher_lists', 'section_lists', 'role', 'subjectcode', 'period_lists'));
     }
 
     /**
