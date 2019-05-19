@@ -141,6 +141,21 @@ class EditSubjectController extends Controller
 		{
 			if($request->ajax())
 			{
+                $sectionno = request('sectionno');
+
+                if($sectionno != null) {
+                    $seat = request('seat');
+                    $price = request('price');
+
+                    DB::table('subject_list')->insert(
+                        [
+                            'subjectcode' => $subjectcode,
+                            'sectionno' => $sectionno,
+                            'price' => $price,
+                            'seatavailable' => $seat
+                        ]
+                    );
+        }
 
 				return view('complex-form.editsubject.tb_section', compact(''));
 			}
