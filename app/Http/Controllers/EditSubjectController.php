@@ -137,62 +137,62 @@ class EditSubjectController extends Controller
         }
 		}
 
-		public function search_section(Request $request)
+	public function search_section(Request $request)
     {
         if($request->ajax())
         {
-					$subjectcode = $request->get('query');
+            $subjectcode = $request->get('query');
 
-					$section_lists = DB::select('SELECT * from sectioneachsubject where subjectcode = ?', [$subjectcode]);
-					return view('complex-form.editsubject.tb_section', compact('section_lists','subjectcode'));
+            $section_lists = DB::select('SELECT * from sectioneachsubject where subjectcode = ?', [$subjectcode]);
+            return view('complex-form.editsubject.tb_section', compact('section_lists','subjectcode'));
         }
-		}
+	}
 
-		public function add_section(Request $request)
-		{
-			if($request->ajax())
-			{
-				$sectionno = $request->get('sectionno');
-				$subjectcode = $request->get('subjectcode');
-				if($sectionno != null) {
+    public function add_section(Request $request)
+    {
+        if($request->ajax())
+        {
+            $sectionno = $request->get('sectionno');
+            $subjectcode = $request->get('subjectcode');
+            if($sectionno != null) {
 
-						DB::table('sectioneachsubject')->insert(
-								[
-										'subjectcode' =>  $request->get('subjectcode'),
-										'sectionno' =>  $request->get('sectionno'),
-										'price' =>  $request->get('price'),
-										'seatavailable' => $request->get('seatavailable')
-								]
-						);
-        }
-
-				$section_lists = DB::select('SELECT * from sectioneachsubject where subjectcode = ?', [ $subjectcode]);
-				return view('complex-form.editsubject.tb_section', compact('section_lists','subjectcode'));
-			}
-		}
-
-		public function add_subject(Request $request)
-		{
-			if($request->ajax())
-			{
-                $subjectcode = request('subjectcode');
-                $subjectname = request('subjectname');
-                $subjectcredit = request('subjectcredit');
-                $subjectdetail = request('subjectdetail');
-
-                DB::table('subject_list')->insert(
+                DB::table('sectioneachsubject')->insert(
                     [
-                        'subjectcode' => $subjectcode,
-                        'subjectname' => $subjectname,
-                        'subjectcredit' => $subjectcredit,
-                        'subjectdetail' => $subjectdetail
+                        'subjectcode' =>  $request->get('subjectcode'),
+                        'sectionno' =>  $request->get('sectionno'),
+                        'price' =>  $request->get('price'),
+                        'seatavailable' => $request->get('seatavailable')
                     ]
                 );
+            }
 
-				$subject_lists = DB::select('SELECT * FROM subject_list limit 5');
-				return view('complex-form.editsubject.tb_subject', compact('subject_lists'));
-			}
-		}
+            $section_lists = DB::select('SELECT * from sectioneachsubject where subjectcode = ?', [ $subjectcode]);
+            return view('complex-form.editsubject.tb_section', compact('section_lists','subjectcode'));
+        }
+    }
+
+    public function add_subject(Request $request)
+    {
+        if($request->ajax())
+        {
+            $subjectcode = request('subjectcode');
+            $subjectname = request('subjectname');
+            $subjectcredit = request('subjectcredit');
+            $subjectdetail = request('subjectdetail');
+
+            DB::table('subject_list')->insert(
+                [
+                    'subjectcode' => $subjectcode,
+                    'subjectname' => $subjectname,
+                    'subjectcredit' => $subjectcredit,
+                    'subjectdetail' => $subjectdetail
+                ]
+            );
+
+            $subject_lists = DB::select('SELECT * FROM subject_list limit 5');
+            return view('complex-form.editsubject.tb_subject', compact('subject_lists'));
+        }
+    }
 
     public function create()
     {
