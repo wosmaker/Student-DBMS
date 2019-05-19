@@ -41,8 +41,8 @@ Route::post('editsubject', 'EditSubjectController@store')->name('editsubject.sto
 Route::delete('editsubject/{id}', 'EditSubjectController@destroy')->name('editsubject.destroy');
 Route::patch('editsubject/{id}' , 'EditSubjectController@update')->name('editsubject.update');
 
-Route::delete('editsubject/destroy_subject', 'EditSubjectController@destroy_subject')->name('editsubject.destroy_subject');
-Route::delete('editsubject/destroy_section', 'EditSubjectController@destroy_section')->name('editsubject.destroy_section');
+Route::post('editsubject/destroy_subject', 'EditSubjectController@destroy_subject')->name('editsubject.destroy_subject');
+Route::post('editsubject/destroy_section', 'EditSubjectController@destroy_section')->name('editsubject.destroy_section');
 
 
 Route::post('editsubject/search_subject', 'EditSubjectController@search_subject')->name('editsubject.search_subject');
