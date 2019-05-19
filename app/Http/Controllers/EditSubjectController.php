@@ -223,10 +223,12 @@ class EditSubjectController extends Controller
 
             DB::table('schedule')->insert(
                 [
-                    'periodno' => $subjectcode,
-                    'sectionno' => $sectionno,
-                    'price' => $price,
-                    'seatavailable' => $seat
+                    'subjectsectionid' => $subjectsectionid,
+                    'periodno' => $periodno,
+                    'roomcode' => $roomcode,
+                    'day' => $day,
+                    'start_period' => $start,
+                    'end_period' => $end
                 ]
             );
         }
