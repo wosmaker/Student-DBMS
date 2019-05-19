@@ -141,22 +141,20 @@ class EditSubjectController extends Controller
 		{
 			if($request->ajax())
 			{
+                $subjectcode = request('subjectcode');
                 $sectionno = request('sectionno');
+                $seatavailable = request('seatavailable');
+                $price = request('price');
 
-                if($sectionno != null) {
-                    $seat = request('seat');
-                    $price = request('price');
-
-                    DB::table('subject_list')->insert(
-                        [
-                            'subjectcode' => $subjectcode,
-                            'sectionno' => $sectionno,
-                            'price' => $price,
-                            'seatavailable' => $seat
-                        ]
-                    );
-        }
-
+                DB::table('subject_list')->insert(
+                    [
+                        'subjectcode' => $subjectcode,
+                        'sectionno' => $sectionno,
+                        'price' => $price,
+                        'seatavailable' => $seatavailable
+                    ]
+                );
+        
 				return view('complex-form.editsubject.tb_section', compact(''));
 			}
 		}
@@ -198,37 +196,6 @@ class EditSubjectController extends Controller
     public function store(Request $request)
     {
         $userid = auth()->user()->id;
-
-        //เพิ่ม SUBJECT
-        $subjectcode = request('subjectcode');
-        $subjectname = request('subjectname');
-        $subjectcredit = request('subjectcredit');
-        $subjectdetail = request('subjectdetail');
-
-        DB::table('subject_list')->insert(
-            [
-                'subjectcode' => $subjectcode,
-                'subjectname' => $subjectname,
-                'subjectcredit' => $subjectcredit,
-                'subjectdetail' => $subjectdetail
-            ]
-        );
-
-        //เพิ่ม SECTION
-        $sectionno = request('sectionno');
-        if($sectionno != null) {
-            $seat = request('seat');
-            $price = request('price');
-
-            DB::table('subject_list')->insert(
-                [
-                    'subjectcode' => $subjectcode,
-                    'sectionno' => $sectionno,
-                    'price' => $price,
-                    'seatavailable' => $seat
-                ]
-            );
-        }
 
         //เพิ่ม PEPIOD
         $subjectsectionid = request('subjectsectionid');
