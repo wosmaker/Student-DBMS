@@ -84,16 +84,16 @@ class ProblemReportController extends Controller
 				);
 
 				if($userrole == 1) {
-					$problemreports = DB::select('SELECT prl.problemno ,prl.problemtitle ,ptl.problemtypename,ul.firstname,ul.lastname,dl.departmentname,prl.problemdatetime,prl.problemstatus,prl.answerdetail,prl.problemdetail
-					FROM problemreport_list prl, user_list ul,problemtype_list ptl,department_list dl
-					WHERE ptl.problemtypeid = prl.problemtypeid AND ul.userid = prl.userid AND ul.departmentcode = dl.departmentcode
+					$problemreports = DB::select('SELECT prl.problemno ,prl.problemtitle ,ptl.problemtypename,ul.firstname,ul.lastname,prl.problemdatetime,prl.problemstatus,prl.answerdetail,prl.problemdetail
+					FROM problemreport_list prl, user_list ul,problemtype_list ptl
+					WHERE ptl.problemtypeid = prl.problemtypeid AND ul.userid = prl.userid
 					AND ul.userid = :userid;
 					', ['userid' => $userid]);
 
 				} else {
-					$problemreports = DB::select('SELECT prl.problemno ,prl.problemtitle ,ptl.problemtypename,ul.firstname,ul.lastname,dl.departmentname,prl.problemdatetime,prl.problemstatus,prl.answerdetail,prl.problemdetail
-					FROM problemreport_list prl, user_list ul,problemtype_list ptl,department_list dl
-								WHERE ptl.problemtypeid = prl.problemtypeid AND ul.userid = prl.userid AND ul.departmentcode = dl.departmentcode;
+					$problemreports = DB::select('SELECT prl.problemno ,prl.problemtitle ,ptl.problemtypename,ul.firstname,ul.lastname,prl.problemdatetime,prl.problemstatus,prl.answerdetail,prl.problemdetail
+					FROM problemreport_list prl, user_list ul,problemtype_list ptl
+								WHERE ptl.problemtypeid = prl.problemtypeid AND ul.userid = prl.userid;
 					');
 				}
 				//return response($problemreports);
@@ -152,16 +152,16 @@ class ProblemReportController extends Controller
 					DB::update('UPDATE problemreport_list set answerdetail = ? ,problemstatus = ?  where problemno = ?', [$answerdetail,$problemstatus,$id]);
 
 					if($userrole == 1) {
-						$problemreports = DB::select('SELECT prl.problemno ,prl.problemtitle ,ptl.problemtypename,ul.firstname,ul.lastname,dl.departmentname,prl.problemdatetime,prl.problemstatus,prl.answerdetail,prl.problemdetail
-						FROM problemreport_list prl, user_list ul,problemtype_list ptl,department_list dl
-						WHERE ptl.problemtypeid = prl.problemtypeid AND ul.userid = prl.userid AND ul.departmentcode = dl.departmentcode
+						$problemreports = DB::select('SELECT prl.problemno ,prl.problemtitle ,ptl.problemtypename,ul.firstname,ul.lastname,prl.problemdatetime,prl.problemstatus,prl.answerdetail,prl.problemdetail
+						FROM problemreport_list prl, user_list ul,problemtype_list ptl
+						WHERE ptl.problemtypeid = prl.problemtypeid AND ul.userid = prl.userid
 						AND ul.userid = :userid;
 						', ['userid' => $userid]);
 
 					} else {
-						$problemreports = DB::select('SELECT prl.problemno ,prl.problemtitle ,ptl.problemtypename,ul.firstname,ul.lastname,dl.departmentname,prl.problemdatetime,prl.problemstatus,prl.answerdetail,prl.problemdetail
-						FROM problemreport_list prl, user_list ul,problemtype_list ptl,department_list dl
-									WHERE ptl.problemtypeid = prl.problemtypeid AND ul.userid = prl.userid AND ul.departmentcode = dl.departmentcode;
+						$problemreports = DB::select('SELECT prl.problemno ,prl.problemtitle ,ptl.problemtypename,ul.firstname,ul.lastname,prl.problemdatetime,prl.problemstatus,prl.answerdetail,prl.problemdetail
+						FROM problemreport_list prl, user_list ul,problemtype_list ptl
+									WHERE ptl.problemtypeid = prl.problemtypeid AND ul.userid = prl.userid;
 						');
 					}
 					//return response($problemreports);
