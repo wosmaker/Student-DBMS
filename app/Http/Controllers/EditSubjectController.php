@@ -294,7 +294,7 @@ class EditSubjectController extends Controller
     {
         if($request->ajax())
         {
-						$subjectcode = $request->subjectcode;
+			$subjectcode = $request->subjectcode;
 
             $room_lists = DB::table('subject_list AS sl')
             ->join('sectioneachsubject AS ss' , 'sl.subjectcode', '=', 'ss.subjectcode')
@@ -325,16 +325,16 @@ class EditSubjectController extends Controller
                     DB::table('room_list')
                     ->where('roomcode', '=', $roomcode)
                     ->update([$day => $period]);
-								}
-						}
-                // ลบวิชาที่ต้องการ พร้อมกับ section & schdule ที่เกี่ยวข้อง เพราะเซ็ต DB เป็น cascade ไว้
-								DB::table('subject_list')
-                ->where('subjectcode', '=', $subjectcode)
-                ->delete();
+				}
+            }
+            
+            // ลบวิชาที่ต้องการ พร้อมกับ section & schdule ที่เกี่ยวข้อง เพราะเซ็ต DB เป็น cascade ไว้
+                            DB::table('subject_list')
+            ->where('subjectcode', '=', $subjectcode)
+            ->delete();
 
-
-					$subject_lists = DB::select('SELECT * FROM subject_list limit 5');
-					return view('complex-form.editsubject.tb_subject', compact('subject_lists'));
+            $subject_lists = DB::select('SELECT * FROM subject_list limit 5');
+            return view('complex-form.editsubject.tb_subject', compact('subject_lists'));
         }
     }
 
