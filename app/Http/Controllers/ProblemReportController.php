@@ -15,6 +15,25 @@ class ProblemReportController extends Controller
      * @return \Illuminate\Http\Response
      */
 
+		protected function response_tb_problem()
+		{
+			$role = auth()->user()->userroleid;
+			if($role == 1) {
+				$problemreports = DB::select('SELECT prl.problemno ,prl.problemtitle ,ptl.problemtypename,ul.firstname,ul.lastname,prl.problemdatetime,prl.problemstatus,prl.answerdetail,prl.problemdetail
+				FROM problemreport_list prl, user_list ul,problemtype_list ptl
+				WHERE ptl.problemtypeid = prl.problemtypeid AND ul.userid = prl.userid
+				AND ul.userid = :userid;
+				', ['userid' => $userid]);
+
+			} else {
+				$problemreports = DB::select('SELECT prl.problemno ,prl.problemtitle ,ptl.problemtypename,ul.firstname,ul.lastname,prl.problemdatetime,prl.problemstatus,prl.answerdetail,prl.problemdetail
+				FROM problemreport_list prl, user_list ul,problemtype_list ptl
+							WHERE ptl.problemtypeid = prl.problemtypeid AND ul.userid = prl.userid;
+				');
+			}
+			return view('complex-form.problem-report.problem_tb',compact('problemreports','role'));
+		}
+
     public function __construct()
     {
         $this->middleware('auth');      //login checking
@@ -24,15 +43,14 @@ class ProblemReportController extends Controller
     public function index()
     {
         $role = auth()->user()->userroleid;
-
         $userid = auth()->user()->id;   //ดึงค่า id ของผู้ใช้
-        $userrole =  auth()->user()->userroleid;
+
         $userdetail = UserList::where('userid', $userid)->first();  //ดึงชื่อผู้ใช้งาน
         $problemtypes = DB::table('problemtype_list')  //ดึงชนิดคำถาม
                     ->select('problemtypeid','problemtypename')
                     ->get()->all();
 
-				if($userrole == 1) {
+				if($role == 1) {
 					$problemreports = DB::select('SELECT prl.problemno ,prl.problemtitle ,ptl.problemtypename,ul.firstname,ul.lastname,prl.problemdatetime,prl.problemstatus,prl.answerdetail,prl.problemdetail
 					FROM problemreport_list prl, user_list ul,problemtype_list ptl
 					WHERE ptl.problemtypeid = prl.problemtypeid AND ul.userid = prl.userid
@@ -45,7 +63,8 @@ class ProblemReportController extends Controller
 								WHERE ptl.problemtypeid = prl.problemtypeid AND ul.userid = prl.userid;
 					');
 				}
-        return view('complex-form.problem-report.index', compact('userdetail','userrole', 'problemreports','problemtypes','role'));
+
+        return view('complex-form.problem-report.index', compact('userdetail', 'problemreports','problemtypes','role'));
     }
     // WTF
     /**
@@ -83,21 +102,7 @@ class ProblemReportController extends Controller
             ]
 				);
 
-				if($userrole == 1) {
-					$problemreports = DB::select('SELECT prl.problemno ,prl.problemtitle ,ptl.problemtypename,ul.firstname,ul.lastname,prl.problemdatetime,prl.problemstatus,prl.answerdetail,prl.problemdetail
-					FROM problemreport_list prl, user_list ul,problemtype_list ptl
-					WHERE ptl.problemtypeid = prl.problemtypeid AND ul.userid = prl.userid
-					AND ul.userid = :userid;
-					', ['userid' => $userid]);
-
-				} else {
-					$problemreports = DB::select('SELECT prl.problemno ,prl.problemtitle ,ptl.problemtypename,ul.firstname,ul.lastname,prl.problemdatetime,prl.problemstatus,prl.answerdetail,prl.problemdetail
-					FROM problemreport_list prl, user_list ul,problemtype_list ptl
-								WHERE ptl.problemtypeid = prl.problemtypeid AND ul.userid = prl.userid;
-					');
-				}
-				//return response($problemreports);
-				return view('complex-form.problem-report.problem_tb',compact('problemreports','userrole'));
+				return response($this->response_tb_problem()) ;
 			}
     }
 
@@ -136,7 +141,7 @@ class ProblemReportController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
 			if($request->ajax()){
 					$userid = auth()->user()->id;
@@ -149,25 +154,10 @@ class ProblemReportController extends Controller
 						$problemstatus = 'waiting';
 
 
-					DB::update('UPDATE problemreport_list set answerdetail = ? ,problemstatus = ?  where problemno = ?', [$answerdetail,$problemstatus,$id]);
+					DB::update('UPDATE problemreport_list set answerdetail = ? ,problemstatus = ?  where problemno = ?', [$answerdetail,$problemstatus,$request->problemno]);
 
-					if($userrole == 1) {
-						$problemreports = DB::select('SELECT prl.problemno ,prl.problemtitle ,ptl.problemtypename,ul.firstname,ul.lastname,prl.problemdatetime,prl.problemstatus,prl.answerdetail,prl.problemdetail
-						FROM problemreport_list prl, user_list ul,problemtype_list ptl
-						WHERE ptl.problemtypeid = prl.problemtypeid AND ul.userid = prl.userid
-						AND ul.userid = :userid;
-						', ['userid' => $userid]);
-
-					} else {
-						$problemreports = DB::select('SELECT prl.problemno ,prl.problemtitle ,ptl.problemtypename,ul.firstname,ul.lastname,prl.problemdatetime,prl.problemstatus,prl.answerdetail,prl.problemdetail
-						FROM problemreport_list prl, user_list ul,problemtype_list ptl
-									WHERE ptl.problemtypeid = prl.problemtypeid AND ul.userid = prl.userid;
-						');
-					}
-					//return response($problemreports);
-					return view('complex-form.problem-report.problem_tb',compact('problemreports','userrole'));
-
-			}
+					return response($this->response_tb_problem());
+				}
         return back();
     }
 
@@ -177,14 +167,17 @@ class ProblemReportController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request)
     {
-        $deleteID = intval(request('deleteID'));
+			if($request->ajax())
+			{
+				$isdelete = DB::table('problemreport_list')
+        ->where('problemno', '=', $request->id)
+				->delete();
 
-        DB::table('problemreport_list')
-        ->where('problemno', '=', $deleteID)
-        ->delete();
+				return response($this->response_tb_problem());
+			}
 
-        return back();
+			return back();
     }
 }

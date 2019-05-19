@@ -49,32 +49,13 @@
 
 
 $(document).ready(function() {
-	(function() {
-	'use strict';
-	window.addEventListener('load', function() {
-		// Fetch all the forms we want to apply custom Bootstrap validation styles to
-		var forms = document.getElementsByClassName('needs-validation');
-		// Loop over them and prevent submission
-		var validation = Array.prototype.filter.call(forms, function(form) {
-			form.addEventListener('submit', function(event) {
-				if (form.checkValidity() === false) {
-					event.preventDefault();
-					event.stopPropagation();
-				}
-				form.classList.add('was-validated');
-			}, false);
-		});
-	}, false);
-	})();
-
-
 	$(document).on('click', "#btn_add", function() {
     var options = {
       'backdrop': 'static'
     };
     $('#modal_add').modal(options);
 		$('#modal_add').modal('show');
-		console.log("IN ADD form");
+		// console.log("IN ADD form");
 		$( '#form_add' ).on( 'submit', function(e) {
 			e.preventDefault();
 			$.ajax({
@@ -97,7 +78,7 @@ $(document).ready(function() {
 	$(document).on('click', ".btn_show", function() {
 		var id = $(this).attr("id");
 		$.get("{{ route('problemreport.index') }}" +'/' + id +'/edit', function (data) {
-			console.log("Debug de:" + data);
+			// console.log("Debug de:" + data);
 
 			data = data[0];
 			$("#form_show #problemtitle").val(data.problemtitle);
@@ -111,45 +92,66 @@ $(document).ready(function() {
 
 	$(document).on('click', ".btn_answer", function() {
 		var id = $(this).attr("id");
-		console.log("Debug:" + id);
-		console.log("URL:"+ "{{ route('problemreport.index') }}" +'/' + id +'/edit');
+		// console.log("Debug:" + id);
+		// console.log("URL:"+ "{{ route('problemreport.index') }}" +'/' + id +'/edit');
 
 		$.get("{{ route('problemreport.index') }}" +'/' + id +'/edit', function (data) {
-			console.log("Debug de:" + data);
+				data = data[0];
+				$("#form_answer #problemtitle").val(data.problemtitle);
+				$("#form_answer #problemtype").val(data.problemtypename);
+				$("#form_answer #problemdetail").val(data.problemdetail);
+				$("#form_answer #answerdetail").val(data.answerdetail);
+				$("#form_answer #problemno").val(id);
+				$('#modal_answer').modal('show');
+		});
 
-			data = data[0];
-			$("#form_answer #problemtitle").val(data.problemtitle);
-			$("#form_answer #problemtype").val(data.problemtypename);
-			$("#form_answer #problemdetail").val(data.problemdetail);
-			$("#form_answer #answerdetail").val(data.answerdetail);
-			$('#modal_answer').modal('show');
-			$( '#form_answer' ).on( 'submit', function(e) {
+
+		$( '#form_answer' ).on( 'submit', function(e) {
 			e.preventDefault();
-			var link = "{{route('problemreport.store')}}" + '/' +id;
-			console.log("URL" + link);
-			console.log("DATE" + $(this).serialize())
+			$(this).addClass( "was-validated" );
+			// var check =$(this).validate().form();
+			// 	if(check){
+					$.ajax({
+							type: "POST",
+							url:"{{route('problemreport.update')}}",
+							data: $(this).serialize(),
+							success: function(data) {
+								$(this).trigger("reset").removeClass( "was-validated");
+								$('#table1').empty().html(data);
+							},
+							error: function(data){
+								console.log("Error :" + data);
+							}
+					});
+					$(this).removeClass( "was-validated");
+				// }
+			});
+  });
+
+	$(document).on('click', ".btn_destroy", function() {
+
+		if (confirm('Are you sure you want to Delete ?')) {
+			var id = $(this).attr("id");
+			console.log("Debug:" + id);
 			$.ajax({
 					type: "POST",
-					url:link,
-					data: $(this).serialize(),
+					url:"{{route('problemreport.destroy')}}",
+					data: {_token: "{{ csrf_token() }}",_method: 'delete',id: id},
 					success: function(data) {
-						$('#form_answer' ).trigger("reset");
-						//console.log("Debug :" + data);
-						$('#table1').empty().html(data);
+						console.log("DELETE COMP :" + data);
+						setTimeout("alert('DELETE COMPLETE');", 2000);
 					},
 					error: function(data){
+						setTimeout("alert('DELETE FAIL');", 2000);
 						console.log("Error :" + data);
 					}
 			});
-			$('#modal_answer').modal('hide');
-		});
-		});
+		}
   });
-
-
 
 });
 
+$( "p" ).removeClass( "myClass noClass" ).addClass( "yourClass" );
 
 </script>
 @endsection

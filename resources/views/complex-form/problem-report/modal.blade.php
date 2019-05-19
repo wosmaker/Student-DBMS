@@ -9,7 +9,7 @@
 				</button>
 			</div>
 			<div class="modal-body">
-					<form id="form_add" class=" needs-validation col" novalidate>
+					<form id="form_add" class="col" novalidate>
 							@csrf
 
 							<div class="form-group">
@@ -42,7 +42,7 @@
 </div>
 <!-- End Modal add problem -->
 
-{<!--Start Modal show problem -->
+<!--Start Modal show problem -->
 <div class="modal fade" id="modal_show" tabindex="-1" role="dialog" aria-labelledby="label2" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
@@ -98,7 +98,7 @@
 				</button>
 			</div>
 			<div class="modal-body">
-					<form id="form_answer" class="col" >
+					<form id="form_answer" class="col" novalidate>
 						@csrf
 						@method('PATCH')
 							<div class="form-group">
@@ -118,12 +118,14 @@
 
 							<div class="form-group">
 									<label for="answerdetail1">Answer</label>
-									<textarea class="form-control" id="answerdetail" name="answerdetail" rows="4" placeholder="ยังไม่ตอบ..." ></textarea>
+									<textarea class="form-control" id="answerdetail" name="answerdetail" rows="4" placeholder="ยังไม่ตอบ..." required></textarea>
 							</div>
+
+							<input type="hidden" id="problemno" name="problemno">
 					</form>
 
 						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">CLOSE</button>
 							<button form="form_answer" class="btn btn-success ml-2" type="submit" >ANSWER</button>
 						</div>
 
