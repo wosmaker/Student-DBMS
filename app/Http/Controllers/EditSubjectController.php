@@ -40,6 +40,8 @@ class EditSubjectController extends Controller
 
         //ดึง  ตารางสอน  ในวิชานั้นๆ
         $section_lists = null;
+        $period_lists = null;
+        
         $subjectcode = request('subjectcode');
         if($subjectcode != null) {
             $section_lists = DB::table('subject_list AS sl')

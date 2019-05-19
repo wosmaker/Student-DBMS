@@ -77,53 +77,58 @@
 	</table>
 </div>
 
-<div class="row">
-	<div>
-		<h1>PERIOD TABLE</h1>
-	</div>
-	
-	<div>
-		<button type="submit" id="add_section">ADD PERIOD</button>
-	</div>
+<div>
+	@if($period_lists != null)
+		<div class="row">
+			<div>
+				<h1>PERIOD TABLE</h1>
+			</div>
+			
+			<div>
+				<button type="submit" id="add_section">ADD PERIOD</button>
+			</div>
+		</div>
+
+		<div class="shadow-sm px-4 py-2 mb-2  bg-white rounded">
+			<table class="table table-hover table-responsive-lg">
+				<thead>
+					<tr>
+						<th scope="col">Secion No</th>
+						<th scope="col">period no</th>
+						<th scope="col">roomcode</th>
+						<th scope="col">day</th>
+						<th scope="col">period start</th>
+						<th scope="col">period end</th>
+						<th scope="col">Manage</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach($period_lists as $period_list)
+						<tr>
+							{{-- คำสั่ง $loop->iteration เป็นตัวที่ไล่เลขลำดับให้ --}}
+							<td>{{ $period_list->sectionno }}</td>
+							<td>{{ $period_list->periodno }}</td>
+							<td>{{ $period_list->roomcode }}</td>
+							<td>{{ $period_list->day }}</td>
+							<td>{{ $period_list->start_period }}</td>
+							<td>{{ $period_list->end_period }}</td>
+							<td>
+								{{-- ปุ่มกดสำหรับการลบวิชาที่เพิ่มไว้ --}}
+								<form method="POST" action="editsubject/{id}">
+										@csrf
+										@method('DELETE')
+										<button class="btn btn-danger" type="submit" name="sectionid" value="{{ $period_list->subjectsectionid }}">DELETE</button>
+										<input type="hidden" name="periodno" value="{{ $period_list->periodno }}">
+								</form>
+							</td>
+						</tr>
+					@endforeach
+				</tbody>
+			</table>
+		</div>
+		@endif
 </div>
 
-<div class="shadow-sm px-4 py-2 mb-2  bg-white rounded">
-	<table class="table table-hover table-responsive-lg">
-		<thead>
-			<tr>
-				<th scope="col">Secion No</th>
-				<th scope="col">period no</th>
-				<th scope="col">roomcode</th>
-				<th scope="col">day</th>
-				<th scope="col">period start</th>
-				<th scope="col">period end</th>
-				<th scope="col">Manage</th>
-			</tr>
-		</thead>
-		<tbody>
-			@foreach($period_lists as $period_list)
-				<tr>
-					{{-- คำสั่ง $loop->iteration เป็นตัวที่ไล่เลขลำดับให้ --}}
-					<td>{{ $period_list->sectionno }}</td>
-					<td>{{ $period_list->periodno }}</td>
-					<td>{{ $period_list->roomcode }}</td>
-					<td>{{ $period_list->day }}</td>
-					<td>{{ $period_list->start_period }}</td>
-					<td>{{ $period_list->end_period }}</td>
-					<td>
-						{{-- ปุ่มกดสำหรับการลบวิชาที่เพิ่มไว้ --}}
-						<form method="POST" action="editsubject/{id}">
-								@csrf
-								@method('DELETE')
-								<button class="btn btn-danger" type="submit" name="sectionid" value="{{ $period_list->subjectsectionid }}">DELETE</button>
-								<input type="hidden" name="periodno" value="{{ $period_list->periodno }}">
-						</form>
-					</td>
-				</tr>
-			@endforeach
-		</tbody>
-	</table>
-</div>
 @endif
 
 <div class="shadow-sm px-4 py-2 mb-2 bg-white rounded" id="block1">
