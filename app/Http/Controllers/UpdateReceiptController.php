@@ -50,8 +50,15 @@ class UpdateReceiptController extends Controller
 
 		$paymenttypes = DB::select('SELECT paymenttypeid,paymenttypename FROM paymenttype_list');
 
-		//dd($regissubjects,$sumcredit,$paymenttypes);
-        return view('complex-form.update-receipt.index', compact('userdetail','regissubjects','sumcredit','paymenttypes','role'));
+
+        $transactionlists = db::table('transaction_list as tl')
+        ->join('user_list as ul' , 'ul.userid', '=', 'tl.userid')
+        ->join('paymenttype_list as pt', 'pt.paymenttypeid', '=', 'tl.paymenttypeid')
+        ->select('tl.transactionid','ul.firstname', 'ul.lastname', 'pt.paymenttypename', 'tl.picturelink', 'tl.paymentdate', 'tl.paymentstatus')
+        ->where('ul.userid' ,'=', $userid)
+        ->get()->all();
+        
+        return view('complex-form.update-receipt.index', compact('userdetail','regissubjects','sumcredit','paymenttypes','role', 'transactionlists'));
     }
 
     /**
@@ -158,6 +165,12 @@ class UpdateReceiptController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $transaction_id = request('transaction_id');
+
+        DB::table('transaction_list')
+        ->where('transactionid', '=', $transaction_id)
+        ->delete();
+
+        return back();
     }
 }

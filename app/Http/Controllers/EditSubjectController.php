@@ -323,7 +323,7 @@ class EditSubjectController extends Controller
     {
         if($request->ajax())
         {
-						$subjectcode = $request->subjectcode;
+			$subjectcode = $request->subjectcode;
 
             $room_lists = DB::table('subject_list AS sl')
             ->join('sectioneachsubject AS ss' , 'sl.subjectcode', '=', 'ss.subjectcode')
@@ -354,16 +354,16 @@ class EditSubjectController extends Controller
                     DB::table('room_list')
                     ->where('roomcode', '=', $roomcode)
                     ->update([$day => $period]);
-								}
-						}
-                // ลบวิชาที่ต้องการ พร้อมกับ section & schdule ที่เกี่ยวข้อง เพราะเซ็ต DB เป็น cascade ไว้
-								DB::table('subject_list')
-                ->where('subjectcode', '=', $subjectcode)
-                ->delete();
+				}
+            }
 
+            // ลบวิชาที่ต้องการ พร้อมกับ section & schdule ที่เกี่ยวข้อง เพราะเซ็ต DB เป็น cascade ไว้
+                            DB::table('subject_list')
+            ->where('subjectcode', '=', $subjectcode)
+            ->delete();
 
-					$subject_lists = DB::select('SELECT * FROM subject_list limit 5');
-					return view('complex-form.editsubject.tb_subject', compact('subject_lists'));
+            $subject_lists = DB::select('SELECT * FROM subject_list limit 5');
+            return view('complex-form.editsubject.tb_subject', compact('subject_lists'));
         }
     }
 
@@ -371,9 +371,9 @@ class EditSubjectController extends Controller
     {
         if($request->ajax())
         {
-						$sectionid = $request->subjectsectionid;
-						$subjectcode = DB::select('SELECT subjectcode from sectioneachsubject where subjectsectionid = ? LIMIT 1', [$sectionid]);
-						$subjectcode = $subjectcode[0]->subjectcode;
+            $sectionid = $request->subjectsectionid;
+            $subjectcode = DB::select('SELECT subjectcode from sectioneachsubject where subjectsectionid = ? LIMIT 1', [$sectionid]);
+            $subjectcode = $subjectcode[0]->subjectcode;
 
             $room_lists = DB::table('sectioneachsubject AS ss')
             ->join('schedule AS sd', 'ss.subjectsectionid', '=', 'sd.subjectsectionid')
@@ -406,16 +406,16 @@ class EditSubjectController extends Controller
                     ->where('roomcode', '=', $roomcode)
                     ->update([$day => $period]);
                 }
-						}
+			}
 
-						// ลบวิชาที่ต้องการ พร้อมกับ section & schdule ที่เกี่ยวข้อง เพราะเซ็ต DB เป็น cascade ไว้
-						DB::table('sectioneachsubject')
-						->where([
-								['subjectsectionid', '=', $sectionid],
-						])
-						->delete();
+            // ลบวิชาที่ต้องการ พร้อมกับ section & schdule ที่เกี่ยวข้อง เพราะเซ็ต DB เป็น cascade ไว้
+            DB::table('sectioneachsubject')
+            ->where([
+                    ['subjectsectionid', '=', $sectionid],
+            ])
+            ->delete();
 
-						$section_lists = DB::select('SELECT * from sectioneachsubject where subjectcode = ?', [ $subjectcode]);
+			$section_lists = DB::select('SELECT * from sectioneachsubject where subjectcode = ?', [ $subjectcode]);
             return view('complex-form.editsubject.tb_section', compact('section_lists','subjectcode'));
 					}
 		}
