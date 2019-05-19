@@ -336,7 +336,7 @@ $(document).ready(function() {
 
 				$.ajax({
 					type:'POST',
-					url:"{{route('editsubject.search_subject')}}",
+					url:"{{route('editsubject.search_section')}}",
 					data:{query:query, "_token": "{{ csrf_token() }}"},
 					success:function(data){
 						console.log("DEBUG :" + data);
