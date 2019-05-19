@@ -268,7 +268,6 @@
 <script>
 $(document).ready(function() {
 
-
 	$(document).on('click', "#btn_add_subject", function() {
 		var options = {
       'backdrop': 'static'
@@ -321,6 +320,44 @@ $(document).ready(function() {
 						console.log("Error :" + data);
 					}
 			});
+		});
+  });
+
+	$(document).on('click', ".btn_detail_subject", function() {
+		var id = $(this).attr("id");
+		// console.log("Debug:" + id);
+		// console.log("URL:"+ "{{ route('problemreport.index') }}" +'/' + id +'/edit');
+
+		$.get("{{ route('problemreport.index') }}" +'/' + id +'/edit', function (data) {
+			// console.log("Debug de:" + data);
+
+			data = data[0];
+			$("#form_answer #problemtitle").val(data.problemtitle);
+			$("#form_answer #problemtype").val(data.problemtypename);
+			$("#form_answer #problemdetail").val(data.problemdetail);
+			$("#form_answer #answerdetail").val(data.answerdetail);
+			$("#form_answer #problemno").val(id);
+			$('#modal_answer').modal('show');
+
+			$( '#form_answer' ).on( 'submit', function(e) {
+			e.preventDefault();
+			var link = "{{route('problemreport.update')}}";
+			// console.log("URL" + link);
+			// console.log("DATE" + $(this).serialize())
+			$.ajax({
+					type: "POST",
+					url:link,
+					data: $(this).serialize(),
+					success: function(data) {
+						$('#form_answer' ).trigger("reset");
+						$('#table1').empty().html(data);
+					},
+					error: function(data){
+						console.log("Error :" + data);
+					}
+			});
+			$('#modal_answer').modal('hide');
+		});
 		});
   });
 

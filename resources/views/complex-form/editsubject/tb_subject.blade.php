@@ -8,9 +8,8 @@
 		<td>{{ $subject_list->subjectcredit}}</td>
 		<td>{{ $subject_list->subjectdetail}}</td>
 		<td class="row">
-			<form action="editsubject" method="GET">
-				<button class=" btn btn-warning  btn-sm mr-2 " type="submit" name="subjectcode" value="{{ $subject_list->subjectcode }}">DETAIL</button>
-			</form>
+
+				<button class=" btn btn-warning btn-sm mr-2 btn_detail_subject"  id="{{ $subject_list->subjectcode }}">DETAIL</button>
 
 			{{-- <form action="editsubject/{editsubject}" method="POST">
 				@csrf
