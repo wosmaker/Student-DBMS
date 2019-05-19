@@ -288,6 +288,15 @@ class EditSubjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+
+		public function destroy_section(Request $request)
+		{
+			if($request->ajax())
+			{
+
+			}
+		}
     public function destroy($id)
     {
         // ลบ SUBJECT
