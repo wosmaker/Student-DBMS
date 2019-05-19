@@ -17,6 +17,7 @@
 				@method('DELETE')
 				<button class=" btn btn-danger btn-sm" type="submit" name="subjectcode" value="{{ $subject_list->subjectcode }}">DELETE</button>
 			</form> --}}
+
 		</td>
 	</tr>
 	@endforeach

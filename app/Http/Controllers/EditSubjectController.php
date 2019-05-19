@@ -132,9 +132,7 @@ class EditSubjectController extends Controller
 
             else {
                 $subject_lists = DB::select('SELECT * FROM subject_list limit 5');
-            }
-            //dd($subject_lists);
-            //return response($subject_lists);
+						}
             return view('complex-form.editsubject.tb_subject', compact('subject_lists'));
         }
 		}
@@ -144,7 +142,18 @@ class EditSubjectController extends Controller
 			if($request->ajax())
 			{
 
-				return view('complex-form.editsubject.subject_tb_section', compact(''));
+				return view('complex-form.editsubject.tb_section', compact(''));
+			}
+		}
+
+		public function add_subject(Request $request)
+		{
+			if($request->ajax())
+			{
+
+
+				$subject_lists = DB::select('SELECT * FROM subject_list limit 5');
+				return view('complex-form.editsubject.tb_subject', compact('subject_lists'));
 			}
 		}
 
@@ -196,15 +205,15 @@ class EditSubjectController extends Controller
 
         //เพิ่ม PEPIOD
         $subjectsectionid = request('subjectsectionid');
-        
+
         if($subjectsectionid != null) {
             $day = request('day');
             $start = request('start');  //คาบเริ่มต้น
             $end = request('end');      //คาบจบ
             $roomcode = request('roomcode');
             $periodno = request('periodno');
-            
-            
+
+
             $period = DB::table('room_list')
             ->select($day)
             ->where('roomcode', '=', $roomcode)

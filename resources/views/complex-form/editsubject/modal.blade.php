@@ -9,28 +9,28 @@
 					</button>
 				</div>
 				<div class="modal-body">
-						<form id="form_add_subject" method="POST" class="col" action= "editsubject">
+						<form id="form_add_subject"  class="col was-validated">
 							@csrf
 							<div class="form-row">
 									<div class="form-group col-md-3">
 											<label for="subjectcode">Subject Code</label>
-											<input type="text" class="form-control" id="subjectcode" name="subjectcode" placeholder=""  value="">
+											<input type="text" class="form-control" id="subjectcode" name="subjectcode" placeholder=""  value="" required>
 									</div>
 
 									<div class="form-group col-md-7">
 											<label for="subjectname">Subject Name</label>
-											<input type="text" class="form-control" id="subjectname" name="subjectname" placeholder=""  value="">
+											<input type="text" class="form-control" id="subjectname" name="subjectname" placeholder=""  value="" required>
 									</div>
 
 									<div class="form-group col-md-2">
 											<label for="subjectcredit">Credit</label>
-											<input type="text" class="form-control" id="subjectcredit" name="subjectcredit" placeholder=""  value="">
+											<input type="text" class="form-control" id="subjectcredit" name="subjectcredit" placeholder=""  value="" required>
 									</div>
 							</div>
 
 							<div class="form-group">
 									<label for="subjectdetail">Detail</label>
-									<textarea class="form-control" id="subjectdetail" name="subjectdetail" placeholder="กรอกคำอธิบายรายวิชา" rows="4"></textarea>
+									<textarea class="form-control" id="subjectdetail" name="subjectdetail" placeholder="กรอกคำอธิบายรายวิชา" rows="4" required></textarea>
 							</div>
 					</form>
 
@@ -58,7 +58,7 @@
 			</div>
 			<div class="modal-body">
 
-				<form id="form_add_section" class="col">
+				<form id="form_add_section" class="col  was-validated">
 					@csrf
 
 					<div class="form-row">
