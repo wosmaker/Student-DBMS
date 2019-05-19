@@ -335,10 +335,11 @@ $(document).ready(function() {
 				$.ajax({
 						type: "POST",
 						url:"{{route('editsubject.destroy_subject')}}",
-						data: {_token: "{{ csrf_token() }}",_method: 'delete',subjectcode: id},
+						data: {_token: "{{ csrf_token() }}",subjectcode: id},
 						success: function(data) {
+							$('#tb_subject').empty().html(data);
 							setTimeout("alert('DELETE COMPLETE');", 2000);
-							console.log("DELETE COMP :" + data);
+							console.log("DELETE subject :" + data);
 						},
 						error: function(data){
 							setTimeout("alert('DELETE FAIL');", 2000);
@@ -355,8 +356,10 @@ $(document).ready(function() {
 				$.ajax({
 						type: "POST",
 						url:"{{route('editsubject.destroy_section')}}",
-						data: {_token: "{{ csrf_token() }}",_method: 'delete',subjectsectionid: id},
+						data: {_token: "{{ csrf_token() }}",subjectsectionid: id},
 						success: function(data) {
+							$('#block_section').empty().html(data);
+							$('#block_section').show();
 							setTimeout("alert('DELETE COMPLETE');", 2000);
 							console.log("DELETE COMP :" + data);
 						},
