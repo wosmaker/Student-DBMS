@@ -3,20 +3,17 @@
 		<thead>
 			<tr>
                 <td>No</td>
-                <td>Roomcode</td>
-                <td>Buildingname</td>
-                <td>Floor</td>
-                <td>RoomSeatTotal</td>
+                <td>FirstName</td>
+                <td>LastName</td>
             </tr>
 		</thead>
 		<tbody>
-			@foreach($roomfrees as $roomfree)
+			@foreach($teacher_lists as $teacher_list)
                 <tr>
                     <th scope="row">{{ $loop->iteration }}</th>
-                    <td>{{ $roomfree->roomcode }}</td>
-                    <td>{{ $roomfree->buildingname}}</td>
-                    <td>{{ $roomfree->floor}}</td>
-                    <td>{{ $roomfree->roomseattotal}}</td>
+                    <td>{{ $teacher_list->firstname}}</td>
+                    <td>{{ $teacher_list->lastname}}</td>
+                    {{-- {{ $teacher_list->userid}} --}}
                 </tr>
             @endforeach
 		</tbody>

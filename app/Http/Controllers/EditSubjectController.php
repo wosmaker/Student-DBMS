@@ -28,39 +28,6 @@ class EditSubjectController extends Controller
         $userid = auth()->user()->id;   //ดึงค่า id ของผู้ใช้
         $userdetail = UserList::where('userid', $userid)->first();  //ดึงชื่อผู้ใช้งาน
 
-        //ดึงรายวิชาที่ต้องการ
-        // $subject_CodeOrName = request('subject_CodeOrName');
-        // $subject_lists = null;
-        // if($subject_CodeOrName != null) {
-        // $subject_lists = DB::table('subject_list')
-        //     ->select('*')
-        //     ->where('subjectcode' , 'like', '%' . $subject_CodeOrName . '%')
-        //     ->orWhere('subjectname', 'like', '%' . $subject_CodeOrName . '%')
-        //     ->get()->all();
-        // }
-
-
-        //ดึง  ตารางสอน  ในวิชานั้นๆ
-        $section_lists = null;
-        $period_lists = null;
-
-        $subjectcode = request('subjectcode');
-        if($subjectcode != null) {
-            $section_lists = DB::table('subject_list AS sl')
-            ->join('sectioneachsubject AS ss', 'sl.subjectcode','=','ss.subjectcode')
-            ->select('ss.sectionno', 'ss.subjectsectionid','ss.seatavailable', 'ss.price')
-            ->where('sl.subjectcode', '=', $subjectcode)
-            ->get()->all();
-
-            $period_lists = DB::table('subject_list AS sl')
-            ->join('sectioneachsubject AS ss', 'sl.subjectcode','=','ss.subjectcode')
-            ->join('schedule AS sd', 'ss.subjectsectionid', '=', 'sd.subjectsectionid')
-            ->select('ss.sectionno', 'ss.subjectsectionid', 'sd.periodno','sd.roomcode', 'sd.day', 'sd.start_period', 'sd.end_period')
-            ->where('sl.subjectcode', '=', $subjectcode)
-            ->get()->all();
-        }
-
-
         //ดึง  รายชื่อจารย์   ที่ต้องการหา
         $teacher_name = request('teacher_name');
         $submit_teacher = request('submit_teacher');
@@ -108,7 +75,7 @@ class EditSubjectController extends Controller
             }
         }
 
-        return view('complex-form.editsubject.index', compact('userdetail', 'roomfrees', 'teacher_lists', 'section_lists', 'role', 'subjectcode', 'period_lists'));
+        return view('complex-form.editsubject.index', compact('userdetail', 'role'));
     }
 
     /**
@@ -189,6 +156,30 @@ class EditSubjectController extends Controller
             return view('complex-form.editsubject.tb_room', compact('roomfrees'));
         }
     }
+
+    public function search_teacher(Request $request)
+    {
+        if($request->ajax())
+        {
+            $teacher_name = request('teacher_name');
+            $teacher_lists = null;
+            $teacher_lists = DB::table('user_list as ul')
+            ->join('users as u', 'ul.userid', '=', 'u.id')
+            ->select('ul.userid', 'ul.firstname', 'ul.lastname')
+            ->where([
+                ['u.userroleid', '=', 2],
+                ['firstname' , 'like' , '%' . $teacher_name . '%']
+            ])
+            ->orWhere([
+                ['u.userroleid', '=', 2],
+                ['lastname' , 'like' , '%' . $teacher_name . '%']
+            ])
+            ->get()->all();
+
+            return view('complex-form.editsubject.tb_teacher', compact('teacher_lists'));
+        }
+    }
+    
 
     public function add_section(Request $request)
     {
