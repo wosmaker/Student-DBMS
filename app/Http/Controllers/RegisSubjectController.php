@@ -24,7 +24,6 @@ class RegisSubjectController extends Controller
     public function index()
     {
         $role = auth()->user()->userroleid;
-
         $userid = auth()->user()->id;   //ดึงค่า id ของผู้ใช้
         $userdetail = UserList::where('userid', $userid)->first();  //ดึงชื่อผู้ใช้งาน
 
@@ -61,6 +60,32 @@ class RegisSubjectController extends Controller
 		//dd($userdetail,$regissubjects,$subjectdetails);
         return view('complex-form.regissubject.index' , compact('userdetail','regissubjects','subjectdetails','role', 'subject_show'));
     }
+
+
+		public function search_subject(Request $request)
+		{
+			if($request->ajax())
+			{
+				$query = $request->get('query');
+				if($query != '')
+				{
+					$subjectdetails = DB::table('sectioneachsubject as ss')
+					->join('schedule as sd' , 'ss.subjectsectionid', '=', 'sd.subjectsectionid')
+					->select('ss.subjectcode','ss.sectionno', 'ss.seatavailable', 'sd.day', 'sd.start_period', 'sd.end_period' , 'ss.subjectsectionid')
+					->where('ss.subjectcode', '=', $query)
+					->get()->all();
+				}
+				else {
+					$subjectdetails = DB::table('sectioneachsubject as ss')
+					->join('schedule as sd' , 'ss.subjectsectionid', '=', 'sd.subjectsectionid')
+					->select('ss.subjectcode','ss.sectionno', 'ss.seatavailable', 'sd.day', 'sd.start_period', 'sd.end_period' , 'ss.subjectsectionid')
+					->get()->all();
+				}
+
+			return view('complex-form.regissubject.tb_subject' , compact('subjectdetails'));
+		}
+	}
+
 
     /**
      * Show the form for creating a new resource.

@@ -312,12 +312,12 @@ $(document).ready(function() {
 		{
 			console.log("search on:" + query +":");
 			$.ajax({
-			url:"{{route('editsubject.search_subject')}}",
-			type:'POST',
-			data:{query:query, "_token": "{{ csrf_token() }}"},
-			success:function(data)
-			{
-					$('#tb_subject').empty().html(data);
+				url:"{{route('editsubject.search_subject')}}",
+				type:'POST',
+				data:{query:query, "_token": "{{ csrf_token() }}"},
+				success:function(data)
+				{
+						$('#tb_subject').empty().html(data);
 				}
 		});
 		}

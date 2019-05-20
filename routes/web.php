@@ -18,7 +18,7 @@ Route::get('/', function () {
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::resource('regissubject', 'RegisSubjectController');
+//Route::resource('regissubject', 'RegisSubjectController');
 Route::resource('updatereceipt', 'UpdateReceiptController');
 //Route::resource('editsubject', 'EditSubjectController');
 //Route::resource('problemreport', 'ProblemReportController');
@@ -33,6 +33,14 @@ Route::get('problemreport/{id}/edit' , 'ProblemReportController@edit')->name('pr
 Route::post('problemreport', 'ProblemReportController@store')->name('problemreport.store');
 Route::delete('problemreport/destroy', 'ProblemReportController@destroy')->name('problemreport.destroy');
 Route::patch('problemreport/update' , 'ProblemReportController@update')->name('problemreport.update');
+
+Route::get('regissubject','RegisSubjectController@index')->name('regissubject.index');
+Route::get('regissubject/{id}/edit' , 'RegisSubjectController@edit')->name('regissubject.edit');
+Route::post('regissubject', 'RegisSubjectController@store')->name('regissubject.store');
+Route::delete('regissubject/destroy', 'RegisSubjectController@destroy')->name('regissubject.destroy');
+Route::patch('regissubject/update' , 'RegisSubjectController@update')->name('regissubject.update');
+
+Route::post('regissubject/search_subject' , 'RegisSubjectController@search_subject')->name('regissubject.search_subject');
 
 
 

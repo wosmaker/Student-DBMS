@@ -66,82 +66,43 @@
     </table>
 </div>
 
-{{-- ช่องค้นหาวิชา --}}
-<div class="shadow-sm p-3 mb-2 bg-white ">
-    <form method="GET" action="regissubject">
-        {{ csrf_field() }}
-        <div class="form-row">
-            <div class="form-group col-md-4 input-group">
-                <input type="text" class="form-control" name="subjectcode" placeholder="SubjectCode"  aria-describedby="search">
-                <div class="input-group-append">
-                    <button type="submit" class="btn btn-outline-success" id="search" name="search_btn" value="1">Search</button>
-                </div>
-            </div>
-        </div>
-    </form>
-    @if($subjectdetails != null)
-    <form method="POST" action="regissubject" id="example">
-        @csrf
-        {{-- ตารางแสดงวิชาที่ค้นหา --}}
-        <table class="table table-hover table-responsive-md">
-            <thead>
-                <tr>
-                    <th scope="col">No</th>
-                    @if($subject_show == 1)
-                        <th scope="col">SubjectCode</th>
-                    @endif
-                    <th scope="col">Section</th>
-                    <th scope="col">SeatAvailable</th>
-                    <th scope="col">Day</th>
-                    <th scope="col">Start Period</th>
-                    <th scope="col">End Period</th>
-                    <th scope="col">Choose</th>
-                </tr>
-            </thead>
-            <tbody>
-                @if($subject_show == 0)
-                    @foreach($subjectdetails as $subjectdetail)
-                        <tr  class="clickable-row">
-                            {{-- คำสั่ง $loop->iteration เป็นตัวที่ไล่เลขลำดับให้ --}}
-                            <th scope="row">{{ $loop->iteration }}</th>
-                            <td>{{ $subjectdetail->sectionno }}</td>
-                            <td>{{ $subjectdetail->seatavailable }}</td>
-                            <td>{{ $subjectdetail->day }}</td>
-                            <td>{{ $subjectdetail->start_period }}</td>
-                            <td>{{ $subjectdetail->end_period }}</td>
-                            <td>
-                                <input  type="radio" id="{{"checkbox$loop->iteration"}}" name="subjectsectionid" value="{{ $subjectdetail->subjectsectionid }}">
-                            </td>
-                        </tr>
-                    @endforeach
-                @endif
+	{{-- ช่องค้นหาวิชา --}}
+	<div class="shadow-sm p-3 mb-2 bg-white ">
 
-                @if($subject_show == 1)
-                    @foreach($subjectdetails as $subjectdetail)
-                        <tr  class="clickable-row">
-                            {{-- คำสั่ง $loop->iteration เป็นตัวที่ไล่เลขลำดับให้ --}}
-                            <th scope="row">{{ $loop->iteration }}</th>
-                            <td>{{ $subjectdetail->subjectcode }}</td>
-                            <td>{{ $subjectdetail->sectionno }}</td>
-                            <td>{{ $subjectdetail->seatavailable }}</td>
-                            <td>{{ $subjectdetail->day }}</td>
-                            <td>{{ $subjectdetail->start_period }}</td>
-                            <td>{{ $subjectdetail->end_period }}</td>
-                            <td>
-                                <input  type="radio" id="{{"checkbox$loop->iteration"}}" name="subjectsectionid" value="{{ $subjectdetail->subjectsectionid }}">
-                            </td>
-                        </tr>
-                    @endforeach
-                @endif
-            </tbody>
-		</table>
-				<div class="text-right">
-                    {{-- ปุ่มยืนยันเพิ่มวิชา --}}
-        	        <button class="btn btn-info" type="submit" name="btn">ADD THIS SUBJECT</button>
+			<div class="input-group py-2 pl-0 col-md-6">
+				<input type="text" class="form-control" id="search_subject" placeholder="Search subject">
+				<div class="input-group-append">
+					<button class="btn btn-outline-success" id="btn_search_subject">Search</button>
 				</div>
-    </form>
-    @endif
-</div>
+			</div>
+
+			<form method="POST" action="regissubject" id="example">
+				@csrf
+				{{-- ตารางแสดงวิชาที่ค้นหา --}}
+				<table class="table table-hover table-responsive-md">
+						<thead>
+								<tr>
+										<th scope="col">No</th>
+										<th scope="col">Subject Code</th>
+										<th scope="col">Section</th>
+										<th scope="col">SeatAvailable</th>
+										<th scope="col">Day</th>
+										<th scope="col">Start Period</th>
+										<th scope="col">End Period</th>
+										<th scope="col">Choose</th>
+								</tr>
+						</thead>
+						<tbody id="tb_subject">
+
+						</tbody>
+				</table>
+
+				<div class="text-right">
+					{{-- ปุ่มยืนยันเพิ่มวิชา --}}
+					<button class="btn btn-info" type="submit">ADD THIS SUBJECT</button>
+				</div>
+			</form>
+	</div>
 
 {{-- ปุ่มไปหน้าอัพเดทใบเสร็จ --}}
 @if($subjectdetails != null)
@@ -157,6 +118,65 @@
 @section('script')
  <script>
  $(document).ready(function() {
+
+	$(document).on('click', "#btn_add_regissubject", function() {
+			var options = {
+				'backdrop': 'static'
+			};
+			$('#modal_add_subject').modal(options).modal('show');
+
+			console.log("IN MODEL: add subject");
+
+			$('#form_add_subject').one( 'submit', function(e) {
+				e.preventDefault();
+				$.ajax({
+						type: "POST",
+						url: "{{route('editsubject.add_subject')}}",
+						data: $(this).serialize(),
+						success: function(data) {
+							console.log("Debug :" + data);
+							$('#tb_subject').empty().html(data);
+							$('#modal_add_subject').modal('hide');
+							$( '#form_add_subject' ).trigger("reset");
+						},
+						error: function(data){
+							console.log("Error :" + data);
+						}
+				});
+			});
+		});
+
+		search_subject();
+
+		$(document).on('click', '#btn_search_subject', function() {
+			var query = $('#search_subject').val();
+			console.log("Debug search key:" + query +":");
+			search_subject(query);
+		});
+
+		function search_subject(query = '')
+		{
+			console.log("search on:" + query +":");
+			$.ajax({
+				url:"{{route('regissubject.search_subject')}}",
+				type:'POST',
+				data:{query:query, "_token": "{{ csrf_token() }}"},
+				success:function(data)
+				{
+						$('#tb_subject').empty().html(data);
+				},
+				error:function(data)
+				{
+					console.log("Error: " +data);
+				}
+			});
+		}
+
+
+
+
+
+
     var table = $('#example').DataTable();
 
     $('#example tbody').on( 'click', 'tr', function () {
