@@ -15,7 +15,7 @@
                     <td>{{ $teacher_list->firstname}}</td>
                     <td>{{ $teacher_list->lastname}}</td>
                     <td>
-                        <input  type="radio" id="teacher_userid" name="teacher_userid" value="{{ $teacher_list->userid }}" >
+                        <input  type="radio" id="teacher_userid" name="teacher_userid" value="{{ $teacher_list->userid }}" required>
                     </td>
                 </tr>
             @endforeach

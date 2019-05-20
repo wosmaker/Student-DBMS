@@ -34,45 +34,12 @@
 			</table>
 </div>
 
-	<div id="block_section">
-		{{-- block of section for show table --}}
-	</div>
+<div id="block_section">
+	{{-- block of section for show table --}}
+</div>
 
-	<div id="block_period">
-		{{-- block of section for show table --}}
-	</div>
-
-
-<div class="shadow-sm px-4 py-2 mb-2 bg-white rounded" id="block1">
-	<h5>Select subject</h5>
-	<form id="subject_form" method="GET" action= "editsubject">
-			@csrf
-			<div class="form-row">
-					<div class="form-group col-md-4">
-							<label for="subjectcode">Subject Code</label>
-							<input type="text" class="form-control" id="subjectcode" name="subjectcode" placeholder="Choose From Above"  readonly>
-					</div>
-
-					<div class="form-group col-md-2">
-							<label for="sectionno">Section No</label>
-							<input type="number" min="0" class="form-control" id="sectionno" name="sectionno" placeholder="" >
-					</div>
-
-					<div class="form-group col-md-3">
-							<label for="price">Price</label>
-							<input type="number" min="0" class="form-control" id="price" name="price" placeholder="" >
-					</div>
-
-					<div class="form-group col-md-2">
-							<label for="seatavaiable">Seat</label>
-							<input type="number" min="0" class="form-control" id="seatavaiable" name="seatavaiable" placeholder="">
-					</div>
-
-					<div class="form-group col-md-1">
-							<button class="btn" type="button" name="btn-next" id="btn-next" value="">NEXT</button>
-					</div>
-			</div>
-	</form>
+<div id="block_period">
+	{{-- block of section for show table --}}
 </div>
 
 
@@ -142,24 +109,30 @@ $(document).ready(function() {
 
 		$(document).on('click', ".btn_add_period", function() {
 			var options = {'backdrop': 'static'};
-			var height = $(window).height() - 200;
-			$('#modal_add_period').modal(options).modal('show');
-
 			var subjectsectionid = $(this).attr("id");
 			var sectionno = $(this).attr("data-sectionno");
+
+			$('#modal_add_period').modal(options).modal('show');
+
 			$("#form_add_period #subjectsectionid").val(subjectsectionid);
+			$("#form_add_period #sectionno").val(sectionno);
 			$("#label_period").html(sectionno);
+			$("#form_add_period #teacher_userid").val(subjectsectionid);
 
 
 			console.log("IN MODEL: add period");
 
 			$( '#form_add_period' ).on( 'submit', function(e) {
 				e.preventDefault();
+
+				console.log("DEBUG form data:" +	$(this).serialize());
+
 				$.ajax({
 						type: "POST",
 						url: "{{route('editsubject.add_period')}}",
 						data: $(this).serialize(),
 						success: function(data) {
+
 							console.log("Debug :" + data);
 							$('#block_period').empty().html(data);
 							$('#block_period').show();
@@ -177,8 +150,6 @@ $(document).ready(function() {
 		$('#block_section').hide();
 		$('#block_period').hide();
 
-		$('#block1').hide();
-		$('#block2').hide();
 
 		$(document).on('click', ".btn_detail_subject", function(e) {
 			e.preventDefault();
@@ -296,6 +267,29 @@ $(document).ready(function() {
 						success: function(data) {
 							$('#block_section').empty().html(data);
 							$('#block_section').show();
+							setTimeout("alert('DELETE COMPLETE');", 2000);
+							console.log("DELETE COMP :" + data);
+						},
+						error: function(data){
+							setTimeout("alert('DELETE FAIL');", 2000);
+							console.log("Error :" + data);
+						}
+				});
+			}
+		});
+
+		$(document).on('click', ".btn_destroy_period", function() {
+			if (confirm('Are you sure you want to Delete ?')) {
+				var periodno = $(this).attr("id");
+				var subjectsectionid = $(this).attr("data-subjectsectionid");
+				console.log("Debug:" + periodno);
+				$.ajax({
+						type: "POST",
+						url:"{{route('editsubject.destroy_period')}}",
+						data: {_token: "{{ csrf_token() }}",subjectsectionid: subjectsectionid,periodno:periodno},
+						success: function(data) {
+							$('#block_period').empty().html(data);
+							$('#block_period').show();
 							setTimeout("alert('DELETE COMPLETE');", 2000);
 							console.log("DELETE COMP :" + data);
 						},
