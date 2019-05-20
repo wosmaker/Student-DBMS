@@ -265,7 +265,7 @@ $(document).ready(function() {
 
 				$.ajax({
 					type:'POST',
-					url:"{{route('editsubject.search_period')}}",
+					url:"{{route('editsubject.search_room')}}",
 					data:{day:day,start:start,end:end, "_token": "{{ csrf_token() }}"},
 					success:function(data){
 						$('#block_room').empty().html(data);

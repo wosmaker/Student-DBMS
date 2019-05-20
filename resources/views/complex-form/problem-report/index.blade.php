@@ -6,8 +6,8 @@
 
 @section('page-main')
 <div class="shadow-sm p-3 mb-2 bg-white ">
-      <h4 class="d-inline p-2 ">Name: {{ $userdetail->FirstName }} {{ $userdetail->LastName}} </h4>
-      <h4 class="d-inline p-5 ">Student ID:  {{ $userdetail->UserID }} </h4>
+      <h4 class="d-inline p-2 ">Name: {{ $userdetail->firstname }} {{ $userdetail->lastname}} </h4>
+      <h4 class="d-inline p-5 ">Student ID:  {{ $userdetail->userid }} </h4>
 </div>
 
 <div class="shadow-sm p-3 mb-3 bg-white ">
