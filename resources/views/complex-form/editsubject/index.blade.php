@@ -350,12 +350,8 @@ $(document).ready(function() {
 
 @section('style')
 <style>
-.modal.modal-wide .modal-dialog {
-  width: 90%;
+.modal-lg {
+    max-width: 90% !important;
 }
-.modal-wide .modal-body {
-  overflow-y: auto;
-}
-
 </style>
 @endsection

@@ -47,8 +47,8 @@
 
 
 <!-- Start Add section Modal -->
-<div class="modal fade" id="modal_add_section" tabindex="-1" role="dialog" aria-labelledby="add_subjectlabel" aria-hidden="true">
-	<div class="modal-dialog" role="document">
+<div class="modal fade" id="modal_add_section" tabindex="-1" role="dialog" aria-labelledby="add_subjectlabel" aria-hidden="true" >
+	<div class="modal-dialog modal-lg" role="document" >
 		<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title" id="add_subjectlabel">Add Section</h5>
@@ -98,7 +98,7 @@
 
 
 <!-- Start Add period Modal -->
-<div class="modal fade modal-wide" id="modal_add_period" tabindex="-1" role="dialog" aria-labelledby="add_subjectlabel" aria-hidden="true">
+<div class="modal fade" id="modal_add_period" tabindex="-1" role="dialog" aria-labelledby="add_subjectlabel" aria-hidden="true">
 		<div class="modal-dialog modal-lg" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
