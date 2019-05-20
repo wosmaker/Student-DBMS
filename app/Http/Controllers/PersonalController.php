@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
+use App\User;
+use App\UserList;
 class PersonalController extends Controller
 {
     /**
@@ -21,8 +23,14 @@ class PersonalController extends Controller
     public function index()
     {
         $role = auth()->user()->userroleid;
+        $userid = auth()->user()->id;   //ดึงค่า id ของผู้ใช้
+        $userdetail = UserList::where('userid', $userid)->first();  //ดึงชื่อผู้ใช้งาน
 
-        return view('complex-form.personal.index', compact('role'));
+        $departments = DB::table('department_list')
+        ->select('departmentcode', 'departmentname')
+        ->get()->all();
+
+        return view('complex-form.personal.index', compact('role','departments', 'userdetail'));
     }
 
     /**
@@ -43,7 +51,49 @@ class PersonalController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $identificationno = request('identificationno');
+        $userid = auth()->user()->id;
+        $titlename = request('titlename');
+        $firstname = request('firstname');
+        $lastname = request('lastname');
+        $gender = request('gender');
+        $bloodtype = request('bloodtype');
+        $birthdate = request('birthdate');
+        $race = request('race');
+        $religion = request('religion');
+        $nationnality = request('nationnality');
+        $address = request('address');
+        $postcode = request('postcode');
+        $province = request('province');
+        $district = request('district');
+        $subdistrict = request('subdistrict');
+        $departmentcode = request('departmentcode');
+        $usercontact = request('usercontact');
+
+        DB::table('user_list')
+        ->where('userid', '=', $userid)
+        ->update([
+            'identificationno' => $identificationno,
+            'userid' => $userid,
+            'titlename' => $titlename,
+            'firstname' => $firstname,
+            'lastname' => $lastname,
+            'gender' => $gender,
+            'bloodtype' => $bloodtype,
+            'birthdate' => $birthdate,
+            'race' => $race,
+            'religion' => $religion,
+            'nationnality' => $nationnality,
+            'address' => $address,
+            'postcode' => $postcode,
+            'province' => $province,
+            'district' => $district,
+            'subdistrict' => $subdistrict,
+            'departmentcode' => $departmentcode,
+            'usercontact' => $usercontact
+        ]);
+
+            return back();
     }
 
     /**

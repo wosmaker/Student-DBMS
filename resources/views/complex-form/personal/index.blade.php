@@ -7,12 +7,11 @@
 @section('page-main')
   {{-- ชื่อผู้ใช้ --}}
 <div class="shadow-sm p-3 mb-3 bg-white ">
-		<h4 class="d-inline py-5
-		 ">Student ID: </h4>
+		<h4 class="d-inline py-5">Student ID: {{ $userdetail->userid }}</h4>
 </div>
 <div class="row">
 	<div id="personal-form" class="shadow-sm p-3 mb-2 bg-white " style="width:600px;">
-		<form class="col" method="post" action= >
+		<form class="col" method="POST" action="personal" >
 			@csrf
 
 			<div class="form-row">
@@ -24,10 +23,10 @@
 				<div class="form-group col-md-6">
 						<label for="departmentcode">Department</label>
 						<select id="departmentcode" name="departmentcode" class="form-control">
-							<option selected  value="">Choose>
-							{{-- 	@foreach ($choose as $i)
-									<option value="{{$i['departmentcode']}}">{{$i['departmentcode']}} :: {{$i['departmentcode']}}</option>
-								@endforeach--}}
+							<option selected  value="">Choose Department</option>
+								@foreach($departments as $department)
+									<option value="{{ $department->departmentcode}}" name="departmentcode">{{ $department->departmentname }}</option>
+								@endforeach
 						</select>
 				</div>
 			</div>
