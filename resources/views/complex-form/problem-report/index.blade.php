@@ -75,7 +75,7 @@ $(document).ready(function() {
     $('#modal_add').modal(options);
 		$('#modal_add').modal('show');
 		// console.log("IN ADD form");
-		$( '#form_add' ).on( 'submit', function(e) {
+		$( '#form_add' ).one( 'submit', function(e) {
 			e.preventDefault();
 			$.ajax({
 					type: "POST",
@@ -125,7 +125,7 @@ $(document).ready(function() {
 			$("#form_answer #problemno").val(id);
 			$('#modal_answer').modal('show');
 
-			$( '#form_answer' ).on( 'submit', function(e) {
+			$( '#form_answer' ).one( 'submit', function(e) {
 			e.preventDefault();
 			var link = "{{route('problemreport.update')}}";
 			// console.log("URL" + link);
@@ -157,20 +157,18 @@ $(document).ready(function() {
 					url:"{{route('problemreport.destroy')}}",
 					data: {_token: "{{ csrf_token() }}",_method: 'delete',id: id},
 					success: function(data) {
-						console.log("DELETE COMP :" + data);
-						setTimeout("alert('DELETE COMPLETE');", 2000);
+						//console.log("DELETE COMP :" + data);
+						$('#table1').empty().html(data);
 					},
 					error: function(data){
-						setTimeout("alert('DELETE FAIL');", 2000);
 						console.log("Error :" + data);
 					}
 			});
 		}
   });
 
-});
 
-$( "p" ).removeClass( "myClass noClass" ).addClass( "yourClass" );
+});
 
 </script>
 @endsection

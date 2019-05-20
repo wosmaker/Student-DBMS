@@ -177,7 +177,5 @@ class ProblemReportController extends Controller
 
 				return response($this->response_tb_problem());
 			}
-
-			return back();
     }
 }

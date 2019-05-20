@@ -42,7 +42,7 @@
 </div>
 <!-- End Modal add problem -->
 
-{<!--Start Modal show problem -->
+<!--Start Modal show problem -->
 <div class="modal fade" id="modal_show" tabindex="-1" role="dialog" aria-labelledby="label2" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">

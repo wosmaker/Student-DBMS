@@ -24,7 +24,7 @@
 
 									<div class="form-group col-md-2">
 											<label for="subjectcredit">Credit</label>
-											<input type="text" class="form-control" id="subjectcredit" name="subjectcredit" placeholder=""  value="" required>
+											<input type="number" class="form-control" id="subjectcredit" name="subjectcredit" min="0" placeholder=""  value="" required>
 									</div>
 							</div>
 
@@ -48,7 +48,7 @@
 
 <!-- Start Add section Modal -->
 <div class="modal fade" id="modal_add_section" tabindex="-1" role="dialog" aria-labelledby="add_subjectlabel" aria-hidden="true" >
-	<div class="modal-dialog modal-lg" role="document" >
+	<div class="modal-dialog" role="document" >
 		<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title" id="add_subjectlabel">Add Section</h5>
@@ -69,19 +69,19 @@
 
 							<div class="form-group col-md-4">
 									<label for="sectionno">Section No</label>
-									<input type="number" class="form-control" id="sectionno" name="sectionno" placeholder="" >
+									<input type="number" class="form-control" id="sectionno" name="sectionno" min="0" placeholder="" required>
 							</div>
 					</div>
 
 					<div class="form-row">
 							<div class="form-group col-md-8">
 									<label for="price">Price</label>
-									<input type="number" class="form-control" id="price" name="price" placeholder="" >
+									<input type="number" class="form-control" id="price" name="price" min="0" placeholder="" required >
 							</div>
 
 							<div class="form-group col-md-4">
 									<label for="seatavailable">Seat</label>
-									<input type="number" class="form-control" id="seatavailable" name="seatavailable" placeholder="">
+									<input type="number" class="form-control" id="seatavailable" name="seatavailable" min="0" placeholder=""required>
 							</div>
 					</div>
 				</form>

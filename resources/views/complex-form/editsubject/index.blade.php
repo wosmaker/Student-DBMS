@@ -58,7 +58,7 @@ $(document).ready(function() {
 
 			console.log("IN MODEL: add subject");
 
-			$('#form_add_subject').on( 'submit', function(e) {
+			$('#form_add_subject').one( 'submit', function(e) {
 				e.preventDefault();
 				$.ajax({
 						type: "POST",
@@ -87,7 +87,7 @@ $(document).ready(function() {
 
 			console.log("IN MODEL: add section");
 
-			$( '#form_add_section' ).on( 'submit', function(e) {
+			$( '#form_add_section' ).one( 'submit', function(e) {
 				e.preventDefault();
 				$.ajax({
 						type: "POST",
@@ -122,7 +122,7 @@ $(document).ready(function() {
 
 			console.log("IN MODEL: add period");
 
-			$( '#form_add_period' ).on( 'submit', function(e) {
+			$( '#form_add_period' ).one( 'submit', function(e) {
 				e.preventDefault();
 
 				console.log("DEBUG form data:" +	$(this).serialize());
