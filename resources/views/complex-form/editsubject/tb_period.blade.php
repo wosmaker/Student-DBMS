@@ -25,12 +25,7 @@
 					<td>{{ $period_list->end_period }}</td>
 					<td>
 						{{-- ปุ่มกดสำหรับการลบวิชาที่เพิ่มไว้ --}}
-						<form method="POST" action="editsubject/{id}">
-								@csrf
-								@method('DELETE')
-								<button class="btn btn-danger" type="submit" name="sectionid" value="{{ $period_list->subjectsectionid }}">DELETE</button>
-								<input type="hidden" name="periodno" value="{{ $period_list->periodno }}">
-						</form>
+						<button class=" btn btn-danger btn-sm mr-2 btn_destroy_period"  id="{{$period_list->periodno}}" data-subjectsectionid="{{$subjectsectionid}}">DELETE</button>
 					</td>
 				</tr>
 			@endforeach

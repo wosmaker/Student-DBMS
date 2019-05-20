@@ -104,7 +104,7 @@
 			<div class="modal-header">
 				<h5 class="modal-title" id="modal_label_period">Add period to section : <span id="label_period"> </span></h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
+					<span aria-hidden="true">&times;</span>s
 				</button>
 			</div>
 
@@ -112,18 +112,20 @@
 
 				<form id="form_add_period" class="col  was-validated">
 					@csrf
-					<input type="hidden" id="subjectsectionid" name="subjectsectionid">
+					<input type="hidden" id="subjectsectionid" name="subjectsectionid" value="">
+					<input type="hidden" id="sectionno" name="sectionno" value="">
+
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-row">
 								<div class="form-group col-md-2">
 									<label for="periodno">Period No</label>
-									<input type="number" class="form-control" id="periodno" name="periodno" placeholder="">
+									<input type="number" class="form-control" id="periodno" name="periodno" placeholder="" required>
 								</div>
-		
+
 								<div class="form-group col-md-3">
 									<label for="day">Day</label>
-									<select class="custom-select" name="day" id="day">
+									<select class="custom-select" name="day" id="day" required>
 										<option value="">Choose day</option>
 										<option value="monday">Monday</option>
 										<option value="tuesday">Tuesday</option>
@@ -133,12 +135,12 @@
 									</select>
 								</div>
 							</div>
-				
+
 							<div class="form-row">
-		
+
 								<div class="form-group col-md-2">
 									<label for="start">Start period</label>
-									<select class="custom-select" name="start" id="start">
+									<select class="custom-select" name="start" id="start" required>
 										<option value="">Start</option>
 										<option value="1">1</option>
 										<option value="2">2</option>
@@ -149,10 +151,10 @@
 										<option value="7">7</option>
 									</select>
 								</div>
-		
+
 								<div class="form-group col-md-2">
 									<label for="end">End period</label>
-									<select class="custom-select" name="end" id="end">
+									<select class="custom-select" name="end" id="end" required>
 										<option value="">Start</option>
 										<option value="1">1</option>
 										<option value="2">2</option>
@@ -163,16 +165,14 @@
 										<option value="7">7</option>
 									</select>
 								</div>
-		
+
 								<div class="form-group col-md-2 py-0 px-0">
 									<button class="btn btn-outline-success btn_search_room" >search</button>
 								</div>
 							</div>
-				
-							<div class="form-row">
-								<div id="block_room">
-	
-								</div>
+
+							<div id="block_room">
+
 							</div>
 						</div>
 
@@ -182,22 +182,20 @@
 									<label for="teacher_keyword">Search Teacher</label>
 									<input type="text" class="form-control" id="teacher_keyword" name="teacher_keyword" placeholder="Search Teacher">
 								</div>
-								
+
 								<div class="form-group col-md-1">
 									<button class="btn btn-outline-success btn_search_teacher" >search</button>
 								</div>
 							</div>
 
-							<div class="form-row">
-								<div id="block_teacher">
+							<div id="block_teacher">
 
-								</div>
 							</div>
 						</div>
 					</div>
-					
+
 				</form>
-				
+
 			</div>
 
 			<div class="modal-footer">

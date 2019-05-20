@@ -173,7 +173,7 @@ class EditSubjectController extends Controller
             return view('complex-form.editsubject.tb_teacher', compact('teacher_lists'));
         }
     }
-    
+
 
     public function add_section(Request $request)
     {
@@ -225,43 +225,43 @@ class EditSubjectController extends Controller
     {
         if($request->ajax())
         {
-            // $subjectsectionid = request('subjectsectionid');
-            // $sectionno = request('sectionno');
+            $subjectsectionid = $request->get('subjectsectionid');
+            $sectionno = $request->get('sectionno');
 
-            // $day = request('day');
-            // $start = request('start');  //คาบเริ่มต้น
-            // $end = request('end');      //คาบจบ
-            // $roomcode = request('roomcode');
-            // $periodno = request('periodno');
+            $day = $request->get('day');
+            $start = $request->get('start');  //คาบเริ่มต้น
+            $end = $request->get('end');      //คาบจบ
+            $roomcode = $request->get('roomcode');
+            $periodno = $request->get('periodno');
 
 
-            // $period = DB::table('room_list')
-            // ->select($day)
-            // ->where('roomcode', '=', $roomcode)
-            // ->get()->first()->$day;
+            $period = DB::table('room_list')
+            ->select($day)
+            ->where('roomcode', '=', $roomcode)
+            ->get()->first()->$day;
 
-            // for($i = $start-1 ; $i < $end ; $i++) {
-            //     $period[$i] = '0';
-            // }
+            for($i = $start-1 ; $i < $end ; $i++) {
+                $period[$i] = '0';
+            }
 
-            // DB::table('room_list')
-            // ->where('roomcode', '=', $roomcode)
-            // ->update([$day => $period]);
+            DB::table('room_list')
+            ->where('roomcode', '=', $roomcode)
+            ->update([$day => $period]);
 
-            // DB::table('schedule')->insert(
-            //     [
-            //         'subjectsectionid' => $subjectsectionid,
-            //         'periodno' => $periodno,
-            //         'roomcode' => $roomcode,
-            //         'day' => $day,
-            //         'start_period' => $start,
-            //         'end_period' => $end
-            //     ]
-            // );
-        
-            // $period_lists = DB::select('SELECT * from schedule where subjectsectionid = ?', [ $subjectsectionid]);
-            // return view('complex-form.editsubject.tb_section', compact('period_lists','sectionno'));
-        }
+            DB::table('schedule')->insert(
+                [
+                    'subjectsectionid' => $subjectsectionid,
+                    'periodno' => $periodno,
+                    'roomcode' => $roomcode,
+                    'day' => $day,
+                    'start_period' => $start,
+                    'end_period' => $end
+                ]
+            );
+
+            $period_lists = DB::select('SELECT * from schedule where subjectsectionid = ?', [ $subjectsectionid]);
+            return view('complex-form.editsubject.tb_period', compact('period_lists','sectionno','subjectsectionid'));
+					}
     }
 
     public function create()
