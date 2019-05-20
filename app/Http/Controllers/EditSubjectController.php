@@ -502,13 +502,14 @@ class EditSubjectController extends Controller
                     }
 
                     //ลบวิชาที่ต้องการ พร้อมกับ section & schdule ที่เกี่ยวข้อง เพราะเซ็ต DB เป็น cascade ไว้
-                    DB::table('schedule')
-                    ->where([
-                        ['ss.subjectsectionid', '=', $subjectsectionid],
-                        ['sd.periodno', '=', $periodno]
-                    ])
-                    ->delete();
+                    
                 }
+            DB::table('schedule')
+            ->where([
+                ['ss.subjectsectionid', '=', $subjectsectionid],
+                ['sd.periodno', '=', $periodno]
+            ])
+            ->delete();
 
             $period_lists = DB::table('schedule')
             ->select('*')
