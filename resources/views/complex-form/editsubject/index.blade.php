@@ -127,36 +127,7 @@ $(document).ready(function() {
 						url: "{{route('editsubject.add_section')}}",
 						data: $(this).serialize(),
 						success: function(data) {
-							//console.log("Debug :" + data);
-							$('#block_section').empty().html(data);
-							$('#block_section').show();
-							$('#modal_add_section').modal('hide');
-							$( '#form_add_section' ).trigger("reset");
-						},
-						error: function(data){
-							console.log("Error :" + data);
-						}
-				});
-			});
-		});
-
-		$(document).on('click', ".btn_add_section", function() {
-			var options = {'backdrop': 'static'};
-			$('#modal_add_section').modal(options).modal('show');
-
-			var subjectcode = $(this).attr("id");
-			$("#form_add_section #subjectcode").val(subjectcode);
-
-			console.log("IN MODEL: add section");
-
-			$( '#form_add_section' ).on( 'submit', function(e) {
-				e.preventDefault();
-				$.ajax({
-						type: "POST",
-						url: "{{route('editsubject.add_section')}}",
-						data: $(this).serialize(),
-						success: function(data) {
-							//console.log("Debug :" + data);
+							console.log("Debug :" + data);
 							$('#block_section').empty().html(data);
 							$('#block_section').show();
 							$('#modal_add_section').modal('hide');
@@ -180,22 +151,20 @@ $(document).ready(function() {
 			$("#label_period").html(sectionno);
 
 
+			console.log("IN MODEL: add period");
 
-
-			console.log("IN MODEL: add section");
-
-			$( '#form_add_section' ).on( 'submit', function(e) {
+			$( '#form_add_period' ).on( 'submit', function(e) {
 				e.preventDefault();
 				$.ajax({
 						type: "POST",
-						url: "{{route('editsubject.add_section')}}",
+						url: "{{route('editsubject.add_period')}}",
 						data: $(this).serialize(),
 						success: function(data) {
-							//console.log("Debug :" + data);
-							$('#block_section').empty().html(data);
-							$('#block_section').show();
-							$('#modal_add_section').modal('hide');
-							$( '#form_add_section' ).trigger("reset");
+							console.log("Debug :" + data);
+							$('#block_period').empty().html(data);
+							$('#block_period').show();
+							$('#modal_add_period').modal('hide');
+							$( '#form_add_period' ).trigger("reset");
 						},
 						error: function(data){
 							console.log("Error :" + data);
@@ -269,6 +238,25 @@ $(document).ready(function() {
 					data:{day:day,start:start,end:end, "_token": "{{ csrf_token() }}"},
 					success:function(data){
 						$('#block_room').empty().html(data);
+					},
+					error: function(data){
+						console.log("Error :" + data);
+					}
+				});
+		});
+
+		$(document).on('click', ".btn_search_teacher", function(e) {
+			e.preventDefault();
+			var teacher_keyword = $('#form_add_period #teacher_keyword').val();
+
+			console.log("search on teacher:" + teacher_keyword);
+
+				$.ajax({
+					type:'POST',
+					url:"{{route('editsubject.search_teacher')}}",
+					data:{teacher_keyword:teacher_keyword, "_token": "{{ csrf_token() }}"},
+					success:function(data){
+						$('#block_teacher').empty().html(data);
 					},
 					error: function(data){
 						console.log("Error :" + data);

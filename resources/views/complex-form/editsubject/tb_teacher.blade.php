@@ -5,6 +5,7 @@
                 <td>No</td>
                 <td>FirstName</td>
                 <td>LastName</td>
+                <td>Choose</td>
             </tr>
 		</thead>
 		<tbody>
@@ -13,7 +14,9 @@
                     <th scope="row">{{ $loop->iteration }}</th>
                     <td>{{ $teacher_list->firstname}}</td>
                     <td>{{ $teacher_list->lastname}}</td>
-                    {{-- {{ $teacher_list->userid}} --}}
+                    <td>
+                        <input  type="radio" id="teacher_userid" name="teacher_userid" value="{{ $teacher_list->userid }}" >
+                    </td>
                 </tr>
             @endforeach
 		</tbody>

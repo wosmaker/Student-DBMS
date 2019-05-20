@@ -7,6 +7,7 @@
                 <td>Buildingname</td>
                 <td>Floor</td>
                 <td>RoomSeatTotal</td>
+                <td>Choose</td>
             </tr>
 		</thead>
 		<tbody>
@@ -17,6 +18,9 @@
                     <td>{{ $roomfree->buildingname}}</td>
                     <td>{{ $roomfree->floor}}</td>
                     <td>{{ $roomfree->roomseattotal}}</td>
+                    <td>
+                        <input  type="radio" id="roomcode" name="roomcode" value="{{ $roomfree->roomcode }}" >
+                    </td>
                 </tr>
             @endforeach
 		</tbody>
