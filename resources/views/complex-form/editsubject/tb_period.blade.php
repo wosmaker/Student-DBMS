@@ -25,7 +25,7 @@
 					<td>{{ $period_list->end_period }}</td>
 					<td>
 						{{-- ปุ่มกดสำหรับการลบวิชาที่เพิ่มไว้ --}}
-						<button class=" btn btn-danger btn-sm mr-2 btn_destroy_period"  id="{{$period_list->periodno}}" data-subjectsectionid="{{$subjectsectionid}}">DELETE</button>
+						<button class=" btn btn-danger btn-sm mr-2 btn_destroy_period"  id="{{$period_list->periodno}}" data-subjectsectionid="{{$subjectsectionid}}" data-sectionno="{{$sectionno}}">DELETE</button>
 					</td>
 				</tr>
 			@endforeach

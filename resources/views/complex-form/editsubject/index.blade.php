@@ -280,13 +280,14 @@ $(document).ready(function() {
 
 		$(document).on('click', ".btn_destroy_period", function() {
 			if (confirm('Are you sure you want to Delete ?')) {
+				var sectionno = $(this).attr("sectionno");
 				var periodno = $(this).attr("id");
 				var subjectsectionid = $(this).attr("data-subjectsectionid");
-				console.log("Debug:" + periodno);
+				console.log("Debug:" + periodno + " " + subjectsectionid);
 				$.ajax({
 						type: "POST",
 						url:"{{route('editsubject.destroy_period')}}",
-						data: {_token: "{{ csrf_token() }}",subjectsectionid: subjectsectionid,periodno:periodno},
+						data: {_token: "{{ csrf_token() }}",subjectsectionid: subjectsectionid,periodno:periodno, sectionno:sectionno},
 						success: function(data) {
 							$('#block_period').empty().html(data);
 							$('#block_period').show();
