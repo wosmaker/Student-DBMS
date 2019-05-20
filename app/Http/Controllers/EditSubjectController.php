@@ -506,8 +506,8 @@ class EditSubjectController extends Controller
                 }
             DB::table('schedule')
             ->where([
-                ['ss.subjectsectionid', '=', $subjectsectionid],
-                ['sd.periodno', '=', $periodno]
+                ['subjectsectionid', '=', $subjectsectionid],
+                ['periodno', '=', $periodno]
             ])
             ->delete();
 
