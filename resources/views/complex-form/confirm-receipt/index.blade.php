@@ -25,46 +25,48 @@
 </div>
 
 <div class="shadow-sm p-3 mb-2 bg-white ">
-    {{-- ตารางแสดงรายวิชาที่ลงทะเบียนแล้ว --}}
-    <table class="table table-hover table-responsive-lg">
-        <thead>
-            <tr>
-                <th scope="col">No</th>
-                <th scope="col">FirstName</th>
-                <th scope="col">LastName</th>
-                <th scope="col">Bank</th>
-                <th scope="col">Link</th>
-                <th scope="col">DateTime</th>
-                <th scope="col">Status</th>
-                <th scope="col">Confirm</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($transactionlists as $transactionlist)
-                <tr>
-                    <th scope="row">{{ $loop->iteration }}</th>
-                    <td>{{ $transactionlist->firstname }}</td>
-                    <td>{{ $transactionlist->lastname }}</td>
-                    <td>{{ $transactionlist->paymenttypename }}</td>
-                    <td>
-                        @php
-                            $img_link = asset('storage/upload/' . $transactionlist->picturelink);
-                        @endphp
-                        <a href="{{ $img_link }}" target="_blank">IMAGE</a>
-                    </td>
-                    <td>{{ $transactionlist->paymentdate }}</td>
-                    <td>{{ $transactionlist->paymentstatus }}</td>
-                    <td>
-                        <form method="POST" action="confirmreceipt/{confirmreceipt}">
-                            @csrf
-                            @method('PATCH')
-                            <button class="btn btn-danger" type="submit" name="transaction_id" value="{{ $transactionlist->transactionid }}">CONFIRM</button>
-                        </form>
-                    </td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
+		{{-- ตารางแสดงรายวิชาที่ลงทะเบียนแล้ว --}}
+		<div class="table-responsive">
+			<table class="table table-hover table-responsive-lg">
+					<thead>
+							<tr>
+									<th scope="col">No</th>
+									<th scope="col">FirstName</th>
+									<th scope="col">LastName</th>
+									<th scope="col">Bank</th>
+									<th scope="col">Link</th>
+									<th scope="col">DateTime</th>
+									<th scope="col">Status</th>
+									<th scope="col">Confirm</th>
+							</tr>
+					</thead>
+					<tbody>
+							@foreach($transactionlists as $transactionlist)
+									<tr>
+											<th scope="row">{{ $loop->iteration }}</th>
+											<td>{{ $transactionlist->firstname }}</td>
+											<td>{{ $transactionlist->lastname }}</td>
+											<td>{{ $transactionlist->paymenttypename }}</td>
+											<td>
+													@php
+															$img_link = asset('storage/upload/' . $transactionlist->picturelink);
+													@endphp
+													<a href="{{ $img_link }}" target="_blank">IMAGE</a>
+											</td>
+											<td>{{ $transactionlist->paymentdate }}</td>
+											<td>{{ $transactionlist->paymentstatus }}</td>
+											<td>
+													<form method="POST" action="confirmreceipt/{confirmreceipt}">
+															@csrf
+															@method('PATCH')
+															<button class="btn btn-danger" type="submit" name="transaction_id" value="{{ $transactionlist->transactionid }}">CONFIRM</button>
+													</form>
+											</td>
+									</tr>
+							@endforeach
+					</tbody>
+			</table>
+		</div>
 </div>
 
 @endsection

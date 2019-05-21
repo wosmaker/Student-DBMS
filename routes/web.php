@@ -22,11 +22,15 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('updatereceipt', 'UpdateReceiptController');
 //Route::resource('editsubject', 'EditSubjectController');
 //Route::resource('problemreport', 'ProblemReportController');
-Route::resource('confirmreceipt', 'ConfirmReceiptController');
+//Route::resource('confirmreceipt', 'ConfirmReceiptController');
 Route::resource('personal', 'PersonalController');
 
 
-
+Route::get('confirmreceipt','ConfirmReceiptController@index')->name('confirmreceipt.index');
+Route::get('confirmreceipt/{id}/edit' , 'ConfirmReceiptController@edit')->name('confirmreceipt.edit');
+Route::post('confirmreceipt', 'ConfirmReceiptController@store')->name('confirmreceipt.store');
+Route::delete('confirmreceipt/destroy', 'ConfirmReceiptController@destroy')->name('confirmreceipt.destroy');
+Route::patch('confirmreceipt/update' , 'ConfirmReceiptController@update')->name('confirmreceipt.update');
 
 Route::get('problemreport','ProblemReportController@index')->name('problemreport.index');
 Route::get('problemreport/{id}/edit' , 'ProblemReportController@edit')->name('problemreport.edit');

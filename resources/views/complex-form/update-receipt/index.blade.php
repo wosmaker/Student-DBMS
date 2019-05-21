@@ -13,30 +13,32 @@
 <div class="shadow-sm p-3 mb-2 bg-white ">
   <h4 class="text-dark">รายวิขาที่ลงทะเบียน</h4>
 
-  <table class="table table-borderless table-hover table-responsive-lg ">
-    <thead>
-      <tr>
-          <th scope="col">No</th>
-          <th scope="col">SubjectCode</th>
-          <th scope="col">SubjectName</th>
-          <th scope="col">Credit</th>
-          <th scope="col">Section</th>
-      </tr>
-    </thead>
+	<div class="table-responsive">
+		<table class="table table-borderless table-hover">
+			<thead>
+				<tr>
+						<th scope="col">No</th>
+						<th scope="col">SubjectCode</th>
+						<th scope="col">SubjectName</th>
+						<th scope="col">Credit</th>
+						<th scope="col">Section</th>
+				</tr>
+			</thead>
 
-    <tbody>
-      @foreach($regissubjects as $regissubject)
-          <tr>
-              {{-- คำสั่ง $loop->iteration เป็นตัวที่ไล่เลขลำดับให้ --}}
-              <th scope="row">{{ $loop->iteration }}</th>
-              <td>{{ $regissubject->subjectcode }}</td>
-              <td>{{ $regissubject->subjectname }}</td>
-              <td>{{ $regissubject->sectionno }}</td>
-              <td>{{ $regissubject->subjectcredit }}</td>
-          </tr>
-      @endforeach
-    </tbody>
-  </table>
+			<tbody>
+				@foreach($regissubjects as $regissubject)
+						<tr>
+								{{-- คำสั่ง $loop->iteration เป็นตัวที่ไล่เลขลำดับให้ --}}
+								<th scope="row">{{ $loop->iteration }}</th>
+								<td>{{ $regissubject->subjectcode }}</td>
+								<td>{{ $regissubject->subjectname }}</td>
+								<td>{{ $regissubject->sectionno }}</td>
+								<td>{{ $regissubject->subjectcredit }}</td>
+						</tr>
+				@endforeach
+			</tbody>
+		</table>
+	</div>
 </div>
 
 <div class="shadow-sm p-3 mb-2 bg-white ">

@@ -21,23 +21,24 @@
 			<button type="button" class="btn btn-info" id="btn_add">Report Problem</button>
 		</div>
 	</div>
-
-  <table class="table table-borderless table-hover table-responsive-lg ">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-				<th scope="col">Title</th>
-				<th scope="col">ProblemType</th>
-        <th scope="col">Reporter</th>
-				<th scope="col">DateTime</th>
-				<th scope="col">Status</th>
-				<th scope="col">Action</th>
-      </tr>
-    </thead>
-    <tbody id="table1">
-				@include('complex-form.problem-report.problem_tb')
-    </tbody>
-  </table>
+	<div class="table-responsive">
+		<table class="table table-borderless table-hover">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Title</th>
+					<th scope="col">ProblemType</th>
+					<th scope="col">Reporter</th>
+					<th scope="col">DateTime</th>
+					<th scope="col">Status</th>
+					<th scope="col">Action</th>
+				</tr>
+			</thead>
+			<tbody id="table1">
+					@include('complex-form.problem-report.problem_tb')
+			</tbody>
+		</table>
+	</div>
 </div>
 
 

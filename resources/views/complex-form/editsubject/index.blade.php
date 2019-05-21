@@ -16,22 +16,23 @@
 
 			<button class="btn btn-info my-2" id="btn_add_subject">+subject</button>
 	</div>
-
+	<div class="table-responsive">
 		<table class="table table-hover">
-				<thead>
-					<tr>
-						<th scope="col">#</th>
-						<th scope="col">Subject Code</th>
-						<th scope="col">Subject Name</th>
-						<th scope="col">Credit</th>
-						<th scope="col">Detail</th>
-						<th scope="col">Action</th>
-					</tr>
-				</thead>
-				<tbody id="tb_subject">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Subject Code</th>
+					<th scope="col">Subject Name</th>
+					<th scope="col">Credit</th>
+					<th scope="col">Detail</th>
+					<th scope="col">Action</th>
+				</tr>
+			</thead>
+			<tbody id="tb_subject">
 
-				</tbody>
-			</table>
+			</tbody>
+		</table>
+	</div>
 </div>
 
 <div id="block_section">
