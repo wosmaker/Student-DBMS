@@ -17,7 +17,7 @@ class PersonalController extends Controller
     public function __construct()
     {
         $this->middleware('auth');      //login checking
-        $this->middleware('role:1,5');    //เช็คว่า role = 1 หรือเปล่า
+        $this->middleware('role:1,2,5');    //เช็คว่า role = 1 หรือเปล่า
     }
 
     public function index()
@@ -30,7 +30,7 @@ class PersonalController extends Controller
         ->select('departmentcode', 'departmentname')
         ->get()->all();
 
-        return view('complex-form.personal.index', compact('role','departments', 'userdetail'));
+        return view('complex-form.personal.index', compact('role','departments', 'userid', 'userdetail'));
     }
 
     /**
