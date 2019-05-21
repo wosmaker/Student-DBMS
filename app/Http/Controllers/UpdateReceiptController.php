@@ -88,7 +88,7 @@ class UpdateReceiptController extends Controller
     public function store(Request $request)
     {
         $userid = auth()->user()->id;
-        $role = auth()->user()->userroleid;
+				$role = auth()->user()->userroleid;
 
         //รับค่าจาก dropbox
         $paymenttype = $request->get('paymenttype');
@@ -97,13 +97,14 @@ class UpdateReceiptController extends Controller
         $amount = $request->get('amount');
 
         //เช็คว่ามีไฟล์หรือไม่แล้วทำการเก็บเข้าโฟลเดอร์ upload
-        if($request->hasFile('imgInp')){
-            $file = $request->file('imgInp');
+						$file = $request->file('imgInp');
+						$image_name = $request->file('imgInp')->getRealPath();
             $extension = $file->getClientOriginalExtension();
-            $filename = $userid . '_' . time() . '.' . $extension;
-            Storage::putFileAs('public/upload', $file , $filename);
-        }
+            // $filename = $userid . '_' . time() . '.' . $extension;
+            // Storage::putFileAs('public/upload', $file , $filename);
+						Cloudder::upload($image_name, null);
 
+				dd($image_name);
         //คำนวณ Semester
         if((int)(date('n')) > 7) $semester = '1' . date('/Y');
         else $semester = '2' . date('/Y');
@@ -111,17 +112,16 @@ class UpdateReceiptController extends Controller
         //insert in DB
         DB::table('transaction_list')->insert(    //insertGetId จะค่าในคอลัมน์ auto inc กลับมาด้วย
             [
-				'userid'        => $userid ,
+								'userid'        => $userid ,
                 'amount'        => $amount ,
                 'semester'      => $semester ,
                 'paymenttypeid' => $paymenttype ,
                 'paymentstatus' => 'waiting' ,
-                'picturelink'   => $filename ,
+                'picturelink'   => $image_name ,
             ]
         );
 
         $transactionid = DB::select('SELECT transactionid FROM transaction_list ORDER BY transactionid DESC LIMIT 1');
-
         $transactionid = $transactionid[0]->transactionid;
 
         DB::table('registration_student')

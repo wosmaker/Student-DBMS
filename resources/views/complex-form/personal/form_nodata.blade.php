@@ -1,17 +1,17 @@
 <div class="row">
 	<div id="personal-form" class="shadow-sm p-3 mb-2 bg-white " style="width:600px;">
-		<form class="col" method="POST" action="personal" >
+		<form class="col was-validated" method="POST" action="personal" novalidate>
 			@csrf
 
 			<div class="form-row">
 				<div class="form-group col-md-6">
 					<label for="identificationno">Identification No</label>
-					<input type="text" class="form-control" id="identificationno" name="identificationno" placeholder="">
+					<input type="text" class="form-control" id="identificationno" name="identificationno" placeholder="" required>
 				</div>
 
 				<div class="form-group col-md-6">
 						<label for="departmentcode">Department</label>
-						<select id="departmentcode" name="departmentcode" class="form-control">
+						<select id="departmentcode" name="departmentcode" class="form-control" required>
 							<option selected  value="">Choose Department</option>
 								@foreach($departments as $department)
 									<option value="{{ $department->departmentcode}}" name="departmentcode">{{ $department->departmentname }}</option>
@@ -23,7 +23,7 @@
 			<div class="form-row">
 				<div class="form-group col-md-2">
 					<label for="titlename">Title Name </label>
-					<select id="titlename" name="titlename" class="form-control">
+					<select id="titlename" name="titlename" class="form-control" required>
 						<option selected value="">Choose...</option>
 						<option value="Mr">Mr</option>
 						<option value="Mrs">Mrs</option>
@@ -34,19 +34,19 @@
 
 				<div class="form-group col-md-5">
 					<label for="firstname">First Name</label>
-					<input type="text" class="form-control" id="firstname" name="firstname" placeholder="">
+					<input type="text" class="form-control" id="firstname" name="firstname" placeholder="" required>
 				</div>
 
 				<div class="form-group col-md-5">
 					<label for="lastname">Last Name</label>
-					<input type="text" class="form-control" id="lastname" name="lastname" placeholder="">
+					<input type="text" class="form-control" id="lastname" name="lastname" placeholder="" required>
 				</div>
 			</div>
 
 			<div class="form-row">
 				<div class="form-group col-md-3">
 					<label for="gender">Gender</label>
-					<select id="gender" name="gender" class="form-control">
+					<select id="gender" name="gender" class="form-control" required>
 						<option selected>Choose...</option>
 						<option value="Male">Male</option>
 						<option value="Female">Female</option>
@@ -56,7 +56,7 @@
 
 				<div class="form-group col-md-3">
 					<label for="bloodtype">Blood</label>
-					<select id="bloodtype" name="bloodtype" class="form-control">
+					<select id="bloodtype" name="bloodtype" class="form-control" required>
 						<option selected>Choose...</option>
 						<option value="A">A</option>
 						<option value="B">B</option>
@@ -67,46 +67,46 @@
 
 				<div class="form-group col-md-6">
 					<label for="birthdate">Date of Birth</label>
-					<input type="date" class="form-control" id="birthdate" name="birthdate" placeholder="Date of Birth">
+					<input type="date" class="form-control" id="birthdate" name="birthdate" placeholder="Date of Birth" required>
 				</div>
 			</div>
 
 			<div class="form-row">
 				<div class="form-group col-md-4">
 					<label for="race">Race</label>
-					<input type="text" class="form-control" id="race" name="race" placeholder="">
+					<input type="text" class="form-control" id="race" name="race" placeholder="" required>
 				</div>
 
 				<div class="form-group col-md-4">
 					<label for="Religion">religion</label>
-					<input type="text" class="form-control" id="religion" name="religion" placeholder="">
+					<input type="text" class="form-control" id="religion" name="religion" placeholder="" required>
 				</div>
 
 				<div class="form-group col-md-4">
 					<label for="nationnality">Nationnality</label>
-					<input type="text" class="form-control" id="nationnality" name="nationnality" placeholder="">
+					<input type="text" class="form-control" id="nationnality" name="nationnality" placeholder="" required>
 				</div>
 			</div>
 
 			<div class="form-group">
 				<label for="address">Address</label>
-				<input type="text" class="form-control" id="address" name="address" placeholder="">
+				<input type="text" class="form-control" id="address" name="address" placeholder="" required>
 			</div>
 
 			<div class="form-row">
 				<div class="form-group col-md-2">
 					<label for="postcode">Zip</label>
-					<input type="text" class="form-control" id="postcode" name="postcode">
+					<input type="text" class="form-control" id="postcode" name="postcode" required>
 				</div>
 
 				<div class="form-group col-md-5">
 					<label for="province">Province</label>
-					<input type="text" class="form-control" id="province" name="province" placeholder="">
+					<input type="text" class="form-control" id="province" name="province" placeholder="" required>
 				</div>
 
 				<div class="form-group col-md-5">
 					<label for="district">District</label>
-					<input type="text" class="form-control" id="district" name="district" placeholder="">
+					<input type="text" class="form-control" id="district" name="district" placeholder="" required>
 					</select>
 				</div>
 			</div>
@@ -114,12 +114,12 @@
 			<div class="form-row">
 				<div class="form-group col-md-7">
 					<label for="subdistrict">Sub District</label>
-					<input type="text" class="form-control" id="subdistrict" name="subdistrict">
+					<input type="text" class="form-control" id="subdistrict" name="subdistrict" required>
 				</div>
 
 				<div class="form-group col-md-5">
 					<label for="usercontact">Contact</label>
-					<input type="text" class="form-control" id="usercontact" name="usercontact" placeholder="">
+					<input type="text" class="form-control" id="usercontact" name="usercontact" placeholder="" required>
 				</div>
 
 			</div>
@@ -130,7 +130,7 @@
 	</div>
 
 	<div class="shadow-sm p-3 mb-2 bg-white">
-		<form id="parent_form" class="col needs-validation" method="post" action=""  novalidate>
+		<form id="parent_form" class="col was-validated" method="post" action=""  novalidate>
 			@csrf
 			<div class="form-row">
 				<div class="form-group col-md-6">

@@ -19,41 +19,41 @@
 @endif
 
 @endsection
-	
+
 
 
 @section('script')
  <script>
-	(function() {
-		'use strict';
-		window.addEventListener('load', function() {
-			// Fetch all the forms we want to apply custom Bootstrap validation styles to
-			var forms = document.getElementsByClassName('needs-validation');
-			// Loop over them and prevent submission
-			var validation = Array.prototype.filter.call(forms, function(form) {
-				form.addEventListener('submit', function(event) {
-					if (form.checkValidity() === false) {
-						event.preventDefault();
-						event.stopPropagation();
-					}
-					form.classList.add('was-validated');
-				}, false);
-			});
-		}, false);
-	})();
-
 	$(document).ready( function() {
 
-if (typeof jQuery != 'undefined') {
-    // jQuery is loaded => print the version
-		alert(jQuery.fn.jquery);
-		console.log("find jquery");
-}
-else {
-	console.log("can't find jquery");
+		$( '#form_save_personal' ).on( 'submit', function(e) {
+			e.preventDefault();
+			console.log("test save ");
 
-}
+				$.ajax({
+						type: "POST",
+						url: "{{route('personal.update')}}",
+						data: $(this).serialize(),
+						success: function(data) {
+							console.log("test save complete");
+							// $('#block_period').empty().html(data);
+							// $('#block_period').show();
+							// $('#modal_add_period').modal('hide');
+							// $( '#form_add_period' ).trigger("reset");
+						},
+						error: function (reject) {
+                // if( reject.status === 422 ) {
+                //     var errors = $.parseJSON(reject.responseText);
+								// 		$.each(errors, function (key, item)
+								// 			{
+								// 				$("#errors").append("<li class='alert alert-danger'>"+item+"</li>")
+								// 			});
+                // }
+            }
+				});
+		});
+
+
 	});
-
  </script>
 @endsection
