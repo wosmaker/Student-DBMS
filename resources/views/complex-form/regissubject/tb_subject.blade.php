@@ -3,6 +3,7 @@
 		{{-- คำสั่ง $loop->iteration เป็นตัวที่ไล่เลขลำดับให้ --}}
 		<th scope="row">{{ $loop->iteration }}</th>
 		<td>{{ $subjectdetail->subjectcode }}</td>
+		<td>{{ $subjectdetail->subjectname }}</td>
 		<td>{{ $subjectdetail->sectionno }}</td>
 		<td>{{ $subjectdetail->seatavailable }}</td>
 		<td>{{ $subjectdetail->day }}</td>

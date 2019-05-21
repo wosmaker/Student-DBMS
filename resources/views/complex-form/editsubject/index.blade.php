@@ -245,11 +245,9 @@ $(document).ready(function() {
 						data: {_token: "{{ csrf_token() }}",subjectcode: id},
 						success: function(data) {
 							$('#tb_subject').empty().html(data);
-							setTimeout("alert('DELETE COMPLETE');", 2000);
 							console.log("DELETE subject :" + data);
 						},
 						error: function(data){
-							setTimeout("alert('DELETE FAIL');", 2000);
 							console.log("Error :" + data);
 						}
 				});
@@ -267,11 +265,9 @@ $(document).ready(function() {
 						success: function(data) {
 							$('#block_section').empty().html(data);
 							$('#block_section').show();
-							setTimeout("alert('DELETE COMPLETE');", 2000);
 							console.log("DELETE COMP :" + data);
 						},
 						error: function(data){
-							setTimeout("alert('DELETE FAIL');", 2000);
 							console.log("Error :" + data);
 						}
 				});
@@ -291,11 +287,9 @@ $(document).ready(function() {
 						success: function(data) {
 							$('#block_period').empty().html(data);
 							$('#block_period').show();
-							setTimeout("alert('DELETE COMPLETE');", 2000);
 							console.log("DELETE COMP :" + data);
 						},
 						error: function(data){
-							setTimeout("alert('DELETE FAIL');", 2000);
 							console.log("Error :" + data);
 						}
 				});
