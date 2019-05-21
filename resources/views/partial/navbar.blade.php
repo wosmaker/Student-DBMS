@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md  navbar-dark fixed-top box-shadow" >
+<nav class="navbar navbar-expand-md  navbar-dark fixed-top box-shadow" style="			color: #FFFFFF; background-color: #525D3E;">
         <a class="navbar-brand" href="{{ url('/home') }}" style="font-size: 20px; color: #ffffff;">Student DBMS</a>
 
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#nbar" aria-controls="nbar" aria-expanded="false" aria-label="Toggle navigation">

@@ -120,7 +120,7 @@
 							url:"{{route('regissubject.destroy')}}",
 							data: {_token: "{{ csrf_token() }}" ,_method: 'delete',id: id},
 							success: function(data) {
-								swal("DELETION SUCCESS .... maybe", {icon: "success",});
+								swal("DELETION SUCCESS .... maybe", {icon: "success",timer: 1000,	buttons: false,});
 								var query = $('#search_subject').val();
 								search_subject(query)
 								$('#tb_subject_regist').empty().html(data);
@@ -141,6 +141,7 @@
 					url: "{{route('regissubject.store')}}",
 					data: $(this).serialize(),
 					success: function(data) {
+						swal("Add subject SUCCESS ...", {icon: "success",timer: 1000,	buttons: false,});
 						var query = $('#search_subject').val();
 						search_subject(query)
 						$('#tb_subject_regist').empty().html(data);

@@ -144,8 +144,8 @@ $(document).ready(function() {
 					url:"{{route('editsubject.search_section')}}",
 					data:{query:query, "_token": "{{ csrf_token() }}"},
 					success:function(data){
-						$('#block_section').empty().html(data);
-						$('#block_section').show();
+						$('#block_section').fadeOut(250,function(){	$('#block_section').empty().html(data);});
+						$('#block_section').fadeIn( 250 );
 					},
 					error: function(data){
 						console.log("Error :" + data);

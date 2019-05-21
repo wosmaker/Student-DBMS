@@ -1,5 +1,5 @@
 <div class="list-group list-group-flush">
-	
+
 	@if($role == 5)
 		<a class="list-group-item list-group-item-action list-group-item-dark" href="#sub1" data-toggle="collapse" aria-expanded="false">Simple Form</a>
 
@@ -17,16 +17,19 @@
 		<a href="{{route('regissubject.index')}}" class="list-group-item list-group-item-action list-group-item-light">Subject</a>
 		<a href="{{route('updatereceipt.index')}}" class="list-group-item list-group-item-action list-group-item-light">Update Receipt</a>
 		<a href="{{route('problemreport.index')}}" class="list-group-item list-group-item-action list-group-item-light">Problem Report</a>
+		<a href="{{route('personal.index')}}" class="list-group-item list-group-item-action list-group-item-light">Personal</a>
 	@endif
 
 	@if($role == 2)
 		<a href="{{route('problemreport.index')}}" class="list-group-item list-group-item-action list-group-item-light">Problem Report</a>
+		<a href="{{route('personal.index')}}" class="list-group-item list-group-item-action list-group-item-light">Personal</a>
+
 	@endif
 
 	@if($role == 3)
 		<a href="{{route('editsubject.index')}}" class="list-group-item list-group-item-action list-group-item-light">Edit Subject</a>
 		<a href="{{route('confirmreceipt.index')}}" class="list-group-item list-group-item-action list-group-item-light">Confirm Receipt</a>
-		<a href="{{route('problemreport.index')}}" class="list-group-item list-group-item-action list-group-item-light">Problem Report</a>		
+		<a href="{{route('problemreport.index')}}" class="list-group-item list-group-item-action list-group-item-light">Problem Report</a>
 	@endif
 
 	@if($role == 4)
@@ -50,7 +53,10 @@
 				Problem Report</a>
 
 			<a href="{{route('confirmreceipt.index')}}" class="list-group-item list-group-item-action list-group-item-light">
-				Confirm Receipt</a>			
+				Confirm Receipt</a>
+
+			<a href="{{route('personal.index')}}" class="list-group-item list-group-item-action list-group-item-light">Personal</a>
+
 		</div>
 	@endif
 

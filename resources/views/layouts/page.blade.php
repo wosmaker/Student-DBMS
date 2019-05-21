@@ -3,6 +3,7 @@
 @section('html-body')
     <div id="app" class="bg-0">
 				@include('partial.navbar')
+
         <div class="container-fluid">
             <div class="row">
 				<!-- sidebar -->
@@ -22,6 +23,7 @@
             </div>
         </div>
     </div>
-    @yield('script')
+		@yield('script')
+
 @endsection
 

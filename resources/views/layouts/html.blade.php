@@ -21,7 +21,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 		<link href="{{ asset('css/dashboard.css') }}" rel="stylesheet">
-
+		{{-- <link href="{{ asset('css/navbar.css') }}" rel="stylesheet"> --}}
 
 		<!-- script -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -37,11 +37,6 @@
 			body{
 				height: 100vh;
 			}
-
-		.navbar {
-			color: #FFFFFF;
-			background-color: #525D3E;
-		}
 
 		.bg {
 				/* The image used */
