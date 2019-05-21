@@ -107,7 +107,12 @@ class RegisSubjectController extends Controller
 								'subjectsectionid' => $subjectsectionid,
 								'userid' => $userid
 						]
-				);
+        );
+      
+        DB::select(
+          ' UPDATE sectioneachsubject 
+            SET seatavailable = seatavailable + 1
+            WHERE subjectsectionid = ?',[$subjectsectionid]);
 
         $regissubjects = $this->tb_registration();
 				return view('complex-form.regissubject.tb_subject_regist' , compact('regissubjects'));
@@ -157,9 +162,15 @@ class RegisSubjectController extends Controller
     public function destroy(Request $request)
     {
         $id = request('id');
-					DB::table('registration_student')
-					->where('subjectsectionid', '=', $id)
-					->delete();
+
+        DB::table('registration_student')
+        ->where('subjectsectionid', '=', $id)
+        ->delete();
+
+        DB::select(
+          ' UPDATE sectioneachsubject 
+            SET seatavailable = seatavailable - 1
+            WHERE subjectsectionid = ?',[$id]);
 
         $regissubjects = $this->tb_registration();
 				return view('complex-form.regissubject.tb_subject_regist' , compact('regissubjects'));
