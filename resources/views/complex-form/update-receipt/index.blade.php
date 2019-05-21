@@ -14,7 +14,7 @@
   <h4 class="text-dark">รายวิขาที่ลงทะเบียน</h4>
 
 	<div class="table-responsive">
-		<table class="table table-borderless table-hover">
+		<table class="table table-hover">
 			<thead>
 				<tr>
 						<th scope="col">No</th>
@@ -24,20 +24,9 @@
 						<th scope="col">Section</th>
 				</tr>
 			</thead>
-
-			<tbody>
-				@foreach($regissubjects as $regissubject)
-						<tr>
-								{{-- คำสั่ง $loop->iteration เป็นตัวที่ไล่เลขลำดับให้ --}}
-								<th scope="row">{{ $loop->iteration }}</th>
-								<td>{{ $regissubject->subjectcode }}</td>
-								<td>{{ $regissubject->subjectname }}</td>
-								<td>{{ $regissubject->sectionno }}</td>
-								<td>{{ $regissubject->subjectcredit }}</td>
-						</tr>
-				@endforeach
-			</tbody>
-		</table>
+			<tbody id="tb_regist">
+				@include('complex-form.update-receipt.tb_regist')
+			</table>
 	</div>
 </div>
 
@@ -56,36 +45,14 @@
                 <th scope="col">Confirm</th>
             </tr>
         </thead>
-        <tbody>
-            @foreach($transactionlists as $transactionlist)
-                <tr>
-                    <th scope="row">{{ $loop->iteration }}</th>
-                    <td>{{ $transactionlist->firstname }}</td>
-                    <td>{{ $transactionlist->lastname }}</td>
-                    <td>{{ $transactionlist->paymenttypename }}</td>
-                    <td>
-                        @php
-                            $img_link = asset('storage/upload/' . $transactionlist->picturelink);
-                        @endphp
-                        <a href="{{ $img_link }}" target="_blank">IMAGE</a>
-                    </td>
-                    <td>{{ $transactionlist->paymentdate }}</td>
-                    <td>{{ $transactionlist->paymentstatus }}</td>
-                    <td>
-                        <form method="POST" action="updatereceipt/{updatereceipt}">
-                            @csrf
-                            @method('DELETE')
-                            <button class="btn btn-danger" type="submit" name="transaction_id" value="{{ $transactionlist->transactionid }}">DELETE</button>
-                        </form>
-                    </td>
-                </tr>
-            @endforeach
+        <tbody id="tb_transaction">
+
         </tbody>
     </table>
 </div>
 
 <div class="shadow-sm p-3 mb-2 bg-white ">
-    <form class="needs-validation" method="POST" action="updatereceipt" enctype="multipart/form-data"  novalidate>
+    <form class="was-validation" id="form_sent_receipt" enctype="multipart/form-data"  novalidate>
       @csrf
       <div class="form-row mb-4">
 				<div class="form-group col-4">
@@ -125,6 +92,7 @@
     </form>
 </div>
 
+
 @endsection
 
 @section('script')
@@ -148,6 +116,43 @@
 })();
 
 $(document).ready( function() {
+
+	$(document).on('click', ".btn_destroy_confirm", function() {
+			if (confirm('Are you sure you want to Delete ?')) {
+				var id = $(this).attr("id");
+				$.ajax({
+						type: "POST",
+						url:"{{route('updatereceipt.destroy')}}",
+						data: {_token: "{{ csrf_token() }}",_method:'delete',id: id},
+						success: function(data) {
+							$('#tb_transaction').empty().html(data);
+						},
+						error: function(data){
+							console.log("Error :" + data);
+						}
+				});
+			}
+		});
+
+
+		$( '#form_sent_receipt' ).one( 'submit', function(e) {
+				e.preventDefault();
+				if (confirm('Are you sure you want to confirm receipt ?')) {
+					$.ajax({
+							type: "POST",
+							url: "{{route('updatereceipt.store')}}",
+							data: $(this).serialize(),
+							success: function(data) {
+								$( '#form_sent_receipt' ).trigger("reset");
+							},
+							error: function(data){
+								console.log("Error :" + data);
+							}
+					});
+				}
+		});
+
+
 
 		$('.btn-file :file').on('fileselect', function(event, label) {
 

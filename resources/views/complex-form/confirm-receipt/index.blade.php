@@ -27,7 +27,7 @@
 <div class="shadow-sm p-3 mb-2 bg-white ">
 		{{-- ตารางแสดงรายวิชาที่ลงทะเบียนแล้ว --}}
 		<div class="table-responsive">
-			<table class="table table-hover table-responsive-lg">
+			<table class="table table-hover">
 					<thead>
 							<tr>
 									<th scope="col">No</th>
@@ -37,33 +37,11 @@
 									<th scope="col">Link</th>
 									<th scope="col">DateTime</th>
 									<th scope="col">Status</th>
-									<th scope="col">Confirm</th>
+									<th scope="col">Action</th>
 							</tr>
 					</thead>
-					<tbody>
-							@foreach($transactionlists as $transactionlist)
-									<tr>
-											<th scope="row">{{ $loop->iteration }}</th>
-											<td>{{ $transactionlist->firstname }}</td>
-											<td>{{ $transactionlist->lastname }}</td>
-											<td>{{ $transactionlist->paymenttypename }}</td>
-											<td>
-													@php
-															$img_link = asset('storage/upload/' . $transactionlist->picturelink);
-													@endphp
-													<a href="{{ $img_link }}" target="_blank">IMAGE</a>
-											</td>
-											<td>{{ $transactionlist->paymentdate }}</td>
-											<td>{{ $transactionlist->paymentstatus }}</td>
-											<td>
-													<form method="POST" action="confirmreceipt/{confirmreceipt}">
-															@csrf
-															@method('PATCH')
-															<button class="btn btn-danger" type="submit" name="transaction_id" value="{{ $transactionlist->transactionid }}">CONFIRM</button>
-													</form>
-											</td>
-									</tr>
-							@endforeach
+					<tbody id="tb_confirm">
+						@include('complex-form.confirm-receipt.tb_confirm')
 					</tbody>
 			</table>
 		</div>
@@ -75,6 +53,46 @@
 <script>
 
 $(document).ready( function() {
+
+	$(document).on('click', ".btn_update_confirm", function(e) {
+			e.preventDefault();
+			if (confirm('Are you sure you want to !! Confirm ?')) {
+
+				var id = $(this).attr("id");
+					$.ajax({
+						type:'POST',
+						url:"{{route('confirmreceipt.confirm')}}",
+						data:{id:id,_token: "{{ csrf_token() }}"},
+						success:function(data){
+							$('#tb_confirm').empty().html(data);
+						},
+						error: function(data){
+							console.log("Error :" + data);
+						}
+					});
+			}
+		});
+
+
+	$(document).on('click', ".btn_update_denied", function(e) {
+			e.preventDefault();
+			if (confirm('Are you sure you want to !! Denied ?')) {
+
+				var id = $(this).attr("id");
+					$.ajax({
+						type:'POST',
+						url:"{{route('confirmreceipt.denied')}}",
+						data:{id:id,_token: "{{ csrf_token() }}"},
+						success:function(data){
+							$('#tb_confirm').empty().html(data);
+						},
+						error: function(data){
+							console.log("Error :" + data);
+						}
+					});
+			}
+		});
+
 
 		$('.btn-file :file').on('fileselect', function(event, label) {
 

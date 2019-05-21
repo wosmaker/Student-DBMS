@@ -128,12 +128,10 @@ $(document).ready(function() {
 
 			$( '#form_answer' ).one( 'submit', function(e) {
 			e.preventDefault();
-			var link = "{{route('problemreport.update')}}";
-			// console.log("URL" + link);
-			// console.log("DATE" + $(this).serialize())
+
 			$.ajax({
 					type: "POST",
-					url:link,
+					url:"{{route('problemreport.update')}}",
 					data: $(this).serialize(),
 					success: function(data) {
 						$('#form_answer' ).trigger("reset");

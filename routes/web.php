@@ -18,19 +18,18 @@ Route::get('/', function () {
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
-//Route::resource('regissubject', 'RegisSubjectController');
-Route::resource('updatereceipt', 'UpdateReceiptController');
-//Route::resource('editsubject', 'EditSubjectController');
-//Route::resource('problemreport', 'ProblemReportController');
-//Route::resource('confirmreceipt', 'ConfirmReceiptController');
 Route::resource('personal', 'PersonalController');
 
+Route::get('updatereceipt','UpdateReceiptController@index')->name('updatereceipt.index');
+Route::get('updatereceipt/{id}/edit' , 'UpdateReceiptController@edit')->name('updatereceipt.edit');
+Route::post('updatereceipt', 'UpdateReceiptController@store')->name('updatereceipt.store');
+Route::delete('updatereceipt/destroy', 'UpdateReceiptController@destroy')->name('updatereceipt.destroy');
+Route::patch('updatereceipt/update' , 'UpdateReceiptController@update')->name('updatereceipt.update');
 
 Route::get('confirmreceipt','ConfirmReceiptController@index')->name('confirmreceipt.index');
-Route::get('confirmreceipt/{id}/edit' , 'ConfirmReceiptController@edit')->name('confirmreceipt.edit');
-Route::post('confirmreceipt', 'ConfirmReceiptController@store')->name('confirmreceipt.store');
-Route::delete('confirmreceipt/destroy', 'ConfirmReceiptController@destroy')->name('confirmreceipt.destroy');
-Route::patch('confirmreceipt/update' , 'ConfirmReceiptController@update')->name('confirmreceipt.update');
+Route::post('confirmreceipt/confirm' , 'ConfirmReceiptController@confirm')->name('confirmreceipt.confirm');
+Route::post('confirmreceipt/denied' , 'ConfirmReceiptController@denied')->name('confirmreceipt.denied');
+
 
 Route::get('problemreport','ProblemReportController@index')->name('problemreport.index');
 Route::get('problemreport/{id}/edit' , 'ProblemReportController@edit')->name('problemreport.edit');

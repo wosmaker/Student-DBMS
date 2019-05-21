@@ -20,7 +20,20 @@ class UpdateReceiptController extends Controller
     {
         $this->middleware('auth');      //login checking
         $this->middleware('role:1,5');    //เช็คว่า role = 1 หรือเปล่า
-    }
+		}
+
+		protected function value_transaction()
+		{
+			$userid = auth()->user()->id;
+			$transactionlists = DB::table('transaction_list as tl')
+			->join('user_list as ul' , 'ul.userid', '=', 'tl.userid')
+			->join('paymenttype_list as pt', 'pt.paymenttypeid', '=', 'tl.paymenttypeid')
+			->select('tl.transactionid','ul.firstname', 'ul.lastname', 'pt.paymenttypename', 'tl.picturelink', 'tl.paymentdate', 'tl.paymentstatus')
+			->where('ul.userid' ,'=', $userid)
+			->get()->all();
+
+			return $transactionlists;
+		}
 
     public function index()
     {
@@ -28,13 +41,13 @@ class UpdateReceiptController extends Controller
         $role = auth()->user()->userroleid;
         $userdetail = UserList::where('userid', $userid)->first();  //ดึงชื่อผู้ใช้งาน
 
-		//ดึงข้อมูลวิชาที่ลงทะเบียนไว้แล้ว
-		$regissubjects = DB::table('registration_student as r')
-        ->join('sectioneachsubject as ss', 'r.subjectsectionid', '=', 'ss.subjectsectionid')
-        ->join('subject_list as sl', 'ss.subjectcode', '=', 'sl.subjectcode')
-        ->select('sl.subjectcode','sl.subjectname', 'ss.sectionno', 'sl.subjectcredit',)
-        ->where('r.userid', '=' , $userid)
-        ->get();
+			//ดึงข้อมูลวิชาที่ลงทะเบียนไว้แล้ว
+			$regissubjects = DB::table('registration_student as r')
+					->join('sectioneachsubject as ss', 'r.subjectsectionid', '=', 'ss.subjectsectionid')
+					->join('subject_list as sl', 'ss.subjectcode', '=', 'sl.subjectcode')
+					->select('sl.subjectcode','sl.subjectname', 'ss.sectionno', 'sl.subjectcredit',)
+					->where('r.userid', '=' , $userid)
+					->get();
 		/*
 		$regissubjects  = DB::select('SELECT s.subjectcode , s.subjectname,ses.sectionno,s.subjectcredit
 		FROM subject_list s, sectioneachsubject ses,registration_student rs
@@ -42,22 +55,17 @@ class UpdateReceiptController extends Controller
 		rs.userid = :userid;
 		', ['userid' => $userid]);
 */
+				$transactionlists = $this->value_transaction();
+
         //คำนวณหน่วยกิตทั้งหมด
         $sumcredit = $regissubjects->sum('subjectcredit');
 
         //แปลงให้เป็น array เพราะตอนแรกยังเป็น collection
         $regissubjects = $regissubjects->all();
 
-		$paymenttypes = DB::select('SELECT paymenttypeid,paymenttypename FROM paymenttype_list');
+				$paymenttypes = DB::select('SELECT paymenttypeid,paymenttypename FROM paymenttype_list');
 
 
-        $transactionlists = db::table('transaction_list as tl')
-        ->join('user_list as ul' , 'ul.userid', '=', 'tl.userid')
-        ->join('paymenttype_list as pt', 'pt.paymenttypeid', '=', 'tl.paymenttypeid')
-        ->select('tl.transactionid','ul.firstname', 'ul.lastname', 'pt.paymenttypename', 'tl.picturelink', 'tl.paymentdate', 'tl.paymentstatus')
-        ->where('ul.userid' ,'=', $userid)
-        ->get()->all();
-        
         return view('complex-form.update-receipt.index', compact('userdetail','regissubjects','sumcredit','paymenttypes','role', 'transactionlists'));
     }
 
@@ -163,14 +171,18 @@ class UpdateReceiptController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        $transaction_id = request('transaction_id');
-
+			if($request->ajax())
+			{
+				$id = request('id');
         DB::table('transaction_list')
-        ->where('transactionid', '=', $transaction_id)
-        ->delete();
+        ->where('transactionid', '=', $id)
+				->delete();
 
-        return back();
+				$transactionlists = $this->value_transaction();
+
+        return view('complex-form.update-receipt.tb_transaction', compact('transactionlists'));
+			}
     }
 }

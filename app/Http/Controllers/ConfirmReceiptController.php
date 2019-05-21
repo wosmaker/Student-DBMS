@@ -18,8 +18,8 @@ class ConfirmReceiptController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth');      
-        $this->middleware('role:3,5');   
+        $this->middleware('auth');
+        $this->middleware('role:3,5');
     }
 
     public function index()
@@ -92,15 +92,47 @@ class ConfirmReceiptController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-            $transaction_id = request('transaction_id');
 
-            DB::table('transaction_list')
-            ->where('transactionID', '=', $transaction_id)
-            ->update(['paymentstatus' => 'CONFIRM']);
+		}
 
-            return back();
+		public function confirm(Request $request)
+    {
+			if($request->ajax())
+			{
+				$id = request('id');
+				DB::table('transaction_list')
+				->where('transactionID', '=', $id)
+				->update(['paymentstatus' => 'CONFIRM']);
+
+				$transactionlists = db::table('transaction_list as tl')
+        ->join('user_list as ul' , 'ul.userid', '=', 'tl.userid')
+        ->join('paymenttype_list as pt', 'pt.paymenttypeid', '=', 'tl.paymenttypeid')
+        ->select('tl.transactionid','ul.firstname', 'ul.lastname', 'pt.paymenttypename', 'tl.picturelink', 'tl.paymentdate', 'tl.paymentstatus')
+				->get()->all();
+
+				return view('complex-form.confirm-receipt.tb_confirm', compact('transactionlists'));
+			}
+		}
+
+		public function denied(Request $request)
+    {
+			if($request->ajax())
+			{
+				$id = request('id');
+				DB::table('transaction_list')
+				->where('transactionID', '=', $id)
+				->update(['paymentstatus' => 'DENIED']);
+
+				$transactionlists = db::table('transaction_list as tl')
+        ->join('user_list as ul' , 'ul.userid', '=', 'tl.userid')
+        ->join('paymenttype_list as pt', 'pt.paymenttypeid', '=', 'tl.paymenttypeid')
+        ->select('tl.transactionid','ul.firstname', 'ul.lastname', 'pt.paymenttypename', 'tl.picturelink', 'tl.paymentdate', 'tl.paymentstatus')
+				->get()->all();
+
+				return view('complex-form.confirm-receipt.tb_confirm', compact('transactionlists'));
+			}
     }
 
     /**

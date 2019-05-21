@@ -7,7 +7,7 @@
 @section('page-main')
 <div class="shadow-sm px-4 py-2 mb-2  bg-white rounded">
 	<div class="row justify-content-between mb-3 mx-0">
-			<div class="input-group py-2 pl-0 col-md-6">
+			<div class="input-group py-2 pl-0 " style="width:300px;">
 				<input type="text" class="form-control" id="search_subject" placeholder="Search subject">
 				<div class="input-group-append">
 					<button class="btn btn-outline-success" id="fetch_subject">Search</button>
@@ -16,7 +16,7 @@
 
 			<button class="btn btn-info my-2" id="btn_add_subject">+subject</button>
 	</div>
-	<div class="table-responsive">
+	<div class="table-responsive-xl">
 		<table class="table table-hover">
 			<thead>
 				<tr>
@@ -57,8 +57,6 @@ $(document).ready(function() {
 			};
 			$('#modal_add_subject').modal(options).modal('show');
 
-			console.log("IN MODEL: add subject");
-
 			$('#form_add_subject').one( 'submit', function(e) {
 				e.preventDefault();
 				$.ajax({
@@ -66,7 +64,6 @@ $(document).ready(function() {
 						url: "{{route('editsubject.add_subject')}}",
 						data: $(this).serialize(),
 						success: function(data) {
-							console.log("Debug :" + data);
 							$('#tb_subject').empty().html(data);
 							$('#modal_add_subject').modal('hide');
 							$( '#form_add_subject' ).trigger("reset");
@@ -81,13 +78,10 @@ $(document).ready(function() {
 
 		$(document).on('click', ".btn_add_section", function() {
 			var options = {'backdrop': 'static'};
-			$('#modal_add_section').modal(options).modal('show');
-
 			var subjectcode = $(this).attr("id");
+
+			$('#modal_add_section').modal(options).modal('show');
 			$("#form_add_section #subjectcode").val(subjectcode);
-
-			console.log("IN MODEL: add section");
-
 			$( '#form_add_section' ).one( 'submit', function(e) {
 				e.preventDefault();
 				$.ajax({
@@ -95,7 +89,6 @@ $(document).ready(function() {
 						url: "{{route('editsubject.add_section')}}",
 						data: $(this).serialize(),
 						success: function(data) {
-							console.log("Debug :" + data);
 							$('#block_section').empty().html(data);
 							$('#block_section').show();
 							$('#modal_add_section').modal('hide');
@@ -114,27 +107,18 @@ $(document).ready(function() {
 			var sectionno = $(this).attr("data-sectionno");
 
 			$('#modal_add_period').modal(options).modal('show');
-
 			$("#form_add_period #subjectsectionid").val(subjectsectionid);
 			$("#form_add_period #sectionno").val(sectionno);
 			$("#label_period").html(sectionno);
 			$("#form_add_period #teacher_userid").val(subjectsectionid);
 
-
-			console.log("IN MODEL: add period");
-
 			$( '#form_add_period' ).one( 'submit', function(e) {
 				e.preventDefault();
-
-				console.log("DEBUG form data:" +	$(this).serialize());
-
 				$.ajax({
 						type: "POST",
 						url: "{{route('editsubject.add_period')}}",
 						data: $(this).serialize(),
 						success: function(data) {
-
-							console.log("Debug :" + data);
 							$('#block_period').empty().html(data);
 							$('#block_period').show();
 							$('#modal_add_period').modal('hide');
@@ -154,12 +138,7 @@ $(document).ready(function() {
 
 		$(document).on('click', ".btn_detail_subject", function(e) {
 			e.preventDefault();
-
 			var query = $(this).attr("id");
-			e.preventDefault();
-
-				console.log("search on detail:" + query);
-
 				$.ajax({
 					type:'POST',
 					url:"{{route('editsubject.search_section')}}",
@@ -179,9 +158,6 @@ $(document).ready(function() {
 			e.preventDefault();
 			var query = $(this).attr("id");
 			var sectionno = $(this).attr("data-sectionno");
-
-				console.log("search on detail:" + query);
-
 				$.ajax({
 					type:'POST',
 					url:"{{route('editsubject.search_period')}}",
@@ -202,8 +178,6 @@ $(document).ready(function() {
 			var start = $('#form_add_period #start').val();
 			var end = $('#form_add_period #end').val();
 
-			console.log("search on day:" + day);
-
 				$.ajax({
 					type:'POST',
 					url:"{{route('editsubject.search_room')}}",
@@ -220,8 +194,6 @@ $(document).ready(function() {
 		$(document).on('click', ".btn_search_teacher", function(e) {
 			e.preventDefault();
 			var teacher_keyword = $('#form_add_period #teacher_keyword').val();
-
-			console.log("search on teacher:" + teacher_keyword);
 
 				$.ajax({
 					type:'POST',
@@ -246,7 +218,6 @@ $(document).ready(function() {
 						data: {_token: "{{ csrf_token() }}",subjectcode: id},
 						success: function(data) {
 							$('#tb_subject').empty().html(data);
-							console.log("DELETE subject :" + data);
 						},
 						error: function(data){
 							console.log("Error :" + data);
@@ -258,7 +229,6 @@ $(document).ready(function() {
 		$(document).on('click', ".btn_destroy_section", function() {
 			if (confirm('Are you sure you want to Delete ?')) {
 				var id = $(this).attr("id");
-				console.log("Debug:" + id);
 				$.ajax({
 						type: "POST",
 						url:"{{route('editsubject.destroy_section')}}",
@@ -266,7 +236,6 @@ $(document).ready(function() {
 						success: function(data) {
 							$('#block_section').empty().html(data);
 							$('#block_section').show();
-							console.log("DELETE COMP :" + data);
 						},
 						error: function(data){
 							console.log("Error :" + data);
@@ -280,7 +249,6 @@ $(document).ready(function() {
 				var sectionno = $(this).attr("sectionno");
 				var periodno = $(this).attr("id");
 				var subjectsectionid = $(this).attr("data-subjectsectionid");
-				console.log("Debug:" + periodno + " " + subjectsectionid);
 				$.ajax({
 						type: "POST",
 						url:"{{route('editsubject.destroy_period')}}",
@@ -288,7 +256,6 @@ $(document).ready(function() {
 						success: function(data) {
 							$('#block_period').empty().html(data);
 							$('#block_period').show();
-							console.log("DELETE COMP :" + data);
 						},
 						error: function(data){
 							console.log("Error :" + data);
@@ -305,7 +272,6 @@ $(document).ready(function() {
 
 		function fetch_subject(query = '')
 		{
-			console.log("search on:" + query +":");
 			$.ajax({
 				url:"{{route('editsubject.search_subject')}}",
 				type:'POST',
@@ -316,7 +282,6 @@ $(document).ready(function() {
 				}
 		});
 		}
-
 
 		$(".modal-wide").on("show.bs.modal", function() {
 			var height = $(window).height() - 200;

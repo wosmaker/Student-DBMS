@@ -61,12 +61,18 @@ class RegisSubjectController extends Controller
 			if($request->ajax())
 			{
 				$query = $request->get('query');
+				$userid = auth()->user()->id;
 
 				$query = '%'.$query.'%';
 				$subjectdetails = DB::select('SELECT *
 				FROM subject_list sl,sectioneachsubject ses,schedule s
 				WHERE sl.subjectcode = ses.subjectcode AND ses.subjectsectionid = s.subjectsectionid
-				AND (sl.subjectcode LIKE ? OR sl.subjectname LIKE ?)', [$query,$query]);
+				AND (sl.subjectcode LIKE ? OR sl.subjectname LIKE ?)
+				AND sl.subjectcode NOT IN (
+					SELECT a.subjectcode
+					FROM sectioneachsubject a, registration_student r
+					WHERE a.subjectsectionid = r.subjectsectionid AND
+								r.userid = ?)', [$query,$query,$userid]);
 
 			return view('complex-form.regissubject.tb_subject' , compact('subjectdetails'));
 			}
@@ -96,29 +102,17 @@ class RegisSubjectController extends Controller
         $subjectsectionid = request('subjectsectionid');
         $userid = auth()->user()->id;
 
-					try {
-							$x = DB::table('registration_student')->insert(
-									[
-											'subjectsectionid' => $subjectsectionid,
-											'userid' => $userid
-									]
-							);
-							//dd($x);
-							// DB::table('sectioneachsubject')
-							// ->where('subjectsectionid' => $subjectsectionid)
-							// ->update
-
-					} catch(\Illuminate\Database\QueryException $ex){
-							if($ex->getCode() == 23000){
-									return redirect()->back()->with('alert','you already regis that');
-							}
-							else return redirect()->back()->with('alert','WTF DID YOU JUST DO');
-					}
-				}
+				DB::table('registration_student')->insert(
+						[
+								'subjectsectionid' => $subjectsectionid,
+								'userid' => $userid
+						]
+				);
 
         $regissubjects = $this->tb_registration();
 				return view('complex-form.regissubject.tb_subject_regist' , compact('regissubjects'));
-    }
+			}
+		}
 
     /**
      * Display the specified resource.

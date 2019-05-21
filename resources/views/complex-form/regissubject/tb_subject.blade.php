@@ -10,7 +10,7 @@
 		<td>{{ $subjectdetail->start_period }}</td>
 		<td>{{ $subjectdetail->end_period }}</td>
 		<td>
-				<input  type="radio" id="{{"checkbox$loop->iteration"}}" name="subjectsectionid" value="{{ $subjectdetail->subjectsectionid }}">
+					<input  type="radio" id="{{"checkbox$loop->iteration"}}" class="is-invalid" name="subjectsectionid" value="{{ $subjectdetail->subjectsectionid }}">
 		</td>
 </tr>
 @endforeach

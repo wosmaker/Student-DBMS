@@ -51,14 +51,14 @@
 
 	<div class="shadow-sm p-3 mb-2 bg-white ">
 	{{-- ช่องค้นหาวิชา --}}
-			<div class="input-group py-2 pl-0 col-md-6">
+			<div class="input-group  pl-0 mb-2" style="width:300px;">
 				<input type="text" class="form-control" id="search_subject" placeholder="Search subject">
 				<div class="input-group-append">
 					<button class="btn btn-outline-success" id="btn_search_subject">Search</button>
 				</div>
 			</div>
 
-			<form class="was-validated" id="registration">
+			<form id="registration">
 				@csrf
 				{{-- ตารางแสดงวิชาที่ค้นหา --}}
 				<div class="table-responsive">
@@ -103,42 +103,54 @@
  <script>
  $(document).ready(function() {
 
-
 	$(document).on('click', ".btn_destroy_regist", function() {
-			if (confirm('Are you sure you want to Delete ?')) {
-				var id = $(this).attr("id");
-				console.log("Debug:" + id);
-				$.ajax({
-						type: "POST",
-						url:"{{route('regissubject.destroy')}}",
-						data: {_token: "{{ csrf_token() }}" ,_method: 'delete',id: id},
-						success: function(data) {
-							//console.log("DELETE COMP :" + data);
-							$('#tb_subject_regist').empty().html(data);
-						},
-						error: function(data){
-							console.log("Error :" + data);
-						}
-				});
-			}
+			swal({
+				title: "WARNING",
+				text: "Please make sure before delete or YOU WILL BE REGRET!!!!!",
+				icon: "warning",
+				buttons: true,
+				dangerMode: true,
+			})
+			.then((willDelete) => {
+				if (willDelete) {
+					var id = $(this).attr("id");
+					console.log("Debug:" + id);
+					$.ajax({
+							type: "POST",
+							url:"{{route('regissubject.destroy')}}",
+							data: {_token: "{{ csrf_token() }}" ,_method: 'delete',id: id},
+							success: function(data) {
+								swal("DELETION SUCCESS .... maybe", {icon: "success",});
+								var query = $('#search_subject').val();
+								search_subject(query)
+								$('#tb_subject_regist').empty().html(data);
+							},
+							error: function(data){
+								console.log("Error :" + data);
+							}
+					});
+				}
+			});
 		});
 
-		$('#registration').one( 'submit', function(e) {
-				e.preventDefault();
-				$.ajax({
-						type: "POST",
-						url: "{{route('regissubject.store')}}",
-						data: $(this).serialize(),
-						success: function(data) {
-							//console.log("Debug Response:" + data);
-							$('#tb_subject_regist').empty().html(data);
-							$( '#registration' ).trigger("reset");
-						},
-						error: function(data){
-							console.log("Error :" + data);
-						}
-				});
+		$('#registration').on( 'submit', function(e) {
+			e.preventDefault();
+			console.log("check in submit");
+			$.ajax({
+					type: "POST",
+					url: "{{route('regissubject.store')}}",
+					data: $(this).serialize(),
+					success: function(data) {
+						var query = $('#search_subject').val();
+						search_subject(query)
+						$('#tb_subject_regist').empty().html(data);
+						$( '#registration' ).trigger("reset");
+					},
+					error: function(data){
+						console.log("Error :" + data);
+					}
 			});
+		});
 
 
 		search_subject();
