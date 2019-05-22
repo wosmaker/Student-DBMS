@@ -131,7 +131,7 @@ class UpdateReceiptController extends Controller
             ]
 					);
 
-					$transactionid = DB::select('SELECT transactionid FROM transaction_list ORDER BY transactionid');
+					$transactionid = DB::select('SELECT transactionid FROM transaction_list ORDER BY transactionid DESC');
 
 					DB::table('registration_student')
 					->where('userid', '=', $userid)
