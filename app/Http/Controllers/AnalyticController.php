@@ -256,6 +256,21 @@ class AnalyticController extends Controller
 		{
 			if($request->ajax())
 			{
+				$data = DB::select(
+				   'SELECT  sl.SubjectName , SUM(ses.SeatAvailable) , SUM(ses.SeatAvailable)-sss.AVG AS differenceFromMean
+				   	FROM subject_list sl, sectioneachsubject ses, (
+						SELECT AVG(ss.summ) AS AVG
+						FROM (	SELECT  sl.SubjectName , SUM(ses.SeatAvailable) AS summ
+								FROM subject_list sl, sectioneachsubject ses
+								WHERE sl.SubjectCode = ses.SubjectCode
+								GROUP BY sl.SubjectCode
+								ORDER BY SUM(ses.SeatAvailable) DESC) ss ) sss
+				   	WHERE sl.SubjectCode = ses.SubjectCode
+				   	GROUP BY sl.SubjectCode , sss.AVG
+				   	ORDER BY SUM(ses.SeatAvailable)
+				   	LIMIT 5
+				');
+				dd($data);
 				return view('Analytic.report14', compact('data'));
 			}
 		}
@@ -264,6 +279,8 @@ class AnalyticController extends Controller
 		{
 			if($request->ajax())
 			{
+				
+
 				return view('Analytic.report15', compact('data'));
 			}
 		}
