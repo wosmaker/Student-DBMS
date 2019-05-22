@@ -175,8 +175,6 @@ class AnalyticController extends Controller
 					WHERE tl.paymenttypeid = pl.paymenttypeid
 					GROUP BY  pl.paymenttypename
 				');
-				dd($data);
-
 				return view('Analytic.report8', compact('data'));
 			}
 		}
