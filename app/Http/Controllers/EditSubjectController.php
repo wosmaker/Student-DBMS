@@ -112,7 +112,7 @@ class EditSubjectController extends Controller
         {
             $subjectcode = $request->get('query');
 
-            $section_lists = DB::select('SELECT * from sectioneachsubject where subjectcode ILIKE ? ', [$subjectcode]);
+            $section_lists = DB::select('SELECT * from sectioneachsubject where subjectcode ILIKE ?', [$subjectcode]);
             return view('complex-form.editsubject.tb_section', compact('section_lists','subjectcode'));
         }
     }
@@ -124,7 +124,7 @@ class EditSubjectController extends Controller
             $subjectsectionid = $request->get('query');
             $sectionno = $request->get('sectionno');
 
-            $period_lists = DB::select('SELECT * from schedule where subjectsectionid	ILIKE ? ', [$subjectsectionid]);
+            $period_lists = DB::select('SELECT * from schedule where subjectsectionid	= ?', [$subjectsectionid]);
             return view('complex-form.editsubject.tb_period', compact('period_lists','subjectsectionid','sectionno'));
         }
     }
