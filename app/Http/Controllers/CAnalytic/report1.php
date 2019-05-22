@@ -15,13 +15,15 @@ class report1 extends Controller
      */
     public function index()
     {
+        $role = auth()->user()->userroleid;
+
 		$report1 = DB::select('SELECT f.facultyname,COUNT(d.departmentname) AS count
 		FROM department_list  d, faculty_list f
 		WHERE d.facultycode = f.facultycode
 		GROUP BY f.facultyname;
 		');
 		//dd($report1);
-		return view('Analytic.report1', compact('report1'));
+		return view('Analytic.report1', compact('report1','role'));
 	}
 
 

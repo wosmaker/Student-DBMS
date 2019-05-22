@@ -14,6 +14,8 @@ class report8 extends Controller
      */
     public function index()
     {
+        $role = auth()->user()->userroleid;
+
         $report8 = DB::select('SELECT  pl.paymenttypename ,COUNT( pl.PaymentTypeName ) AS count
 		FROM transaction_list tl , paymenttype_list pl
 		WHERE tl.PaymentTypeID = pl.PaymentTypeID
@@ -21,7 +23,7 @@ class report8 extends Controller
 		');
 
 	// dd($report8);
-	return view('Analytic.report8', compact('report8'));
+	    return view('Analytic.report8', compact('report8', 'role'));
     }
 
     /**

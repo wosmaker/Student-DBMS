@@ -14,6 +14,8 @@ class report9 extends Controller
      */
     public function index()
     {
+        $role = auth()->user()->userroleid;
+
         $report9 = DB::select('SELECT dl.departmentname , COUNT(dl.departmentname) AS count
 		FROM department_list dl,user_list ul,transaction_list tl, registration_student rl
 		WHERE dl.DepartmentCode = ul.DepartmentCode AND ul.UserID = rl.UserID AND rl.TransactionID = tl.TransactionID
@@ -21,7 +23,7 @@ class report9 extends Controller
 		GROUP BY dl.DepartmentName;
 		',['dat' => '2019-04-05','wait' => 'waiting']);
 		// dd($report9);
-	return view('Analytic.report9', compact('report9'));
+	    return view('Analytic.report9', compact('report9', 'role'));
     }
 
     /**

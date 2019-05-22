@@ -14,10 +14,11 @@ class report7 extends Controller
      */
     public function index()
     {
-        $report2 = DB::select('
-');
-	dd($report7);
-	return view('Analytic.report2', compact('report2'));
+        $role = auth()->user()->userroleid;
+
+        $report2 = DB::select('');
+	    dd($report7);
+	    return view('Analytic.report2', compact('report2', 'role'));
     }
 
     /**

@@ -11,7 +11,7 @@
 
 				<div class="form-group col-md-6">
 						<label for="departmentcode">Department</label>
-						<select id="departmentcode" name="departmentcode" class="form-control" required>
+						<select id="departmentcode" name="departmentcode" class="form-control">
 							<option selected  value="">Choose Department</option>
 								@foreach($departments as $department)
 									<option value="{{ $department->departmentcode}}" name="departmentcode">{{ $department->departmentname }}</option>

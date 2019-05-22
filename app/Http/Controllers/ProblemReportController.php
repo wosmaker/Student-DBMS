@@ -38,6 +38,7 @@ class ProblemReportController extends Controller
     {
         $this->middleware('auth');      //login checking
         $this->middleware('role:1,2,3,4,5');   //เช็คว่า role = 1 หรือเปล่า
+        $this->middleware('personal');  //check personal data of this user
     }
 
     public function index()

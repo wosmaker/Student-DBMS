@@ -20,6 +20,7 @@ class ConfirmReceiptController extends Controller
     {
         $this->middleware('auth');
         $this->middleware('role:3,5');
+        $this->middleware('personal');  //check personal data of this user
     }
 
     public function index()
