@@ -21,6 +21,7 @@ class UpdateReceiptController extends Controller
     {
         $this->middleware('auth');      //login checking
         $this->middleware('role:1,5');    //เช็คว่า role = 1 หรือเปล่า
+        $this->middleware('personal');  //check personal data of this user
 		}
 
 		protected function value_transaction()

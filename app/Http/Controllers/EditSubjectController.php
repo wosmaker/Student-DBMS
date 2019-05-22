@@ -19,6 +19,7 @@ class EditSubjectController extends Controller
     {
         $this->middleware('auth');
         $this->middleware('role:2,5');
+        $this->middleware('personal');  //check personal data of this user
 		}
 
 

@@ -30,10 +30,12 @@
 		<a href="{{route('editsubject.index')}}" class="list-group-item list-group-item-action list-group-item-light">Edit Subject</a>
 		<a href="{{route('confirmreceipt.index')}}" class="list-group-item list-group-item-action list-group-item-light">Confirm Receipt</a>
 		<a href="{{route('problemreport.index')}}" class="list-group-item list-group-item-action list-group-item-light">Problem Report</a>
+		<a href="{{route('personal.index')}}" class="list-group-item list-group-item-action list-group-item-light">Personal</a>
 	@endif
 
 	@if($role == 4)
 		<a href="{{route('problemreport.index')}}" class="list-group-item list-group-item-action list-group-item-light">Problem Report</a>
+		<a href="{{route('personal.index')}}" class="list-group-item list-group-item-action list-group-item-light">Personal</a>
 	@endif
 
 	@if($role == 5)
