@@ -13,7 +13,7 @@
 					</tr>
 				</thead>
 				<tbody>
-						@foreach ($report10 as $item)
+						@foreach ($data as $item)
 						<tr>
 							<th scope="row">{{ $loop->iteration }}</th>
 							<td>{{ $item->date }}</td>

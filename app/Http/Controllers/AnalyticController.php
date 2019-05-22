@@ -90,6 +90,7 @@ class AnalyticController extends Controller
 					FROM registration_student  GROUP BY userid) temp FULL OUTER JOIN users u on temp.userid= u.id
 					where u.userroleid =1)  temp1) temp2 GROUP BY temp2.late) temp3 WHERE row_temp !=2
 				',[$late,$not_late,$not_regis,$not_regis,$time,$late,$not_late]);
+				dd($data);
 
 				return view('Analytic.report3', compact('data'));
 			}
@@ -316,6 +317,7 @@ class AnalyticController extends Controller
 					 GROUP BY dl.DepartmentName
 				');
 				//dd($data);
+				dd($data);
 
 				return view('Analytic.report15', compact('data'));
 			}
@@ -333,7 +335,7 @@ class AnalyticController extends Controller
 					 WHERE ptl.ProblemTypeID = Prl.ProblemTypeID AND prl.ProblemStatus = ?
 					 GROUP BY ptl.ProblemTypeID
 				',[$waiting]);
-
+				dd($data);
 				return view('Analytic.report16', compact('data'));
 			}
 		}
