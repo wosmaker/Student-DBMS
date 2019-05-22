@@ -116,6 +116,16 @@ class AnalyticController extends Controller
 		{
 			if($request->ajax())
 			{
+				$data = DB::select(
+				   'SELECT ses.subjectcode, ses.sectionno, rl.buildingname,sc.roomcode,CAST(COUNT(rs.userid) AS FLOAT)*100/rl.roomseattotal AS seatused
+				   	FROM registration_student rs, sectioneachsubject ses, schedule sc, room_list rl 
+				   	WHERE 	ses.subjectsectionid = rs.subjectsectionid AND 
+					   		ses.subjectsectionid = sc.subjectsectionid AND 
+							rl.roomcode = sc.roomcode
+				   	GROUP BY ses.subjectsectionid,sc.roomcode,rl.buildingname,rl.roomseattotal
+				   	ORDER BY ses.subjectcode
+				');
+				dd($data);
 				return view('Analytic.report5', compact('data'));
 			}
 		}
@@ -239,11 +249,14 @@ class AnalyticController extends Controller
 				$male = 'male';
 
 				$data = DB::select(
-				   'SELECT EXTRACT(YEAR FROM DATE(rs.DateRegis)) AS YEAR, COUNT(EXTRACT(YEAR FROM DATE(rs.DateRegis))),CAST(CAST(COUNT(EXTRACT(YEAR FROM DATE(rs.DateRegis)))*100 AS FLOAT)/(SELECT COUNT(EXTRACT(YEAR FROM DATE(rs.DateRegis))) FROM user_list ul , registration_student rs WHERE ul.UserID = rs.UserID )AS FLOAT) AS PERCENT
-				   	FROM user_list ul , registration_student rs
-				   	WHERE ul.UserID = rs.UserID AND ul.Gender = ?
-				   GROUP BY EXTRACT(YEAR FROM DATE(rs.DateRegis)) 
-				',[$male]);
+				   'SELECT EXTRACT(YEAR FROM DATE(rs.Latest_Regis)) AS YEAR, count(ul.userid) as Male,count(ul.userid) as Female 
+				   	FROM (
+						SELECT userid,max(dateregis) as Latest_Regis 
+					   	FROM registration_student  
+						GROUP BY userid) rs, user_list ul 
+				   	WHERE ul.userid = rs.userid 
+					GROUP BY EXTRACT(YEAR FROM DATE(rs.Latest_Regis))
+				',);
 				dd($data);
 				return view('Analytic.report12', compact('data'));
 			}
