@@ -9,14 +9,18 @@
 						<th scope="col">#</th>
 						<th scope="col">Department Name</th>
 						<th scope="col">COUNT( Number of report )  </th>
+						<th scope="col">%( Number of report )  </th>
+
 					</tr>
 				</thead>
 				<tbody>
 						@foreach ($data as $item)
 						<tr>
 							<th scope="row">{{ $loop->iteration }}</th>
-							<td>{{ $item->dates }}</td>
+							<td>{{ $item->departmentname }}</td>
 							<td>{{ $item->count }}</td>
+							<td>{{ $item->percent }}</td>
+
 						</tr>
 					@endforeach
 				</tbody>

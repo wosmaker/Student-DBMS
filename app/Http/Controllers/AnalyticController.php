@@ -118,14 +118,13 @@ class AnalyticController extends Controller
 			{
 				$data = DB::select(
 				   'SELECT ses.subjectcode, ses.sectionno, rl.buildingname,sc.roomcode,CAST(COUNT(rs.userid) AS FLOAT)*100/rl.roomseattotal AS seatused
-				   	FROM registration_student rs, sectioneachsubject ses, schedule sc, room_list rl 
-				   	WHERE 	ses.subjectsectionid = rs.subjectsectionid AND 
-					   		ses.subjectsectionid = sc.subjectsectionid AND 
+				   	FROM registration_student rs, sectioneachsubject ses, schedule sc, room_list rl
+				   	WHERE 	ses.subjectsectionid = rs.subjectsectionid AND
+					   		ses.subjectsectionid = sc.subjectsectionid AND
 							rl.roomcode = sc.roomcode
 				   	GROUP BY ses.subjectsectionid,sc.roomcode,rl.buildingname,rl.roomseattotal
 				   	ORDER BY ses.subjectcode
 				');
-				dd($data);
 				return view('Analytic.report5', compact('data'));
 			}
 		}
@@ -147,7 +146,7 @@ class AnalyticController extends Controller
 					FROM (	SELECT a.buildingname,a.roomseattotal,COUNT(a.roomseattotal) AS modecount
 							FROM room_list a
 						  	GROUP BY buildingname,roomseattotal) m ,
-					
+
 						 (	SELECT n.buildingname,MAX(n.modecount) AS maxmode
 						  	FROM (	SELECT b.buildingName,b.roomseattotal,COUNT(b.roomseatTotal) AS modecount
 								 	FROM room_list b
@@ -157,7 +156,7 @@ class AnalyticController extends Controller
 					WHERE m.modecount = o.maxmode AND r.buildingname = m.buildingname
 					GROUP BY m.buildingname,m.roomseattotal
 				');
-	
+
 				return view('Analytic.report7', compact('data'));
 			}
 		}
@@ -170,22 +169,22 @@ class AnalyticController extends Controller
 				$now = 'now';
 
 				$data = DB::select(
-					'SELECT dl.departmentname , COUNT(dl.departmentname) AS count , 
-						CAST(CAST(COUNT(dl.departmentname)*100 AS FLOAT)/(	
+					'SELECT dl.departmentname , COUNT(dl.departmentname) AS count ,
+						CAST(CAST(COUNT(dl.departmentname)*100 AS FLOAT)/(
 							SELECT COUNT(dl.departmentname)
-							FROM department_list dl,user_list ul,transaction_list tl, registration_student rl 
-							WHERE 	dl.DepartmentCode = ul.DepartmentCode AND 
-									ul.UserID = rl.UserID AND 
-									rl.TransactionID = tl.TransactionID AND 
+							FROM department_list dl,user_list ul,transaction_list tl, registration_student rl
+							WHERE 	dl.DepartmentCode = ul.DepartmentCode AND
+									ul.UserID = rl.UserID AND
+									rl.TransactionID = tl.TransactionID AND
 									(tl.PaymentStatus = ? OR PaymentDate > ?)) AS FLOAT)
 					FROM department_list dl,user_list ul,transaction_list tl, registration_student rl
-					WHERE 	dl.DepartmentCode = ul.DepartmentCode AND 
-							ul.UserID = rl.UserID AND 
-							rl.TransactionID = tl.TransactionID AND 
+					WHERE 	dl.DepartmentCode = ul.DepartmentCode AND
+							ul.UserID = rl.UserID AND
+							rl.TransactionID = tl.TransactionID AND
 							(tl.PaymentStatus = ? OR PaymentDate > ?)
-					GROUP BY dl.DepartmentName 
+					GROUP BY dl.DepartmentName
 				',[$waiting,$now,$waiting,$now]);
-			
+
 				return view('Analytic.report8', compact('data'));
 			}
 		}
@@ -203,7 +202,7 @@ class AnalyticController extends Controller
 				   AND PaymentDate > ?
 				   GROUP BY dl.DepartmentName ORDER BY Count DESC
 				',[$time]);
-	
+
 				return view('Analytic.report9', compact('data'));
 			}
 		}
@@ -217,11 +216,10 @@ class AnalyticController extends Controller
 
 				$data = DB::select(
 				   'SELECT DATE(PaymentDate) AS date,COUNT( UserID) AS paymentcount ,  CAST(COUNT( UserID) AS Float) *100/(SELECT COUNT(*) FROM transaction_list)AS percent
-				   FROM transaction_list 
+				   FROM transaction_list
 				   WHERE DATE(PaymentDate) BETWEEN ? AND ?
-				   GROUP BY DATE(PaymentDate) 
+				   GROUP BY DATE(PaymentDate)
 				',[$start, $end]);
-				dd($data);
 				return view('Analytic.report10', compact('data'));
 			}
 		}
@@ -234,10 +232,9 @@ class AnalyticController extends Controller
 				   'SELECT dl.departmentname , COUNT(dl.departmentcode) , ROUND(CAST(CAST(COUNT(dl.departmentcode) AS FLOAT)*100/c.counts AS numeric),2) AS Percent
 				   	FROM department_list dl, user_list ul, problemreport_list pl ,(
 						SELECT COUNT(cc.problemno) AS counts FROM problemreport_list cc) c
-				   	WHERE dl.DepartmentCode = ul.DepartmentCode AND ul.UserID = pl.UserID 
+				   	WHERE dl.DepartmentCode = ul.DepartmentCode AND ul.UserID = pl.UserID
 				   	GROUP BY dl.DepartmentCode, c.counts ORDER BY count DESC
 				');
-				dd($data);
 				return view('Analytic.report11', compact('data'));
 			}
 		}
@@ -249,15 +246,14 @@ class AnalyticController extends Controller
 				$male = 'male';
 
 				$data = DB::select(
-				   'SELECT EXTRACT(YEAR FROM DATE(rs.Latest_Regis)) AS YEAR, count(ul.userid) as Male,count(ul.userid) as Female 
+				   'SELECT EXTRACT(YEAR FROM DATE(rs.Latest_Regis)) AS YEAR, count(ul.userid) as Male,count(ul.userid) as Female
 				   	FROM (
-						SELECT userid,max(dateregis) as Latest_Regis 
-					   	FROM registration_student  
-						GROUP BY userid) rs, user_list ul 
-				   	WHERE ul.userid = rs.userid 
+						SELECT userid,max(dateregis) as Latest_Regis
+					   	FROM registration_student
+						GROUP BY userid) rs, user_list ul
+				   	WHERE ul.userid = rs.userid
 					GROUP BY EXTRACT(YEAR FROM DATE(rs.Latest_Regis))
 				',);
-				dd($data);
 				return view('Analytic.report12', compact('data'));
 			}
 		}
@@ -281,7 +277,7 @@ class AnalyticController extends Controller
 				   	ORDER BY SUM(ses.SeatAvailable) DESC
 				   	LIMIT 5
 				');
-		
+
 				return view('Analytic.report13', compact('data'));
 			}
 		}
@@ -304,7 +300,7 @@ class AnalyticController extends Controller
 				   	ORDER BY SUM(ses.SeatAvailable)
 				   	LIMIT 5
 				');
-		
+
 				return view('Analytic.report14', compact('data'));
 			}
 		}
@@ -318,16 +314,16 @@ class AnalyticController extends Controller
 
 				$data = DB::select(
 				   'SELECT dl.DepartmentName , COUNT(dl.DepartmentName) AS count , CAST(CAST(COUNT(dl.DepartmentName)*100 AS FLOAT)/(
-					   	SELECT COUNT(dl.DepartmentName) 
-					   	FROM department_list dl,user_list ul,transaction_list tl, registration_student rl 
-					   	WHERE	dl.DepartmentCode = ul.DepartmentCode AND 
-					   			ul.UserID = rl.UserID AND 
-								rl.TransactionID = tl.TransactionID AND 
+					   	SELECT COUNT(dl.DepartmentName)
+					   	FROM department_list dl,user_list ul,transaction_list tl, registration_student rl
+					   	WHERE	dl.DepartmentCode = ul.DepartmentCode AND
+					   			ul.UserID = rl.UserID AND
+								rl.TransactionID = tl.TransactionID AND
 								(tl.PaymentStatus = ? OR PaymentDate > ? )) AS FLOAT)
 					FROM department_list dl,user_list ul,transaction_list tl, registration_student rl
 					WHERE dl.DepartmentCode = ul.DepartmentCode AND ul.UserID = rl.UserID AND rl.TransactionID = tl.TransactionID
 					AND (tl.PaymentStatus = ? OR PaymentDate > ? )
-					GROUP BY dl.DepartmentName 
+					GROUP BY dl.DepartmentName
 				',[$waiting, $now ,$waiting, $now]);
 				dd($data);
 

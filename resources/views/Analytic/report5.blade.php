@@ -7,22 +7,22 @@
 					<thead>
 						<tr>
 							<th scope="col">#</th>
-							<th scope="col">Subject</th>
+							<th scope="col">Subject Code</th>
 							<th scope="col">Section NO</th>
 							<th scope="col">Building</th>
-							<th scope="col">Floor</th>
-							<th scope="col">Seat avaliable</th>
+							<th scope="col">Room Code</th>
+							<th scope="col">%( seat use per subject )</th>
 						</tr>
 					</thead>
 					<tbody>
 							@foreach ($data as $item)
 							<tr>
 								<th scope="row">{{ $loop->iteration }}</th>
-								<td>{{ $item->subjectname }}</td>
+								<td>{{ $item->subjectcode }}</td>
 								<td>{{ $item->sectionno }}</td>
 								<td>{{ $item->buildingname }}</td>
-								<td>{{ $item->floor }}</td>
-								<td>{{ $item->seatavailable }}</td>
+								<td>{{ $item->roomcode }}</td>
+								<td>{{ $item->seatused }}</td>
 							</tr>
 						@endforeach
 					</tbody>

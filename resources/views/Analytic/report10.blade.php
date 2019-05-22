@@ -16,9 +16,9 @@
 						@foreach ($report10 as $item)
 						<tr>
 							<th scope="row">{{ $loop->iteration }}</th>
-							<td>{{ $item->dates }}</td>
-							<td>{{ $item->count }}</td>
-							<td>{{ $item->count }}</td>
+							<td>{{ $item->date }}</td>
+							<td>{{ $item->paymentcount }}</td>
+							<td>{{ $item->percent }}</td>
 						</tr>
 					@endforeach
 				</tbody>
