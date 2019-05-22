@@ -235,6 +235,8 @@ class UpdateReceiptController extends Controller
         ->where('transactionid', '=', $id)
 				->delete();
 
+				Cloudder::delete();
+
 				$transactionlists = $this->value_transaction();
 
         return view('complex-form.update-receipt.tb_transaction', compact('transactionlists'));

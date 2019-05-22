@@ -51,49 +51,7 @@ class PersonalController extends Controller
      */
     public function store(Request $request)
     {
-        $identificationno = request('identificationno');
-        $userid = auth()->user()->id;
-        $titlename = request('titlename');
-        $firstname = request('firstname');
-        $lastname = request('lastname');
-        $gender = request('gender');
-        $bloodtype = request('bloodtype');
-        $birthdate = request('birthdate');
-        $race = request('race');
-        $religion = request('religion');
-        $nationnality = request('nationnality');
-        $address = request('address');
-        $postcode = request('postcode');
-        $province = request('province');
-        $district = request('district');
-        $subdistrict = request('subdistrict');
-        $departmentcode = request('departmentcode');
-        $usercontact = request('usercontact');
 
-        DB::table('user_list')
-        ->where('userid', '=', $userid)
-        ->update([
-            'identificationno' => $identificationno,
-            'userid' => $userid,
-            'titlename' => $titlename,
-            'firstname' => $firstname,
-            'lastname' => $lastname,
-            'gender' => $gender,
-            'bloodtype' => $bloodtype,
-            'birthdate' => $birthdate,
-            'race' => $race,
-            'religion' => $religion,
-            'nationnality' => $nationnality,
-            'address' => $address,
-            'postcode' => $postcode,
-            'province' => $province,
-            'district' => $district,
-            'subdistrict' => $subdistrict,
-            'departmentcode' => $departmentcode,
-            'usercontact' => $usercontact
-        ]);
-
-            return back();
     }
 
     /**
@@ -167,30 +125,6 @@ class PersonalController extends Controller
 						$subdistrict = request('subdistrict');
 						$departmentcode = request('departmentcode');
 						$usercontact = request('usercontact');
-
-						// DB::table('user_list')
-						// ->updateOrInsert([
-						// 		['userid' => $userid],
-						// 		[
-						// 			'identificationno' => $identificationno,
-						// 			'titlename' => $titlename,
-						// 			'firstname' => $firstname,
-						// 			'lastname' => $lastname,
-						// 			'gender' => $gender,
-						// 			'bloodtype' => $bloodtype,
-						// 			'birthdate' => $birthdate,
-						// 			'race' => $race,
-						// 			'religion' => $religion,
-						// 			'nationnality' => $nationnality,
-						// 			'address' => $address,
-						// 			'postcode' => $postcode,
-						// 			'province' => $province,
-						// 			'district' => $district,
-						// 			'subdistrict' => $subdistrict,
-						// 			'departmentcode' => $departmentcode,
-						// 			'usercontact' => $usercontact
-						// 		]
-						// ]);
 
 						DB::insert('INSERT into user_list (userid,identificationno, titlename,firstname,lastname,gender,bloodtype,birthdate,race,religion,nationnality,address,postcode,province,district,subdistrict,departmentcode,usercontact)
 						values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ON DUPLICATE KEY UPDATE

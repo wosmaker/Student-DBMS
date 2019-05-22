@@ -6,7 +6,7 @@
 
 @section('page-main')
   {{-- ชื่อผู้ใช้ --}}
-<div class="shadow-sm p-3 mb-3 bg-white ">
+<div class="shadow-sm p-3 mb-3 bg-white " >
 		<h4 class="d-inline py-5">Student ID: {{ $userid }}</h4>
 </div>
 
@@ -29,16 +29,17 @@
 	$(document).ready( function() {
 
 
-		$( '#form_save_personal_ondata' ).on( 'submit', function(e) {
+		$( '#form_save_personal_ondata').one( 'submit', function(e) {
 			e.preventDefault();
 			console.log("test save nodata");
-
 				$.ajax({
 						type: "patch",
 						url: "{{route('personal.update')}}",
 						data: $(this).serialize(),
+						cache: false,
 						success: function(data) {
-							$('#form_show').empty().html(data);
+							swal("UPDATE SUCCESS ...",{ icon: "success",timer: 1000,	buttons: false,});
+							$('#form_show').html(data);
 						},
 						error: function (reject) {
                 // if( reject.status === 422 ) {
@@ -53,14 +54,16 @@
 		});
 
 
-		$( '#form_save_personal' ).on( 'submit', function(e) {
+		$( '#form_save_personal' ).one( 'submit', function(e) {
 			e.preventDefault();
-
+			console.log("test save nodata");
 				$.ajax({
 						type: "patch",
 						url: "{{route('personal.update')}}",
 						data: $(this).serialize(),
+						cache: false,
 						success: function(data) {
+							swal("UPDATE SUCCESS ...",{ icon: "success",timer: 1000,	buttons: false,});
 							$('#form_show').empty().html(data);
 						},
 						error: function (reject) {
@@ -74,7 +77,6 @@
             }
 				});
 		});
-
 
 	});
  </script>
