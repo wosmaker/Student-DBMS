@@ -235,7 +235,7 @@ class UpdateReceiptController extends Controller
         ->where('transactionid', '=', $id)
 				->delete();
 
-				Cloudder::delete();
+			//	Cloudder::delete();
 
 				$transactionlists = $this->value_transaction();
 

@@ -1,7 +1,7 @@
 @extends('layouts.page')
 
 @section('page-head')
-<div class="col" align="left"><h1>Person Information</h1></div>
+<div class="col" align="left"><h1>Profile Information</h1></div>
 @endsection
 
 @section('page-main')
