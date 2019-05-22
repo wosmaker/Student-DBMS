@@ -14,7 +14,7 @@ class AnalyticController extends Controller
 				$subject = 'CPE111';
 
 				$data = DB::select(
-					'SELECT f.facultyname, COUNT(f.facultyname) AS count_user 
+					'SELECT f.facultyname, COUNT(f.facultyname) AS count 
 					 FROM user_list u,registration_student r, sectioneachsubject ss, department_list d, faculty_list f 
 					 WHERE ss.subjectcode = ?		                  AND
       						u.userid = r.userid                       AND
@@ -32,11 +32,11 @@ class AnalyticController extends Controller
       						r.subjectsectionid = ss.subjectsectionid  AND
       						u.departmentcode = d.departmentcode
 				',[$subject]);
-				
+
 				$sum = $sum[0]->sum_user;
 
 				foreach($data AS $dat) {
-					$dat->percent = $dat->count_user*100/$sum;
+					$dat->percent = $dat->count*100/$sum;
 				}
 				
 				return view('Analytic.report1', compact('data'));
@@ -102,7 +102,6 @@ class AnalyticController extends Controller
 			 	WHERE rl.RoomCode = s.RoomCode AND ses.SubjectSectionID = s.SubjectSectionID
 			 	GROUP BY rl.BuildingName
 			 	');
-				dd($data);
 				return view('Analytic.report4', compact('data'));
 			}
 

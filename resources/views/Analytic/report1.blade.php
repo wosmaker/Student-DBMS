@@ -17,7 +17,7 @@
 					<tr>
 						<th scope="row">{{ $loop->iteration }}</th>
 						<td>{{ $item->facultyname }}</td>
-						<td>{{ $item->count_user }}</td>
+						<td>{{ $item->count }}</td>
 						<td>{{ $item->percent }}</td>
 					</tr>
 				@endforeach
