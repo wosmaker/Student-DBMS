@@ -14,13 +14,13 @@ class AnalyticController extends Controller
 				$data = DB::select(
 					'SELECT f.facultyname, COUNT(f.facultyname) AS count_user 
 					 FROM user_list u,registration_student r, sectioneachsubject ss, department_list d, faculty_list f 
-					 WHERE ss.subjectcode = "CPE111"                  AND
+					 WHERE ss.subjectcode = ?		                  AND
       						u.userid = r.userid                       AND
       						r.subjectsectionid = ss.subjectsectionid  AND
       						u.departmentcode = d.departmentcode       AND
       						d.facultycode = f.facultycode
 					 GROUP BY f.facultyname
-				');
+				',["CPE111"]);
 
 				$sum = DB::select(
 					'SELECT COUNT(d.facultycode) AS sum_user 
