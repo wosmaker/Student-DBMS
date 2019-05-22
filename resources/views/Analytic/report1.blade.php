@@ -1,47 +1,32 @@
-@extends('layouts.analytic-layout')
 
-@section('analytic-head')
-<div class="col" align="left"><h1>Analytic 1</h1></div>
-@endsection
-
-@section('analytic-main')
-
-<div class="shadow-sm p-3 mb-3 bg-white table-responsive-lg">
-
-	<table class="table table-hover">
-		<thead>
-			<tr>
-				<th scope="col">#</th>
-				<th scope="col">Department</th>
-				<th scope="col">Count( จำนวนคน ใน รายวิขา )</th>
-				<th scope="col">%( <!-- จำนวนคน ใน รายวิขา -->)</th>
-			</tr>
-		</thead>
-		<tbody>
-			@foreach ($data as $item)
-				<tr>
-					<th scope="row">{{ $loop->iteration }}</th>
-					<td>{{ $item->facultyname }}</td>
-					<td>{{ $item->count_user }}</td>
-					<td>{{ $item->percent }}</td>
-				</tr>
-			@endforeach
-		</tbody>
-	</table>
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+	<div class="col" align="left"><h1>Percent of GEN111 IN each faculty</h1></div>
 </div>
 
-@endsection
+	<div class="shadow-sm p-3 mb-3 bg-white table-responsive-lg">
+		<table class="table table-hover">
+				<thead>
+					<tr>
+						<th scope="col">#</th>
+						<th scope="col">Faculty </th>
+						<th scope="col">Count( People in subject )</th>
+						<th scope="col">%( People in subject )</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach ($data as $item)
+						<tr>
+							<th scope="row">{{ $loop->iteration }}</th>
+							<td>{{ $item->facultyname }}</td>
+							<td>{{ $item->count_user }}</td>
+							<td>{{ $item->percent }}</td>
+						</tr>
+					@endforeach
+				</tbody>
+			</table>
+	</div>
 
-@section('script')
-<script>
+	<script>
 
-</script>
-@endsection
-
-@section('style')
-<style>
-
-</style>
-@endsection
-
+	</script>
 
