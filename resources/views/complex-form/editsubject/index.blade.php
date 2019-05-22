@@ -64,7 +64,9 @@ $(document).ready(function() {
 						url: "{{route('editsubject.add_subject')}}",
 						data: $(this).serialize(),
 						success: function(data) {
-							$('#tb_subject').empty().html(data);
+							swal("INSERT SUCCESS .... maybe", {icon: "success",timer: 1000,	buttons: false,});
+							$('#tb_subject').fadeOut(250,function(){	$('#tb_subject').empty().html(data);});
+							$('#tb_subject').fadeIn( 250 );
 							$('#modal_add_subject').modal('hide');
 							$( '#form_add_subject' ).trigger("reset");
 						},
@@ -89,8 +91,11 @@ $(document).ready(function() {
 						url: "{{route('editsubject.add_section')}}",
 						data: $(this).serialize(),
 						success: function(data) {
-							$('#block_section').empty().html(data);
-							$('#block_section').show();
+							swal("INSERT SUCCESS .... maybe", {icon: "success",timer: 1000,	buttons: false,});
+							$('#block_section').fadeOut(250,function(){	$('#block_section').empty().html(data);});
+							$('#block_section').fadeIn( 250 );
+							$('#block_period').fadeOut( 250 );
+
 							$('#modal_add_section').modal('hide');
 							$( '#form_add_section' ).trigger("reset");
 						},
@@ -119,6 +124,7 @@ $(document).ready(function() {
 						url: "{{route('editsubject.add_period')}}",
 						data: $(this).serialize(),
 						success: function(data) {
+							swal("INSERT SUCCESS .... maybe", {icon: "success",timer: 1000,	buttons: false,});
 							$('#block_period').empty().html(data);
 							$('#block_period').show();
 							$('#modal_add_period').modal('hide');
@@ -183,8 +189,8 @@ $(document).ready(function() {
 					url:"{{route('editsubject.search_room')}}",
 					data:{day:day,start:start,end:end, "_token": "{{ csrf_token() }}"},
 					success:function(data){
-						$('#block_room').fadeOut(50,function(){	$('#block_room').empty().html(data);});
-						$('#block_room').fadeIn( 50 );
+						$('#block_room').fadeOut(100,function(){	$('#block_room').empty().html(data);});
+						$('#block_room').fadeIn( 100 );
 
 					},
 					error: function(data){
@@ -202,8 +208,8 @@ $(document).ready(function() {
 					url:"{{route('editsubject.search_teacher')}}",
 					data:{teacher_keyword:teacher_keyword, "_token": "{{ csrf_token() }}"},
 					success:function(data){
-						$('#block_teacher').fadeOut(50,function(){	$('#block_teacher').empty().html(data);});
-						$('#block_teacher').fadeIn( 50 );
+						$('#block_teacher').fadeOut(100,function(){	$('#block_teacher').empty().html(data);});
+						$('#block_teacher').fadeIn( 100 );
 					},
 					error: function(data){
 						console.log("Error :" + data);
@@ -212,60 +218,95 @@ $(document).ready(function() {
 		});
 
 		$(document).on('click', ".btn_destroy_subject", function() {
-			if (confirm('Are you sure you want to Delete ?')) {
-				var id = $(this).attr("id");
-				console.log("Debug:" + id);
-				$.ajax({
-						type: "POST",
-						url:"{{route('editsubject.destroy_subject')}}",
-						data: {_token: "{{ csrf_token() }}",subjectcode: id},
-						success: function(data) {
-							$('#tb_subject').fadeOut(50,function(){	$('#tb_subject').empty().html(data);});
-							$('#tb_subject').fadeIn( 50 );
-						},
-						error: function(data){
-							console.log("Error :" + data);
-						}
-				});
-			}
+
+			swal({
+				title: "WARNING",
+				text: "Please make sure before delete or YOU WILL BE REGRET!!!!!",
+				icon: "warning",
+				buttons: true,
+				dangerMode: true,
+			})
+			.then((willDelete) => {
+				if (willDelete) {
+					var id = $(this).attr("id");
+					console.log("Debug:" + id);
+					$.ajax({
+							type: "POST",
+							url:"{{route('editsubject.destroy_subject')}}",
+							data: {_token: "{{ csrf_token() }}",subjectcode: id},
+							success: function(data) {
+								swal("DELETION SUCCESS .... maybe", {icon: "success",timer: 1000,	buttons: false,});
+								$('#tb_subject').fadeOut(100,function(){	$('#tb_subject').empty().html(data);});
+								$('#tb_subject').fadeIn( 100 );
+							},
+							error: function(data){
+								console.log("Error :" + data);
+							}
+					});
+				}
+			});
 		});
 
 		$(document).on('click', ".btn_destroy_section", function() {
-			if (confirm('Are you sure you want to Delete ?')) {
-				var id = $(this).attr("id");
-				$.ajax({
-						type: "POST",
-						url:"{{route('editsubject.destroy_section')}}",
-						data: {_token: "{{ csrf_token() }}",subjectsectionid: id},
-						success: function(data) {
-							$('#block_section').fadeOut(50,function(){	$('#block_section').empty().html(data);});
-							$('#block_section').fadeIn( 50 );
-						},
-						error: function(data){
-							console.log("Error :" + data);
-						}
-				});
-			}
+
+			swal({
+				title: "WARNING",
+				text: "Please make sure before delete or YOU WILL BE REGRET!!!!!",
+				icon: "warning",
+				buttons: true,
+				dangerMode: true,
+			})
+			.then((willDelete) => {
+				if (willDelete) {
+					var id = $(this).attr("id");
+					console.log("Debug:" + id);
+					$.ajax({
+							type: "POST",
+							url:"{{route('editsubject.destroy_section')}}",
+							data: {_token: "{{ csrf_token() }}",subjectsectionid: id},
+							success: function(data) {
+								swal("DELETION SUCCESS .... maybe", {icon: "success",timer: 1000,	buttons: false,});
+								$('#block_section').fadeOut(100,function(){	$('#block_section').empty().html(data);});
+								$('#block_section').fadeIn( 100 );
+							},
+							error: function(data){
+								console.log("Error :" + data);
+							}
+					});
+				}
+			});
 		});
 
 		$(document).on('click', ".btn_destroy_period", function() {
-			if (confirm('Are you sure you want to Delete ?')) {
-				var sectionno = $(this).attr("sectionno");
-				var periodno = $(this).attr("id");
-				var subjectsectionid = $(this).attr("data-subjectsectionid");
-				$.ajax({
-						type: "POST",
-						url:"{{route('editsubject.destroy_period')}}",
-						data: {_token: "{{ csrf_token() }}",subjectsectionid: subjectsectionid,periodno:periodno, sectionno:sectionno},
-						success: function(data) {
-							$('#block_period').fadeOut(50,function(){	$('#block_period').empty().html(data);});
-							$('#block_period').fadeIn( 50 );
-						},
-						error: function(data){
-							console.log("Error :" + data);
-						}
-				});
-			}
+
+			swal({
+				title: "WARNING",
+				text: "Please make sure before delete or YOU WILL BE REGRET!!!!!",
+				icon: "warning",
+				buttons: true,
+				dangerMode: true,
+			})
+			.then((willDelete) => {
+				if (willDelete) {
+					var sectionno = $(this).attr("sectionno");
+					var periodno = $(this).attr("id");
+					var subjectsectionid = $(this).attr("data-subjectsectionid");
+
+					$.ajax({
+							type: "POST",
+							url:"{{route('editsubject.destroy_period')}}",
+							data: {_token: "{{ csrf_token() }}",subjectsectionid: subjectsectionid,periodno:periodno, sectionno:sectionno},
+							success: function(data) {
+								swal("DELETION SUCCESS .... maybe", {icon: "success",timer: 1000,	buttons: false,});
+								$('#block_period').fadeOut(100,function(){	$('#block_period').empty().html(data);});
+								$('#block_period').fadeIn( 100 );
+							},
+							error: function(data){
+								console.log("Error :" + data);
+							}
+					});
+				}
+			});
 		});
 
 		fetch_subject();
