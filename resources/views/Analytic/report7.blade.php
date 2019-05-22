@@ -1,13 +1,9 @@
-@extends('layouts.analytic-layout')
 
-@section('analytic-head')
-<div class="col" align="left"><h1>Analytic 1</h1></div>
-@endsection
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+	<div class="col" align="left"><h1>Min, Max, Mode Seat For each Building</h1></div>
+</div>
 
-@section('analytic-main')
-
-<div class="shadow-sm p-3 mb-3 bg-white table-responsive-lg">
-
+<div class="shadow-sm p-3 mb-3 bg-white table-responsive-xl">
 	<table class="table table-hover">
 		<thead>
 			<tr>
@@ -18,30 +14,21 @@
 			</tr>
 		</thead>
 		<tbody>
-				@foreach ($report7 as $item)
+				@foreach ($data as $item)
 				<tr>
 					<th scope="row">{{ $loop->iteration }}</th>
 					<td>{{ $item->facultyname }}</td>
 					<td>{{ $item->count }}</td>
-					<td></td>
+					<td>{{ $item->count }}</td>
+					<td>{{ $item->count }}</td>
+
 				</tr>
 			@endforeach
 		</tbody>
 	</table>
 </div>
 
-@endsection
+	<script>
 
-@section('script')
-<script>
-
-</script>
-@endsection
-
-@section('style')
-<style>
-
-</style>
-@endsection
-
+	</script>
 

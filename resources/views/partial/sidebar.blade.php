@@ -84,10 +84,6 @@
 				<a id="analytic_16" class="list-group-item list-group-item-action list-group-item-light">report 16</a>
 
 		</div>
-
-
-
-	<a class="list-group-item list-group-item-action list-group-item-info" href="{{URL('/analytic')}}">Analytic</a>
 	@endif
 </div>
 

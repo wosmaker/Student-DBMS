@@ -14,8 +14,8 @@ class AnalyticController extends Controller
 				$subject = 'CPE111';
 
 				$data = DB::select(
-					'SELECT f.facultyname, COUNT(f.facultyname) AS count 
-					 FROM user_list u,registration_student r, sectioneachsubject ss, department_list d, faculty_list f 
+					'SELECT f.facultyname, COUNT(f.facultyname) AS count
+					 FROM user_list u,registration_student r, sectioneachsubject ss, department_list d, faculty_list f
 					 WHERE ss.subjectcode = ?		                  AND
       						u.userid = r.userid                       AND
       						r.subjectsectionid = ss.subjectsectionid  AND
@@ -81,8 +81,8 @@ class AnalyticController extends Controller
 				$time = '2019-05-22 15:17:00';
 
 				$data = DB::select(
-				   'SELECT (CASE WHEN row_temp = 1 THEN ? WHEN row_temp = 2 THEN ? ELSE ? END) AS Group_Type,
-					Count, Percent FROM(SELECT row_number() over(ORDER BY (SELECT NULL)) as row_temp,count(temp2.late) as Count,
+				  'SELECT (CASE WHEN row_temp = 1 THEN ? WHEN row_temp = 2 THEN ? ELSE ? END) AS group_type,
+					count, percent FROM(SELECT row_number() over(ORDER BY (SELECT NULL)) as row_temp,count(temp2.late) as Count,
 					ROUND( CAST(count(temp2.late)*100 as numeric)/CAST((SELECT count( CASE WHEN userroleid = 1 then 1 ELSE NULL END)
 					FROM users)as numeric),2) as Percent from (SELECT CASE WHEN Latest_Regis is null THEN ?
 					WHEN Latest_Regis > timestamp? Then ? ELSE ? END as late
