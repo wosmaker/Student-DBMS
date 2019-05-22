@@ -170,21 +170,11 @@ class AnalyticController extends Controller
 				$now = 'now';
 
 				$data = DB::select(
-					'SELECT dl.departmentname , COUNT(dl.departmentname) AS count ,
-						CAST(CAST(COUNT(dl.departmentname)*100 AS FLOAT)/(
-							SELECT COUNT(dl.departmentname)
-							FROM department_list dl,user_list ul,transaction_list tl, registration_student rl
-							WHERE 	dl.DepartmentCode = ul.DepartmentCode AND
-									ul.UserID = rl.UserID AND
-									rl.TransactionID = tl.TransactionID AND
-									(tl.PaymentStatus = ? OR PaymentDate > ?)) AS FLOAT)
-					FROM department_list dl,user_list ul,transaction_list tl, registration_student rl
-					WHERE 	dl.DepartmentCode = ul.DepartmentCode AND
-							ul.UserID = rl.UserID AND
-							rl.TransactionID = tl.TransactionID AND
-							(tl.PaymentStatus = ? OR PaymentDate > ?)
-					GROUP BY dl.DepartmentName
-				',[$waiting,$now,$waiting,$now]);
+					'SELECT  pl.paymenttypeName ,COUNT( pl.paymenttypeName ) , ROUND(CAST(COUNT( pl.paymenttypeName )*100/(SUM(tid.counts)/COUNT( pl.paymenttypeName ))as numeric),2)  AS percent
+					FROM transaction_list tl , paymenttype_list pl , (SELECT COUNT(*) AS counts FROM transaction_list) tid
+					WHERE tl.paymenttypeid = pl.paymenttypeid
+					GROUP BY  pl.paymenttypename
+				');
 				dd($data);
 
 				return view('Analytic.report8', compact('data'));
