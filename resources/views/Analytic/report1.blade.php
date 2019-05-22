@@ -18,7 +18,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			@foreach ($data1s as $item)
+			@foreach ($data as $item)
 				<tr>
 					<th scope="row">{{ $loop->iteration }}</th>
 					<td>{{ $item->facultyname }}</td>
