@@ -30,7 +30,7 @@ class AnalyticController extends Controller
       						r.subjectsectionid = ss.subjectsectionid  AND
       						u.departmentcode = d.departmentcode
 				');
-
+				dd(compact('data','sum'));
 				$sum = $sum[0]->sum_user;
 
 				foreach($data AS $dat) {
@@ -74,6 +74,17 @@ class AnalyticController extends Controller
 		{
 			if($request->ajax())
 			{
+				$data = DB::select(
+				   'SELECT (CASE WHEN row_temp = 1 THEN "Late" WHEN row_temp = 2 THEN "Not Late" ELSE "Not Regis" END) AS Group_Type,
+					Count, Percent FROM(SELECT row_number() over(ORDER BY (SELECT NULL)) as row_temp,count(temp2.late) as Count,
+					ROUND( CAST(count(temp2.late)*100 as numeric)/CAST((SELECT count( CASE WHEN userroleid = 1 then 1 ELSE NULL END) 
+					FROM users)as numeric),2) as Percent from (SELECT CASE WHEN Latest_Regis is null THEN "Not Regis" 
+					WHEN Latest_Regis > timestamp"2019-05-22 15:17:00" Then "Late" ELSE "Not Late" END as late 
+					FROM (SELECT u.id,temp.latest_regis from (SELECT userid,max(dateregis) as Latest_Regis 
+					FROM registration_student  GROUP BY userid) temp FULL OUTER JOIN users u on temp.userid= u.id 
+					where u.userroleid =1)  temp1) temp2 GROUP BY temp2.late) temp3 WHERE row_temp !=2
+				');
+
 				return view('Analytic.report3', compact('data'));
 			}
 		}
