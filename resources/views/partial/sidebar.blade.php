@@ -72,6 +72,9 @@
 			@endfor
 		</div>
 
+	<a id="analytic_4" class="list-group-item list-group-item-action list-group-item-light">report 4</a>
+
+
 	<a class="list-group-item list-group-item-action list-group-item-info" href="{{URL('/analytic')}}">Analytic</a>
 	@endif
 </div>

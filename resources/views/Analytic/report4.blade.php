@@ -1,11 +1,6 @@
-
-@extends('layouts.analytic-layout')
-
-@section('analytic-head')
-<div class="col" align="left"><h1>Analytic 1</h1></div>
-@endsection
-
-@section('analytic-main')
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+	<div class="col" align="left"><h1>Percent of subject in each building</h1></div>
+</div>
 
 <div class="shadow-sm p-3 mb-3 bg-white table-responsive-lg">
 	<table class="table table-hover">
@@ -14,34 +9,23 @@
 				<th scope="col">#</th>
 				<th scope="col">Building</th>
 				<th scope="col">Count( Subject )</th>
-				<th scope="col">%( Subject )</th>
+				<th scope="col">percent( Subject )</th>
 			</tr>
 		</thead>
 		<tbody>
-				@foreach ($report4 as $item)
+				@foreach ($data as $item)
 				<tr>
 					<th scope="row">{{ $loop->iteration }}</th>
 					<td>{{ $item->buildingname }}</td>
 					<td>{{ $item->count }}</td>
+					<td>{{ $item->percent }}</td>
 				</tr>
 			@endforeach
 		</tbody>
 	</table>
 </div>
 
-@endsection
-
-@section('script')
 <script>
 
 </script>
-@endsection
-
-@section('style')
-<style>
-
-</style>
-@endsection
-
-
 

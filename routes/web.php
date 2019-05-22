@@ -20,6 +20,12 @@ Route::get('/','welcomeController@index')->name('welcome.index');
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::post('analytic_1','AnalyticController@analytic_1')->name('analytic.analytic_1');
+Route::post('analytic_2','AnalyticController@analytic_2')->name('analytic.analytic_2');
+Route::post('analytic_3','AnalyticController@analytic_3')->name('analytic.analytic_3');
+Route::post('analytic_4','AnalyticController@analytic_4')->name('analytic.analytic_4');
+Route::post('analytic_5','AnalyticController@analytic_5')->name('analytic.analytic_5');
+
 
 Route::get('personal','PersonalController@index')->name('personal.index');
 Route::get('personal/{id}/edit' , 'PersonalController@edit')->name('personal.edit');
