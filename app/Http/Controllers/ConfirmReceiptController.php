@@ -35,7 +35,7 @@ class ConfirmReceiptController extends Controller
         ->join('paymenttype_list as pt', 'pt.paymenttypeid', '=', 'tl.paymenttypeid')
         ->select('tl.transactionid','ul.firstname', 'ul.lastname', 'pt.paymenttypename', 'tl.picturelink', 'tl.paymentdate', 'tl.paymentstatus')
         ->get()->all();
-        
+
 		//dd($transactionlists,$userdetail);
       return view('complex-form.confirm-receipt.index', compact('userdetail', 'transactionlists', 'role'));
     }
@@ -105,7 +105,7 @@ class ConfirmReceiptController extends Controller
 			{
 				$id = request('id');
 				DB::table('transaction_list')
-				->where('transactionID', '=', $id)
+				->where('transactionid', '=', $id)
 				->update(['paymentstatus' => 'CONFIRM']);
 
 				$transactionlists = db::table('transaction_list as tl')
@@ -124,7 +124,7 @@ class ConfirmReceiptController extends Controller
 			{
 				$id = request('id');
 				DB::table('transaction_list')
-				->where('transactionID', '=', $id)
+				->where('transactionid', '=', $id)
 				->update(['paymentstatus' => 'DENIED']);
 
 				$transactionlists = db::table('transaction_list as tl')
