@@ -15,7 +15,7 @@
 						</tr>
 					</thead>
 					<tbody>
-							@foreach ($report5 as $item)
+							@foreach ($data as $item)
 							<tr>
 								<th scope="row">{{ $loop->iteration }}</th>
 								<td>{{ $item->subjectname }}</td>

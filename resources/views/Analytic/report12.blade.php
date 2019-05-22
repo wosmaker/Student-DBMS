@@ -1,45 +1,31 @@
-@extends('layouts.analytic-layout')
-
-@section('analytic-head')
-<div class="col" align="left"><h1>Analytic 1</h1></div>
-@endsection
-
-@section('analytic-main')
-
-<div class="shadow-sm p-3 mb-3 bg-white table-responsive-lg">
-
-	<table class="table table-hover">
-		<thead>
-			<tr>
-				<th scope="col">#</th>
-				<th scope="col">Year</th>
-				<th scope="col">Count( <!-- จำนวนคน ใน รายวิขา -->)</th>
-			</tr>
-		</thead>
-		<tbody>
-				@foreach ($report12 as $item)
-				<tr>
-					<th scope="row">{{ $loop->iteration }}</th>
-					<td>{{ $item->year }}</td>
-					<td>{{ $item->count }}</td>
-				</tr>
-			@endforeach
-		</tbody>
-	</table>
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+	<div class="col" align="left"><h1>Male and Female each year</h1></div>
 </div>
 
-@endsection
+<div class="shadow-sm p-3 mb-3 bg-white table-responsive-xl">
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Year</th>
+					<th scope="col">COUNT( Number of Male Student )</th>
+					<th scope="col">COUNT( Number of Female Student )</th>
+				</tr>
+			</thead>
+			<tbody>
+					@foreach ($data as $item)
+					<tr>
+						<th scope="row">{{ $loop->iteration }}</th>
+						<td>{{ $item->dates }}</td>
+						<td>{{ $item->count }}</td>
+						<td>{{ $item->count }}</td>
+					</tr>
+				@endforeach
+			</tbody>
+		</table>
+</div>
 
-@section('script')
 <script>
 
 </script>
-@endsection
-
-@section('style')
-<style>
-
-</style>
-@endsection
-
 

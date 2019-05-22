@@ -1,6 +1,6 @@
 
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-	<div class="col" align="left"><h1>จํานวนของคนทีลงทะเบียนล่าช้า</h1></div>
+	<div class="col" align="left"><h1>Late Regis Student</h1></div>
 </div>
 
 <div class="shadow-sm p-3 mb-3 bg-white table-responsive-xl">
@@ -9,8 +9,8 @@
 			<tr>
 				<th scope="col">#</th>
 				<th scope="col">Type of late</th>
-				<th scope="col">Count( people who late )</th>
-				<th scope="col">%( people who late )</th>
+				<th scope="col">Count( Number of users )</th>
+				<th scope="col">%( Number of users )</th>
 			</tr>
 		</thead>
 		<tbody>
