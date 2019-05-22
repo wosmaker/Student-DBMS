@@ -54,12 +54,12 @@
 
 		<div id='sub3' class="collapse sidebar-submenu">
 				<a href="#" id="analytic_1" class="list-group-item list-group-item-action list-group-item-light">GEN 111</a>
-				<a href="#" id="analytic_2" class="list-group-item list-group-item-action list-group-item-light"Credit Group</a>
+				<a href="#" id="analytic_2" class="list-group-item list-group-item-action list-group-item-light">Credit Group</a>
 				<a href="#" id="analytic_3" class="list-group-item list-group-item-action list-group-item-light">Late Regis</a>
 				<a href="#" id="analytic_4" class="list-group-item list-group-item-action list-group-item-light">Room</a>
 				<a href="#" id="analytic_5" class="list-group-item list-group-item-action list-group-item-light">Seat used</a>
 				{{-- <a id="analytic_6" class="list-group-item list-group-item-action list-group-item-light">report 6</a> --}}
-				<a href="#" id="analytic_7" class="list-group-item list-group-item-action list-group-item-light">Room <></a>
+				<a href="#" id="analytic_7" class="list-group-item list-group-item-action list-group-item-light">Building <></a>
 				<a href="#" id="analytic_8" class="list-group-item list-group-item-action list-group-item-light">Bank used</a>
 				<a href="#" id="analytic_9" class="list-group-item list-group-item-action list-group-item-light">Late by depart...</a>
 				<a href="#" id="analytic_10" class="list-group-item list-group-item-action list-group-item-light">Pay day</a>

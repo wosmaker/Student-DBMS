@@ -118,7 +118,7 @@ class AnalyticController extends Controller
 			if($request->ajax())
 			{
 				$data = DB::select(
-				   'SELECT ses.subjectcode, ses.sectionno, rl.buildingname,sc.roomcode,CAST(COUNT(rs.userid) AS FLOAT)*100/rl.roomseattotal AS seatused
+				   'SELECT ses.subjectcode, ses.sectionno, rl.buildingname,sc.roomcode,ROUND((CAST(COUNT(rs.userid) AS FLOAT)*100/rl.roomseattotal),2) AS seatused
 				   	FROM registration_student rs, sectioneachsubject ses, schedule sc, room_list rl
 				   	WHERE 	ses.subjectsectionid = rs.subjectsectionid AND
 					   		ses.subjectsectionid = sc.subjectsectionid AND
