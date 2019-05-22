@@ -36,6 +36,7 @@ class AnalyticController extends Controller
 				foreach($data AS $dat) {
 					$dat->percent = $dat*100/$sum;
 				}
+				dd($data,$sum);
 
 				return view('Analytic.report1', compact('data'));
 			}
