@@ -30,14 +30,14 @@ class AnalyticController extends Controller
       						r.subjectsectionid = ss.subjectsectionid  AND
       						u.departmentcode = d.departmentcode
 				');
-				dd(compact('data','sum'));
+
+				dd($data,$sum);
 				$sum = $sum[0]->sum_user;
 
 				foreach($data AS $dat) {
 					$dat->percent = $dat*100/$sum;
 				}
-				dd($data,$sum);
-
+				
 				return view('Analytic.report1', compact('data'));
 			}
 		}
