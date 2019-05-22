@@ -196,12 +196,12 @@ class AnalyticController extends Controller
 				$time = '2019-05-22 15:00:00';
 
 				$data = DB::select(
-				   'SELECT dl.DepartmentName , COUNT(dl.DepartmentName) as count
-				   FROM department_list dl,user_list ul,transaction_list tl, registration_student rl
-				   WHERE dl.DepartmentCode = ul.DepartmentCode AND ul.UserID = rl.UserID AND rl.TransactionID = tl.TransactionID
-				   AND PaymentDate > ?
-				   GROUP BY dl.DepartmentName ORDER BY Count DESC
-				',[$time]);
+				   'SELECT dl.DepartmentName , COUNT(dl.DepartmentName),ROUND( CAST(CAST(COUNT(dl.DepartmentName)*100 AS FLOAT)/(SELECT COUNT(dl.DepartmentName) FROM department_list dl,user_list ul,transaction_list tl, registration_student rl WHERE dl.DepartmentCode = ul.DepartmentCode AND ul.UserID = rl.UserID AND rl.TransactionID = tl.TransactionID AND  PaymentDate > ? )AS numeric),2) AS Percent
+					 FROM department_list dl,user_list ul,transaction_list tl, registration_student rl
+					 WHERE dl.DepartmentCode = ul.DepartmentCode AND ul.UserID = rl.UserID AND rl.TransactionID = tl.TransactionID
+					 AND PaymentDate > ?
+					 GROUP BY dl.DepartmentName
+				',[$time,$time]);
 
 				return view('Analytic.report9', compact('data'));
 			}

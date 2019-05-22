@@ -1,5 +1,5 @@
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-		<div class="col" align="left"><h1>Percent of subject in each building</h1></div>
+		<div class="col" align="left"><h1> Seat used for each Subject</h1></div>
 	</div>
 
 	<div class="shadow-sm p-3 mb-3 bg-white table-responsive-xl">
