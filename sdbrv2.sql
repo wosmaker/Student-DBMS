@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 19, 2019 at 03:17 PM
+-- Generation Time: May 22, 2019 at 06:25 AM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.2
 
@@ -200,11 +200,11 @@ CREATE TABLE `problemreport_list` (
 
 INSERT INTO `problemreport_list` (`problemno`, `userid`, `problemtypeid`, `problemdatetime`, `problemtitle`, `problemdetail`, `problemstatus`, `answerdetail`) VALUES
 (1, 1, 1, '2019-05-19 11:33:27', 'problem1', 'problemdetail1', 'answered', 'คำตอบข้อ 2'),
-(2, 1, 1, '2019-05-19 11:33:28', 'test report work', 'rr', 'answered', 'คำตอบข้อ 2'),
+(2, 1, 1, '2019-05-19 16:18:26', 'test report work', 'rr', 'answered', 'คำตอบข้อ 2 จริงๆ'),
 (3, 1, 3, '2019-05-12 19:17:16', 'test report work', 'see', 'waiting', NULL),
 (4, 1, 1, '2019-05-14 22:47:25', 'test report 2', 'ddd', 'waiting', NULL),
 (5, 1, 2, '2019-05-18 13:04:05', 'dddsdw', 'fgrf', 'answered', 'ตอบคำถามข้อที่ 2'),
-(6, 8, 1, '2019-05-18 15:40:17', 'FromAdmin', 'TEST', 'waiting', NULL);
+(6, 8, 1, '2019-05-19 16:18:43', 'FromAdmin', 'TEST', 'answered', 'คำตอบข้อ 5');
 
 -- --------------------------------------------------------
 
@@ -239,13 +239,6 @@ CREATE TABLE `registration_student` (
   `dateregis` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `grade` decimal(8,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `registration_student`
---
-
-INSERT INTO `registration_student` (`subjectsectionid`, `userid`, `transactionid`, `dateregis`, `grade`) VALUES
-(3, 1, NULL, '2019-05-18 08:21:22', NULL);
 
 -- --------------------------------------------------------
 
@@ -333,8 +326,17 @@ CREATE TABLE `sectioneachsubject` (
 INSERT INTO `sectioneachsubject` (`subjectsectionid`, `subjectcode`, `sectionno`, `price`, `seatavailable`) VALUES
 (3, 's2', 1, '200.00', 20),
 (4, 's2', 2, '200.00', 20),
-(5, 's3', 1, '300.00', 100),
-(6, 's3', 2, '300.00', 100);
+(5, 's3', 1, '300.00', 98),
+(6, 's3', 2, '300.00', 100),
+(7, 's3', 3, '300.00', 100),
+(8, 's3', 3, '300.00', 100),
+(9, 's3', 3, '300.00', 100),
+(10, 's3', 4, '500.00', 100),
+(11, 's3', 4, '500.00', 100),
+(12, 's3', 4, '500.00', 100),
+(13, 's4', 1, '15000.00', 20),
+(14, 's4', 2, '500.00', 10),
+(15, 's5', 1, '20.00', 5);
 
 -- --------------------------------------------------------
 
@@ -355,7 +357,10 @@ CREATE TABLE `subject_list` (
 
 INSERT INTO `subject_list` (`subjectcode`, `subjectname`, `subjectcredit`, `subjectdetail`) VALUES
 ('s2', 'subfoo2', 2, 'sdfoo2'),
-('s3', 'subfoo3', 3, 'what?');
+('s3', 'subfoo3', 3, 'what?'),
+('s4', 'subfoo4', 3, 'SHINDERI'),
+('s5', 'subfoo5', 6, 'NANI'),
+('s6', 'subfoo6', 2, '123');
 
 -- --------------------------------------------------------
 
@@ -379,13 +384,7 @@ CREATE TABLE `transaction_list` (
 --
 
 INSERT INTO `transaction_list` (`transactionid`, `userid`, `amount`, `semester`, `paymenttypeid`, `paymentstatus`, `paymentdate`, `picturelink`) VALUES
-(1, 1, '10000.00', '2/2019', 1, 'CONFIRM', '2019-05-17 07:56:15', '1_1557033931.png'),
-(2, 1, '10000.00', '2/2019', 1, 'CONFIRM', '2019-05-17 07:55:59', '1_1557034222.png'),
-(3, 1, '10000.00', '2/2019', 2, 'waiting', '2019-05-05 05:37:35', '1_1557034655.png'),
-(4, 1, '10.00', '0.000990589', 1, 'CONFIRM', '2019-05-17 07:56:04', '1_1557515287.jpg'),
-(5, 1, '125.00', '2/2019', 2, 'waiting', '2019-05-10 19:15:36', '1_1557515736.jpg'),
-(6, 1, '12345.00', '2/2019', 2, 'waiting', '2019-05-11 04:14:26', '1_1557548066.jpg'),
-(7, 1, '12345.00', '2/2019', 2, 'waiting', '2019-05-11 04:18:47', '1_1557548327.jpg');
+(1, 8, '10000.00', '2/2019', 1, 'CONFIRM', '2019-05-19 17:17:01', '8_1558283255.jpg');
 
 -- --------------------------------------------------------
 
@@ -479,7 +478,7 @@ INSERT INTO `user_list` (`identificationno`, `userid`, `titlename`, `firstname`,
 (10003, 3, 'mr', 'fn3', 'ln3', 'male', 'ab', '2019-05-02', 'r3', 'r3', 'n3', 'a3', 3, 'p3', 'd3', 's3', NULL, '3', NULL),
 (10004, 4, 'mrs', 'jenny', 'ynnej', 'female', 'AB', '2019-05-03', 'thai', 'buddism', 'thai', 'a4', 4, 'p4', 'd4', 's4', 'd1', 'u4', NULL),
 (10005, 5, 'mr', 'david', 'divad', 'male', 'A', '2018-10-01', 'thai', 'chris', 'thai', 'a5', 5, 'p5', 'd5', 's5', 'd3', 'u5', NULL),
-(99999, 8, 'mr', 'super', 'admin', 'male', 'AB', '2018-04-02', 'human', 'buddism', 'thai', '123', 12345, '123123', '123132', '123123', NULL, '1212312121', NULL);
+(123456789, 8, 'Mr', 'superduper', 'adminotsuke', 'Male', 'AB', '1999-01-01', 'Humanoid', 'Thai', 'Thai', '132/784 Earth.Rd', 99999, 'MilkyWay', 'WhiteWay', 'YOLO', NULL, '123', NULL);
 
 -- --------------------------------------------------------
 
@@ -675,13 +674,13 @@ ALTER TABLE `problemtype_list`
 -- AUTO_INCREMENT for table `sectioneachsubject`
 --
 ALTER TABLE `sectioneachsubject`
-  MODIFY `subjectsectionid` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `subjectsectionid` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `transaction_list`
 --
 ALTER TABLE `transaction_list`
-  MODIFY `transactionid` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `transactionid` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `users`
