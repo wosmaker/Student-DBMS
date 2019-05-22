@@ -185,6 +185,7 @@ class AnalyticController extends Controller
 							(tl.PaymentStatus = ? OR PaymentDate > ?)
 					GROUP BY dl.DepartmentName
 				',[$waiting,$now,$waiting,$now]);
+				dd($data);
 
 				return view('Analytic.report8', compact('data'));
 			}
@@ -316,9 +317,6 @@ class AnalyticController extends Controller
 					 WHERE dl.DepartmentCode = ul.DepartmentCode AND ul.UserID = rl.UserID AND rl.transactionid is null
 					 GROUP BY dl.DepartmentName
 				');
-				//dd($data);
-				dd($data);
-
 				return view('Analytic.report15', compact('data'));
 			}
 		}
@@ -335,7 +333,6 @@ class AnalyticController extends Controller
 					 WHERE ptl.ProblemTypeID = Prl.ProblemTypeID AND prl.ProblemStatus = ?
 					 GROUP BY ptl.ProblemTypeID
 				',[$waiting]);
-				dd($data);
 				return view('Analytic.report16', compact('data'));
 			}
 		}

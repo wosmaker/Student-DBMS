@@ -8,17 +8,17 @@
 					<tr>
 						<th scope="col">#</th>
 						<th scope="col">Problem Type</th>
-						<th scope="col">COUNT( Answered ) </th>
-						<th scope="col">COUNT(  wait )    </th>
+						<th scope="col">COUNT( Not Answer ) </th>
+						<th scope="col">%(  Not Answer )    </th>
 					</tr>
 				</thead>
 				<tbody>
 						@foreach ($data as $item)
 						<tr>
 							<th scope="row">{{ $loop->iteration }}</th>
-							<td>{{ $item->dates }}</td>
-							<td>{{ $item->count }}</td>
-							<td>{{ $item->count }}</td>
+							<td>{{ $item->problemtypename }}</td>
+							<td>{{ $item->notanswer }}</td>
+							<td>{{ $item->percent }}</td>
 						</tr>
 					@endforeach
 				</tbody>
