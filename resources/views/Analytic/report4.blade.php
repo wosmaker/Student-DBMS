@@ -2,7 +2,7 @@
 	<div class="col" align="left"><h1>Percent of subject in each building</h1></div>
 </div>
 
-<div class="shadow-sm p-3 mb-3 bg-white table-responsive-lg">
+<div class="shadow-sm p-3 mb-3 bg-white table-responsive-xl">
 	<table class="table table-hover">
 		<thead>
 			<tr>

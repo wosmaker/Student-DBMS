@@ -1,45 +1,30 @@
-@extends('layouts.analytic-layout')
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+		<div class="col" align="left"><h1>Percent of subject in each building</h1></div>
+	</div>
 
-@section('analytic-head')
-<div class="col" align="left"><h1>Analytic 1</h1></div>
-@endsection
+	<div class="shadow-sm p-3 mb-3 bg-white table-responsive-xl">
+			<table class="table table-hover">
+					<thead>
+						<tr>
+							<th scope="col">#</th>
+							<th scope="col">Bank</th>
+							<th scope="col">Count</th>
+						</tr>
+					</thead>
+					<tbody>
+							@foreach ($data as $item)
+							<tr>
+								<th scope="row">{{ $loop->iteration }}</th>
+								<td>{{ $item->paymenttypename }}</td>
+								<td>{{ $item->count }}</td>
+								<td>{{ $item->percent }}</td>
+							</tr>
+						@endforeach
+					</tbody>
+				</table>
+	</div>
 
-@section('analytic-main')
+	<script>
 
-<div class="shadow-sm p-3 mb-3 bg-white table-responsive-lg">
-
-	<table class="table table-hover">
-		<thead>
-			<tr>
-				<th scope="col">#</th>
-				<th scope="col">Bank</th>
-				<th scope="col">Count</th>
-			</tr>
-		</thead>
-		<tbody>
-				@foreach ($report8 as $item)
-				<tr>
-					<th scope="row">{{ $loop->iteration }}</th>
-					<td>{{ $item->paymenttypename }}</td>
-					<td>{{ $item->count }}</td>
-				</tr>
-			@endforeach
-		</tbody>
-	</table>
-</div>
-
-@endsection
-
-@section('script')
-<script>
-
-</script>
-@endsection
-
-@section('style')
-<style>
-
-</style>
-@endsection
-
+	</script>
 
