@@ -125,7 +125,7 @@
 					</form>
 
 						<div class="modal-footer">
-							<button type="button" class="tn btn-secondary" data-dismiss="modal">Close</button>
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 							<button form="form_answer" class="btn btn-success ml-2" type="submit" >ANSWER</button>
 						</div>
 
