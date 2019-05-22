@@ -167,7 +167,7 @@ $(document).ready(function() {
 				$.ajax({
 					type:'POST',
 					url:"{{route('editsubject.search_period')}}",
-					data:{query:query,sectionno:sectionno, "_token": "{{ csrf_token() }}"},
+					data:{ "_token": "{{ csrf_token() }}",  query:query,sectionno:sectionno},
 					success:function(data){
 						$('#block_period').fadeOut(250,function(){	$('#block_period').empty().html(data);});
 						$('#block_period').fadeIn( 250 );
