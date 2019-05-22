@@ -51,7 +51,58 @@ class PersonalController extends Controller
      */
     public function store(Request $request)
     {
+			if($request->ajax())
+			{
+				$userid = auth()->user()->id;
+				$validatedData = $request->validate([
+							'identificationno' => 'required',
+							'titlename' =>   'required' ,
+							'firstname' =>   'required' ,
+							'lastname' =>   'required' ,
+							'gender' =>   'required' ,
+							'bloodtype' =>   'required' ,
+							'birthdate' =>   'required' ,
+							'race' =>   'required' ,
+							'religion' =>   'required' ,
+							'nationnality' =>   'required' ,
+							'address' =>   'required' ,
+							'postcode' =>   'required' ,
+							'province' =>   'required' ,
+							'district' =>   'required' ,
+							'subdistrict' =>   'required' ,
+							'usercontact' =>   'required'
+				]);
 
+				$identificationno = request('identificationno');
+				$userid = auth()->user()->id;
+				$titlename = request('titlename');
+				$firstname = request('firstname');
+				$lastname = request('lastname');
+				$gender = request('gender');
+				$bloodtype = request('bloodtype');
+				$birthdate = request('birthdate');
+				$race = request('race');
+				$religion = request('religion');
+				$nationnality = request('nationnality');
+				$address = request('address');
+				$postcode = request('postcode');
+				$province = request('province');
+				$district = request('district');
+				$subdistrict = request('subdistrict');
+				$departmentcode = request('departmentcode');
+				$usercontact = request('usercontact');
+
+				DB::insert('INSERT into user_list (userid,identificationno, titlename,firstname,lastname,gender,bloodtype,birthdate,race,religion,nationnality,address,postcode,province,district,subdistrict,departmentcode,usercontact)
+				values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+				', [$userid,$identificationno, $titlename,$firstname,$lastname,$gender,$bloodtype,$birthdate,$race,$religion,$nationnality,$address,$postcode,$province,$district,$subdistrict,$departmentcode,$usercontact]);
+
+				$userdetail = UserList::where('userid', $userid)->first();
+				$departments = DB::table('department_list')
+				->select('departmentcode', 'departmentname')
+				->get()->all();
+
+				return view('complex-form.personal.form_wtdata', compact('userdetail','departments'));
+			}
     }
 
     /**
@@ -125,12 +176,16 @@ class PersonalController extends Controller
 						$subdistrict = request('subdistrict');
 						$departmentcode = request('departmentcode');
 						$usercontact = request('usercontact');
+							DB::update('UPDATE user_list
+							set identificationno = ?,titlename = ?,firstname = ? , lastname = ?,gender = ?,bloodtype = ?,birthdate = ?,race = ?,religion = ?,nationnality = ?,address = ?,postcode = ?,province = ?,district = ?,subdistrict = ?,departmentcode = ?,usercontact = ?
+							where userid = ?', [$identificationno, $titlename,$firstname,$lastname,$gender,$bloodtype,$birthdate,$race,$religion,$nationnality,$address,$postcode,$province,$district,$subdistrict,$departmentcode,$usercontact,$userid]);
 
-						DB::insert('INSERT into user_list (userid,identificationno, titlename,firstname,lastname,gender,bloodtype,birthdate,race,religion,nationnality,address,postcode,province,district,subdistrict,departmentcode,usercontact)
-						values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ON DUPLICATE KEY UPDATE
-						titlename = ?,firstname = ? , lastname = ?,gender = ?,bloodtype = ?,birthdate = ?,race = ?,religion = ?,nationnality = ?,address = ?,postcode = ?,province = ?,district = ?,subdistrict = ?,departmentcode = ?,usercontact = ?
-						', [$userid,$identificationno, $titlename,$firstname,$lastname,$gender,$bloodtype,$birthdate,$race,$religion,$nationnality,$address,$postcode,$province,$district,$subdistrict,$departmentcode,$usercontact ,
-								$titlename,$firstname,$lastname,$gender,$bloodtype,$birthdate,$race,$religion,$nationnality,$address,$postcode,$province,$district,$subdistrict,$departmentcode,$usercontact]);
+
+						// DB::insert('INSERT into user_list (userid,identificationno, titlename,firstname,lastname,gender,bloodtype,birthdate,race,religion,nationnality,address,postcode,province,district,subdistrict,departmentcode,usercontact)
+						// values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ON DUPLICATE KEY UPDATE
+						// titlename = ?,firstname = ? , lastname = ?,gender = ?,bloodtype = ?,birthdate = ?,race = ?,religion = ?,nationnality = ?,address = ?,postcode = ?,province = ?,district = ?,subdistrict = ?,departmentcode = ?,usercontact = ?
+						// ', [$userid,$identificationno, $titlename,$firstname,$lastname,$gender,$bloodtype,$birthdate,$race,$religion,$nationnality,$address,$postcode,$province,$district,$subdistrict,$departmentcode,$usercontact ,
+						// 		$titlename,$firstname,$lastname,$gender,$bloodtype,$birthdate,$race,$religion,$nationnality,$address,$postcode,$province,$district,$subdistrict,$departmentcode,$usercontact]);
 
 						$userdetail = UserList::where('userid', $userid)->first();
 						$departments = DB::table('department_list')
