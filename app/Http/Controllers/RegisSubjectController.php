@@ -68,7 +68,7 @@ class RegisSubjectController extends Controller
 				$subjectdetails = DB::select('SELECT *
 				FROM subject_list sl,sectioneachsubject ses,schedule s
 				WHERE sl.subjectcode = ses.subjectcode AND ses.subjectsectionid = s.subjectsectionid
-				AND (sl.subjectcode LIKE ? OR sl.subjectname LIKE ?)
+				AND (sl.subjectcode ILIKE ? OR sl.subjectname ILIKE ?)
 				AND sl.subjectcode NOT IN (
 					SELECT a.subjectcode
 					FROM sectioneachsubject a, registration_student r
@@ -109,9 +109,9 @@ class RegisSubjectController extends Controller
 								'userid' => $userid
 						]
         );
-      
+
         DB::select(
-          ' UPDATE sectioneachsubject 
+          ' UPDATE sectioneachsubject
             SET seatavailable = seatavailable - 1
             WHERE subjectsectionid = ?',[$subjectsectionid]);
 
@@ -169,7 +169,7 @@ class RegisSubjectController extends Controller
         ->delete();
 
         DB::select(
-          ' UPDATE sectioneachsubject 
+          ' UPDATE sectioneachsubject
             SET seatavailable = seatavailable + 1
             WHERE subjectsectionid = ?',[$id]);
 

@@ -94,8 +94,8 @@ class EditSubjectController extends Controller
             {
                 $subject_lists = DB::table('subject_list')
                 ->select('*')
-                ->where('subjectcode' , 'like', '%' . $query . '%')
-                ->orWhere('subjectname', 'like', '%' . $query . '%')
+                ->where('subjectcode' , 'ILIKE', '%' . $query . '%')
+                ->orWhere('subjectname', 'ILIKE', '%' . $query . '%')
                 ->get()->all();
             }
 
@@ -112,7 +112,7 @@ class EditSubjectController extends Controller
         {
             $subjectcode = $request->get('query');
 
-            $section_lists = DB::select('SELECT * from sectioneachsubject where subjectcode = ?', [$subjectcode]);
+            $section_lists = DB::select('SELECT * from sectioneachsubject where subjectcode ILIKE ?', [$subjectcode]);
             return view('complex-form.editsubject.tb_section', compact('section_lists','subjectcode'));
         }
     }
@@ -124,7 +124,7 @@ class EditSubjectController extends Controller
             $subjectsectionid = $request->get('query');
             $sectionno = $request->get('sectionno');
 
-            $period_lists = DB::select('SELECT * from schedule where subjectsectionid	= ?', [$subjectsectionid]);
+            $period_lists = DB::select('SELECT * from schedule where subjectsectionid	ILIKE ?', [$subjectsectionid]);
             return view('complex-form.editsubject.tb_period', compact('period_lists','subjectsectionid','sectionno'));
         }
     }
@@ -163,11 +163,11 @@ class EditSubjectController extends Controller
             ->select('ul.userid', 'ul.firstname', 'ul.lastname')
             ->where([
                 ['u.userroleid', '=', 2],
-                ['firstname' , 'like' , '%' . $teacher_keyword . '%']
+                ['firstname' , 'ILIKE' , '%' . $teacher_keyword . '%']
             ])
             ->orWhere([
                 ['u.userroleid', '=', 2],
-                ['lastname' , 'like' , '%' . $teacher_keyword . '%']
+                ['lastname' , 'ILIKE' , '%' . $teacher_keyword . '%']
             ])
             ->get()->all();
 
@@ -503,7 +503,7 @@ class EditSubjectController extends Controller
                     }
 
                     //ลบวิชาที่ต้องการ พร้อมกับ section & schdule ที่เกี่ยวข้อง เพราะเซ็ต DB เป็น cascade ไว้
-                    
+
                 }
             DB::table('schedule')
             ->where([
@@ -516,7 +516,7 @@ class EditSubjectController extends Controller
             ->select('*')
             ->where('subjectsectionid', '=', $subjectsectionid)
             ->get()->all();
-            
+
             return view('complex-form.editsubject.tb_period', compact('period_lists','sectionno'));
         }
 	}
