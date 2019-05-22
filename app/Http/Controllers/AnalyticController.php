@@ -11,7 +11,7 @@ class AnalyticController extends Controller
 		{
 			if($request->ajax())
 			{
-				$x = "HELLO";
+				$subject = 'CPE111';
 
 				$data = DB::select(
 					'SELECT f.facultyname, COUNT(f.facultyname) AS count_user
@@ -22,7 +22,7 @@ class AnalyticController extends Controller
       						u.departmentcode = d.departmentcode       AND
       						d.facultycode = f.facultycode
 					 GROUP BY f.facultyname
-				',["CPE111"]);
+				',[$subject]);
 
 				$sum = DB::select(
 					'SELECT COUNT(d.facultycode) AS sum_user
@@ -32,8 +32,7 @@ class AnalyticController extends Controller
       						r.subjectsectionid = ss.subjectsectionid  AND
       						u.departmentcode = d.departmentcode
 				');
-
-				dd($data,$sum,$x);
+				dd($data);
 				$sum = $sum[0]->sum_user;
 
 				foreach($data AS $dat) {
@@ -67,7 +66,7 @@ class AnalyticController extends Controller
 						  ) f
 					GROUP BY c.credit,c.counts,f.summ
 				');
-
+				dd($data);
 				return view('Analytic.report2', compact('data'));
 			}
 		}
@@ -86,7 +85,7 @@ class AnalyticController extends Controller
 					FROM registration_student  GROUP BY userid) temp FULL OUTER JOIN users u on temp.userid= u.id
 					where u.userroleid =1)  temp1) temp2 GROUP BY temp2.late) temp3 WHERE row_temp !=2
 				');
-
+				dd($data);
 				return view('Analytic.report3', compact('data'));
 			}
 		}
@@ -97,13 +96,13 @@ class AnalyticController extends Controller
 			{
 				$data = DB::select('SELECT  rl.BuildingName, COUNT(DISTINCT ses.SubjectCode),
 				CAST(COUNT(DISTINCT ses.SubjectCode) AS FLOAT)  *100/
-			 (SELECT COUNT(DISTINCT ses.SubjectCode) FROM room_list rl, schedule s,sectioneachsubject ses WHERE rl.RoomCode = s.RoomCode AND ses.SubjectSectionID = s.SubjectSectionID)
-			 AS Percent
-			 FROM room_list rl, schedule s,sectioneachsubject ses
-			 WHERE rl.RoomCode = s.RoomCode AND ses.SubjectSectionID = s.SubjectSectionID
-			 GROUP BY rl.BuildingName
-			 ');
-
+			 	(SELECT COUNT(DISTINCT ses.SubjectCode) FROM room_list rl, schedule s,sectioneachsubject ses WHERE rl.RoomCode = s.RoomCode AND ses.SubjectSectionID = s.SubjectSectionID)
+			 	AS Percent
+			 	FROM room_list rl, schedule s,sectioneachsubject ses
+			 	WHERE rl.RoomCode = s.RoomCode AND ses.SubjectSectionID = s.SubjectSectionID
+			 	GROUP BY rl.BuildingName
+			 	');
+				dd($data);
 				return view('Analytic.report4', compact('data'));
 			}
 
