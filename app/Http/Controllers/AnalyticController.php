@@ -249,7 +249,7 @@ class AnalyticController extends Controller
 			if($request->ajax())
 			{
 				$data = DB::select(
-				   'SELECT  sl.SubjectName , SUM(ses.SeatAvailable) , SUM(ses.SeatAvailable)-sss.AVG AS differenceFromMean
+				   'SELECT  sl.SubjectName , SUM(ses.SeatAvailable) ,ROUND((SUM(ses.SeatAvailable)-sss.AVG),2) AS differenceFromMean
 				   	FROM subject_list sl, sectioneachsubject ses, (
 						SELECT AVG(ss.summ) AS AVG
 						FROM (
@@ -273,7 +273,7 @@ class AnalyticController extends Controller
 			if($request->ajax())
 			{
 				$data = DB::select(
-				   'SELECT  sl.SubjectName , SUM(ses.SeatAvailable) , SUM(ses.SeatAvailable)-sss.AVG AS differenceFromMean
+				   'SELECT  sl.SubjectName , SUM(ses.SeatAvailable) , ROUND((SUM(ses.SeatAvailable)-sss.AVG),2) AS differenceFromMean
 				   	FROM subject_list sl, sectioneachsubject ses, (
 						SELECT AVG(ss.summ) AS AVG
 						FROM (	SELECT  sl.SubjectName , SUM(ses.SeatAvailable) AS summ
