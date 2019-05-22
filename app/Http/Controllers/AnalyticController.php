@@ -147,7 +147,7 @@ class AnalyticController extends Controller
 					WHERE m.modecount = o.maxmode AND r.buildingname = m.buildingname
 					GROUP BY m.buildingname,m.roomseattotal
 				');
-				dd($data);
+	
 				return view('Analytic.report7', compact('data'));
 			}
 		}
@@ -175,7 +175,7 @@ class AnalyticController extends Controller
 							(tl.PaymentStatus = ? OR PaymentDate > ?)
 					GROUP BY dl.DepartmentName 
 				',[$waiting,$now,$waiting,$now]);
-				dd($data);
+			
 				return view('Analytic.report8', compact('data'));
 			}
 		}
@@ -193,7 +193,7 @@ class AnalyticController extends Controller
 				   AND PaymentDate > ?
 				   GROUP BY dl.DepartmentName ORDER BY Count DESC
 				',[$time]);
-				dd($data);
+	
 				return view('Analytic.report9', compact('data'));
 			}
 		}
@@ -202,6 +202,16 @@ class AnalyticController extends Controller
 		{
 			if($request->ajax())
 			{
+				$start = '2019-05-01';
+				$end = '2019-05-30';
+
+				$data = DB::select(
+				   'SELECT DATE(PaymentDate) AS date,COUNT( UserID) AS paymentcount ,  CAST(COUNT( UserID) AS Float) *100/(SELECT COUNT(*) FROM transaction_list)AS percent
+				   FROM transaction_list 
+				   WHERE DATE(PaymentDate) BETWEEN ? AND ?
+				   GROUP BY DATE(PaymentDate) 
+				',[$start, $end]);
+				dd($data);
 				return view('Analytic.report10', compact('data'));
 			}
 		}
@@ -210,6 +220,14 @@ class AnalyticController extends Controller
 		{
 			if($request->ajax())
 			{
+				$data = DB::select(
+				   'SELECT dl.departmentname , COUNT(dl.departmentcode) , ROUND(CAST(CAST(COUNT(dl.departmentcode) AS FLOAT)*100/c.counts AS numeric),2) AS Percent
+				   	FROM department_list dl, user_list ul, problemreport_list pl ,(
+						SELECT COUNT(cc.problemno) AS counts FROM problemreport_list cc) c
+				   	WHERE dl.DepartmentCode = ul.DepartmentCode AND ul.UserID = pl.UserID 
+				   	GROUP BY dl.DepartmentCode, c.counts ORDER BY count DESC
+				');
+				dd($data);
 				return view('Analytic.report11', compact('data'));
 			}
 		}
@@ -218,6 +236,15 @@ class AnalyticController extends Controller
 		{
 			if($request->ajax())
 			{
+				$male = 'male';
+
+				$data = DB::select(
+				   'SELECT EXTRACT(YEAR FROM DATE(rs.DateRegis)) AS YEAR, COUNT(EXTRACT(YEAR FROM DATE(rs.DateRegis))),CAST(CAST(COUNT(EXTRACT(YEAR FROM DATE(rs.DateRegis)))*100 AS FLOAT)/(SELECT COUNT(EXTRACT(YEAR FROM DATE(rs.DateRegis))) FROM user_list ul , registration_student rs WHERE ul.UserID = rs.UserID )AS FLOAT) AS PERCENT
+				   	FROM user_list ul , registration_student rs
+				   	WHERE ul.UserID = rs.UserID AND ul.Gender = ?
+				   GROUP BY EXTRACT(YEAR FROM DATE(rs.DateRegis)) 
+				',[$male]);
+				dd($data);
 				return view('Analytic.report12', compact('data'));
 			}
 		}
@@ -241,7 +268,7 @@ class AnalyticController extends Controller
 				   	ORDER BY SUM(ses.SeatAvailable) DESC
 				   	LIMIT 5
 				');
-				dd($data);
+		
 				return view('Analytic.report13', compact('data'));
 			}
 		}
@@ -264,7 +291,7 @@ class AnalyticController extends Controller
 				   	ORDER BY SUM(ses.SeatAvailable)
 				   	LIMIT 5
 				');
-				dd($data);
+		
 				return view('Analytic.report14', compact('data'));
 			}
 		}
@@ -290,7 +317,7 @@ class AnalyticController extends Controller
 					GROUP BY dl.DepartmentName 
 				',[$waiting, $now ,$waiting, $now]);
 				dd($data);
-				
+
 				return view('Analytic.report15', compact('data'));
 			}
 		}
