@@ -132,6 +132,22 @@ class AnalyticController extends Controller
 		{
 			if($request->ajax())
 			{
+				$data = DB::select(
+				   'SELECT m.buildingname,MIN(r.roomseattotal),MAX(r.roomseattotal),m.roomseatTotal AS mode
+					FROM (	SELECT a.buildingname,a.roomseattotal,COUNT(a.roomseattotal) AS modecount
+							FROM room_list a
+						  	GROUP BY buildingname,roomseattotal) m ,
+					
+						 (	SELECT n.buildingname,MAX(n.modecount) AS maxmode
+						  	FROM (	SELECT b.buildingName,b.roomseattotal,COUNT(b.roomseatTotal) AS modecount
+								 	FROM room_list b
+								 	GROUP BY b.buildingname,b.roomseattotal) n
+						  	GROUP BY n.buildingname) o,
+						  room_list r
+					WHERE m.modecount = o.maxmode AND r.buildingname = m.buildingname
+					GROUP BY m.buildingname,m.roomseattotal
+				');
+				dd($data);
 				return view('Analytic.report7', compact('data'));
 			}
 		}
@@ -140,6 +156,26 @@ class AnalyticController extends Controller
 		{
 			if($request->ajax())
 			{
+				$waiting = 'waiting';
+				$now = 'now';
+
+				$data = DB::select(
+					'SELECT dl.departmentname , COUNT(dl.departmentname) AS count , 
+						CAST(CAST(COUNT(dl.departmentname)*100 AS FLOAT)/(	
+							SELECT COUNT(dl.departmentname)
+							FROM department_list dl,user_list ul,transaction_list tl, registration_student rl 
+							WHERE 	dl.DepartmentCode = ul.DepartmentCode AND 
+									ul.UserID = rl.UserID AND 
+									rl.TransactionID = tl.TransactionID AND 
+									(tl.PaymentStatus = ? OR PaymentDate > ?)) AS FLOAT)
+					FROM department_list dl,user_list ul,transaction_list tl, registration_student rl
+					WHERE 	dl.DepartmentCode = ul.DepartmentCode AND 
+							ul.UserID = rl.UserID AND 
+							rl.TransactionID = tl.TransactionID AND 
+							(tl.PaymentStatus = ? OR PaymentDate > ?)
+					GROUP BY dl.DepartmentName 
+				',[$waitign,$now,$waiting,$now]);
+				dd($data);
 				return view('Analytic.report8', compact('data'));
 			}
 		}
@@ -148,6 +184,22 @@ class AnalyticController extends Controller
 		{
 			if($request->ajax())
 			{
+				$time = '2019-05-22 15:30:00';
+
+				$data = DB::select(
+				   'SELECT dl.DepartmentName , COUNT(dl.DepartmentName), CAST(CAST(COUNT(dl.DepartmentName)*100 AS FLOAT)/(
+						SELECT COUNT(dl.DepartmentName) 
+						FROM department_list dl,user_list ul,transaction_list tl, registration_student rl 
+						WHERE 	dl.DepartmentCode = ul.DepartmentCode AND 
+								ul.UserID = rl.UserID AND 
+								rl.TransactionID = tl.TransactionID AND  
+								PaymentDate > ?)AS FLOAT) AS Percent
+					FROM department_list dl,user_list ul,transaction_list tl, registration_student rl
+					WHERE dl.DepartmentCode = ul.DepartmentCode AND ul.UserID = rl.UserID AND rl.TransactionID = tl.TransactionID
+					AND PaymentDate > ?
+					GROUP BY dl.DepartmentName
+				',[$time,$time]);
+				dd($data);
 				return view('Analytic.report9', compact('data'));
 			}
 		}
@@ -180,6 +232,22 @@ class AnalyticController extends Controller
 		{
 			if($request->ajax())
 			{
+				$data = DB::select(
+				   'SELECT  sl.SubjectName , SUM(ses.SeatAvailable) , SUM(ses.SeatAvailable)-sss.AVG AS differenceFromMean
+				   	FROM subject_list sl, sectioneachsubject ses, (
+						SELECT AVG(ss.summ) AS AVG
+						FROM (
+							SELECT  sl.SubjectName , SUM(ses.SeatAvailable) AS summ
+							FROM subject_list sl, sectioneachsubject ses
+							WHERE sl.SubjectCode = ses.SubjectCode
+							GROUP BY sl.SubjectCode
+							ORDER BY SUM(ses.SeatAvailable) DESC) ss ) sss
+				   	WHERE sl.SubjectCode = ses.SubjectCode
+				   	GROUP BY sl.SubjectCode , sss.AVG
+				   	ORDER BY SUM(ses.SeatAvailable) DESC
+				   	LIMIT 5
+				');
+				dd($data);
 				return view('Analytic.report13', compact('data'));
 			}
 		}
