@@ -11,6 +11,8 @@ class AnalyticController extends Controller
 		{
 			if($request->ajax())
 			{
+				$x = "HELLO";
+
 				$data = DB::select(
 					'SELECT f.facultyname, COUNT(f.facultyname) AS count_user 
 					 FROM user_list u,registration_student r, sectioneachsubject ss, department_list d, faculty_list f 
@@ -31,7 +33,7 @@ class AnalyticController extends Controller
       						u.departmentcode = d.departmentcode
 				');
 
-				dd($data,$sum);
+				dd($data,$sum,$x);
 				$sum = $sum[0]->sum_user;
 
 				foreach($data AS $dat) {
