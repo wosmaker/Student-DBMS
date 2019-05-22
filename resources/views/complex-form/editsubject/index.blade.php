@@ -135,7 +135,6 @@ $(document).ready(function() {
 		$('#block_section').hide();
 		$('#block_period').hide();
 
-
 		$(document).on('click', ".btn_detail_subject", function(e) {
 			e.preventDefault();
 			var query = $(this).attr("id");
@@ -146,6 +145,7 @@ $(document).ready(function() {
 					success:function(data){
 						$('#block_section').fadeOut(250,function(){	$('#block_section').empty().html(data);});
 						$('#block_section').fadeIn( 250 );
+						$('#block_period').fadeOut( 250 );
 					},
 					error: function(data){
 						console.log("Error :" + data);
