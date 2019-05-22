@@ -99,12 +99,15 @@ class AnalyticController extends Controller
 		{
 			if($request->ajax())
 			{
-				$data = DB::select('SELECT  rl.BuildingName, COUNT(DISTINCT ses.SubjectCode),
-				CAST(COUNT(DISTINCT ses.SubjectCode) AS FLOAT)  *100/
-			 	(SELECT COUNT(DISTINCT ses.SubjectCode) FROM room_list rl, schedule s,sectioneachsubject ses WHERE rl.RoomCode = s.RoomCode AND ses.SubjectSectionID = s.SubjectSectionID)
+				$data = DB::select('SELECT  rl.BuildingName, COUNT(DISTINCT ses.SubjectCode),CAST(COUNT(DISTINCT ses.SubjectCode) AS FLOAT)  *100/(
+					 SELECT COUNT(DISTINCT ses.SubjectCode) 
+					 FROM room_list rl, schedule s,sectioneachsubject ses 
+					 WHERE rl.RoomCode = s.RoomCode AND 
+					 ses.SubjectSectionID = s.SubjectSectionID)
 			 	AS Percent
 			 	FROM room_list rl, schedule s,sectioneachsubject ses
-			 	WHERE rl.RoomCode = s.RoomCode AND ses.SubjectSectionID = s.SubjectSectionID
+			 	WHERE 	rl.RoomCode = s.RoomCode AND 
+				 		ses.SubjectSectionID = s.SubjectSectionID
 			 	GROUP BY rl.BuildingName
 			 	');
 				return view('Analytic.report4', compact('data'));
