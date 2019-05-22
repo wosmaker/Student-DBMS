@@ -52,7 +52,7 @@
 </div>
 
 <div class="shadow-sm p-3 mb-2 bg-white ">
-    <form class="was-validation" id="form_sent_receipt" enctype="multipart/form-data"  novalidate>
+    <form class="was-validation" id="form_sent_receipt" method="POST" action="{{route('updatereceipt.store')}}" enctype="multipart/form-data"  novalidate>
       @csrf
       <div class="form-row mb-4">
 				<div class="form-group col-4">
@@ -135,7 +135,7 @@ $(document).ready( function() {
 		});
 
 
-		$( '#form_sent_receipt' ).one( 'submit', function(e) {
+		$( '#form_sent_receidssept' ).one( 'submit', function(e) {
 				e.preventDefault();
 				if (confirm('Are you sure you want to confirm receipt ?')) {
 					$.ajax({
