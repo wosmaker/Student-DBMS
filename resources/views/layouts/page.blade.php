@@ -35,8 +35,8 @@
 							url: "{{route('analytic.analytic_1')}}",
 							data: {_token: "{{ csrf_token() }}"},
 							success: function(data) {
-								console.log("Debud:" +data);
-								$('#page_main').empty().html(data);
+								$('#page_main').fadeOut(250,function(){	$('#page_main').empty().html(data);});
+								$('#page_main').fadeIn( 250 );
 							}
 					});
 				});
@@ -48,8 +48,8 @@
 							url: "{{route('analytic.analytic_2')}}",
 							data: {_token: "{{ csrf_token() }}"},
 							success: function(data) {
-								console.log("Debud:" +data);
-								$('#page_main').empty().html(data);
+								$('#page_main').fadeOut(250,function(){	$('#page_main').empty().html(data);});
+								$('#page_main').fadeIn( 250 );
 							}
 					});
 				});
@@ -61,8 +61,8 @@
 							url: "{{route('analytic.analytic_3')}}",
 							data: {_token: "{{ csrf_token() }}"},
 							success: function(data) {
-								console.log("Debud:" +data);
-								$('#page_main').empty().html(data);
+								$('#page_main').fadeOut(250,function(){	$('#page_main').empty().html(data);});
+								$('#page_main').fadeIn( 250 );
 							}
 					});
 				});
@@ -74,8 +74,8 @@
 							url: "{{route('analytic.analytic_4')}}",
 							data: {_token: "{{ csrf_token() }}"},
 							success: function(data) {
-								console.log("Debud:" +data);
-								$('#page_main').empty().html(data);
+								$('#page_main').fadeOut(250,function(){	$('#page_main').empty().html(data);});
+								$('#page_main').fadeIn( 250 );
 							}
 					});
 				});
@@ -87,24 +87,25 @@
 							url: "{{route('analytic.analytic_5')}}",
 							data: {_token: "{{ csrf_token() }}"},
 							success: function(data) {
-								console.log("Debud:" +data);
-								$('#page_main').empty().html(data);
+								$('#page_main').fadeOut(250,function(){	$('#page_main').empty().html(data);});
+								$('#page_main').fadeIn( 250 );
 							}
 					});
 				});
 
-				$( "#analytic_6" ).click(function(e) {
-					e.preventDefault();
-					$.ajax({
-							type: "POST",
-							url: "{{route('analytic.analytic_6')}}",
-							data: {_token: "{{ csrf_token() }}"},
-							success: function(data) {
-								console.log("Debud:" +data);
-								$('#page_main').empty().html(data);
-							}
-					});
-				});
+				// $( "#analytic_6" ).click(function(e) {
+				// 	e.preventDefault();
+				// 	$.ajax({
+				// 			type: "POST",
+				// 			url: "{{route('analytic.analytic_6')}}",
+				// 			data: {_token: "{{ csrf_token() }}"},
+				// 			success: function(data) {
+				// 				console.log("Debud:" +data);
+				// 				$('#page_main').fadeOut(250,function(){	$('#page_main').empty().html(data);});
+				// 				$('#page_main').fadeIn( 250 );
+				// 			}
+				// 	});
+				// });
 
 				$( "#analytic_7" ).click(function(e) {
 					e.preventDefault();
@@ -113,8 +114,8 @@
 							url: "{{route('analytic.analytic_7')}}",
 							data: {_token: "{{ csrf_token() }}"},
 							success: function(data) {
-								console.log("Debud:" +data);
-								$('#page_main').empty().html(data);
+								$('#page_main').fadeOut(250,function(){	$('#page_main').empty().html(data);});
+								$('#page_main').fadeIn( 250 );
 							}
 					});
 				});
@@ -126,8 +127,8 @@
 							url: "{{route('analytic.analytic_8')}}",
 							data: {_token: "{{ csrf_token() }}"},
 							success: function(data) {
-								console.log("Debud:" +data);
-								$('#page_main').empty().html(data);
+								$('#page_main').fadeOut(250,function(){	$('#page_main').empty().html(data);});
+								$('#page_main').fadeIn( 250 );
 							}
 					});
 				});
@@ -139,8 +140,8 @@
 							url: "{{route('analytic.analytic_9')}}",
 							data: {_token: "{{ csrf_token() }}"},
 							success: function(data) {
-								console.log("Debud:" +data);
-								$('#page_main').empty().html(data);
+								$('#page_main').fadeOut(250,function(){	$('#page_main').empty().html(data);});
+								$('#page_main').fadeIn( 250 );
 							}
 					});
 				});
@@ -152,8 +153,8 @@
 							url: "{{route('analytic.analytic_10')}}",
 							data: {_token: "{{ csrf_token() }}"},
 							success: function(data) {
-								console.log("Debud:" +data);
-								$('#page_main').empty().html(data);
+								$('#page_main').fadeOut(250,function(){	$('#page_main').empty().html(data);});
+								$('#page_main').fadeIn( 250 );
 							}
 					});
 				});
@@ -165,8 +166,8 @@
 							url: "{{route('analytic.analytic_11')}}",
 							data: {_token: "{{ csrf_token() }}"},
 							success: function(data) {
-								console.log("Debud:" +data);
-								$('#page_main').empty().html(data);
+								$('#page_main').fadeOut(250,function(){	$('#page_main').empty().html(data);});
+								$('#page_main').fadeIn( 250 );
 							}
 					});
 				});
@@ -178,8 +179,8 @@
 							url: "{{route('analytic.analytic_12')}}",
 							data: {_token: "{{ csrf_token() }}"},
 							success: function(data) {
-								console.log("Debud:" +data);
-								$('#page_main').empty().html(data);
+								$('#page_main').fadeOut(250,function(){	$('#page_main').empty().html(data);});
+								$('#page_main').fadeIn( 250 );
 							}
 					});
 				});
@@ -191,8 +192,8 @@
 							url: "{{route('analytic.analytic_13')}}",
 							data: {_token: "{{ csrf_token() }}"},
 							success: function(data) {
-								console.log("Debud:" +data);
-								$('#page_main').empty().html(data);
+								$('#page_main').fadeOut(250,function(){	$('#page_main').empty().html(data);});
+								$('#page_main').fadeIn( 250 );
 							}
 					});
 				});
@@ -204,8 +205,8 @@
 							url: "{{route('analytic.analytic_14')}}",
 							data: {_token: "{{ csrf_token() }}"},
 							success: function(data) {
-								console.log("Debud:" +data);
-								$('#page_main').empty().html(data);
+								$('#page_main').fadeOut(250,function(){	$('#page_main').empty().html(data);});
+								$('#page_main').fadeIn( 250 );
 							}
 					});
 				});
@@ -217,8 +218,8 @@
 							url: "{{route('analytic.analytic_15')}}",
 							data: {_token: "{{ csrf_token() }}"},
 							success: function(data) {
-								console.log("Debud:" +data);
-								$('#page_main').empty().html(data);
+								$('#page_main').fadeOut(250,function(){	$('#page_main').empty().html(data);});
+								$('#page_main').fadeIn( 250 );
 							}
 					});
 				});
@@ -230,8 +231,8 @@
 							url: "{{route('analytic.analytic_16')}}",
 							data: {_token: "{{ csrf_token() }}"},
 							success: function(data) {
-								console.log("Debud:" +data);
-								$('#page_main').empty().html(data);
+								$('#page_main').fadeOut(250,function(){	$('#page_main').empty().html(data);});
+								$('#page_main').fadeIn( 250 );
 							}
 					});
 				});
