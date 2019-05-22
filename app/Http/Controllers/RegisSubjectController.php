@@ -112,7 +112,7 @@ class RegisSubjectController extends Controller
       
         DB::select(
           ' UPDATE sectioneachsubject 
-            SET seatavailable = seatavailable + 1
+            SET seatavailable = seatavailable - 1
             WHERE subjectsectionid = ?',[$subjectsectionid]);
 
         $regissubjects = $this->tb_registration();
@@ -170,7 +170,7 @@ class RegisSubjectController extends Controller
 
         DB::select(
           ' UPDATE sectioneachsubject 
-            SET seatavailable = seatavailable - 1
+            SET seatavailable = seatavailable + 1
             WHERE subjectsectionid = ?',[$id]);
 
         $regissubjects = $this->tb_registration();

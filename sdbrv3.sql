@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 22, 2019 at 12:40 PM
+-- Generation Time: May 22, 2019 at 02:16 PM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.2
 
@@ -248,6 +248,18 @@ CREATE TABLE `registration_student` (
   `grade` decimal(8,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `registration_student`
+--
+
+INSERT INTO `registration_student` (`subjectsectionid`, `userid`, `transactionid`, `dateregis`, `grade`) VALUES
+(1, 9, NULL, '2019-05-22 12:13:14', NULL),
+(4, 9, NULL, '2019-05-22 12:13:17', NULL),
+(5, 9, NULL, '2019-05-22 12:13:53', NULL),
+(9, 9, NULL, '2019-05-22 12:14:20', NULL),
+(10, 9, NULL, '2019-05-22 12:14:02', NULL),
+(13, 9, NULL, '2019-05-22 12:14:09', NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -283,13 +295,13 @@ CREATE TABLE `room_list` (
 --
 
 INSERT INTO `room_list` (`roomcode`, `buildingname`, `floor`, `roomseattotal`, `monday`, `tuesday`, `wednesday`, `thursday`, `friday`) VALUES
-('CB1101', 'Classrom Building 1', '1', 30, '1111111', '1111111', '1111111', '1111111', '1111111'),
-('CB1102', 'Classrom Building 1', '1', 30, '1111111', '1111111', '1111111', '1111111', '1111111'),
-('CB1201', 'Classrom Building 1', '2', 20, '1111111', '1111111', '1111111', '1111111', '1111111'),
+('CB1101', 'Classrom Building 1', '1', 30, '1111111', '1111111', '1111111', '1110000', '1110000'),
+('CB1102', 'Classrom Building 1', '1', 30, '1111111', '1111111', '1111111', '0000111', '0000111'),
+('CB1201', 'Classrom Building 1', '2', 20, '0001000', '1111111', '1111111', '1111111', '1111111'),
 ('CB1202', 'Classrom Building  1', '2', 20, '1111111', '1111111', '1111111', '1111111', '1111111'),
-('CPE1120', 'Witsawa Watthana', '11', 80, '1111111', '1111111', '1111111', '1111111', '1111111'),
-('CPE1121', 'Witsawa Watthana', '11', 80, '1111111', '1111111', '1111111', '1111111', '1111111'),
-('SCL216', 'Science Laboratory Building', '2', 600, '1111111', '1111111', '1111111', '1111111', '1111111');
+('CPE1120', 'Witsawa Watthana', '11', 80, '0001000', '1111111', '1111111', '1111111', '1111111'),
+('CPE1121', 'Witsawa Watthana', '11', 80, '1111111', '0001000', '1111111', '1111111', '1111111'),
+('SCL216', 'Science Laboratory Building', '2', 600, '1111111', '1111111', '0000111', '0000111', '0000111');
 
 -- --------------------------------------------------------
 
@@ -305,6 +317,25 @@ CREATE TABLE `schedule` (
   `start_period` int(10) NOT NULL,
   `end_period` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `schedule`
+--
+
+INSERT INTO `schedule` (`subjectsectionid`, `periodno`, `roomcode`, `day`, `start_period`, `end_period`) VALUES
+(1, 1, 'CPE1120', 'monday', 1, 3),
+(2, 1, 'CPE1120', 'monday', 5, 7),
+(3, 1, 'CPE1121', 'tuesday', 1, 3),
+(4, 1, 'CPE1121', 'tuesday', 5, 7),
+(5, 1, 'SCL216', 'wednesday', 1, 4),
+(6, 1, 'SCL216', 'thursday', 1, 4),
+(7, 1, 'SCL216', 'friday', 1, 4),
+(8, 1, 'CB1201', 'monday', 1, 3),
+(9, 1, 'CB1201', 'monday', 5, 7),
+(10, 1, 'CB1101', 'thursday', 4, 7),
+(11, 1, 'CB1101', 'friday', 4, 7),
+(12, 1, 'CB1102', 'thursday', 1, 4),
+(13, 1, 'CB1102', 'friday', 1, 4);
 
 -- --------------------------------------------------------
 
@@ -325,19 +356,19 @@ CREATE TABLE `sectioneachsubject` (
 --
 
 INSERT INTO `sectioneachsubject` (`subjectsectionid`, `subjectcode`, `sectionno`, `price`, `seatavailable`) VALUES
-(1, 'CPE111', 1, '1000.00', 40),
-(2, 'CPE111', 1, '1000.00', 40),
+(1, 'CPE111', 1, '1000.00', 39),
+(2, 'CPE111', 2, '1000.00', 40),
 (3, 'CPE231', 1, '3000.00', 40),
-(4, 'CPE231', 2, '3000.00', 40),
-(5, 'GEN111', 1, '500.00', 500),
+(4, 'CPE231', 2, '3000.00', 39),
+(5, 'GEN111', 1, '500.00', 499),
 (6, 'GEN111', 2, '500.00', 500),
 (7, 'GEN111', 3, '500.00', 500),
 (8, 'LNG102', 1, '1500.00', 30),
-(9, 'LNG102', 2, '1500.00', 30),
-(10, 'MTH201', 1, '1000.00', 60),
+(9, 'LNG102', 2, '1500.00', 29),
+(10, 'MTH201', 1, '1000.00', 59),
 (11, 'MTH201', 2, '1000.00', 60),
 (12, 'PHY103', 1, '1000.00', 60),
-(13, 'PHY103', 1, '1000.00', 60);
+(13, 'PHY103', 2, '1000.00', 59);
 
 -- --------------------------------------------------------
 
@@ -481,11 +512,13 @@ INSERT INTO `user_list` (`identificationno`, `userid`, `titlename`, `firstname`,
 (10004, 4, 'mrs', 'jenny', 'ynnej', 'female', 'AB', '2019-05-03', 'thai', 'buddism', 'thai', 'a4', 4, 'p4', 'd4', 's4', 'd1', 'u4', NULL),
 (10005, 5, 'mr', 'david', 'divad', 'male', 'A', '2018-10-01', 'thai', 'chris', 'thai', 'a5', 5, 'p5', 'd5', 's5', 'd3', 'u5', NULL),
 (123456789, 8, 'Mr', 'superduper', 'adminotsuke', 'Male', 'AB', '1999-01-01', 'Humanoid', 'Thai', 'Thai', '132/784 Earth.Rd', 99999, 'MilkyWay', 'WhiteWay', 'YOLO', 'none', '123', NULL),
+(12315468798966, 6, 'mr', 'Jeff', 'Anderson', 'male', 'A', '2019-05-03', 'Robot', 'AAA', 'SSR', 'a10', 10, 'p10', 'd10', 'sd10', 'CPE', 'u10', NULL),
+(13569855478519, 7, 'mrs', 'Lola', 'Masalsa', 'female', 'B', '2019-05-05', 'Elf', 'Deer Clop', 'Dark Oak', 'a20', 20, 'p20', 'd20', 's20', 'ACCT', 'u20', NULL),
 (18000000000001, 9, 'mr', 'Joan', 'Rowan', 'male', 'A', '2019-05-01', 'Human', 'Thai', 'Thai', 'a1', 1, 'p1', 'd1', 'sd1', 'ACCT', 'u1', NULL),
 (18000000000002, 10, 'mrs', 'Celinda', 'Amidon', 'female', 'B', '2019-05-02', 'Human', 'Thai', 'Thai', 'a2', 2, 'p2', 'd2', 'sd2', 'ECON', 'u2', NULL),
 (18544166688523, 11, 'mrs', 'Elene', 'Heintz', 'female', 'O', '2019-05-03', 'Human', 'Thai', 'Thai', 'a3', 3, 'p3', 'd3', 'sd3', 'CPE', 'u3', NULL),
 (18966541258586, 12, 'mr', 'Nick', 'Marcucci', 'male', 'AB', '2019-05-04', 'Human', 'Thai', 'Thai', 'a4', 4, 'p4', 'd4', 'sd4', 'IE', 'u4', NULL),
-(196549816213519, 13, 'mrs', 'Alishia', 'Briceno', 'female', 'A', '2019-05-14', 'Human', 'Thai', 'Thai', 'a5', 5, 'p5', 'd5', 'sd5', 'none', 'u5', NULL);
+(19654981621351, 13, 'mrs', 'Alishia', 'Briceno', 'female', 'A', '2019-05-14', 'Human', 'Thai', 'Thai', 'a5', 5, 'p5', 'd5', 'sd5', 'none', 'u5', NULL);
 
 -- --------------------------------------------------------
 
@@ -687,7 +720,7 @@ ALTER TABLE `sectioneachsubject`
 -- AUTO_INCREMENT for table `transaction_list`
 --
 ALTER TABLE `transaction_list`
-  MODIFY `transactionid` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `transactionid` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`
