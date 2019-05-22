@@ -50,13 +50,13 @@ class UpdateReceiptController extends Controller
 					->select('sl.subjectcode','sl.subjectname', 'ss.sectionno', 'sl.subjectcredit',)
 					->where('r.userid', '=' , $userid)
 					->get();
-		/*
-		$regissubjects  = DB::select('SELECT s.subjectcode , s.subjectname,ses.sectionno,s.subjectcredit
-		FROM subject_list s, sectioneachsubject ses,registration_student rs
-		WHERE s.subjectcode = ses.subjectcode AND ses.subjectsectionid = rs.subjectsectionid AND
-		rs.userid = :userid;
-		', ['userid' => $userid]);
-*/
+				/*
+				$regissubjects  = DB::select('SELECT s.subjectcode , s.subjectname,ses.sectionno,s.subjectcredit
+				FROM subject_list s, sectioneachsubject ses,registration_student rs
+				WHERE s.subjectcode = ses.subjectcode AND ses.subjectsectionid = rs.subjectsectionid AND
+				rs.userid = :userid;
+				', ['userid' => $userid]);
+			*/
 				$transactionlists = $this->value_transaction();
 
         //คำนวณหน่วยกิตทั้งหมด
@@ -112,7 +112,9 @@ class UpdateReceiptController extends Controller
 
 					list($width, $height) = getimagesize($image_name);
 
-					$image_url= Cloudder::show(Cloudder::getPublicId(), ["width" => $width, "height"=>$height]);
+					$publicId = Cloudder::getPublicId();
+
+					$image_url= Cloudder::show($publicId, ["width" => $width, "height"=>$height]);
 
 					//save to uploads directory
 					$image->move(public_path("uploads"), $name);
@@ -125,7 +127,7 @@ class UpdateReceiptController extends Controller
                 'semester'      => $semester ,
                 'paymenttypeid' => $paymenttype ,
                 'paymentstatus' => 'waiting' ,
-                'picturelink'   => $image_url ,
+                'picturelink'   => $publicId ,
             ]
 					);
 

@@ -1,12 +1,12 @@
 <div class="row">
 	<div id="personal-form" class="shadow-sm p-3 mb-2 bg-white " style="width:600px;">
-		<form class="col was-validated" method="POST" action="personal" novalidate>
+		<form class="col was-validated" id="form_save_personal_ondata"  novalidate>
 			@csrf
 
 			<div class="form-row">
 				<div class="form-group col-md-6">
 					<label for="identificationno">Identification No</label>
-					<input type="text" class="form-control" id="identificationno" name="identificationno" placeholder="" required>
+					<input type="number"  class="form-control" id="identificationno" name="identificationno" placeholder="" required>
 				</div>
 
 				<div class="form-group col-md-6">
@@ -47,7 +47,7 @@
 				<div class="form-group col-md-3">
 					<label for="gender">Gender</label>
 					<select id="gender" name="gender" class="form-control" required>
-						<option selected>Choose...</option>
+						<option selected value = "">Choose...</option>
 						<option value="Male">Male</option>
 						<option value="Female">Female</option>
 						<option value="Other">Other</option>
@@ -57,7 +57,7 @@
 				<div class="form-group col-md-3">
 					<label for="bloodtype">Blood</label>
 					<select id="bloodtype" name="bloodtype" class="form-control" required>
-						<option selected>Choose...</option>
+						<option selected value="">Choose...</option>
 						<option value="A">A</option>
 						<option value="B">B</option>
 						<option value="O">O</option>

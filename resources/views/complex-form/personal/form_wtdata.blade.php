@@ -6,7 +6,7 @@
 			<div class="form-row">
 				<div class="form-group col-md-6">
 					<label for="identificationno">Identification No</label>
-					<input type="text" class="form-control" id="identificationno" name="identificationno" value=" {{ $userdetail->identificationno }}" required>
+					<input type="number"  class="form-control" id="identificationno" name="identificationno" value="{{ (int)$userdetail->identificationno }}" required>
 				</div>
 
 				<div class="form-group col-md-6">
@@ -24,11 +24,11 @@
 				<div class="form-group col-md-2">
 					<label for="titlename">Title Name </label>
 					<select id="titlename" name="titlename" class="form-control" required>
-						<option value="">Choose...</option>
-						<option {{ $userdetail->title == "Mr" ? 'selected':'' }} value="Mr">Mr</option>
-						<option {{ $userdetail->title == "Mrs" ? 'selected':'' }} value="Mrs">Mrs</option>
-						<option {{ $userdetail->title == "Ms" ? 'selected':'' }} value="Ms">Ms</option>
-						<option {{ $userdetail->title == "Other" ? 'selected':'' }} value="Other">Other</option>
+						<option selected value="{{ $userdetail->titlename }}">{{ $userdetail->titlename }}</option>
+						<option value="Mr">Mr</option>
+						<option value="Mrs">Mrs</option>
+						<option value="Ms">Ms</option>
+						<option value="Other">Other</option>
 					</select>
 				</div>
 
@@ -47,7 +47,7 @@
 				<div class="form-group col-md-3">
 					<label for="gender">Gender</label>
 					<select id="gender" name="gender" class="form-control" required>
-						<option selected>{{ $userdetail->gender }}</option>
+						<option selected value="{{ $userdetail->gender }}">{{ $userdetail->gender }}</option>
 						<option value="Male">Male</option>
 						<option value="Female">Female</option>
 						<option value="Other">Other</option>
@@ -57,7 +57,7 @@
 				<div class="form-group col-md-3">
 					<label for="bloodtype">Blood</label>
 					<select id="bloodtype" name="bloodtype" class="form-control" required>
-						<option selected>{{ $userdetail->bloodtype }}</option>
+						<option selected value="{{ $userdetail->bloodtype }}">{{ $userdetail->bloodtype }}</option>
 						<option value="A">A</option>
 						<option value="B">B</option>
 						<option value="O">O</option>

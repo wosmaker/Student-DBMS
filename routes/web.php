@@ -25,6 +25,7 @@ Route::get('personal','PersonalController@index')->name('personal.index');
 Route::get('personal/{id}/edit' , 'PersonalController@edit')->name('personal.edit');
 Route::post('personal', 'PersonalController@store')->name('personal.store');
 Route::delete('personal/destroy', 'PersonalController@destroy')->name('personal.destroy');
+
 Route::patch('personal/update' , 'PersonalController@update')->name('personal.update');
 
 

@@ -114,6 +114,7 @@
 })();
 
 $(document).ready( function() {
+
 	$(document).on('click', ".btn_destroy_confirm", function() {
 		swal({
 			title: "Are you sure?",
@@ -121,9 +122,10 @@ $(document).ready( function() {
 			icon: "warning",
 			buttons: true,
 			dangerMode: true,
-		}).then(() => {
+		}).then((isTrue) => {
 			if (isTrue) {
 				var id = $(this).attr("id");
+				console.log("Debug:" + id);
 				$.ajax({
 						type: "POST",
 						url:"{{route('updatereceipt.destroy')}}",

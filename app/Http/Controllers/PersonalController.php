@@ -197,8 +197,14 @@ class PersonalController extends Controller
 						titlename = ?,firstname = ? , lastname = ?,gender = ?,bloodtype = ?,birthdate = ?,race = ?,religion = ?,nationnality = ?,address = ?,postcode = ?,province = ?,district = ?,subdistrict = ?,departmentcode = ?,usercontact = ?
 						', [$userid,$identificationno, $titlename,$firstname,$lastname,$gender,$bloodtype,$birthdate,$race,$religion,$nationnality,$address,$postcode,$province,$district,$subdistrict,$departmentcode,$usercontact ,
 								$titlename,$firstname,$lastname,$gender,$bloodtype,$birthdate,$race,$religion,$nationnality,$address,$postcode,$province,$district,$subdistrict,$departmentcode,$usercontact]);
-					return response("complete");
-				}
+
+						$userdetail = UserList::where('userid', $userid)->first();
+						$departments = DB::table('department_list')
+						->select('departmentcode', 'departmentname')
+						->get()->all();
+
+						return view('complex-form.personal.form_wtdata', compact('userdetail','departments'));
+					}
     }
 
     /**

@@ -15,7 +15,9 @@
 @endif
 
 @if($userdetail != null)
-	@include('complex-form.personal.form_wtdata')
+	<div id="form_show">
+		@include('complex-form.personal.form_wtdata')
+	</div>
 @endif
 
 @endsection
@@ -26,20 +28,40 @@
  <script>
 	$(document).ready( function() {
 
-		$( '#form_save_personal' ).on( 'submit', function(e) {
+
+		$( '#form_save_personal_ondata' ).on( 'submit', function(e) {
 			e.preventDefault();
-			console.log("test save ");
+			console.log("test save nodata");
 
 				$.ajax({
-						type: "POST",
+						type: "patch",
 						url: "{{route('personal.update')}}",
 						data: $(this).serialize(),
 						success: function(data) {
-							console.log("test save complete");
-							// $('#block_period').empty().html(data);
-							// $('#block_period').show();
-							// $('#modal_add_period').modal('hide');
-							// $( '#form_add_period' ).trigger("reset");
+							$('#form_show').empty().html(data);
+						},
+						error: function (reject) {
+                // if( reject.status === 422 ) {
+                //     var errors = $.parseJSON(reject.responseText);
+								// 		$.each(errors, function (key, item)
+								// 			{
+								// 				$("#errors").append("<li class='alert alert-danger'>"+item+"</li>")
+								// 			});
+                // }
+            }
+				});
+		});
+
+
+		$( '#form_save_personal' ).on( 'submit', function(e) {
+			e.preventDefault();
+
+				$.ajax({
+						type: "patch",
+						url: "{{route('personal.update')}}",
+						data: $(this).serialize(),
+						success: function(data) {
+							$('#form_show').empty().html(data);
 						},
 						error: function (reject) {
                 // if( reject.status === 422 ) {
