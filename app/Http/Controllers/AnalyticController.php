@@ -166,25 +166,14 @@ class AnalyticController extends Controller
 		{
 			if($request->ajax())
 			{
-				$waiting = 'waiting';
-				$now = 'now';
-
 				$data = DB::select(
-					'SELECT dl.departmentname , COUNT(dl.departmentname) AS count , 
-						CAST(CAST(COUNT(dl.departmentname)*100 AS FLOAT)/(	
-							SELECT COUNT(dl.departmentname)
-							FROM department_list dl,user_list ul,transaction_list tl, registration_student rl 
-							WHERE 	dl.DepartmentCode = ul.DepartmentCode AND 
-									ul.UserID = rl.UserID AND 
-									rl.TransactionID = tl.TransactionID AND 
-									(tl.PaymentStatus = ? OR PaymentDate > ?)) AS FLOAT)
-					FROM department_list dl,user_list ul,transaction_list tl, registration_student rl
-					WHERE 	dl.DepartmentCode = ul.DepartmentCode AND 
-							ul.UserID = rl.UserID AND 
-							rl.TransactionID = tl.TransactionID AND 
-							(tl.PaymentStatus = ? OR PaymentDate > ?)
-					GROUP BY dl.DepartmentName 
-				',[$waiting,$now,$waiting,$now]);
+				   'SELECT  pl.paymenttypeName ,COUNT( pl.paymenttypeName ) , round(CAST(COUNT( pl.paymenttypeName )*100/(SUM(tid.counts)/COUNT( pl.paymenttypeName ))as numeric) ,2) AS percent
+					FROM transaction_list tl , paymenttype_list pl , (
+						SELECT COUNT(*) AS counts 
+						FROM transaction_list) tid
+					WHERE tl.paymenttypeid = pl.paymenttypeid
+					GROUP BY  pl.paymenttypename
+				',);
 			
 				return view('Analytic.report8', compact('data'));
 			}
@@ -194,15 +183,23 @@ class AnalyticController extends Controller
 		{
 			if($request->ajax())
 			{
-				$time = '2019-05-22 15:00:00';
+				$time = '2019-05-22 15:16:00';
 
 				$data = DB::select(
-				   'SELECT dl.DepartmentName , COUNT(dl.DepartmentName) as count
-				   FROM department_list dl,user_list ul,transaction_list tl, registration_student rl
-				   WHERE dl.DepartmentCode = ul.DepartmentCode AND ul.UserID = rl.UserID AND rl.TransactionID = tl.TransactionID
-				   AND PaymentDate > ?
-				   GROUP BY dl.DepartmentName ORDER BY Count DESC
-				',[$time]);
+				   'SELECT dl.DepartmentName , COUNT(dl.DepartmentName),ROUND( CAST(CAST(COUNT(dl.DepartmentName)*100 AS FLOAT)/(
+					   SELECT COUNT(dl.DepartmentName) 
+					   FROM department_list dl,user_list ul,transaction_list tl, registration_student rl 
+					   WHERE dl.DepartmentCode = ul.DepartmentCode AND 
+					   		ul.UserID = rl.UserID AND 
+							   rl.TransactionID = tl.TransactionID AND  
+							   PaymentDate > ? )AS numeric),2) AS Percent
+				   	FROM department_list dl,user_list ul,transaction_list tl, registration_student rl
+				   	WHERE	dl.DepartmentCode = ul.DepartmentCode AND 
+					   		ul.UserID = rl.UserID AND 
+					   		rl.TransactionID = tl.TransactionID AND 
+					   		PaymentDate > ?
+				   GROUP BY dl.DepartmentName
+				',[$time,$time]);
 	
 				return view('Analytic.report9', compact('data'));
 			}
@@ -216,10 +213,10 @@ class AnalyticController extends Controller
 				$end = '2019-05-30';
 
 				$data = DB::select(
-				   'SELECT DATE(PaymentDate) AS date,COUNT( UserID) AS paymentcount ,  CAST(COUNT( UserID) AS Float) *100/(SELECT COUNT(*) FROM transaction_list)AS percent
-				   FROM transaction_list 
-				   WHERE DATE(PaymentDate) BETWEEN ? AND ?
-				   GROUP BY DATE(PaymentDate) 
+				   'SELECT DATE(PaymentDate) AS date,COUNT( UserID) AS paymentcount ,  ROUND(CAST(CAST(COUNT( UserID) AS Float) *100/(SELECT COUNT(*) FROM transaction_list) AS numeric),2) AS percent
+				   	FROM transaction_list 
+				   	WHERE DATE(PaymentDate) BETWEEN ? AND ?
+				   	GROUP BY DATE(PaymentDate) 
 				',[$start, $end]);
 				dd($data);
 				return view('Analytic.report10', compact('data'));
@@ -247,16 +244,14 @@ class AnalyticController extends Controller
 			if($request->ajax())
 			{
 				$male = 'male';
+				$female = 'female';
 
 				$data = DB::select(
-				   'SELECT EXTRACT(YEAR FROM DATE(rs.Latest_Regis)) AS YEAR, count(ul.userid) as Male,count(ul.userid) as Female 
-				   	FROM (
-						SELECT userid,max(dateregis) as Latest_Regis 
-					   	FROM registration_student  
-						GROUP BY userid) rs, user_list ul 
-				   	WHERE ul.userid = rs.userid 
-					GROUP BY EXTRACT(YEAR FROM DATE(rs.Latest_Regis))
-				',);
+				   'SELECT EXTRACT(YEAR FROM DATE(rs.Latest_Regis)) AS YEAR, COUNT(CASE WHEN ul.gender = ? THEN 1 ELSE NULL END) as Male,
+				   		count(CASE WHEN ul.gender = ? THEN 1 ELSE NULL END) as Female 
+				   	FROM (SELECT userid,max(dateregis) as Latest_Regis FROM registration_student  GROUP BY userid) rs, user_list ul 
+				   	WHERE ul.userid = rs.userid GROUP BY EXTRACT(YEAR FROM DATE(rs.Latest_Regis))
+				',[$male, $female]);
 				dd($data);
 				return view('Analytic.report12', compact('data'));
 			}
@@ -317,17 +312,17 @@ class AnalyticController extends Controller
 				$now = 'now';
 
 				$data = DB::select(
-				   'SELECT dl.DepartmentName , COUNT(dl.DepartmentName) AS count , CAST(CAST(COUNT(dl.DepartmentName)*100 AS FLOAT)/(
-					   	SELECT COUNT(dl.DepartmentName) 
-					   	FROM department_list dl,user_list ul,transaction_list tl, registration_student rl 
-					   	WHERE	dl.DepartmentCode = ul.DepartmentCode AND 
-					   			ul.UserID = rl.UserID AND 
-								rl.TransactionID = tl.TransactionID AND 
-								(tl.PaymentStatus = ? OR PaymentDate > ? )) AS FLOAT)
-					FROM department_list dl,user_list ul,transaction_list tl, registration_student rl
-					WHERE dl.DepartmentCode = ul.DepartmentCode AND ul.UserID = rl.UserID AND rl.TransactionID = tl.TransactionID
-					AND (tl.PaymentStatus = ? OR PaymentDate > ? )
-					GROUP BY dl.DepartmentName 
+				   'SELECT dl.DepartmentName , COUNT(dl.DepartmentName) AS count ,CAST(COUNT(dl.DepartmentName) AS FLOAT)*100/(
+					   SELECT COUNT(dl.DepartmentName)
+					   FROM department_list dl,user_list ul,transaction_list tl, registration_student rl 
+					   WHERE dl.DepartmentCode = ul.DepartmentCode AND 
+					   	ul.UserID = rl.UserID AND 
+						   rl.TransactionID = tl.TransactionID AND 
+						   (tl.PaymentStatus = ? OR PaymentDate > ? )) AS percent
+				   	FROM department_list dl,user_list ul,transaction_list tl, registration_student rl
+				   	WHERE dl.DepartmentCode = ul.DepartmentCode AND ul.UserID = rl.UserID AND rl.TransactionID = tl.TransactionID
+				   	AND (tl.PaymentStatus = ? OR PaymentDate > ?)
+				   GROUP BY dl.DepartmentName 
 				',[$waiting, $now ,$waiting, $now]);
 				dd($data);
 
