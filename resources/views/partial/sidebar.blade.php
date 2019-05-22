@@ -66,13 +66,25 @@
 		<a class="list-group-item list-group-item-action list-group-item-dark" href="#sub3" data-toggle="collapse" aria-expanded="true">Data Analytic</a>
 
 		<div id='sub3' class="collapse sidebar-submenu">
-			@for ($i = 1; $i <= 16; $i++)
-			<a href="{{URL('report'.$i)}}" class="list-group-item list-group-item-action list-group-item-light">
-			Repert {{$i}}</a>
-			@endfor
+				<a id="analytic_1" class="list-group-item list-group-item-action list-group-item-light">report 1</a>
+				<a id="analytic_2" class="list-group-item list-group-item-action list-group-item-light">report 2</a>
+				<a id="analytic_3" class="list-group-item list-group-item-action list-group-item-light">report 3</a>
+				<a id="analytic_4" class="list-group-item list-group-item-action list-group-item-light">report 4</a>
+				<a id="analytic_5" class="list-group-item list-group-item-action list-group-item-light">report 5</a>
+				<a id="analytic_6" class="list-group-item list-group-item-action list-group-item-light">report 6</a>
+				<a id="analytic_7" class="list-group-item list-group-item-action list-group-item-light">report 7</a>
+				<a id="analytic_8" class="list-group-item list-group-item-action list-group-item-light">report 8</a>
+				<a id="analytic_9" class="list-group-item list-group-item-action list-group-item-light">report 9</a>
+				<a id="analytic_10" class="list-group-item list-group-item-action list-group-item-light">report 10</a>
+				<a id="analytic_11" class="list-group-item list-group-item-action list-group-item-light">report 11</a>
+				<a id="analytic_12" class="list-group-item list-group-item-action list-group-item-light">report 12</a>
+				<a id="analytic_13" class="list-group-item list-group-item-action list-group-item-light">report 13</a>
+				<a id="analytic_14" class="list-group-item list-group-item-action list-group-item-light">report 14</a>
+				<a id="analytic_15" class="list-group-item list-group-item-action list-group-item-light">report 15</a>
+				<a id="analytic_16" class="list-group-item list-group-item-action list-group-item-light">report 16</a>
+
 		</div>
 
-	<a id="analytic_4" class="list-group-item list-group-item-action list-group-item-light">report 4</a>
 
 
 	<a class="list-group-item list-group-item-action list-group-item-info" href="{{URL('/analytic')}}">Analytic</a>
