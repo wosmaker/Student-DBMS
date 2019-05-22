@@ -14,6 +14,8 @@ class report13 extends Controller
      */
     public function index()
     {
+        $role = auth()->user()->userroleid;
+
 		$report13 = DB::select('SELECT  sl.subjectname , SUM(ses.SeatAvailable) AS sum
 		FROM subject_list sl, sectioneachsubject ses
 		WHERE sl.SubjectCode = ses.SubjectCode
@@ -23,7 +25,7 @@ class report13 extends Controller
 		');
 
 		// dd($report13);
-	return view('Analytic.report13', compact('report13'));
+	return view('Analytic.report13', compact('report13', 'role'));
     }
 
     /**

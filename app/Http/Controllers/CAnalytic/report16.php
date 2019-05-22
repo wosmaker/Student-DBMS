@@ -14,6 +14,8 @@ class report16 extends Controller
      */
     public function index()
     {
+        $role = auth()->user()->userroleid;
+
 		$waiting = 'waiting';
 		$report16 = DB::select('SELECT ptl.problemtypename , COUNT(ptl.ProblemTypeID) AS notanswer
 		FROM problemtype_list ptl, problemreport_list prl
@@ -22,7 +24,7 @@ class report16 extends Controller
 		',['wait' => 'waiting']);
 
 	//dd($report16);
-	return view('Analytic.report16', compact('report16'));
+	return view('Analytic.report16', compact('report16','role'));
     }
 
     /**

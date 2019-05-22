@@ -14,6 +14,8 @@ class report12 extends Controller
      */
     public function index()
     {
+        $role = auth()->user()->userroleid;
+
 		$report12 = DB::select('SELECT EXTRACT(YEAR FROM DATE(rs.DateRegis)) AS year, COUNT(EXTRACT(YEAR FROM DATE(rs.DateRegis))) AS count
 		FROM user_list ul , registration_student rs
 		WHERE ul.UserID = rs.UserID AND ul.Gender = :male
@@ -21,7 +23,7 @@ class report12 extends Controller
 		',['male' => 'Male']);
 
 	// dd($report12);
-	return view('Analytic.report12', compact('report12'));
+	return view('Analytic.report12', compact('report12', 'role'));
     }
 
     /**

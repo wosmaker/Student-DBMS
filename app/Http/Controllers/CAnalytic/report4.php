@@ -14,13 +14,15 @@ class report4 extends Controller
      */
     public function index()
     {
+        $role = auth()->user()->userroleid;
+
         $report4 = DB::select('SELECT  rl.buildingname, COUNT(DISTINCT ses.SubjectCode) AS count
 		FROM room_list rl, schedule s,sectioneachsubject ses
 		WHERE rl.RoomCode = s.RoomCode AND ses.SubjectSectionID = s.SubjectSectionID
 		GROUP BY rl.BuildingName;
 		');
 		// dd($report4);
-		return view('Analytic.report4', compact('report4'));
+		return view('Analytic.report4', compact('report4','role'));
     }
 
     /**

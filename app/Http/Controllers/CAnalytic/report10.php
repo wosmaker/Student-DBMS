@@ -14,6 +14,8 @@ class report10 extends Controller
      */
     public function index()
     {
+        $role = auth()->user()->userroleid;
+
         $report10 = DB::select('SELECT DATE(PaymentDate) AS dates,COUNT(DISTINCT UserID) AS count
 		FROM transaction_list
 		WHERE DATE(PaymentDate) BETWEEN :befo AND :afte
@@ -21,7 +23,7 @@ class report10 extends Controller
 		',['befo' => '2019-04-05','afte' => '2019-08-05']);
 
 	// dd($report10);
-	return view('Analytic.report10', compact('report10'));
+	return view('Analytic.report10', compact('report10', 'role'));
     }
 
     /**
