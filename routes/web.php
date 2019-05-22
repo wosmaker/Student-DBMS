@@ -20,11 +20,11 @@ Route::get('/','welcomeController@index')->name('welcome.index');
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::post('analytic_1','AnalyticController@analytic_1')->name('analytic.analytic_1');
-Route::post('analytic_2','AnalyticController@analytic_2')->name('analytic.analytic_2');
-Route::post('analytic_3','AnalyticController@analytic_3')->name('analytic.analytic_3');
-Route::post('analytic_4','AnalyticController@analytic_4')->name('analytic.analytic_4');
-Route::post('analytic_5','AnalyticController@analytic_5')->name('analytic.analytic_5');
+for($i=1;$i<=16;$i++)
+{
+	Route::post('analytic_'.$i,'AnalyticController@analytic_'.$i)->name('analytic.analytic_'.$i);
+}
+
 
 
 Route::get('personal','PersonalController@index')->name('personal.index');
