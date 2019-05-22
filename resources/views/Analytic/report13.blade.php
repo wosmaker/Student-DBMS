@@ -16,9 +16,9 @@
 					@foreach ($data as $item)
 					<tr>
 						<th scope="row">{{ $loop->iteration }}</th>
-						<td>{{ $item->dates }}</td>
-						<td>{{ $item->count }}</td>
-						<td>{{ $item->count }}</td>
+						<td>{{ $item->subjectname }}</td>
+						<td>{{ $item->sum }}</td>
+						<td>{{ $item->differencefrommean }}</td>
 					</tr>
 				@endforeach
 			</tbody>

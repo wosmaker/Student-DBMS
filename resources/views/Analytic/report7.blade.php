@@ -8,19 +8,21 @@
 		<thead>
 			<tr>
 				<th scope="col">#</th>
-				<th scope="col">Department</th>
-				<th scope="col">Count( <!-- จำนวนคน ใน รายวิขา -->)</th>
-				<th scope="col">%( <!-- จำนวนคน ใน รายวิขา -->)</th>
+				<th scope="col">Building Nam</th>
+				<th scope="col">Min</th>
+				<th scope="col">Max</th>
+				<th scope="col">Mode</th>
+
 			</tr>
 		</thead>
 		<tbody>
 				@foreach ($data as $item)
 				<tr>
 					<th scope="row">{{ $loop->iteration }}</th>
-					<td>{{ $item->facultyname }}</td>
-					<td>{{ $item->count }}</td>
-					<td>{{ $item->count }}</td>
-					<td>{{ $item->count }}</td>
+					<td>{{ $item->buildingname }}</td>
+					<td>{{ $item->min }}</td>
+					<td>{{ $item->max }}</td>
+					<td>{{ $item->mode }}</td>
 
 				</tr>
 			@endforeach
