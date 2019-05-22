@@ -40,7 +40,7 @@
                 The sidebar isn't proper for smaller screens imo, so this dropdown menu can keep all the useful sidebar itens exclusively for smaller screens  -->
                 <li class="nav-item dropdown d-sm-block d-md-none">
 
-                <div class="dropdown-menu" aria-labelledby="smallerscreenmenu">
+                <div class="dropdown-menu" id="nbar">
 									@if($role == 1)
 										<a href="{{route('regissubject.index')}}" class="list-group-item list-group-item-action list-group-item-light">Enrolling in Subjects</a>
 										<a href="{{route('updatereceipt.index')}}" class="list-group-item list-group-item-action list-group-item-light">Comfirmation Payment</a>
@@ -66,9 +66,6 @@
 									@endif
 
 									@if($role == 5)
-										<a class="list-group-item list-group-item-action list-group-item-dark" href="#sub2" data-toggle="collapse" aria-expanded="false">Complex Form</a>
-
-										<div id='sub2' class="collapse sidebar-submenu">
 											<a href="{{route('regissubject.index')}}" class="list-group-item list-group-item-action list-group-item-light">
 												Enrolling in Subjects</a>
 
@@ -86,8 +83,6 @@
 
 											<a href="{{route('personal.index')}}" class="list-group-item list-group-item-action list-group-item-light">
 												Profile Information</a>
-
-										</div>
 									@endif
 
                 </div>
