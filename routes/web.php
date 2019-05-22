@@ -34,6 +34,9 @@ Route::post('updatereceipt', 'UpdateReceiptController@store')->name('updaterecei
 Route::delete('updatereceipt/destroy', 'UpdateReceiptController@destroy')->name('updatereceipt.destroy');
 Route::patch('updatereceipt/update' , 'UpdateReceiptController@update')->name('updatereceipt.update');
 
+Route::post('updatereceipt/upload_image' , 'UpdateReceiptController@upload_image')->name('updatereceipt.upload_image');
+
+
 Route::get('confirmreceipt','ConfirmReceiptController@index')->name('confirmreceipt.index');
 Route::post('confirmreceipt/confirm' , 'ConfirmReceiptController@confirm')->name('confirmreceipt.confirm');
 Route::post('confirmreceipt/denied' , 'ConfirmReceiptController@denied')->name('confirmreceipt.denied');

@@ -13,7 +13,8 @@
                     </li>
                     @if (Route::has('register'))
                         <li class="nav-item">
-                            <button class="btn btn-outline-warning my-2 my-sm-0 mr-sm-2" data-toggle="modal" data-target="#register">{{ __('Register') }}</button>
+                            <button class="btn btn-outline-warning my-2 my-sm-0 mr-sm-2" data-toggle="modal" data-target="#register">
+															{{ __('Register') }}
                         </li>
                     @endif
                 @else
@@ -26,7 +27,7 @@
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                 onclick="event.preventDefault();
                                     document.getElementById('logout-form').submit();">
-                                {{ __('Logout') }}
+																{{ __('Logout') }}
                             </a>
 
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

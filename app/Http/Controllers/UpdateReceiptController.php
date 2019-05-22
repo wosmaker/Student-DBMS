@@ -78,54 +78,110 @@ class UpdateReceiptController extends Controller
     public function create()
     {
         //
-    }
+		}
 
-    /**
+		 /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+		public function store(Request $request)
     {
-        $userid = auth()->user()->id;
-        $role = auth()->user()->userroleid;
+				// if($request->ajax())
+				// {
+					$this->validate($request,[
+						'image'=>'required|mimes:jpeg,bmp,jpg,png|between:1, 6000',
+					]);
 
-        //รับค่าจาก dropbox
-        $paymenttype = $request->get('paymenttype');
+					$userid = auth()->user()->id;
+					$role = auth()->user()->userroleid;
+					//รับค่าจาก dropbox
+					$paymenttype = $request->get('paymenttype');
+					//รับค่าเงินที่จ่าย
+					$amount = $request->get('amount');
 
-        //รับค่าเงินที่จ่าย
-        $amount = $request->get('amount');
+					if((int)(date('n')) > 7) $semester = '1' . date('/Y');
+    	    else $semester = '2' . date('/Y');
 
-        //เช็คว่ามีไฟล์หรือไม่แล้วทำการเก็บเข้าโฟลเดอร์ upload
-						$image_name = $request->file('imgInp')->getRealPath();
-						Cloudder::upload($image_name, null);
+					$image = $request->file('image');
+					$name = $request->file('image')->getClientOriginalName();
+					$image_name = $request->file('image')->getRealPath();;
+					Cloudder::upload($image_name, null);
 
-        //คำนวณ Semester
-        if((int)(date('n')) > 7) $semester = '1' . date('/Y');
-        else $semester = '2' . date('/Y');
+					list($width, $height) = getimagesize($image_name);
 
-        //insert in DB
-        DB::table('transaction_list')->insert(    //insertGetId จะค่าในคอลัมน์ auto inc กลับมาด้วย
+					$image_url= Cloudder::show(Cloudder::getPublicId(), ["width" => $width, "height"=>$height]);
+
+					//save to uploads directory
+					$image->move(public_path("uploads"), $name);
+
+					//Save url
+					DB::table('transaction_list')->insert(    //insertGetId จะค่าในคอลัมน์ auto inc กลับมาด้วย
             [
 								'userid'        => $userid ,
                 'amount'        => $amount ,
                 'semester'      => $semester ,
                 'paymenttypeid' => $paymenttype ,
                 'paymentstatus' => 'waiting' ,
-                'picturelink'   => $image_name ,
+                'picturelink'   => $image_url ,
             ]
-        );
+					);
 
-        $transactionid = DB::select('SELECT transactionid FROM transaction_list ORDER BY transactionid DESC LIMIT 1');
-        $transactionid = $transactionid[0]->transactionid;
+					$transactionid = DB::select('SELECT transactionid FROM transaction_list ORDER BY transactionid');
 
-        DB::table('registration_student')
-            ->where('userid', '=', $userid)
-            ->update(['transactionid' => $transactionid]);
+					DB::table('registration_student')
+					->where('userid', '=', $userid)
+					->update(['transactionid' => $transactionid[0]->transactionid]);
 
-        return back();
-    }
+			// 		return view('complex-form.update-receipt.tb_transaction', compact('transactionid'));
+			// }
+
+			return back();
+		}
+
+
+
+    // public function store(Request $request)
+    // {
+    //     $userid = auth()->user()->id;
+    //     $role = auth()->user()->userroleid;
+
+    //     //รับค่าจาก dropbox
+    //     $paymenttype = $request->get('paymenttype');
+
+    //     //รับค่าเงินที่จ่าย
+    //     $amount = $request->get('amount');
+
+    //     //เช็คว่ามีไฟล์หรือไม่แล้วทำการเก็บเข้าโฟลเดอร์ upload
+		// 				$image_name = $request->file('imgInp')->getRealPath();
+		// 				Cloudder::upload($image_name, null);
+
+    //     //คำนวณ Semester
+    //     if((int)(date('n')) > 7) $semester = '1' . date('/Y');
+    //     else $semester = '2' . date('/Y');
+
+    //     //insert in DB
+    //     DB::table('transaction_list')->insert(    //insertGetId จะค่าในคอลัมน์ auto inc กลับมาด้วย
+    //         [
+		// 						'userid'        => $userid ,
+    //             'amount'        => $amount ,
+    //             'semester'      => $semester ,
+    //             'paymenttypeid' => $paymenttype ,
+    //             'paymentstatus' => 'waiting' ,
+    //             'picturelink'   => $image_name ,
+    //         ]
+    //     );
+
+    //     $transactionid = DB::select('SELECT transactionid FROM transaction_list ORDER BY transactionid DESC LIMIT 1');
+    //     $transactionid = $transactionid[0]->transactionid;
+
+    //     DB::table('registration_student')
+    //         ->where('userid', '=', $userid)
+    //         ->update(['transactionid' => $transactionid]);
+
+    //     return back();
+    // }
 
     /**
      * Display the specified resource.

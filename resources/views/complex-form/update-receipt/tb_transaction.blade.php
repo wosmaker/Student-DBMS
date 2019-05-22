@@ -8,7 +8,7 @@
 				@php
 						$img_link = asset('storage/upload/' . $transactionlist->picturelink);
 				@endphp
-				<a href="{{ $img_link }}" target="_blank">IMAGE</a>
+						<a href="{{ $img_link }}" target="_blank">IMAGE</a>
 		</td>
 		<td>{{ $transactionlist->paymentdate }}</td>
 		<td>{{ $transactionlist->paymentstatus }}</td>
