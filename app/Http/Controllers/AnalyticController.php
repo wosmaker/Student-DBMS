@@ -27,7 +27,7 @@ class AnalyticController extends Controller
 				$sum = DB::select(
 					'SELECT COUNT(d.facultycode) AS sum_user
 					 FROM user_list u,registration_student r, sectioneachsubject ss, department_list d, faculty_list f
-					 WHERE ss.subjectcode = "CPE111"                  AND
+					 WHERE ss.subjectcode = ?                AND
       						u.userid = r.userid                       AND
       						r.subjectsectionid = ss.subjectsectionid  AND
       						u.departmentcode = d.departmentcode
