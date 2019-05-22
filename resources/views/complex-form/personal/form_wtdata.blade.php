@@ -1,4 +1,3 @@
-<div class="row">
 	<div id="personal-form" class="shadow-sm p-3 mb-2 bg-white " style="width:600px;">
 		<form class="col was-validated " id="form_save_personal"  novalidate>
 			@csrf
@@ -128,39 +127,3 @@
 			</div>
 		</form>
 	</div>
-
-	<div class="shadow-sm p-3 mb-2 bg-white">
-		<form id="parent_form" class="col needs-validation" method="post" action=""  novalidate>
-			@csrf
-			<div class="form-row">
-				<div class="form-group col-md-6">
-					<label for="parent_firstname">First Name</label>
-					<input type="text" class="form-control" id="parent_firstname" name="parent_firstname" value="" required>
-				</div>
-
-				<div class="form-group col-md-6">
-					<label for="parent_lastname">Last Name</label>
-					<input type="text" class="form-control" id="parent_lastname" name="parent_lastname" value="" required>
-				</div>
-			</div>
-
-			<div class="form-row">
-				<div class="form-group col-md-6">
-					<label for="parent_birthdate">Date of Birth</label>
-					<input type="date" class="form-control" id="parent_birthdate" name="parent_birthdate" value="Date of Birth" required>
-				</div>
-
-				<div class="form-group col-md-6">
-					<label for="parent_contract">Contact</label>
-					<input type="text" class="form-control" id="parent_contract" name="parent_contract" value="" required>
-				</div>
-			</div>
-
-			<div class="text-right">
-				<button type="submit" id="send_parent_form" class="btn btn-primary">ADD</button>
-			</div>
-
-		</form>
-	</div>
-
-</div>

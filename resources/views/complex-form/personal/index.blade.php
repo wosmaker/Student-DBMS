@@ -6,7 +6,7 @@
 
 @section('page-main')
   {{-- ชื่อผู้ใช้ --}}
-<div class="shadow-sm p-3 mb-3 bg-white ">
+<div class="shadow-sm p-3 mb-3 bg-white " >
 		<h4 class="d-inline py-5">Student ID: {{ $userid }}</h4>
 </div>
 
@@ -29,16 +29,17 @@
 	$(document).ready( function() {
 
 
-		$( '#form_save_personal_ondata' ).on( 'submit', function(e) {
+		$( '#form_save_personal_ondata').on( 'submit', function(e) {
 			e.preventDefault();
 			console.log("test save nodata");
-
 				$.ajax({
-						type: "patch",
-						url: "{{route('personal.update')}}",
+						type: "POST",
+						url: "{{route('personal.store')}}",
 						data: $(this).serialize(),
 						success: function(data) {
-							$('#form_show').empty().html(data);
+							swal("INSERT SUCCESS ...",{ icon: "success",timer: 1000,	buttons: false,});
+							//$('#form_show').html(data);
+							console.log("DEBUG:" +data);
 						},
 						error: function (reject) {
                 // if( reject.status === 422 ) {
@@ -55,13 +56,15 @@
 
 		$( '#form_save_personal' ).on( 'submit', function(e) {
 			e.preventDefault();
-
+			console.log("test save nodata");
 				$.ajax({
 						type: "patch",
 						url: "{{route('personal.update')}}",
 						data: $(this).serialize(),
 						success: function(data) {
-							$('#form_show').empty().html(data);
+							swal("UPDATE SUCCESS ...",{ icon: "success",timer: 1000,	buttons: false,});
+							//$('#form_show').empty().html(data);
+							console.log("DEBUG:" +data);
 						},
 						error: function (reject) {
                 // if( reject.status === 422 ) {
@@ -75,7 +78,24 @@
 				});
 		});
 
-
+		function show_form(data = '')
+		{
+			$(" #titlename").val(data.titlename);
+			$(" #firstname").val(data.firstname);
+			$(" #lastname").val(data.lastname);
+			$(" #gender").val(data.gender);
+			$(" #bloodtype").val(data.bloodtype);
+			$(" #birthdate").val(data.birthdate);
+			$(" #race").val(data.race);
+			$(" #religion").val(data.religion)
+			$(" #nationnality").val(data.nationnality);
+			$(" #address").val(data.address);
+			$(" #postcode").val(data.postcode);
+			$(" #province").val(data.province);
+			$(" #district").val(data.district);
+			$(" #subdistrict").val(data.subdistrict);
+			$(" #usercontact").val(data.usercontact);
+		}
 	});
  </script>
 @endsection
