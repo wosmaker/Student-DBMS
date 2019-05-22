@@ -90,7 +90,6 @@ class AnalyticController extends Controller
 					where u.userroleid =1 )  temp1) temp2 GROUP BY temp2.lated
 
 				',[$not_regis,$time,$late,$not_late]);
-				dd($data);
 
 				return view('Analytic.report3', compact('data'));
 			}

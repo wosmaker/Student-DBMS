@@ -9,15 +9,15 @@
 			<tr>
 				<th scope="col">#</th>
 				<th scope="col">Type of late</th>
-				<th scope="col">Count( Number of users )</th>
-				<th scope="col">%( Number of users )</th>
+				<th scope="col">Count( Lated people )</th>
+				<th scope="col">%( Lated people  )</th>
 			</tr>
 		</thead>
 		<tbody>
 				@foreach ($data as $item)
 				<tr>
 					<th scope="row">{{ $loop->iteration }}</th>
-					<td>{{ $item->group_type }}</td>
+					<td>{{ $item->lated }}</td>
 					<td>{{ $item->count }}</td>
 					<td>{{ $item->percent }}</td>
 				</tr>
