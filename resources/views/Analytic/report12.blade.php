@@ -16,9 +16,9 @@
 					@foreach ($data as $item)
 					<tr>
 						<th scope="row">{{ $loop->iteration }}</th>
-						<td>{{ $item->dates }}</td>
-						<td>{{ $item->count }}</td>
-						<td>{{ $item->count }}</td>
+						<td>{{ $item->year }}</td>
+						<td>{{ $item->male }}</td>
+						<td>{{ $item->female }}</td>
 					</tr>
 				@endforeach
 			</tbody>

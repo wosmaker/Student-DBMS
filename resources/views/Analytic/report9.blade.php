@@ -8,7 +8,9 @@
 				<tr>
 					<th scope="col">#</th>
 					<th scope="col">Department</th>
-					<th scope="col">COUNT(Number of users)</th>
+					<th scope="col">COUNT( Number of users )</th>
+					<th scope="col">%( Number of users )</th>
+
 				</tr>
 			</thead>
 			<tbody>
@@ -17,6 +19,8 @@
 						<th scope="row">{{ $loop->iteration }}</th>
 						<td>{{ $item->departmentname }}</td>
 						<td>{{ $item->count }}</td>
+						<td>{{ $item->percent }}</td>
+
 					</tr>
 				@endforeach
 			</tbody>

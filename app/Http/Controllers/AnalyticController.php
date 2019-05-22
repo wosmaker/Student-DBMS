@@ -118,14 +118,13 @@ class AnalyticController extends Controller
 			{
 				$data = DB::select(
 				   'SELECT ses.subjectcode, ses.sectionno, rl.buildingname,sc.roomcode,CAST(COUNT(rs.userid) AS FLOAT)*100/rl.roomseattotal AS seatused
-				   	FROM registration_student rs, sectioneachsubject ses, schedule sc, room_list rl 
-				   	WHERE 	ses.subjectsectionid = rs.subjectsectionid AND 
-					   		ses.subjectsectionid = sc.subjectsectionid AND 
+				   	FROM registration_student rs, sectioneachsubject ses, schedule sc, room_list rl
+				   	WHERE 	ses.subjectsectionid = rs.subjectsectionid AND
+					   		ses.subjectsectionid = sc.subjectsectionid AND
 							rl.roomcode = sc.roomcode
 				   	GROUP BY ses.subjectsectionid,sc.roomcode,rl.buildingname,rl.roomseattotal
 				   	ORDER BY ses.subjectcode
 				');
-				dd($data);
 				return view('Analytic.report5', compact('data'));
 			}
 		}
@@ -147,7 +146,7 @@ class AnalyticController extends Controller
 					FROM (	SELECT a.buildingname,a.roomseattotal,COUNT(a.roomseattotal) AS modecount
 							FROM room_list a
 						  	GROUP BY buildingname,roomseattotal) m ,
-					
+
 						 (	SELECT n.buildingname,MAX(n.modecount) AS maxmode
 						  	FROM (	SELECT b.buildingName,b.roomseattotal,COUNT(b.roomseatTotal) AS modecount
 								 	FROM room_list b
@@ -157,7 +156,7 @@ class AnalyticController extends Controller
 					WHERE m.modecount = o.maxmode AND r.buildingname = m.buildingname
 					GROUP BY m.buildingname,m.roomseattotal
 				');
-	
+
 				return view('Analytic.report7', compact('data'));
 			}
 		}
@@ -186,21 +185,13 @@ class AnalyticController extends Controller
 				$time = '2019-05-22 15:16:00';
 
 				$data = DB::select(
-				   'SELECT dl.DepartmentName , COUNT(dl.DepartmentName),ROUND( CAST(CAST(COUNT(dl.DepartmentName)*100 AS FLOAT)/(
-					   SELECT COUNT(dl.DepartmentName) 
-					   FROM department_list dl,user_list ul,transaction_list tl, registration_student rl 
-					   WHERE dl.DepartmentCode = ul.DepartmentCode AND 
-					   		ul.UserID = rl.UserID AND 
-							   rl.TransactionID = tl.TransactionID AND  
-							   PaymentDate > ? )AS numeric),2) AS Percent
-				   	FROM department_list dl,user_list ul,transaction_list tl, registration_student rl
-				   	WHERE	dl.DepartmentCode = ul.DepartmentCode AND 
-					   		ul.UserID = rl.UserID AND 
-					   		rl.TransactionID = tl.TransactionID AND 
-					   		PaymentDate > ?
-				   GROUP BY dl.DepartmentName
+				   'SELECT dl.DepartmentName , COUNT(dl.DepartmentName),ROUND( CAST(CAST(COUNT(dl.DepartmentName)*100 AS FLOAT)/(SELECT COUNT(dl.DepartmentName) FROM department_list dl,user_list ul,transaction_list tl, registration_student rl WHERE dl.DepartmentCode = ul.DepartmentCode AND ul.UserID = rl.UserID AND rl.TransactionID = tl.TransactionID AND  PaymentDate > ? )AS numeric),2) AS Percent
+					 FROM department_list dl,user_list ul,transaction_list tl, registration_student rl
+					 WHERE dl.DepartmentCode = ul.DepartmentCode AND ul.UserID = rl.UserID AND rl.TransactionID = tl.TransactionID
+					 AND PaymentDate > ?
+					 GROUP BY dl.DepartmentName
 				',[$time,$time]);
-	
+
 				return view('Analytic.report9', compact('data'));
 			}
 		}
@@ -218,7 +209,6 @@ class AnalyticController extends Controller
 				   	WHERE DATE(PaymentDate) BETWEEN ? AND ?
 				   	GROUP BY DATE(PaymentDate) 
 				',[$start, $end]);
-				dd($data);
 				return view('Analytic.report10', compact('data'));
 			}
 		}
@@ -231,10 +221,9 @@ class AnalyticController extends Controller
 				   'SELECT dl.departmentname , COUNT(dl.departmentcode) , ROUND(CAST(CAST(COUNT(dl.departmentcode) AS FLOAT)*100/c.counts AS numeric),2) AS Percent
 				   	FROM department_list dl, user_list ul, problemreport_list pl ,(
 						SELECT COUNT(cc.problemno) AS counts FROM problemreport_list cc) c
-				   	WHERE dl.DepartmentCode = ul.DepartmentCode AND ul.UserID = pl.UserID 
+				   	WHERE dl.DepartmentCode = ul.DepartmentCode AND ul.UserID = pl.UserID
 				   	GROUP BY dl.DepartmentCode, c.counts ORDER BY count DESC
 				');
-				dd($data);
 				return view('Analytic.report11', compact('data'));
 			}
 		}
@@ -276,7 +265,7 @@ class AnalyticController extends Controller
 				   	ORDER BY SUM(ses.SeatAvailable) DESC
 				   	LIMIT 5
 				');
-		
+
 				return view('Analytic.report13', compact('data'));
 			}
 		}
@@ -299,7 +288,7 @@ class AnalyticController extends Controller
 				   	ORDER BY SUM(ses.SeatAvailable)
 				   	LIMIT 5
 				');
-		
+
 				return view('Analytic.report14', compact('data'));
 			}
 		}
