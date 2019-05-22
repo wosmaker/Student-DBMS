@@ -39,14 +39,57 @@
                     <!-- This menu is hidden in bigger devices with d-sm-none.
                 The sidebar isn't proper for smaller screens imo, so this dropdown menu can keep all the useful sidebar itens exclusively for smaller screens  -->
                 <li class="nav-item dropdown d-sm-block d-md-none">
-                <a class="nav-link dropdown-toggle" href="" id="smallerscreenmenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Menu
-                </a>
+
                 <div class="dropdown-menu" aria-labelledby="smallerscreenmenu">
-                    <a class="dropdown-item" href="#">Dashboard</a>
-                    <a class="dropdown-item" href="#">Profile</a>
-                    <a class="dropdown-item" href="#">Tasks</a>
-                    <a class="dropdown-item" href="#">Etc ...</a>
+									@if($role == 1)
+										<a href="{{route('regissubject.index')}}" class="list-group-item list-group-item-action list-group-item-light">Enrolling in Subjects</a>
+										<a href="{{route('updatereceipt.index')}}" class="list-group-item list-group-item-action list-group-item-light">Comfirmation Payment</a>
+										<a href="{{route('problemreport.index')}}" class="list-group-item list-group-item-action list-group-item-light">Problem Report</a>
+										<a href="{{route('personal.index')}}" class="list-group-item list-group-item-action list-group-item-light">Profile Information</a>
+									@endif
+
+									@if($role == 2)
+										<a href="{{route('problemreport.index')}}" class="list-group-item list-group-item-action list-group-item-light">Problem Report</a>
+										<a href="{{route('personal.index')}}" class="list-group-item list-group-item-action list-group-item-light">Profile Information</a>
+									@endif
+
+									@if($role == 3)
+										<a href="{{route('editsubject.index')}}" class="list-group-item list-group-item-action list-group-item-light">Manage Subject </a>
+										<a href="{{route('confirmreceipt.index')}}" class="list-group-item list-group-item-action list-group-item-light">Confirm Receipt</a>
+										<a href="{{route('problemreport.index')}}" class="list-group-item list-group-item-action list-group-item-light">Problem Report</a>
+										<a href="{{route('personal.index')}}" class="list-group-item list-group-item-action list-group-item-light">Profile Information</a>
+									@endif
+
+									@if($role == 4)
+										<a href="{{route('problemreport.index')}}" class="list-group-item list-group-item-action list-group-item-light">Problem Report</a>
+										<a href="{{route('personal.index')}}" class="list-group-item list-group-item-action list-group-item-light">Profile Information</a>
+									@endif
+
+									@if($role == 5)
+										<a class="list-group-item list-group-item-action list-group-item-dark" href="#sub2" data-toggle="collapse" aria-expanded="false">Complex Form</a>
+
+										<div id='sub2' class="collapse sidebar-submenu">
+											<a href="{{route('regissubject.index')}}" class="list-group-item list-group-item-action list-group-item-light">
+												Enrolling in Subjects</a>
+
+											<a href="{{route('editsubject.index')}}" class="list-group-item list-group-item-action list-group-item-light">
+												Manage Subject </a>
+
+											<a href="{{route('updatereceipt.index')}}" class="list-group-item list-group-item-action list-group-item-light">
+												Comfirmation Payment</a>
+
+											<a href="{{route('problemreport.index')}}" class="list-group-item list-group-item-action list-group-item-light">
+												Problem Report</a>
+
+											<a href="{{route('confirmreceipt.index')}}" class="list-group-item list-group-item-action list-group-item-light">
+												Confirm Receipt</a>
+
+											<a href="{{route('personal.index')}}" class="list-group-item list-group-item-action list-group-item-light">
+												Profile Information</a>
+
+										</div>
+									@endif
+
                 </div>
             </ul>
         </div>
