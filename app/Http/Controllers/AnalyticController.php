@@ -41,6 +41,42 @@ class AnalyticController extends Controller
 			}
 		}
 
+		public function analytic_2(Request $request)
+		{
+			if($request->ajax())
+			{
+				$data = DB::select(
+					'SELECT c.credit, c.counts, CAST(c.counts AS FLOAT)*100/f.summ AS percent
+					 FROM (	SELECT a.credit, COUNT(a.userid) AS counts
+					 		FROM (	SELECT  rs.userid, SUM(sl.subjectcredit) AS credit
+									FROM registration_student rs, subject_list sl, sectioneachsubject ses
+									WHERE ses.subjectcode = sl.subjectcode AND ses.subjectsectionid = rs.subjectsectionid
+									GROUP BY  rs.userid) a
+						  	GROUP BY a.credit) c,
+					
+						  (	SELECT SUM(d.counts) AS summ
+						   	FROM (	SELECT b.credit, COUNT(b.userid) AS counts
+								FROM (	SELECT  rs.userid, SUM(sl.subjectcredit) AS credit
+									   	FROM registration_student rs, subject_list sl, sectioneachsubject ses
+									   	WHERE ses.subjectcode = sl.subjectcode AND ses.subjectsectionid = rs.subjectsectionid
+									   	GROUP BY  rs.userid) b
+								GROUP BY b.credit) d
+						  ) f      	  
+					GROUP BY c.credit,c.counts,f.summ
+				');
+
+				return view('Analytic.report2', compact('data'));
+			}
+		}
+
+		public function analytic_3(Request $request)
+		{
+			if($request->ajax())
+			{
+				return view('Analytic.report3', compact('data'));
+			}
+		}
+
 		public function analytic_4(Request $request)
 		{
 			if($request->ajax())
@@ -59,7 +95,99 @@ class AnalyticController extends Controller
 
 		}
 
+		public function analytic_5(Request $request)
+		{
+			if($request->ajax())
+			{
+				return view('Analytic.report5', compact('data'));
+			}
+		}
 
+		public function analytic_6(Request $request)
+		{
+			if($request->ajax())
+			{
+				return view('Analytic.report6', compact('data'));
+			}
+		}
 
+		public function analytic_7(Request $request)
+		{
+			if($request->ajax())
+			{
+				return view('Analytic.report7', compact('data'));
+			}
+		}
 
+		public function analytic_8(Request $request)
+		{
+			if($request->ajax())
+			{
+				return view('Analytic.report8', compact('data'));
+			}
+		}
+
+		public function analytic_9(Request $request)
+		{
+			if($request->ajax())
+			{
+				return view('Analytic.report9', compact('data'));
+			}
+		}
+
+		public function analytic_10(Request $request)
+		{
+			if($request->ajax())
+			{
+				return view('Analytic.report10', compact('data'));
+			}
+		}
+
+		public function analytic_11(Request $request)
+		{
+			if($request->ajax())
+			{
+				return view('Analytic.report11', compact('data'));
+			}
+		}
+
+		public function analytic_12(Request $request)
+		{
+			if($request->ajax())
+			{
+				return view('Analytic.report12', compact('data'));
+			}
+		}
+
+		public function analytic_13(Request $request)
+		{
+			if($request->ajax())
+			{
+				return view('Analytic.report13', compact('data'));
+			}
+		}
+
+		public function analytic_14(Request $request)
+		{
+			if($request->ajax())
+			{
+				return view('Analytic.report14', compact('data'));
+			}
+		}
+
+		public function analytic_15(Request $request)
+		{
+			if($request->ajax())
+			{
+				return view('Analytic.report15', compact('data'));
+			}
+		}
+
+		public function analytic_16(Request $request)
+		{
+			if($request->ajax())
+			{
+				return view('Analytic.report16', compact('data'));
+			}
+		}
 }
