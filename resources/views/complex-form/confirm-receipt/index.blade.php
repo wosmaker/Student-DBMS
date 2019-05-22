@@ -56,7 +56,7 @@ $(document).ready( function() {
 
 	$(document).on('click', ".btn_update_confirm", function(e) {
 			e.preventDefault();
-			console.log("confirm is push");
+			// console.log("confirm is push");
 			swal({
 			title: "Are you sure?",
 			text: "Did check twice ?",
@@ -71,8 +71,8 @@ $(document).ready( function() {
 							url:"{{route('confirmreceipt.confirm')}}",
 							data:{id:id,_token: "{{ csrf_token() }}"},
 							success:function(data){
-								console.log("confirm is push success");
-
+								// console.log("confirm is push success");
+								swal("UPDATE SUCCESS ...",{ icon: "success",timer: 1000,	buttons: false,});
 								$('#tb_confirm').empty().html(data);
 							},
 							error: function(data){
@@ -85,7 +85,7 @@ $(document).ready( function() {
 
 	$(document).on('click', ".btn_update_denied", function(e) {
 			e.preventDefault();
-			console.log("denied is push");
+			// console.log("denied is push");
 			swal({
 				title: "Are you sure?",
 				text: "Did check twice ?",
@@ -100,8 +100,8 @@ $(document).ready( function() {
 							url:"{{route('confirmreceipt.denied')}}",
 							data:{id:id,_token: "{{ csrf_token() }}"},
 							success:function(data){
-								console.log("denied is push success");
-
+								// console.log("denied is push success");
+								swal("DENIED SUCCESS ...",{ icon: "success",timer: 1000,	buttons: false,});
 								$('#tb_confirm').empty().html(data);
 							},
 							error: function(data){
