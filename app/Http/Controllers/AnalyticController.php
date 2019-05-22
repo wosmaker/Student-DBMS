@@ -22,7 +22,7 @@ class AnalyticController extends Controller
       						u.departmentcode = d.departmentcode       AND
       						d.facultycode = f.facultycode
 					 GROUP BY f.facultyname
-				',["CPE111"]);
+				',['CPE111']);
 
 				$sum = DB::select(
 					'SELECT COUNT(d.facultycode) AS sum_user
