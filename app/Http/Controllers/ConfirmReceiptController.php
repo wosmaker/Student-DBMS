@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use DB;
+use Cloudder;
 use App\User;
 use App\UserList;
 
@@ -33,8 +34,8 @@ class ConfirmReceiptController extends Controller
         ->join('user_list as ul' , 'ul.userid', '=', 'tl.userid')
         ->join('paymenttype_list as pt', 'pt.paymenttypeid', '=', 'tl.paymenttypeid')
         ->select('tl.transactionid','ul.firstname', 'ul.lastname', 'pt.paymenttypename', 'tl.picturelink', 'tl.paymentdate', 'tl.paymentstatus')
-		->get()->all();
-
+        ->get()->all();
+        
 		//dd($transactionlists,$userdetail);
       return view('complex-form.confirm-receipt.index', compact('userdetail', 'transactionlists', 'role'));
     }
@@ -111,7 +112,7 @@ class ConfirmReceiptController extends Controller
         ->join('user_list as ul' , 'ul.userid', '=', 'tl.userid')
         ->join('paymenttype_list as pt', 'pt.paymenttypeid', '=', 'tl.paymenttypeid')
         ->select('tl.transactionid','ul.firstname', 'ul.lastname', 'pt.paymenttypename', 'tl.picturelink', 'tl.paymentdate', 'tl.paymentstatus')
-				->get()->all();
+                ->get()->all();
 
 				return view('complex-form.confirm-receipt.tb_confirm', compact('transactionlists'));
 			}

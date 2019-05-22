@@ -6,7 +6,8 @@
 		<td>{{ $transactionlist->paymenttypename }}</td>
 		<td>
 				@php
-						$img_link = asset('storage/upload/' . $transactionlist->picturelink);
+						$transactionlist->picturelink = Cloudder::show($transactionlist->picturelink, ['width' => 'iw', 'height' => 'ih']);
+						$img_link = asset($transactionlist->picturelink);
 				@endphp
 				<a href="{{ $img_link }}" target="_blank">IMAGE</a>
 		</td>

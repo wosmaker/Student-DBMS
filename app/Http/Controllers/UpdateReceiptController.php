@@ -117,7 +117,7 @@ class UpdateReceiptController extends Controller
 					$image_url= Cloudder::show($publicId, ["width" => $width, "height"=>$height]);
 
 					//save to uploads directory
-					$image->move(public_path("uploads"), $name);
+				  //$image->move(public_path("uploads"), $name);
 
 					//Save url
 					DB::table('transaction_list')->insert(    //insertGetId จะค่าในคอลัมน์ auto inc กลับมาด้วย
