@@ -12,8 +12,8 @@ class AnalyticController extends Controller
 			if($request->ajax())
 			{
 				$data = DB::select(
-					'SELECT f.facultyname, COUNT(f.facultyname) AS count_user 
-					 FROM user_list u,registration_student r, sectioneachsubject ss, department_list d, faculty_list f 
+					'SELECT f.facultyname, COUNT(f.facultyname) AS count_user
+					 FROM user_list u,registration_student r, sectioneachsubject ss, department_list d, faculty_list f
 					 WHERE ss.subjectcode = "CPE111"                  AND
       						u.userid = r.userid                       AND
       						r.subjectsectionid = ss.subjectsectionid  AND
@@ -23,18 +23,18 @@ class AnalyticController extends Controller
 				');
 
 				$sum = DB::select(
-					'SELECT COUNT(d.facultycode) AS sum_user 
-					 FROM user_list u,registration_student r, sectioneachsubject ss, department_list d, faculty_list f 
+					'SELECT COUNT(d.facultycode) AS sum_user
+					 FROM user_list u,registration_student r, sectioneachsubject ss, department_list d, faculty_list f
 					 WHERE ss.subjectcode = "CPE111"                  AND
       						u.userid = r.userid                       AND
       						r.subjectsectionid = ss.subjectsectionid  AND
       						u.departmentcode = d.departmentcode
 				');
-				
+
 				$sum = $sum[0]->sum_user;
 
 				foreach($data AS $dat) {
-					$dat->percent = $dat/$sum;
+					$dat->percent = $dat*100/$sum;
 				}
 
 				return view('Analytic.report1', compact('data'));
