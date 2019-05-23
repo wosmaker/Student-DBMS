@@ -13,7 +13,9 @@
 															{{ session('status') }}
 													</div>
 											@endif
-											You are logged in! Your RoleID is {{ $role }}
+											<h3>You are logged in! </h3>
+
+											{{-- Your RoleID is {{ $role }} --}}
 									</div>
 							</div>
 					</div>
