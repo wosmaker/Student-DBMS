@@ -28,6 +28,8 @@
 			console.log("onpage main")
 			$(document).ready( function() {
 
+				$('#sub2').collapse('show');
+
 				$( "#analytic_1" ).click(function(e) {
 					e.preventDefault();
 					$.ajax({

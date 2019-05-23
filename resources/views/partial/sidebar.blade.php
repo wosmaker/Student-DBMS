@@ -25,7 +25,7 @@
 	@endif
 
 	@if($role == 5)
-		<a class="list-group-item list-group-item-action list-group-item-dark" href="#sub2" data-toggle="collapse" aria-expanded="false">Complex Form</a>
+		<a class="list-group-item list-group-item-action list-group-item-dark" href="#sub2" data-toggle="collapse" aria-expanded="true">Complex Form</a>
 
 		<div id='sub2' class="collapse sidebar-submenu">
 			<a href="{{route('regissubject.index')}}" class="list-group-item list-group-item-action list-group-item-light">
