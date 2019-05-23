@@ -53,7 +53,7 @@
 		<a class="list-group-item list-group-item-action list-group-item-dark" href="#sub3" data-toggle="collapse" aria-expanded="true">Data Analytic</a>
 
 		<div id='sub3' class="collapse sidebar-submenu">
-				<a href="#" id="analytic_1" class="list-group-item list-group-item-action list-group-item-light">GEN 111</a>
+				<a href="#" id="analytic_1" class="list-group-item list-group-item-action list-group-item-light">CPE 111</a>
 				<a href="#" id="analytic_2" class="list-group-item list-group-item-action list-group-item-light">Credit Group</a>
 				<a href="#" id="analytic_3" class="list-group-item list-group-item-action list-group-item-light">Late Regis</a>
 				<a href="#" id="analytic_4" class="list-group-item list-group-item-action list-group-item-light">Room</a>
