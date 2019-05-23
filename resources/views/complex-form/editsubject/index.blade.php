@@ -65,8 +65,8 @@ $(document).ready(function() {
 						data: $(this).serialize(),
 						success: function(data) {
 							swal("INSERT SUCCESS .... maybe", {icon: "success",timer: 1000,	buttons: false,});
-							$('#tb_subject').fadeOut(250,function(){	$('#tb_subject').empty().html(data);});
-							$('#tb_subject').fadeIn( 250 );
+							$('#tb_subject').fadeOut(180,function(){	$('#tb_subject').empty().html(data);});
+							$('#tb_subject').fadeIn( 180 );
 							$('#modal_add_subject').modal('hide');
 							$( '#form_add_subject' ).trigger("reset");
 						},
@@ -92,9 +92,9 @@ $(document).ready(function() {
 						data: $(this).serialize(),
 						success: function(data) {
 							swal("INSERT SUCCESS .... maybe", {icon: "success",timer: 1000,	buttons: false,});
-							$('#block_section').fadeOut(250,function(){	$('#block_section').empty().html(data);});
-							$('#block_section').fadeIn( 250 );
-							$('#block_period').fadeOut( 250 );
+							$('#block_section').fadeOut(180,function(){	$('#block_section').empty().html(data);});
+							$('#block_section').fadeIn( 180 );
+							$('#block_period').fadeOut( 180 );
 
 							$('#modal_add_section').modal('hide');
 							$( '#form_add_section' ).trigger("reset");
@@ -149,9 +149,9 @@ $(document).ready(function() {
 					url:"{{route('editsubject.search_section')}}",
 					data:{query:query, "_token": "{{ csrf_token() }}"},
 					success:function(data){
-						$('#block_section').fadeOut(250,function(){	$('#block_section').empty().html(data);});
-						$('#block_section').fadeIn( 250 );
-						$('#block_period').fadeOut( 250 );
+						$('#block_section').fadeOut(180,function(){	$('#block_section').empty().html(data);});
+						$('#block_section').fadeIn( 180 );
+						$('#block_period').fadeOut( 180 );
 					},
 					error: function(data){
 						console.log("Error :" + data);
@@ -169,8 +169,8 @@ $(document).ready(function() {
 					url:"{{route('editsubject.search_period')}}",
 					data:{ "_token": "{{ csrf_token() }}",  query:query,sectionno:sectionno},
 					success:function(data){
-						$('#block_period').fadeOut(250,function(){	$('#block_period').empty().html(data);});
-						$('#block_period').fadeIn( 250 );
+						$('#block_period').fadeOut(180,function(){	$('#block_period').empty().html(data);});
+						$('#block_period').fadeIn( 180 );
 					},
 					error: function(data){
 						console.log("Error :" + data);
