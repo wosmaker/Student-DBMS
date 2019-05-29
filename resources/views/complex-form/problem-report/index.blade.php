@@ -84,7 +84,6 @@ $(document).ready(function() {
 					data: $(this).serialize(),
 					success: function(data) {
 						//console.log("Debug :" + data);
-						swal("SENT REPORT SUCCESS .... maybe", {icon: "success",timer: 1000,	buttons: false,});
 						$('#table1').empty().html(data);
 						$('#modal_add').modal('hide');
 						$('#form_add' ).trigger("reset");
@@ -148,32 +147,23 @@ $(document).ready(function() {
   });
 
 	$(document).on('click', ".btn_destroy", function() {
-		swal({
-				title: "WARNING",
-				text: "Please make sure before delete or YOU WILL BE REGRET!!!!!",
-				icon: "warning",
-				buttons: true,
-				dangerMode: true,
-			})
-			.then((willDelete) => {
-				if (willDelete) {
-					var id = $(this).attr("id");
-					console.log("Debug:" + id);
-					$.ajax({
-							type: "POST",
-							url:"{{route('problemreport.destroy')}}",
-							data: {_token: "{{ csrf_token() }}",_method: 'delete',id: id},
-							success: function(data) {
-								//console.log("DELETE COMP :" + data);
-								swal("DELETION SUCCESS .... maybe", {icon: "success",timer: 1000,	buttons: false,});
-								$('#table1').empty().html(data);
-							},
-							error: function(data){
-								console.log("Error :" + data);
-							}
-						});
-				}
+
+		if (confirm('Are you sure you want to Delete ?')) {
+			var id = $(this).attr("id");
+			console.log("Debug:" + id);
+			$.ajax({
+					type: "POST",
+					url:"{{route('problemreport.destroy')}}",
+					data: {_token: "{{ csrf_token() }}",_method: 'delete',id: id},
+					success: function(data) {
+						//console.log("DELETE COMP :" + data);
+						$('#table1').empty().html(data);
+					},
+					error: function(data){
+						console.log("Error :" + data);
+					}
 			});
+		}
   });
 
 
