@@ -47,7 +47,7 @@ class UpdateReceiptController extends Controller
 			$regissubjects = DB::table('registration_student as r')
 					->join('sectioneachsubject as ss', 'r.subjectsectionid', '=', 'ss.subjectsectionid')
 					->join('subject_list as sl', 'ss.subjectcode', '=', 'sl.subjectcode')
-					->select('sl.subjectcode','sl.subjectname', 'ss.sectionno', 'sl.subjectcredit',)
+					->select('sl.subjectcode','sl.subjectname', 'ss.sectionno', 'sl.subjectcredit')
 					->where('r.userid', '=' , $userid)
 					->get();
 				/*
